@@ -2,7 +2,10 @@ package com.nclodger.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.util.Map;
 
 
@@ -14,10 +17,12 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
+@RequestMapping("/")
 public class LoginController {
-    @RequestMapping({"/","/home"})
-    public String showHomePage(Map<String, Object> model) {
-      return "home";
+    @RequestMapping(method = RequestMethod.GET)
+    public String printWelcome(ModelMap model) {
+        model.addAttribute("message", "Hello world!");
+        return "hello";
     }
 
 }
