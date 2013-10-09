@@ -9,9 +9,10 @@ package com.nclodger.dao;
  */
 public interface UserDaoInterface
 {
-    void insert(User _user);
-    void update (User _user);
-    User getUser(String _email, String _password);
-    ArrayList<User> findByCriteria(String _name, String _password);
-    void confirm_register(User _user);
+    public void insert(User _user);
+    public void update (User _user);
+    public void delete(User _user);
+    public User getUser(String _email, String _password);
+    public User find(int id);
+    public boolean existUser(String _name, String _password);
 }
