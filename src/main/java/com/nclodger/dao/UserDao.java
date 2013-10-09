@@ -14,7 +14,8 @@ public abstract class UserDao implements UserDaoInterface
    //public static Connection database = null;
     private Connection dataBase = null;
 
-    public void insert(int _id, String _email, String _pswd, String _name, int register_confirm) throws ClassNotFoundException, SQLException {
+    public void insert(int _id, String _email, String _pswd, String _name, int register_confirm) throws ClassNotFoundException, SQLException
+    {
         String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
         Class.forName("oracle.jdbc.OracleDriver");
         Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
@@ -28,8 +29,12 @@ public abstract class UserDao implements UserDaoInterface
     }
 
 
-    public void confirm_register(User _user) throws SQLException
-    {
+    public void confirm_register(User _user) throws SQLException, ClassNotFoundException {
+        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
+        Class.forName("oracle.jdbc.OracleDriver");
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
+        dataBase = DriverManager.getConnection(jdbcUrl);
+
         Statement st = dataBase.createStatement();
         java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
                 "id="+_user.getId()+";");
@@ -42,14 +47,13 @@ public abstract class UserDao implements UserDaoInterface
 
 
 
-    public boolean getUser(String _email, String _password) throws SQLException
+    public boolean getUser(String _email, String _password) throws SQLException, ClassNotFoundException
     {
-       // Context ctx = new InitialContext();
-     //   Context ctx = new InitialContext();
-     //   DataSource ds = (DataSource)ctx.lookup("jdbc/NCLodger");
-     //   Connection con = ds.getConnection(username, password);//тут юзер и пасворд надо будет поменять
+        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
+        Class.forName("oracle.jdbc.OracleDriver");
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
+        dataBase = DriverManager.getConnection(jdbcUrl);
 
-        Connection con = null;
         Statement st = dataBase.createStatement();
         java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
                 "email= " + _email + " AND pswd= " + _password + ";");

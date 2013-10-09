@@ -17,6 +17,6 @@ public interface UserDaoInterface
     public void insert(User _user);
     public void update (User _user);
     public void delete(User _user);
-    public boolean getUser(String _email, String _password) throws SQLException, NamingException;
+    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException;
     public User find(int id);
 }
