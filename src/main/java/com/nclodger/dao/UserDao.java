@@ -43,6 +43,8 @@ public abstract class UserDao implements UserDaoInterface
 
 
 
+
+
     public boolean getUser(String _email, String _password) throws SQLException, NamingException//знайти когось в базі
     {
        // Context ctx = new InitialContext();
