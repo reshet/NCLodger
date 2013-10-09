@@ -14,9 +14,10 @@ import java.util.ArrayList;
  */
 public interface UserDaoInterface
 {
-    public void insert(User _user);
-    public void update (User _user);
-    public void delete(User _user);
-    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException;
-    public User find(int id);
+    public void insert(Users _user);     //+
+    public void update (Users _user);
+    public void delete(Users _user);
+    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException; //+
+    public Users find(int id) throws ClassNotFoundException, SQLException;       //+
+    public void confirm_register(Users _user) throws Exception;  //+
 }
