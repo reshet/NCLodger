@@ -2,28 +2,29 @@ package com.nclodger.dao;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.resource.cci.ResultSet;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Created with IntelliJ IDEA.
- * User: antoshka
- * Date: 08.10.13
- * Time: 21:24
- * To change this template use File | Settings | File Templates.
- */
 public abstract class UserDao implements UserDaoInterface
 {
-   // public static Connection database = null;
+   //public static Connection database = null;
     private Connection dataBase = null;
 
-    public void insert(int _id, String _email, String _pswd, String _name, int register_confirm)
-    {
+    public void insert(int _id, String _email, String _pswd, String _name, int register_confirm) throws ClassNotFoundException, SQLException {
+        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
+        Class.forName("oracle.jdbc.OracleDriver");
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
+        dataBase = DriverManager.getConnection(jdbcUrl);
+
         String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed) " +
                 "values" +
                 "("+_id+",'"+_email+"','"+_pswd+"','"+_name+"',1);";
+        Statement st = dataBase.createStatement();
+        st.execute(sql);
     }
 
 

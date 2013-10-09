@@ -19,5 +19,4 @@ public interface UserDaoInterface
     public void delete(User _user);
     public boolean getUser(String _email, String _password) throws SQLException, NamingException;
     public User find(int id);
-//    public boolean existUser(String _name, String _password);
 }
