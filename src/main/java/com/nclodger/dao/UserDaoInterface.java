@@ -1,6 +1,8 @@
 package com.nclodger.dao;
 
 
+import javax.naming.NamingException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +17,7 @@ public interface UserDaoInterface
     public void insert(User _user);
     public void update (User _user);
     public void delete(User _user);
-    public User getUser(String _email, String _password);
+    public boolean getUser(String _email, String _password) throws SQLException, NamingException;
     public User find(int id);
-    public boolean existUser(String _name, String _password);
+//    public boolean existUser(String _name, String _password);
 }
