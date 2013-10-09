@@ -43,7 +43,7 @@ public class User
         return this._email;
     }
 
-    public void setName(String name)
+    public void setName(name)
     {
         this._name = name;
     }
@@ -58,7 +58,7 @@ public class User
         return this._pswd;
     }
 
-    public void setPswd(String pswd)
+    public void setPswd(pswd)
     {
         this._pswd = pswd;
     }
