@@ -1,5 +1,6 @@
 package com.nclodger.dao;
 
+import javax.resource.cci.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -81,6 +82,22 @@ public abstract class UserDao implements UserDaoInterface
         }
 
         return user;
+    }
+
+
+    public void delete(Users user) throws ClassNotFoundException, SQLException
+    {
+        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
+        Class.forName("oracle.jdbc.OracleDriver");
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
+        dataBase = DriverManager.getConnection(jdbcUrl);
+
+        Statement st = dataBase.createStatement();
+        //when the others tables will be created the user id will be deleted from others tables too
+        java.sql.ResultSet res = st.executeQuery("DELETE FROM Users WHERE" +
+                "id = " + user.getId() + ";");
 
     }
+
+
 }
