@@ -19,13 +19,13 @@ public abstract class UserDao implements UserDaoInterface
 
     public void confirm_register()
     {
-        ctx = new InitialContext();
+        /*InitnalContext ctx = new InitialContext();
         ds = (DataSource)ctx.lookup("jdbc/NCLodger");
         Connection con = ds.getConnection(username, password);//тут юзер и пасворд надо будет поменять
         PreparedStatement pstmt;
         con.setAutoCommit(false);
 
-        pstmt = con.prepareStatement
+        pstmt = con.prepareStatement;*/
 
 
     }

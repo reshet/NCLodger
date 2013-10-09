@@ -22,7 +22,7 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         model.addAttribute("message", "Hello world!");
-        return "hello";
+        return "index";
     }
 
 }
