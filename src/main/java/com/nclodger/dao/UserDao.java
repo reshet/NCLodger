@@ -9,19 +9,25 @@ package com.nclodger.dao;
  */
 public abstract class UserDao implements UserDaoInterface
 {
-    //якось треба буде встановити зв'язок за допомогою цього
-    private JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedTemplate;
-
     public void insert(User _user)
     {
-       Statement st = dataBase.createStatement();
-       String sql = "INSERT INTO User(email,password,name)" +
-                "values" +
-                //звідки їх взяти?
-        //поки так - треба буде створити сутність для користувача
 
-        jdbcTemplate.update(sql, getPreparedStatementSetter(_user));
+
+
+    }
+
+
+    public void confirm_register()
+    {
+        ctx = new InitialContext();
+        ds = (DataSource)ctx.lookup("jdbc/NCLodger");
+        Connection con = ds.getConnection(username, password);//тут юзер и пасворд надо будет поменять
+        PreparedStatement pstmt;
+        con.setAutoCommit(false);
+
+        pstmt = con.prepareStatement
+
+
     }
 
 }
