@@ -12,7 +12,7 @@
             <a href="index.jsp">Home</a>
         </div> 
         <div class="wrapper">   
-
+            <!-- -->
             <!-- SIGN UP FORM -->
             <form class="form_signup" name="signup" action="" method="post" onsubmit="return check();">
 
