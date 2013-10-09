@@ -1,12 +1,9 @@
 package com.nclodger.dao;
 
-import javax.activation.DataSource;
-import javax.enterprise.context.spi.Context;
-import javax.jms.Connection;
+import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.resource.cci.ResultSet;
-import java.sql.PreparedStatement;
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -19,13 +16,14 @@ import java.sql.Statement;
  */
 public abstract class UserDao implements UserDaoInterface
 {
-    private static Connection database = null;
+   // public static Connection database = null;
+    private Connection dataBase = null;
 
     public void insert(int _id, String _email, String _pswd, String _name, int register_confirm)
     {
-        String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed " +
+        String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed) " +
                 "values" +
-                "("+_id+","+_email+","+_pswd+","+_name+",1);";
+                "("+_id+",'"+_email+"','"+_pswd+"','"+_name+"',1);";
     }
 
 
@@ -43,14 +41,14 @@ public abstract class UserDao implements UserDaoInterface
 
 
 
-    public boolean getUser(String _email, String _password) throws SQLException, NamingException//знайти когось в базі
+    public boolean getUser(String _email, String _password) throws SQLException
     {
        // Context ctx = new InitialContext();
-        Context ctx = new InitialContext();
-        DataSource ds = (DataSource)ctx.lookup("jdbc/NCLodger");
-        Connection con = ds.getConnection(username, password);//тут юзер и пасворд надо будет поменять
+     //   Context ctx = new InitialContext();
+     //   DataSource ds = (DataSource)ctx.lookup("jdbc/NCLodger");
+     //   Connection con = ds.getConnection(username, password);//тут юзер и пасворд надо будет поменять
 
-      //  Connection con = null;
+        Connection con = null;
         Statement st = dataBase.createStatement();
         java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
                 "email= " + _email + " AND pswd= " + _password + ";");
