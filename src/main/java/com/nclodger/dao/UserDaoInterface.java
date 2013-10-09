@@ -1,5 +1,8 @@
 package com.nclodger.dao;
 
+
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: antoshka
