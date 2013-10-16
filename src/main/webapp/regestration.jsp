@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
@@ -34,7 +35,7 @@
 
         <div class="login" >
             <h1>Regestration</h1>
-            <form method="post" action="index.jsp">
+            <form method="post" action="<c:url value = "/register" />">
                 <p><input type="text" id="uname" name="username" value="" placeholder="Username" onkeyup="check();" /></p>
                 <span id="span_uname" >Username must contain only latin letters and not less than 6 symbols!</span>
                 <p><select name="user_type">

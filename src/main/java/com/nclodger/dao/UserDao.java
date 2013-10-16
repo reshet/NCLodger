@@ -1,5 +1,7 @@
 package com.nclodger.dao;
 
+import org.springframework.stereotype.Component;
+
 import javax.enterprise.context.spi.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -17,7 +19,8 @@ import java.sql.Statement;
  * Time: 21:24
  * To change this template use File | Settings | File Templates.
  */
-public abstract class UserDao implements UserDaoInterface {
+@Component("userdao")
+public class UserDao implements UserDaoInterface {
     private static Connection dataBase = null;
 
     public void insert(int _id, String _email, String _pswd, String _name, int register_confirm) {
@@ -26,7 +29,7 @@ public abstract class UserDao implements UserDaoInterface {
                 "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";
     }
 
-    public void confirm_register(User _user) throws SQLException {
+    public void confirm_register(Users _user) throws SQLException {
         Statement st = dataBase.createStatement();
         java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
                 "id=" + _user.getId() + ";");
@@ -35,6 +38,22 @@ public abstract class UserDao implements UserDaoInterface {
         res = st.executeQuery("UPDATE User" +
                 "SET confirm_register = 1 " +
                 "WHERE id=" + _id + ";");
+    }
+
+    @Override
+    public void insert(Users _user) {
+        //To change body of implemented methods use File | Settings | File Templates.
+        int k = 0;
+    }
+
+    @Override
+    public void update(Users _user) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void delete(Users _user) throws ClassNotFoundException, SQLException {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public boolean getUser(String _email, String _password) throws SQLException, NamingException//знайти когось в базі
@@ -55,5 +74,10 @@ public abstract class UserDao implements UserDaoInterface {
         if (exist > 0)
             answer = true;
         return answer;
+    }
+
+    @Override
+    public Users find(int id) throws ClassNotFoundException, SQLException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
