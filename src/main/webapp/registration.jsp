@@ -1,20 +1,54 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Iaro
-  Date: 14.10.13
-  Time: 12:58
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>NCLodger | Regestration</title>
-    <%--<base href="${pageContext.request.contextPath}">--%>
-    <link rel="stylesheet" type="text/css" href="<c:url value = "/static/css/style.css" />" />
+    <title>NCLodger | Home Page</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript">
 
+        function check() {
+            var uname = document.getElementById('uname').value;
+            var pswd1 = document.getElementById('pswd1').value;
+            var pswd2 = document.getElementById('pswd2').value;
+            var email = document.getElementById('email').value;
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+            // Check email validity
+            if (!filter.test(email)) {
+                document.getElementById("span_email").style.display = 'inline';
+            }
+            else {
+                document.getElementById("span_email").style.display = 'none';
+            }
+
+            // Check the length of each the inpute
+            if (uname.length < 6) {
+                document.getElementById("span_uname").style.display = 'inline';
+            }
+            else {
+                document.getElementById("span_uname").style.display = 'none';
+            }
+
+            if (pswd1.length < 6) {
+                document.getElementById("span_pswd1").style.display = 'inline';
+            }
+            else {
+                document.getElementById("span_pswd1").style.display = 'none';
+            }
+
+            // Check that passwords are match
+            if (pswd2 != pswd1) {
+                document.getElementById("span_pswd2").style.display = 'inline';
+            }
+            else {
+                document.getElementById("span_pswd2").style.display = 'none';
+            }
+
+        }
+
+    </script>
 
     <style type="text/css">
     html,
@@ -228,7 +262,6 @@
         /*                                  */
     </style>
 
-
 </head>
 
 <body>
@@ -239,10 +272,9 @@
         <div class="nav">
             <!--<img src="img/header.png">-->
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="index.jsp">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contacts</a></li>
-                <li><a href="<c:url value = "/registration.jsp" />">Register</a></li>
             </ul>
         </div>
     </div><!-- #header -->
@@ -250,21 +282,24 @@
     <div id="content">
 
         <div class="login" >
-            <h1>Login</h1>
-            <form method="post" action="<c:url value = "/index.jsp" />">
-                <p><input type="text" name="email" value="" placeholder="Email"></p>
-                <p><input type="password" name="password" value="" placeholder="Password"></p>
-                <a href="<c:url value = "/registration.jsp" />">Haven't got account yet?</a></br>
-                <a href="">Login with GOOGLE?</a>
+            <h1>Registration</h1>
+            <form method="post" action="<c:url value = "/register" />">
+                <p><input type="text" id="uname" name="username" value="" placeholder="Username" onkeyup="check();" /></p>
+                <span id="span_uname" >Username must contain only latin letters and not less than 6 symbols!</span>
+                <p><select name="user_type">
+                    <option value="customer">Customer</option>
+                    <option value="sales manager">Sales manager</option>
+                </select></p>
+                <p><input type="text" id="email" name="email" value="" placeholder="Email" onkeyup="check();" /></p>
+                <span id="span_email" >Wrong email input!</span>
+                <p><input type="password" id="pswd1" name="password" value="" placeholder="Password" onkeyup="check();"></p>
+                <span id="span_pswd1" >Password must contain only latin letter, numbers and not less than 6 symbols!</span>
+                <p><input type="password" id="pswd2" name="password" value="" placeholder="Confirm password" onkeyup="check();"></p>
+                <span id="span_pswd2" >Passwords do not match!</span>
                 <p class="submit">
-                    <input type="submit" name="commit" value="Login">
-                    <input type="submit" name="commit" value="Login as guest">
+                    <input type="submit" name="commit" value="Submit">
                 </p>
             </form>
-        </div>
-
-        <div class="login-help">
-            <p>Forgot your password? <a href="<c:url value = "/index.jsp" />">Click here to reset it</a>.</p>
         </div>
 
     </div><!-- #content -->
@@ -277,3 +312,4 @@
 </body>
 
 </html>
+

@@ -2,6 +2,7 @@ package com.nclodger.web;
 
 import com.nclodger.dao.UserDao;
 import com.nclodger.dao.Users;
+import com.nclodger.mail.MailServiceBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -27,6 +28,7 @@ import java.io.IOException;
 @WebServlet(name = "NcDispatcherServlet")
 public class NcDispatcherServlet extends HttpServlet {
     UserDao userdao;
+    MailServiceBean mailbean;
 
     //@PostConstruct
     public void init() {
@@ -39,6 +41,7 @@ public class NcDispatcherServlet extends HttpServlet {
         WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         //ApplicationContext context = new ClassPathXmlApplicationContext("/WEB-INF/mvc-dispatcher-servlet.xml");
         userdao = ctx.getBean("userdao", UserDao.class);
+        mailbean = ctx.getBean("mail-service", MailServiceBean.class);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
@@ -51,6 +54,8 @@ public class NcDispatcherServlet extends HttpServlet {
             String user_type = request.getParameter("user_type");
             Users user = new Users(0,email,pswd,username,0);
             userdao.insert(user);
+            mailbean.sendRegisterMail(email);
+
 
             response.getWriter().append("<h2>Register done! Confirmation email sent out to "+username+"</h2>");
 
