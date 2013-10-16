@@ -6,9 +6,10 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.nclodger"/>
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+
+<!--    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
-    </bean>
+    </bean>-->
 
 </beans>

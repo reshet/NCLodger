@@ -1,103 +1,59 @@
 package com.nclodger.dao;
 
+import javax.enterprise.context.spi.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.resource.cci.ResultSet;
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class UserDao implements UserDaoInterface
-{
-   //public static Connection database = null;
-    private Connection dataBase = null;
+/**
+ * Created with IntelliJ IDEA.
+ * User: antoshka
+ * Date: 08.10.13
+ * Time: 21:24
+ * To change this template use File | Settings | File Templates.
+ */
+public abstract class UserDao implements UserDaoInterface {
+    private static Connection dataBase = null;
 
-    public void insert(int _id, String _email, String _pswd, String _name, int register_confirm) throws ClassNotFoundException, SQLException
-    {
-        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
-        Class.forName("oracle.jdbc.OracleDriver");
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
-        dataBase = DriverManager.getConnection(jdbcUrl);
-
-        String sql = "INSERT INTO Users(id,email,pswd,name,register_confirmed) " +
+    public void insert(int _id, String _email, String _pswd, String _name, int register_confirm) {
+        String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
                 "values" +
-                "("+_id+",'"+_email+"','"+_pswd+"','"+_name+"',1);";
-        Statement st = dataBase.createStatement();
-        st.execute(sql);
+                "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";
     }
 
-
-    public void confirm_register(Users _user) throws Exception
-    {
-        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
-        Class.forName("oracle.jdbc.OracleDriver");
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
-        dataBase = DriverManager.getConnection(jdbcUrl);
-
+    public void confirm_register(User _user) throws SQLException {
         Statement st = dataBase.createStatement();
-        java.sql.ResultSet res = st.executeQuery("SELECT id FROM Users WHERE " +
-                "id="+_user.getId()+";");
+        java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
+                "id=" + _user.getId() + ";");
         res.next();
         int _id = res.getInt(1);
         res = st.executeQuery("UPDATE User" +
                 "SET confirm_register = 1 " +
-                "WHERE id="+_id+";");
+                "WHERE id=" + _id + ";");
     }
 
-
-
-    public boolean getUser(String _email, String _password) throws SQLException, ClassNotFoundException
+    public boolean getUser(String _email, String _password) throws SQLException, NamingException//знайти когось в базі
     {
-        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
-        Class.forName("oracle.jdbc.OracleDriver");
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
-        dataBase = DriverManager.getConnection(jdbcUrl);
+        // Context ctx = new InitialContext();
+        InitialContext ctx = new InitialContext();
+        DataSource ds = (DataSource) ctx.lookup("jdbc/NCLodger");
+        Connection con = ds.getConnection();//тут юзер и пасворд надо будет поменять
 
+        //  Connection con = null;
         Statement st = dataBase.createStatement();
-        java.sql.ResultSet res = st.executeQuery("SELECT id FROM Users WHERE " +
+        // TODO Prepared statement read
+        java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
                 "email= " + _email + " AND pswd= " + _password + ";");
         res.next();
         int exist = res.getInt(1);
         boolean answer = false;
-        if(exist>0)
+        if (exist > 0)
             answer = true;
         return answer;
     }
-
-
-    public Users find(int id) throws ClassNotFoundException, SQLException
-    {
-        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
-        Class.forName("oracle.jdbc.OracleDriver");
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
-        dataBase = DriverManager.getConnection(jdbcUrl);
-
-        Statement st = dataBase.createStatement();
-        java.sql.ResultSet res = st.executeQuery("SELECT * FROM Users " +
-                "WHERE id= " + id + ";");
-
-        Users user = null;
-        while(res.next())
-        {
-            user = new Users(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getInt(5));
-        }
-
-        return user;
-    }
-
-
-    public void delete(Users user) throws ClassNotFoundException, SQLException
-    {
-        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:ORCL";
-        Class.forName("oracle.jdbc.OracleDriver");
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1158:v$instance", "SYSTEM", "1521");
-        dataBase = DriverManager.getConnection(jdbcUrl);
-
-        Statement st = dataBase.createStatement();
-        //when the others tables will be created the user id will be deleted from others tables too
-        java.sql.ResultSet res = st.executeQuery("DELETE FROM Users WHERE" +
-                "id = " + user.getId() + ";");
-
-    }
-
-
 }
