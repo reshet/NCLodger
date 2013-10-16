@@ -41,7 +41,7 @@ public class MailServiceBean {
     }
     public void sendRegisterMail(String user_mail){
         try {
-            send("hostname", 25, "reshet.ukr@gmail.com",user_mail , "re: register at NCLodger service", "<h2>CONFIRMATION Letter</h2>");
+            send("NCLodger-Service", 25, "reshet.ukr@gmail.com",user_mail , "re: register at NCLodger service", "<h2>CONFIRMATION Letter</h2>");
         } catch (MessagingException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
