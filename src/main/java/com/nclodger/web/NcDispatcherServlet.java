@@ -53,9 +53,15 @@ public class NcDispatcherServlet extends HttpServlet {
             String pswd = request.getParameter("password");
             String user_type = request.getParameter("user_type");
             Users user = new Users(0,email,pswd,username,0);
+            /*boolean done = true;
+            try{
+
+            }   catch{
+                Roollback.
+
+            }*/
             userdao.insert(user);
             mailbean.sendRegisterMail(email);
-
 
             response.getWriter().append("<h2>Register done! Confirmation email sent out to "+username+"</h2>");
 
