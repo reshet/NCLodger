@@ -1,6 +1,5 @@
 package com.nclodger.dao;
 
-import org.springframework.jdbc.core.namedparam.NamedParameterUtils;
 import org.springframework.stereotype.Component;
 
 import javax.enterprise.context.spi.Context;
@@ -8,10 +7,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.resource.cci.ResultSet;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,32 +32,16 @@ public class UserDao implements UserDaoInterface {
         }
     }
 
-
-    public void insert(int _id, String _email, String _pswd, String _name, int register_confirm) {
-        String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
-                "values" +
-                "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";
-    }
-
-    public void confirm_register(Users _user) throws SQLException {
-        Statement st = dataBase.createStatement();
-        java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
-                "id=" + _user.getId() + ";");
-        res.next();
-        int _id = res.getInt(1);
-        res = st.executeQuery("UPDATE User" +
-                "SET confirm_register = 1 " +
-                "WHERE id=" + _id + ";");
-    }
-
     @Override
-    public void insert(Users user) {
+    public boolean insert(Users user) {
         //Tested valid sql
         //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
+       Connection dbConnection = null;
+       PreparedStatement preparedStatement = null;
 
-
-        try {
-            PreparedStatement prep = dataBase.prepareStatement(
+       try {
+            dbConnection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:NCLodger","user","password");
+            PreparedStatement prep = dbConnection.prepareStatement(
                     "INSERT INTO Users (id_user, username,email,pswd,is_blocked) values (?,?,?,?,0);"
             );
             //NamedParameterStatement p = new NamedParameterStatement(con, query);
@@ -70,37 +50,76 @@ public class UserDao implements UserDaoInterface {
             prep.setString(3,user.getEmail());
             prep.setString(4,user.getPswd());
             prep.setInt(5,0);
-            java.sql.ResultSet res = prep.executeQuery();
-            res.next();
+            prep.addBatch();
+            prep.executeBatch();
+
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-
-       /* String sql = "INSERT INTO Users(id_user,username,email,pswd,is_blocked) " +
-                "values " +
-                "(" +  user.getId()+ "," + user.getName() + "," + user.getEmail() + "," + user.getPswd() + ",0);");
-       */
-        //Statement st = null;
-       /* try {
-            //st = dataBase.createStatement();
-            java.sql.ResultSet res = st.executeQuery(sql);
-            res.next();
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }*/
-        // TODO Prepared statement read
-
-        int k = 0;
+        return true;
     }
 
     @Override
-    public void update(Users _user) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public boolean update(Users _user) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void delete(Users _user) throws ClassNotFoundException, SQLException {
+    public boolean delete(Users _user) throws ClassNotFoundException, SQLException {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Users find(int id) throws ClassNotFoundException, SQLException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean confirmRegister(Users _user) throws Exception {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+
+
+  /*
+    public boolean insert(int _id, String _email, String _pswd, String _name, int register_confirm) {
+
+      //  String url = "jdbc:oracle:thin:@localhost:1521:ORCL";
+
+        String sql = "INSERT INTO User(id,email,pswd,name,registerConfirmed)" +
+                "values" +
+                "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";
+        //transactions
+        return true;
+    }
+
+    public boolean confirmRegister(Users _user) throws SQLException {
+        Statement st = dataBase.createStatement();
+        java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
+                "id=" + _user.getId() + ";");
+        res.next();
+        int _id = res.getInt(1);
+        res = st.executeQuery("UPDATE User" +
+                "SET confirmRegister = 1 " +
+                "WHERE id=" + _id + ";");
+        return true;
+    }
+
+    @Override
+    public boolean update(Users _user) {
         //To change body of implemented methods use File | Settings | File Templates.
+        return true;
+    }
+
+    @Override
+    public boolean delete(Users _user) throws ClassNotFoundException, SQLException {
+        //To change body of implemented methods use File | Settings | File Templates.
+        return true;
     }
 
     public boolean getUser(String _email, String _password) throws SQLException, NamingException//знайти когось в базі
@@ -108,7 +127,7 @@ public class UserDao implements UserDaoInterface {
         // Context ctx = new InitialContext();
         InitialContext ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("jdbc/NCLodger");
-        Connection con = ds.getConnection();//тут юзер и пасворд надо будет поменять
+        Connection con = ds.getConnection();
 
         //  Connection con = null;
         Statement st = dataBase.createStatement();
@@ -127,4 +146,6 @@ public class UserDao implements UserDaoInterface {
     public Users find(int id) throws ClassNotFoundException, SQLException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    */
 }
