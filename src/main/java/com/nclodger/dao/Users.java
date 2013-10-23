@@ -1,9 +1,7 @@
 package com.nclodger.dao;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,29 +12,60 @@ import java.io.Serializable;
  * To change this template use File | Settings | File Templates.
  */
 @Entity  //Этой аннотацией мы указываем, что данный класс является сущностью.
+@Table(name = "Users")
 public class Users implements Serializable {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "ID_USER")
+    @NotNull
     private int id;
+
+    @Column(name = "EMAIL")
+    @NotNull
     private String email;
+
+    @Column(name = "PSWD")
+    @NotNull
     private String pswd;
-    private String name;
+
+    @Column(name = "USERNAME")
+    @NotNull
+    private String username;
+
+    @Column(name = "CONFIRM_REGISTER")
+    @NotNull
     private int confirmRegister;
-    //private int is_blocked;
+
+    @Column(name = "IS_BLOCKED")
+    @NotNull
+    private int is_blocked;
+
+    @Column(name = "ID_CE")
+    private int id_ce;
+    @Column(name = "ID_TYPE")
+    private int id_type;
+    @Column(name = "ID_DE")
+    private int id_de;
+
 
     public Users(){
     }
 
-    public Users(int id, String email, String pswd, String name, int confirmRegister)
+    public Users(int id, String email, String pswd, String name, int confirmRegister, int is_blocked, int id_de, int id_ce)
     {
         this.id = id;
         this.email = email;
-        this.name = name;
+        this.username = name;
         this.pswd = pswd;
         this.confirmRegister = confirmRegister;
-        // this._is_blocked = is_blocked;
+        this.is_blocked = is_blocked;
+        this.id_de = id_de;
+        this.id_ce = id_ce;
+        this.id_type = id_type;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     public int getId(){
         return this.id;
     }
@@ -54,12 +83,12 @@ public class Users implements Serializable {
         return this.email;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setName(String username){
+        this.username = username;
     }
 
     public String getName(){
-        return this.name;
+        return this.username;
     }
 
     public String getPswd(){
@@ -76,6 +105,38 @@ public class Users implements Serializable {
 
     public void set_confirm_register(int confirmRegister){
         this.confirmRegister = confirmRegister;
+    }
+
+    public int getIs_blocked() {
+        return is_blocked;
+    }
+
+    public void setIs_blocked(int is_blocked) {
+        this.is_blocked = is_blocked;
+    }
+
+    public int getId_ce() {
+        return id_ce;
+    }
+
+    public void setId_ce(int id_ce) {
+        this.id_ce = id_ce;
+    }
+
+    public int getId_type() {
+        return id_type;
+    }
+
+    public void setId_type(int id_type) {
+        this.id_type = id_type;
+    }
+
+    public int getId_de() {
+        return id_de;
+    }
+
+    public void setId_de(int id_de) {
+        this.id_de = id_de;
     }
 
 

@@ -3,6 +3,7 @@ package com.nclodger.dao;
 import org.springframework.stereotype.Component;
 
 import javax.enterprise.context.spi.Context;
+import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.resource.cci.ResultSet;
@@ -18,12 +19,13 @@ import java.sql.*;
  */
 @Component("userdao")
 public class UserDao implements UserDaoInterface {
-    private static Connection dataBase = null;
+   // private static Connection dataBase = null;
     static{
 
         try {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("jdbc/NCLodger");
+            Connection dataBase = null;
             dataBase = ds.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -36,16 +38,17 @@ public class UserDao implements UserDaoInterface {
     public boolean insert(Users user) {
         //Tested valid sql
         //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
-       Connection dbConnection = null;
-       PreparedStatement preparedStatement = null;
+       // Session session = null;
+        Connection dbConnection = null;
+        PreparedStatement preparedStatement = null;
 
        try {
-            dbConnection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:NCLodger","user","password");
+            dbConnection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:NCLodger","tiger","scott");
             PreparedStatement prep = dbConnection.prepareStatement(
                     "INSERT INTO Users (id_user, username,email,pswd,is_blocked) values (?,?,?,?,0);"
             );
             //NamedParameterStatement p = new NamedParameterStatement(con, query);
-            prep.setInt(1,10);
+            prep.setInt(1,0);
             prep.setString(2,user.getName());
             prep.setString(3,user.getEmail());
             prep.setString(4,user.getPswd());
