@@ -35,14 +35,14 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public boolean insert(Users user) {
+    public boolean insert(Users user) throws SQLException {
         //Tested valid sql
         //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
        // Session session = null;
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
 
-       try {
+
             dbConnection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:NCLodger","tiger","scott");
             PreparedStatement prep = dbConnection.prepareStatement(
                     "INSERT INTO Users (id_user, username,email,pswd,is_blocked) values (?,?,?,?,0);"
@@ -56,9 +56,8 @@ public class UserDao implements UserDaoInterface {
             prep.addBatch();
             prep.executeBatch();
 
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        if(prep != null) { prep.close(); }
+        if(dbConnection != null) { dbConnection.close(); };
         return true;
     }
 
@@ -80,6 +79,9 @@ public class UserDao implements UserDaoInterface {
         prep.setInt(5, _user.getId_type());
         prep.setInt(6, _user.getId());
         prep.executeUpdate();
+
+        if(prep != null) { prep.close(); }
+        if(dbConnection != null) { dbConnection.close(); };
 
         return true;
     }
