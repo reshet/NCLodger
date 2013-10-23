@@ -63,8 +63,25 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public boolean update(Users _user) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean update(Users _user) throws SQLException {
+        Connection dbConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        String userUpdate =
+                "update users " +
+                        "set email=?, pswd=?, username=?, isblocked=?, id_type=? " +
+                        "where id=?";
+        dbConnection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:NCLodger","tiger","scott");
+        PreparedStatement prep = dbConnection.prepareStatement(userUpdate);
+        prep.setString(1, _user.getEmail());
+        prep.setString(2, _user.getPswd());
+        prep.setString(3, _user.getName());
+        prep.setInt(4, _user.getIs_blocked());
+        prep.setInt(5, _user.getId_type());
+        prep.setInt(6, _user.getId());
+        prep.executeUpdate();
+
+        return true;
     }
 
     @Override

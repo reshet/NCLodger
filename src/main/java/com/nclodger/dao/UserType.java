@@ -2,6 +2,7 @@ package com.nclodger.dao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +24,9 @@ public class UserType {
     @Column(name = "NAME_T")
     @NotNull
     private String name_t;
+
+    @OneToMany(mappedBy = "Users")
+    private Set<Users> users;
 
 
     public UserType(){

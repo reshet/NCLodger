@@ -49,10 +49,17 @@ public class Users implements Serializable {
     private int id_de;
 
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "ID_TYPE")
+    private UserType uType;
+
     public Users(){
     }
 
-    public Users(int id, String email, String pswd, String name, int confirmRegister, int is_blocked, int id_de, int id_ce)
+    public Users(int id, String email, String pswd,
+                 String name, int confirmRegister, int is_blocked,
+                 int id_de, int id_ce, int id_type)
     {
         this.id = id;
         this.email = email;
@@ -62,6 +69,16 @@ public class Users implements Serializable {
         this.is_blocked = is_blocked;
         this.id_de = id_de;
         this.id_ce = id_ce;
+        this.id_type = id_type;
+    }
+
+    public Users(String email, String pswd, String username, int id_type, int is_blocked)
+    {
+       // this.id = id;
+        this.email = email;
+        this.username = username;
+        this.pswd = pswd;
+        this.is_blocked = is_blocked;
         this.id_type = id_type;
     }
 
