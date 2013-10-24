@@ -2,13 +2,13 @@ package com.nclodger.dao;
 
 import org.springframework.stereotype.Component;
 
-import javax.enterprise.context.spi.Context;
-import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.resource.cci.ResultSet;
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,155 +19,170 @@ import java.sql.*;
  */
 @Component("userdao")
 public class UserDao implements UserDaoInterface {
-   // private static Connection dataBase = null;
-    static{
+    /*static{
 
+
+    }*/
+    abstract class WrapperDBOperation<T> {
+        abstract public T doMethod(Connection dataBase) throws SQLException;
+
+    }
+    private <T> T booleanOperation (WrapperDBOperation<T> operation){
+        Connection dataBase = null;
         try {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("jdbc/NCLodger");
-            Connection dataBase = null;
             dataBase = ds.getConnection();
+            return operation.doMethod(dataBase);
         } catch (SQLException e) {
+            try {
+                dataBase.rollback();
+                return null;
+            } catch (SQLException e1) {
+                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (NamingException e) {
+            try {
+                dataBase.rollback();
+                return null;
+            } catch (SQLException e1) {
+                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }finally {
+            try {
+                dataBase.close();
+            } catch (SQLException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                return null;
+            }
+
         }
+        return null;
+    }
+
+    public boolean insert(int _id, String _email, String _pswd, String _name, int register_confirm) {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) {
+                return true;
+                /*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
+                        "values" +
+                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*/
+            }
+        });
+
+    }
+
+    public boolean confirm_register(final Users _user) throws SQLException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException {
+                Statement st = dataBase.createStatement();
+                java.sql.ResultSet res = st.executeQuery("SELECT id FROM Users WHERE " +
+                        "id=" + _user.getId() + ";");
+                res.next();
+                int _id = res.getInt(1);
+                res = st.executeQuery("UPDATE User" +
+                        "SET confirm_register = 1 " +
+                        "WHERE id=" + _id + ";");
+                return true;
+                /*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
+                        "values" +
+                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*/
+            }
+        });
+
     }
 
     @Override
-    public boolean insert(Users user) throws SQLException {
+    public boolean insert(final Users user) {
         //Tested valid sql
         //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
-       // Session session = null;
-        Connection dbConnection = null;
-        PreparedStatement preparedStatement = null;
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "INSERT INTO Users (id_user, username,email,pswd,is_blocked) values (?,?,?,?,0);"
+                );
+                //NamedParameterStatement p = new NamedParameterStatement(con, query);
+                prep.setInt(1,10);
+                prep.setString(2,user.getName());
+                prep.setString(3,user.getEmail());
+                prep.setString(4,user.getPswd());
+                //prep.setInt(5,0);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
 
 
-            dbConnection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:NCLodger","tiger","scott");
-            PreparedStatement prep = dbConnection.prepareStatement(
-                    "INSERT INTO Users (id_user, username,email,pswd,is_blocked) values (?,?,?,?,0);"
-            );
-            //NamedParameterStatement p = new NamedParameterStatement(con, query);
-            prep.setInt(1,0);
-            prep.setString(2,user.getName());
-            prep.setString(3,user.getEmail());
-            prep.setString(4,user.getPswd());
-            prep.setInt(5,0);
-            prep.addBatch();
-            prep.executeBatch();
-
-        if(prep != null) { prep.close(); }
-        if(dbConnection != null) { dbConnection.close(); };
-        return true;
-    }
-
-    @Override
-    public boolean update(Users _user) throws SQLException {
-        Connection dbConnection = null;
-        PreparedStatement preparedStatement = null;
-
-        String userUpdate =
-                "update users " +
-                        "set email=?, pswd=?, username=?, isblocked=?, id_type=? " +
-                        "where id=?";
-        dbConnection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:NCLodger","tiger","scott");
-        PreparedStatement prep = dbConnection.prepareStatement(userUpdate);
-        prep.setString(1, _user.getEmail());
-        prep.setString(2, _user.getPswd());
-        prep.setString(3, _user.getName());
-        prep.setInt(4, _user.getIs_blocked());
-        prep.setInt(5, _user.getId_type());
-        prep.setInt(6, _user.getId());
-        prep.executeUpdate();
-
-        if(prep != null) { prep.close(); }
-        if(dbConnection != null) { dbConnection.close(); };
-
-        return true;
-    }
-
-    @Override
-    public boolean delete(Users _user) throws ClassNotFoundException, SQLException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public Users find(int id) throws ClassNotFoundException, SQLException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean confirmRegister(Users _user) throws Exception {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-
-
-  /*
-    public boolean insert(int _id, String _email, String _pswd, String _name, int register_confirm) {
-
-      //  String url = "jdbc:oracle:thin:@localhost:1521:ORCL";
-
-        String sql = "INSERT INTO User(id,email,pswd,name,registerConfirmed)" +
-                "values" +
-                "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";
-        //transactions
-        return true;
-    }
-
-    public boolean confirmRegister(Users _user) throws SQLException {
-        Statement st = dataBase.createStatement();
-        java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
-                "id=" + _user.getId() + ";");
-        res.next();
-        int _id = res.getInt(1);
-        res = st.executeQuery("UPDATE User" +
-                "SET confirmRegister = 1 " +
-                "WHERE id=" + _id + ";");
-        return true;
     }
 
     @Override
     public boolean update(Users _user) {
         //To change body of implemented methods use File | Settings | File Templates.
-        return true;
+        //TODO method
+        return false;
     }
 
     @Override
     public boolean delete(Users _user) throws ClassNotFoundException, SQLException {
         //To change body of implemented methods use File | Settings | File Templates.
-        return true;
+        //TODO method
+        return false;
+
     }
 
-    public boolean getUser(String _email, String _password) throws SQLException, NamingException//знайти когось в базі
+    public boolean getUser(final String email, final String password) throws SQLException, NamingException//знайти когось в базі
     {
-        // Context ctx = new InitialContext();
-        InitialContext ctx = new InitialContext();
-        DataSource ds = (DataSource) ctx.lookup("jdbc/NCLodger");
-        Connection con = ds.getConnection();
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
 
-        //  Connection con = null;
-        Statement st = dataBase.createStatement();
-        // TODO Prepared statement read
-        java.sql.ResultSet res = st.executeQuery("SELECT id FROM User WHERE " +
-                "email= " + _email + " AND pswd= " + _password + ";");
-        res.next();
-        int exist = res.getInt(1);
-        boolean answer = false;
-        if (exist > 0)
-            answer = true;
-        return answer;
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT id FROM User WHERE email=? AND pswd= ?"
+                );
+                prep.setString(1,email);
+                prep.setString(2,password);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int exist = res.getInt(1);
+                boolean answer = false;
+                if (exist > 0){
+                    answer = true;
+                }
+
+                return answer;
+                //return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
     }
 
     @Override
-    public Users find(int id) throws ClassNotFoundException, SQLException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+    public Users find(final int id) throws ClassNotFoundException, SQLException {
+        //return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return booleanOperation(new WrapperDBOperation<Users>() {
 
-    */
+            @Override
+            public Users doMethod(Connection dataBase) throws SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT * FROM User WHERE id=?"
+                );
+                prep.setInt(1, id);
+                //prep.setString(2,password);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int exist = res.getInt(1);
+                Users user = new Users(res.getInt(1),res.getString(2), res.getString(3),res.getString(4),res.getInt(5));
+                return user;
+                //return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+    }
 }

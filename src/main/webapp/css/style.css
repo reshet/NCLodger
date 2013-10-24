@@ -4,11 +4,18 @@ body {
 	padding:0;
 	height:100%;
 }
+
+
+/*  WRAPPER */
+
 #wrapper {
 	min-height:100%;
 	position:relative;
 	background:#fff;
 }
+
+/*	HEADER	*/
+
 #header {
 	background:#fa8736;
 	padding:10px;
@@ -17,9 +24,17 @@ body {
 	-khtml-box-shadow:  0px 1px 2px rgba(0,0,0,0.55);
 	box-shadow:         0px 1px 2px rgba(0,0,0,0.55);
 }
+
+
+/*	CONTENT	*/
+
 #content {
 	padding-bottom:100px; /* Height of the footer element */	
 }
+
+
+/*	FOOTER	*/
+
 #footer {
 	background:#9ec7dd;
 	width:100%;
@@ -30,14 +45,17 @@ body {
 	border-top:1px solid #577486;
 }
 
-/*                      */
 
 /*	NAVIGATION BAR	*/
+
 .nav{
     list-style:none;
     text-align:center;
 }
 .nav li{
+    display:inline;
+}
+.nav li form{
     display:inline;
 }
 .nav a{
@@ -50,12 +68,9 @@ body {
 .nav a:hover { color: #719450;}
 
 
+/*  WINDOW  */
 
-
-/*                       */
-
-/*	LOGIN FORM	*/
-.login {  
+.window {
   margin: 30px auto;
   padding: 20px 20px 20px;
   width: 310px;
@@ -65,7 +80,7 @@ body {
   -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-.login:before {
+.window:before {
   content: '';
   position: absolute;
   top: -8px;
@@ -76,7 +91,7 @@ body {
   /*background: rgba(0, 0, 0, 0.08);*/
   border-radius: 4px;
 }
-.login h1 {
+.window h1 {
   margin: -20px -20px 21px;
   line-height: 40px;
   font-size: 15px;
@@ -94,55 +109,50 @@ body {
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
 }
-.login p {
+.window p {
   margin: 30px 0 0;
 }
-.login p:first-child {
+.window p:first-child {
   margin-top: 0;
 }
-.login input[type=text], .login input[type=password] {
+.window input[type=text], .window input[type=password] {
   width: 278px;
 }
-.login p.create_acc {
+.window p.create_acc {
   float: left;
   line-height: 31px;
 }
-.login a {
+.window a {
   color: #94a4b0;
   text-decoration: underline;
 }
-.login a:hover {
+.window a:hover {
   text-decoration: none;
 }
-
-.login p.submit {
+.window p.submit {
   text-align: right;
 }
-
-.login span {
+.window span {
 	color: #bc0f0f;
 	display: none;
 }
-
-.login-help {
+.window-help {
   margin: 20px 0;
   font-size: 12px;
   color: #577486;
   text-align: center; 
 }
-.login-help a {
+.window-help a {
   color: #9ec7dd;
   text-decoration: none;
 }
-.login-help a:hover {
+.window-help a:hover {
   text-decoration: underline;
 }
-
 :-moz-placeholder {
   color: #c9c9c9 !important;
   font-size: 13px;
 }
-
 ::-webkit-input-placeholder {
   color: #ccc;
   font-size: 13px;
@@ -173,8 +183,7 @@ input[type=text]:focus, input[type=password]:focus, select:focus{
   outline-color: #dceefc;
   outline-offset: 0;
 }
-
-input[type=submit] {
+input[type=submit],input[type=reset] {
   padding: 0 18px;
   height: 29px;
   font-size: 12px;
@@ -196,14 +205,50 @@ input[type=submit] {
   -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
 }
-input[type=submit]:active {
+input[type=submit]:active, input[type=reset]:active {
   background: #cde5ef;
   border-color: #9eb9c2 #b3c0c8 #b4ccce;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
 }
-
 .lt-ie9 input[type=text], .lt-ie9 input[type=password] {
   line-height: 34px;
 }
-/*                                  */
+
+
+/*  SEARCH  */
+
+.search {
+    margin: 30px auto;
+    width: 960px;
+    background-color: #F0F0F0;
+    color: black;
+    padding: .5em;
+    border: gray thin solid;
+}
+
+.search select {
+    width: 100px;
+}
+
+.search input {
+    width: 60px;
+}
+
+.search li{
+    display:inline;
+    padding-right: 1.5em;
+}
+
+
+/*  GREETING    */
+
+.greeting a {
+    color: #719450;
+    text-decoration: none;
+
+}
+.greeting a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
