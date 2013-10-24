@@ -75,6 +75,7 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
+
     <!-- On login submit -->
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
