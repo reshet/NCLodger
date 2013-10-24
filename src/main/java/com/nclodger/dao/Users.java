@@ -82,6 +82,14 @@ public class Users implements Serializable {
         this.id_type = id_type;
     }
 
+    public Users(int id, String email, String pswd, String username, int is_blocked) {
+        this.id = id;
+        this.email = email;
+        this.pswd = pswd;
+        this.username = username;
+        this.is_blocked=is_blocked;
+    }
+
 
     public int getId(){
         return this.id;
