@@ -10,7 +10,7 @@
      #wrapper { height:100%; }
 </style>
 <![endif]-->
-<script>                   //
+<script>
     function valideSearchForm() {
         var isValid = true;
         var message = "Invalid parameters input: ";
