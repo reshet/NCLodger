@@ -1,5 +1,8 @@
 package com.nclodger.control.action;
 
+import com.nclodger.dao.UserDao;
+import com.nclodger.myexception.MyException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +14,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SignInAction implements Action {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
+        UserDao users = new UserDao();
+        boolean bool;
+        try {
+            bool = users.getUser(request.getParameter("email"),request.getParameter("password"));
+        } catch (MyException ex) {
+            return "exception";
+        }
+        return "home";
     }
 }
