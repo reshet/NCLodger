@@ -1,5 +1,6 @@
 package com.nclodger.dao;
 
+import com.nclodger.myexception.MyException;
 import org.springframework.stereotype.Component;
 
 import javax.naming.InitialContext;
@@ -19,15 +20,12 @@ import java.sql.Statement;
  */
 @Component("userdao")
 public class UserDao implements UserDaoInterface {
-    /*static{
 
-
-    }*/
     abstract class WrapperDBOperation<T> {
-        abstract public T doMethod(Connection dataBase) throws SQLException;
-
+        abstract public T doMethod(Connection dataBase) throws MyException, SQLException;
     }
-    private <T> T booleanOperation (WrapperDBOperation<T> operation){
+
+    private <T> T booleanOperation (WrapperDBOperation<T> operation) throws MyException {
         Connection dataBase = null;
         try {
             InitialContext ctx = new InitialContext();
@@ -37,32 +35,34 @@ public class UserDao implements UserDaoInterface {
         } catch (SQLException e) {
             try {
                 dataBase.rollback();
-                return null;
+                throw new MyException(e.getMessage());
+                //return null;
             } catch (SQLException e1) {
-                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                throw new MyException(e1.getMessage());
             }
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (NamingException e) {
             try {
                 dataBase.rollback();
-                return null;
+                //return null;
+                throw new MyException(e.getMessage());
             } catch (SQLException e1) {
-                e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                throw new MyException(e1.getMessage());
             }
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }finally {
             try {
                 dataBase.close();
             } catch (SQLException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                return null;
+                //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                //return null;
+                throw new MyException(e.getMessage());
             }
-
         }
-        return null;
     }
 
-    public boolean insert(int _id, String _email, String _pswd, String _name, int register_confirm) {
+    public boolean insert(int _id, String _email, String _pswd, String _name, int register_confirm) throws MyException{
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) {
@@ -75,10 +75,10 @@ public class UserDao implements UserDaoInterface {
 
     }
 
-    public boolean confirm_register(final Users _user) throws SQLException {
+    public boolean confirm_register(final Users _user) throws MyException {
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
-            public Boolean doMethod(Connection dataBase) throws SQLException {
+            public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 Statement st = dataBase.createStatement();
                 java.sql.ResultSet res = st.executeQuery("SELECT id FROM Users WHERE " +
                         "id=" + _user.getId() + ";");
@@ -97,7 +97,7 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public boolean insert(final Users user) {
+    public boolean insert(final Users user) throws MyException {
         //Tested valid sql
         //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
         return booleanOperation(new WrapperDBOperation<Boolean>() {
@@ -136,12 +136,12 @@ public class UserDao implements UserDaoInterface {
 
     }
 
-    public boolean getUser(final String email, final String password) throws SQLException, NamingException//знайти когось в базі
+    public boolean getUser(final String email, final String password) throws MyException
     {
         return booleanOperation(new WrapperDBOperation<Boolean>() {
 
             @Override
-            public Boolean doMethod(Connection dataBase) throws SQLException {
+            public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT id FROM User WHERE email=? AND pswd= ?"
                 );
@@ -164,12 +164,12 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public Users find(final int id) throws ClassNotFoundException, SQLException {
+    public Users find(final int id) throws MyException {
         //return null;  //To change body of implemented methods use File | Settings | File Templates.
         return booleanOperation(new WrapperDBOperation<Users>() {
 
             @Override
-            public Users doMethod(Connection dataBase) throws SQLException {
+            public Users doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT * FROM User WHERE id=?"
                 );

@@ -1,5 +1,8 @@
 package com.nclodger.control.action;
 
+import com.nclodger.dao.UserDao;
+import com.nclodger.myexception.MyException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,15 +14,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SignUpAction implements Action {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        boolean bool = true;
-        // TODO: create dao object that will return true or false and sign it to "bool"
-        // TODO: if true then dispatch signup_succeed.jsp else some kind of error page
-        if(bool){
-            return "signup_succeed";
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
+        UserDao users = new UserDao();
+        boolean bool;
+        try {
+            bool = users.insert(1,request.getParameter("email"),request.getParameter("password1"),
+                    request.getParameter("username"),0);
+        } catch (MyException ex) {
+            return "exception";
         }
-        else {
-            return "Error";
-        }
+        return "signup_succeed";
     }
 }
