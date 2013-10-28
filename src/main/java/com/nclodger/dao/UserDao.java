@@ -102,7 +102,7 @@ public class UserDao implements UserDaoInterface {
         //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
-            public Boolean doMethod(Connection dataBase) throws SQLException {
+            public Boolean doMethod(Connection dataBase) throws SQLException,MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "INSERT INTO Users (id_user, username,email,pswd,is_blocked) values (?,?,?,?,0);"
                 );

@@ -17,6 +17,7 @@ public class ActionFactory {
         actions = new HashMap<String, Action>();
         actions.put("/signup", new SignUpAction());
         actions.put("/siginin", new SignInAction());
+        actions.put("/siginin", new SignInAction());
         //TODO: other actions
     }
 
