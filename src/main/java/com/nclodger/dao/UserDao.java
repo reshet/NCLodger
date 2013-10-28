@@ -20,8 +20,37 @@ import java.sql.Statement;
  */
 @Component("userdao")
 public class UserDao implements UserDaoInterface {
+    @Override
+    public boolean insert(Users _user) throws MyException {
+        throw new MyException();
+    }
 
-    abstract class WrapperDBOperation<T> {
+    @Override
+    public boolean update(Users _user) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean delete(Users _user) throws ClassNotFoundException, SQLException {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException, MyException {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Users find(int id) throws ClassNotFoundException, SQLException, MyException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean confirm_register(Users _user) throws Exception {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    /*abstract class WrapperDBOperation<T> {
         abstract public T doMethod(Connection dataBase) throws MyException, SQLException;
     }
 
@@ -57,20 +86,19 @@ public class UserDao implements UserDaoInterface {
         }
     }
 
-    public boolean insert(int _id, String _email, String _pswd, String _name, int register_confirm) throws MyException{
+    public boolean insert(Users _user) throws MyException{
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) {
                 return true;
-                /*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
+                *//*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
                         "values" +
-                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*/
+                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*//*
             }
         });
+    }*/
 
-    }
-
-    public boolean confirm_register(final Users _user) throws MyException {
+    /*public boolean confirm_register(final Users _user) throws MyException {
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
@@ -83,9 +111,9 @@ public class UserDao implements UserDaoInterface {
                         "SET confirm_register = 1 " +
                         "WHERE id=" + _id + ";");
                 return true;
-                /*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
+                *//*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
                         "values" +
-                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*/
+                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*//*
             }
         });
 
@@ -179,5 +207,5 @@ public class UserDao implements UserDaoInterface {
                 //return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
-    }
+    }*/
 }

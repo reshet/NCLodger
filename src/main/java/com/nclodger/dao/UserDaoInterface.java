@@ -1,8 +1,6 @@
 package com.nclodger.dao;
 
 
-import com.nclodger.myexception.MyException;
-
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,10 +14,10 @@ import java.util.ArrayList;
  */
 public interface UserDaoInterface
 {
-    public boolean insert(Users _user) throws MyException;     //+
-    public boolean update (Users _user) throws MyException;
+    public boolean insert(Users _user);     //+
+    public boolean update (Users _user);
     public boolean delete(Users _user) throws ClassNotFoundException, SQLException;
-    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException, MyException; //+
-    public Users find(int id) throws ClassNotFoundException, SQLException,MyException;       //+
-    public boolean confirm_register(Users _user) throws MyException;  //+
+    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException; //+
+    public Users find(int id) throws ClassNotFoundException, SQLException;       //+
+    public boolean confirm_register(Users _user) throws Exception;  //+
 }

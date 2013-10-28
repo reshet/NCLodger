@@ -37,8 +37,6 @@ public class UserType {
         this.name_t = name_t;
     }
 
-
-
     public int getId_ut() {
         return id_ut;
     }

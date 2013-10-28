@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3796248502">
+    <data-source source="LOCAL" name="Data Source" product="Oracle" version="Oracle Database 11g Release 11.2.0.2.0 - 64bit Production" jdbc-version="11.2" driver-name="Oracle JDBC driver" driver-version="11.2.0.3.0" uuid="571d3cb3-2b58-45c2-ad04-19a4e9a6ae76">
+      <extra-name-characters>$#</extra-name-characters>
+      <identifier-quote-string>&quot;</identifier-quote-string>
+      <synchronize>true</synchronize>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@nclodgeroracle.cf0k67fv0sak.us-east-1.rds.amazonaws.com:1521:ORCL</jdbc-url>
+      <user-name>reshet</user-name>
+      <user-password>dfcfdfefdf98df9ddf9bdf92df98df92df9bdf92df99</user-password>
+      <default-dialect>Oracle</default-dialect>
+      <libraries>
+        <library>
+          <url>jar://$PROJECT_DIR$/dblibs/ojdbc6-11.2.0.3.jar!/</url>
+        </library>
+        <library>
+          <url>file://$PROJECT_DIR$/dblibs/oracle-driver-license.txt</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+

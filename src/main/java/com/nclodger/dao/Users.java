@@ -75,6 +75,4 @@ public class Users
         this._confirm_register = _confirm_register;
     }
 
-
-
 }

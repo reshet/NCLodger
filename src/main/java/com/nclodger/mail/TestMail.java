@@ -4,6 +4,7 @@ import java.io.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+//import com.nclodger.connect.DataHandler;
 
 
 
@@ -35,6 +36,6 @@ public class TestMail {
     }
 
     public static void main(String[] args) throws Exception {
-        send("hostname", 25, "j@s.com", "reshet.ukr@gmail.com", "re: dinner", "body");
+               send("hostname", 25, "j@s.com", "antoshka412@gmail.com", "re: dinner", "body");
     }
 }
