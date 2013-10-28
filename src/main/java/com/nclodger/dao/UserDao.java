@@ -36,21 +36,16 @@ public class UserDao implements UserDaoInterface {
             try {
                 dataBase.rollback();
                 throw new MyException(e.getMessage());
-                //return null;
             } catch (SQLException e1) {
-                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 throw new MyException(e1.getMessage());
             }
         } catch (NamingException e) {
             try {
                 dataBase.rollback();
-                //return null;
                 throw new MyException(e.getMessage());
             } catch (SQLException e1) {
-                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 throw new MyException(e1.getMessage());
             }
-            //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }finally {
             try {
                 dataBase.close();
@@ -143,7 +138,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT id FROM User WHERE email=? AND pswd= ?"
+                        "SELECT id FROM Users WHERE email=? AND pswd= ?"
                 );
                 prep.setString(1,email);
                 prep.setString(2,password);
