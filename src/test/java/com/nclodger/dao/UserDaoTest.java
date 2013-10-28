@@ -26,6 +26,7 @@ public class UserDaoTest{
     @Test
     @ExpectedDataSet
     public void testInsertUser() {
+
         //Users result = userDao.findByName("doe", "john");
         //assertPropertyLenientEquals("userName", "jdoe", result);
     }

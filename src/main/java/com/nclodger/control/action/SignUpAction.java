@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SignUpAction implements Action {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)
-            throws MyException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
         UserDao users = new UserDao();
         boolean bool;
         try {
