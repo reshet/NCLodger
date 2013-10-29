@@ -148,7 +148,7 @@ public class ExpediaTest extends TestCase{
     public void testHotelListMethodKiev(){
         ExpediaSearcher searcher = new ExpediaSearcher();
         //                                     String state,String city, Date arrivalDate, Date departureDate, Integer adults, Integer response_count
-        String results = searcher.searchHotels("UA","Kiev","11/28/2013","11/30/2013",2,4);
+        String results = searcher.searchHotels("UA","Kiev","11/28/2013","11/30/2013",2,10);
         System.out.println(results);
         JSONObject resp = searcher.parseResults(results);
         try {
