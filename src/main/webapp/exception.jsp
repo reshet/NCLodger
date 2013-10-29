@@ -34,7 +34,10 @@
         <div class="window" >
             <h1>Exception occurred while processing!</h1>
             <p>
-                Message:
+                Message:  <%=
+                (String) request.getAttribute("error_message")
+                %>
+
             </p>
         </div>
 

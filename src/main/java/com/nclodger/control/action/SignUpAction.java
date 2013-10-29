@@ -27,6 +27,7 @@ UserDao users;
             Users user = new Users(1,request.getParameter("email"),request.getParameter("password1"),request.getParameter("username"),0);
             bool = users.insert(user);
         } catch (MyException ex) {
+            request.setAttribute("error_message",ex.getMessage());
             return "exception";
         }
         return "signup_succeed";

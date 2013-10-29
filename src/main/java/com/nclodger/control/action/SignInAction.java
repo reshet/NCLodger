@@ -28,6 +28,7 @@ public class SignInAction implements Action {
         try {
             bool = users.getUser(request.getParameter("email"),request.getParameter("password"));
         } catch (MyException ex) {
+            request.setAttribute("error_message",ex.getMessage());
             return "exception";
         }
         return "home";
