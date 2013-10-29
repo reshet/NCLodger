@@ -104,7 +104,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException,MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "INSERT INTO USERS (ID_USER, USERNAME,EMAIL,PSWD,ID_UT,IS_BLOCKED) values (?,?,?,?,0,0)"
+                        "INSERT INTO USERS (ID_USER, USERNAME,EMAIL,PSWD,CONFIRM_REGISTER,ID_UT,IS_BLOCKED) values (?,?,?,?,0,1,0)"
                 );
                 //NamedParameterStatement p = new NamedParameterStatement(con, query);
                 prep.setInt(1,11);
