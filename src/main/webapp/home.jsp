@@ -51,7 +51,7 @@
             else {
             %>
                 Hello, <%=session.getAttribute("username")%>!
-                <br><a href="">Log out</a>
+                <br><a href="signout">Log out</a>
             <%}%>
         </div>
 

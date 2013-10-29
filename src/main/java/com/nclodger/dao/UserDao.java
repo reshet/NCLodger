@@ -20,37 +20,8 @@ import java.sql.Statement;
  */
 @Component("userdao")
 public class UserDao implements UserDaoInterface {
-    @Override
-    public boolean insert(Users _user) throws MyException {
-        throw new MyException();
-    }
 
-    @Override
-    public boolean update(Users _user) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean delete(Users _user) throws ClassNotFoundException, SQLException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException, MyException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public Users find(int id) throws ClassNotFoundException, SQLException, MyException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean confirm_register(Users _user) throws Exception {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    /*abstract class WrapperDBOperation<T> {
+    abstract class WrapperDBOperation<T> {
         abstract public T doMethod(Connection dataBase) throws MyException, SQLException;
     }
 
@@ -65,16 +36,21 @@ public class UserDao implements UserDaoInterface {
             try {
                 dataBase.rollback();
                 throw new MyException(e.getMessage());
+                //return null;
             } catch (SQLException e1) {
+                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 throw new MyException(e1.getMessage());
             }
         } catch (NamingException e) {
             try {
                 dataBase.rollback();
+                //return null;
                 throw new MyException(e.getMessage());
             } catch (SQLException e1) {
+                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 throw new MyException(e1.getMessage());
             }
+            //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }finally {
             try {
                 dataBase.close();
@@ -86,19 +62,20 @@ public class UserDao implements UserDaoInterface {
         }
     }
 
-    public boolean insert(Users _user) throws MyException{
+    public boolean insert(int _id, String _email, String _pswd, String _name, int register_confirm) throws MyException{
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) {
                 return true;
-                *//*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
+                /*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
                         "values" +
-                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*//*
+                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*/
             }
         });
-    }*/
 
-    /*public boolean confirm_register(final Users _user) throws MyException {
+    }
+
+    public boolean confirm_register(final Users _user) throws MyException {
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
@@ -111,9 +88,9 @@ public class UserDao implements UserDaoInterface {
                         "SET confirm_register = 1 " +
                         "WHERE id=" + _id + ";");
                 return true;
-                *//*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
+                /*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
                         "values" +
-                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*//*
+                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*/
             }
         });
 
@@ -127,13 +104,14 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException,MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "INSERT INTO Users (ID_USER, USERNAME,EMAIL,PSWD,USER_TYPE,is_blocked,ID_DC) values (?,?,?,?,'customer',0,0);"
+                        "INSERT INTO USERS (ID_USER, USERNAME,EMAIL,PSWD,CONFIRM_REGISTER,ID_UT,IS_BLOCKED) values (?,?,?,?,0,1,0)"
                 );
                 //NamedParameterStatement p = new NamedParameterStatement(con, query);
                 prep.setInt(1,11);
                 prep.setString(2,user.getName());
                 prep.setString(3,user.getEmail());
                 prep.setString(4,user.getPswd());
+                //String str = prep.;
                 //prep.setInt(5,0);
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
@@ -166,7 +144,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT id FROM Users WHERE email=? AND pswd= ?"
+                        "SELECT ID_USER FROM USERS WHERE email=? AND pswd= ?"
                 );
                 prep.setString(1,email);
                 prep.setString(2,password);
@@ -180,6 +158,34 @@ public class UserDao implements UserDaoInterface {
                 }
 
                 return answer;
+                //return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
+    }
+    public Users getUserObj(final String email, final String password) throws MyException
+    {
+        return booleanOperation(new WrapperDBOperation<Users>() {
+
+            @Override
+            public Users doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_USER,USERNAME FROM USERS WHERE email=? AND pswd= ?"
+                );
+                prep.setString(1,email);
+                prep.setString(2,password);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int id = res.getInt(1);
+                boolean answer = false;
+                if (id > 0){
+                    //answer = true;
+                    String uname = res.getString(2);
+                    return new Users(id,uname);
+                }
+
+                return null;
                 //return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
@@ -207,5 +213,5 @@ public class UserDao implements UserDaoInterface {
                 //return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
-    }*/
+    }
 }

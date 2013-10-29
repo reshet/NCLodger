@@ -48,6 +48,7 @@ public class ControllerServlet extends HttpServlet {
     private void dispatch(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException {
         String prefix ="";
         String sufix =".jsp";
+        //request.setAttribute("");
         request.getRequestDispatcher(prefix + view + sufix).forward(request, response);
     }
 }

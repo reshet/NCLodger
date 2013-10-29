@@ -15,6 +15,11 @@ public class Users
     private String _name;
     private int _confirm_register;
 
+    public Users(int id,String username)
+    {
+        this._id = id;
+        this._name = username;
+    }
     public Users(int id, String email, String pswd, String name, int confirm_register)
     {
         this._id = id;

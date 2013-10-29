@@ -28,6 +28,7 @@ public class SignUpAction implements Action {
         try {
             bool = users.insert(u);
         } catch (MyException ex) {
+            request.setAttribute("error_message",ex.getMessage());
             return "exception";
         }
         if(bool)
