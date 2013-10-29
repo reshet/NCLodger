@@ -82,6 +82,10 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/signout</url-pattern>
+    </servlet-mapping>
 
     <session-config>
         <session-timeout>30</session-timeout>

@@ -1,6 +1,7 @@
 package com.nclodger.control.action;
 
 import com.nclodger.dao.UserDao;
+import com.nclodger.dao.Users;
 import com.nclodger.myexception.MyException;
 import org.springframework.beans.factory.annotation.Autowire;
 
@@ -24,9 +25,12 @@ public class SignInAction implements Action {
         users = new UserDao();
 
 
-        boolean bool;
+        Users user;
         try {
-            bool = users.getUser(request.getParameter("email"),request.getParameter("password"));
+            user = users.getUserObj(request.getParameter("email"),request.getParameter("password"));
+            if(user!=null){
+                request.getSession().setAttribute("username",user.getName());
+            }
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";

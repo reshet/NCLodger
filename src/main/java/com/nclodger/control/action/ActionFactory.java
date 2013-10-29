@@ -16,8 +16,10 @@ public class ActionFactory {
     static{
         actions = new HashMap<String, Action>();
         actions.put("/signup", new SignUpAction());
-        actions.put("/siginin", new SignInAction());
-        actions.put("/siginin", new SignInAction());
+        actions.put("/signin", new SignInAction());
+        actions.put("/signout", new SignOutAction());
+
+        //actions.put("/signin", new SignInAction());
         //TODO: other actions
     }
 

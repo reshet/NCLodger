@@ -144,7 +144,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT id FROM User WHERE email=? AND pswd= ?"
+                        "SELECT ID_USER FROM USERS WHERE email=? AND pswd= ?"
                 );
                 prep.setString(1,email);
                 prep.setString(2,password);
@@ -158,6 +158,34 @@ public class UserDao implements UserDaoInterface {
                 }
 
                 return answer;
+                //return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
+    }
+    public Users getUserObj(final String email, final String password) throws MyException
+    {
+        return booleanOperation(new WrapperDBOperation<Users>() {
+
+            @Override
+            public Users doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_USER,USERNAME FROM USERS WHERE email=? AND pswd= ?"
+                );
+                prep.setString(1,email);
+                prep.setString(2,password);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int id = res.getInt(1);
+                boolean answer = false;
+                if (id > 0){
+                    //answer = true;
+                    String uname = res.getString(2);
+                    return new Users(id,uname);
+                }
+
+                return null;
                 //return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });

@@ -20,6 +20,7 @@ public interface UserDaoInterface
     public boolean update (Users _user) throws MyException;
     public boolean delete(Users _user) throws ClassNotFoundException, SQLException;
     public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException, MyException; //+
+    public Users getUserObj(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException, MyException; //+
     public Users find(int id) throws ClassNotFoundException, SQLException,MyException;       //+
     public boolean confirm_register(Users _user) throws MyException;  //+
 }
