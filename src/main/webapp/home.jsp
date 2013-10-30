@@ -57,7 +57,7 @@
             <%
                 if((Integer)session.getAttribute("utype") == 2) {
             %>
-                <br><a href="smsettings">Settings</a>
+                <br><a href="smsettings">Sales manager actions</a>
             <%
                 }
             %>
