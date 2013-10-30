@@ -20,7 +20,6 @@ public class ActionFactory {
         actions.put("/signout", new SignOutAction());
         //actions.put("/confirmation", new ConfirmAction());
         actions.put("/smsettings", new SmSettingsAction());
-
         //TODO: other actions
     }
 
