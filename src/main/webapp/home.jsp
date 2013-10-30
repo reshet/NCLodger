@@ -55,9 +55,16 @@
                 }
             %>
             <%
-                if((Integer)session.getAttribute("utype") == 2) {
+                if((Integer)session.getAttribute("utype") == (Integer)2) {
             %>
-                <br><a href="smsettings">Settings</a>
+                <br><a href="smsettings">Sales manager actions</a>
+            <%
+                }
+            %>
+            <%
+                if((Integer)session.getAttribute("admin") == (Integer)3) {
+            %>
+                 <br><a href="adminsettings">Administrator actions</a>
             <%
                 }
             %>
