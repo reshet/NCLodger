@@ -24,6 +24,7 @@ public class SignInAction implements Action {
             user = users.getUserObj(request.getParameter("email"),request.getParameter("password"));
             if(user!=null){
                 request.getSession().setAttribute("username",user.getName());
+                request.getSession().setAttribute("utype",user.getId_ut());
             }
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
