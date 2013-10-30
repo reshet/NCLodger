@@ -26,6 +26,10 @@ public class Users {
         this.confirm_register = confirm_register;
     }
 
+    public Users() {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
 
     public void setId(int id) {
         this.id = id;
