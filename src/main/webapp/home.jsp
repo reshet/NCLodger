@@ -43,16 +43,24 @@
         <div class="greeting" style="float: right; padding-right: 2em; ">
             <%
                 if(session.getAttribute("username") == null){
-
             %>
-                <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
+                    <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
             <%
-            }
-            else {
+                }
+                else {
             %>
                 Hello, <%=session.getAttribute("username")%>!
                 <br><a href="signout">Log out</a>
-            <%}%>
+            <%
+                }
+            %>
+            <%
+                //if(session.getAttribute("id_ut") == 2) {
+            %>
+                <br><a href="smsettings">Settings</a>
+            <%
+                //}
+            %>
         </div>
 
         <div class="nav">
