@@ -3,7 +3,9 @@ package com.nclodger.control.action;
 import com.nclodger.dao.UserDao;
 import com.nclodger.dao.Users;
 import com.nclodger.myexception.MyException;
+import org.springframework.context.annotation.Bean;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,26 +16,18 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 21:29
  */
 public class SignUpAction implements Action {
+    UserDao users;
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
-        UserDao users = new UserDao();
-        Users u = new Users();
+        users = new UserDao();
         boolean bool;
-/*        try {
-            bool = users.insert(1,request.getParameter("email"),request.getParameter("password1"),
-                    request.getParameter("username"),0);
-        } catch (MyException ex) {
-            return "exception";
-        }*/
         try {
-            bool = users.insert(u);
+            Users user = new Users(1,request.getParameter("email"),request.getParameter("password1"),request.getParameter("username"),0);
+            bool = users.insert(user);
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";
         }
-        if(bool)
         return "signup_succeed";
-        else
-            return "home";
     }
 }
