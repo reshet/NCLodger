@@ -3,9 +3,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-
-
-    <display-name>NCLodger Application</display-name>
+   <display-name>NCLodger Application</display-name>
 
    <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -28,7 +26,6 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
-
 
     <!-- On login submit -->
     <servlet-mapping>
