@@ -9,75 +9,75 @@ package com.nclodger.dao;
  */
 public class Users
 {
-    private int _id;
-    private String _email;
-    private String _pswd;
-    private String _name;
-    private int _confirm_register;
+    private int id;
+    private String email;
+    private String pswd;
+    private String name;
+    private int confirm_register;
 
     public Users(int id,String username)
     {
-        this._id = id;
-        this._name = username;
+        this.id = id;
+        this.name = username;
     }
     public Users(int id, String email, String pswd, String name, int confirm_register)
     {
-        this._id = id;
-        this._email = email;
-        this._name = name;
-        this._pswd = pswd;
-        this._confirm_register = confirm_register;
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.pswd = pswd;
+        this.confirm_register = confirm_register;
     }
 
 
     public void setId(int id)
     {
-        this._id = id;
+        this.id = id;
     }
 
     public int getId()
     {
-        return this._id;
+        return this.id;
     }
 
     public void setEmail(String email)
     {
-        this._email = email;
+        this.email = email;
     }
 
     public String getEmail()
     {
-        return this._email;
+        return this.email;
     }
 
     public void setName(String name)
     {
-        this._name = name;
+        this.name = name;
     }
 
     public String getName()
     {
-        return this._name;
+        return this.name;
     }
 
     public String getPswd()
     {
-        return this._pswd;
+        return this.pswd;
     }
 
     public void setPswd(String pswd)
     {
-        this._pswd = pswd;
+        this.pswd = pswd;
     }
 
     public int get_confirm_register()
     {
-        return this._confirm_register;
+        return this.confirm_register;
     }
 
     public void set_confirm_register(int _confirm_register)
     {
-        this._confirm_register = _confirm_register;
+        this.confirm_register = _confirm_register;
     }
 
 }
