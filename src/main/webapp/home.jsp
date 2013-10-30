@@ -106,7 +106,13 @@
                     </li>
                     <li>
                         Country:
-                        <select id="country" name="country" style="width: 200px;">
+                        <select id="country" name="country" style="width: 130px;">
+                            <option> - Choose - </option>
+                        </select>
+                    </li>
+                    <li>
+                        City:
+                        <select id="city" name="city" style="width: 130px;">
                             <option> - Choose - </option>
                         </select>
                     </li>

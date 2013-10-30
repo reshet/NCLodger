@@ -15,10 +15,8 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 21.10.13
  * Time: 21:29
  */
-public class SignUpAction implements Action
-{
-//@Bean("userdao")
-UserDao users;
+public class SignUpAction implements Action {
+    UserDao users;
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
         users = new UserDao();

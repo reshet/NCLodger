@@ -137,8 +137,7 @@ public class UserDao implements UserDaoInterface {
 
     }
 
-    public boolean getUser(final String email, final String password) throws MyException
-    {
+    public boolean getUser(final String email, final String password) throws MyException {
         return booleanOperation(new WrapperDBOperation<Boolean>() {
 
             @Override
@@ -163,8 +162,7 @@ public class UserDao implements UserDaoInterface {
         });
 
     }
-    public Users getUserObj(final String email, final String password) throws MyException
-    {
+    public Users getUserObj(final String email, final String password) throws MyException {
         return booleanOperation(new WrapperDBOperation<Users>() {
 
             @Override
