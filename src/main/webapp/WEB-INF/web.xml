@@ -12,56 +12,9 @@
         <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
     </context-param>
 
-    <!--  <listener>
-         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-     </listener>-->
-    <!-- <servlet>
-         <servlet-name>mvc-dispatcher</servlet-name>
-         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-         <load-on-startup>1</load-on-startup>
-     </servlet>
-
-     <servlet-mapping>
-         <servlet-name>mvc-dispatcher</servlet-name>
-         <url-pattern>/</url-pattern>
-     </servlet-mapping>-->
-
-    <!-- <servlet>
-         <servlet-name>nc-dispatcher</servlet-name>
-         <servlet-class>com.nclodger.web.NcDispatcherServlet</servlet-class>
-         <load-on-startup>1</load-on-startup>
-     </servlet>-->
-    <!-- <servlet>
-         <servlet-name>static</servlet-name>
-         <servlet-class>com.nclodger.web.StaticServlet</servlet-class>
-     </servlet>-->
-
-    <!-- <servlet-mapping>
-         <servlet-name>static</servlet-name>
-         <url-pattern>/static/*</url-pattern>
-     </servlet-mapping>-->
-    <!-- <servlet-mapping>
-         <servlet-name>nc-dispatcher</servlet-name>
-         <url-pattern>/</url-pattern>
-     </servlet-mapping>-->
-
-
-    <!--<servlet-mapping>
-        <servlet-name>static</servlet-name>
-        <url-pattern>/static/*.css</url-pattern>
-    </servlet-mapping>-->
-    <!--  <servlet-mapping>
-          <servlet-name>staticServlet</servlet-name>
-          <url-pattern>*.jpg</url-pattern>
-      </servlet-mapping>
-      <servlet-mapping>
-          <servlet-name>staticServlet</servlet-name>
-          <url-pattern>*.ico</url-pattern>
-      </servlet-mapping>
-      <servlet-mapping>
-          <servlet-name>staticServlet</servlet-name>
-          <url-pattern>*.png</url-pattern>
-      </servlet-mapping>-->
+    <!--<listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>&ndash;&gt;-->
 
     <welcome-file-list>
         <welcome-file>/home.jsp</welcome-file>
@@ -85,6 +38,10 @@
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/smsettings</url-pattern>
     </servlet-mapping>
 
     <session-config>
