@@ -13,6 +13,24 @@ public class Users {
     private String pswd;
     private String name;
     private int confirm_register;
+    private int id_ut;
+
+    public void setConfirm_register(int confirm_register) {
+        this.confirm_register = confirm_register;
+    }
+
+    public void setId_ut(int id_ut) {
+        this.id_ut = id_ut;
+    }
+
+    public int getConfirm_register() {
+
+        return confirm_register;
+    }
+
+    public int getId_ut() {
+        return id_ut;
+    }
 
     public Users(int id,String username) {
         this.id = id;
