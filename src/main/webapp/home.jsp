@@ -55,11 +55,11 @@
                 }
             %>
             <%
-                //if(session.getAttribute("id_ut") == 2) {
+                if((Integer)session.getAttribute("utype") == 2) {
             %>
                 <br><a href="smsettings">Settings</a>
             <%
-                //}
+                }
             %>
         </div>
 

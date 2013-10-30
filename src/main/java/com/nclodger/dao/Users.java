@@ -24,7 +24,6 @@ public class Users {
     }
 
     public int getConfirm_register() {
-
         return confirm_register;
     }
 
