@@ -14,13 +14,11 @@ import java.util.ArrayList;
  * Time: 21:19
  * To change this template use File | Settings | File Templates.
  */
-public interface UserDaoInterface
-{
-    public boolean insert(Users _user) throws MyException;     //+
-    public boolean update (Users _user) throws MyException;
-    public boolean delete(Users _user) throws ClassNotFoundException, SQLException;
-    public boolean getUser(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException, MyException; //+
-    public Users getUserObj(String _email, String _password) throws SQLException, NamingException, ClassNotFoundException, MyException; //+
-    public Users find(int id) throws ClassNotFoundException, SQLException,MyException;       //+
-    public boolean confirm_register(Users _user) throws MyException;  //+
+public interface UserDaoInterface {
+    public boolean insert(Users user) throws MyException;
+    public boolean update (Users user);
+    public boolean delete(Users user) throws ClassNotFoundException, SQLException;
+    public boolean getUser(String email, String password) throws SQLException, NamingException, ClassNotFoundException, MyException;
+    public Users find(int id) throws ClassNotFoundException, SQLException, MyException;
+    public boolean confirm_register(Users user) throws Exception;
 }

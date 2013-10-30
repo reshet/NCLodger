@@ -7,21 +7,18 @@ package com.nclodger.dao;
  * Time: 9:01
  * To change this template use File | Settings | File Templates.
  */
-public class Users
-{
+public class Users {
     private int id;
     private String email;
     private String pswd;
     private String name;
     private int confirm_register;
 
-    public Users(int id,String username)
-    {
+    public Users(int id,String username) {
         this.id = id;
         this.name = username;
     }
-    public Users(int id, String email, String pswd, String name, int confirm_register)
-    {
+    public Users(int id, String email, String pswd, String name, int confirm_register) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -30,53 +27,43 @@ public class Users
     }
 
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return this.id;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return this.email;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.name;
     }
 
-    public String getPswd()
-    {
+    public String getPswd() {
         return this.pswd;
     }
 
-    public void setPswd(String pswd)
-    {
+    public void setPswd(String pswd) {
         this.pswd = pswd;
     }
 
-    public int get_confirm_register()
-    {
+    public int get_confirm_register() {
         return this.confirm_register;
     }
 
-    public void set_confirm_register(int _confirm_register)
-    {
+    public void set_confirm_register(int _confirm_register) {
         this.confirm_register = _confirm_register;
     }
 
