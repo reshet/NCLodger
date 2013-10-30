@@ -7,7 +7,6 @@ import java.util.Date;
  * User: pasha
  * Date: 10/30/13
  * Time: 2:29 AM
- * To change this template use File | Settings | File Templates.
  */
 public class ConfirmationEmail {
     private int idUser;

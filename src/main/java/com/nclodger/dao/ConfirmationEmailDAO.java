@@ -14,7 +14,6 @@ import java.sql.SQLException;
  * User: pasha
  * Date: 10/30/13
  * Time: 2:51 AM
- * To change this template use File | Settings | File Templates.
  */
 //TODO
 public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
@@ -32,27 +31,21 @@ public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
             try {
                 dataBase.rollback();
                 throw new MyException(e.getMessage());
-                //return null;
             } catch (SQLException e1) {
-                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 throw new MyException(e1.getMessage());
             }
         } catch (NamingException e) {
             try {
                 dataBase.rollback();
-                //return null;
                 throw new MyException(e.getMessage());
             } catch (SQLException e1) {
-                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 throw new MyException(e1.getMessage());
             }
-            //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }finally {
             try {
                 dataBase.close();
             } catch (SQLException e) {
-                //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                //return null;
+
                 throw new MyException(e.getMessage());
             }
         }
@@ -82,7 +75,21 @@ public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
     }
 
     @Override
-    public boolean delete(ConfirmationEmail ConMail) {
-        return false;
+    public boolean delete(final String hash) throws MyException{
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+
+            @Override
+            public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "DELETE FROM CONFIRM_EMAIL WHERE CONFIRM_HASH=?"
+                );
+                prep.setString(1, hash);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;
+            }
+        });
     }
+
 }
+
