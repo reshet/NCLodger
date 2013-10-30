@@ -109,7 +109,7 @@ public class UserDao implements UserDaoInterface {
                 prep.setString(2,user.getEmail());
                 prep.setString(3,user.getPswd());
                 //String str = prep.;
-                //prep.setInt(5,0);
+
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
                 return true;  //To change body of implemented methods use File | Settings | File Templates.
