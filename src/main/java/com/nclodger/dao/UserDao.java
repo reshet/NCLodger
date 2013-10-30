@@ -62,7 +62,7 @@ public class UserDao implements UserDaoInterface {
         }
     }
 
-    public boolean insert(int _id, String _email, String _pswd, String _name, int register_confirm) throws MyException{
+    public boolean insert(String _email, String _pswd, String _name, int register_confirm) throws MyException{
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) {
@@ -84,14 +84,11 @@ public class UserDao implements UserDaoInterface {
                         "id=" + _user.getId() + ";");
                 res.next();
                 int _id = res.getInt(1);
-                res = st.executeQuery("UPDATE User" +
+                res = st.executeQuery("UPDATE Users" +
                         "SET confirm_register = 1 " +
                         "WHERE id=" + _id + ";");
                 return true;
-                /*String sql = "INSERT INTO User(id,email,pswd,name,register_confirmed)" +
-                        "values" +
-                        "(" + _id + "," + _email + "," + _pswd + "," + _name + ",1);";*/
-            }
+                }
         });
 
     }
@@ -104,13 +101,13 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException,MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "INSERT INTO USERS (ID_USER, USERNAME,EMAIL,PSWD,CONFIRM_REGISTER,ID_UT,IS_BLOCKED) values (?,?,?,?,0,1,0)"
+                        "INSERT INTO USERS (USERNAME,EMAIL,PSWD,CONFIRM_REGISTER,ID_UT,IS_BLOCKED) values (?,?,?,0,1,0)"
                 );
                 //NamedParameterStatement p = new NamedParameterStatement(con, query);
-                prep.setInt(1,11);
-                prep.setString(2,user.getName());
-                prep.setString(3,user.getEmail());
-                prep.setString(4,user.getPswd());
+               // prep.setInt(1,11);
+                prep.setString(1,user.getName());
+                prep.setString(2,user.getEmail());
+                prep.setString(3,user.getPswd());
                 //String str = prep.;
                 //prep.setInt(5,0);
                 java.sql.ResultSet res = prep.executeQuery();
@@ -198,7 +195,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Users doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT * FROM User WHERE id=?"
+                        "SELECT * FROM Users WHERE id=?"
                 );
                 prep.setInt(1, id);
                 //prep.setString(2,password);
