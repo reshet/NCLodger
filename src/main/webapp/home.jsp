@@ -61,6 +61,14 @@
             <%
                 }
             %>
+            
+            <%
+                if((Integer)session.getAttribute("utype") == (Integer)3) {
+            %>
+            <br><a href="adminsettings">Administrator actions</a>
+            <%
+                }
+            %>
         </div>
 
         <div class="nav">
