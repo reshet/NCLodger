@@ -104,7 +104,7 @@ public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
 
                 java.sql.ResultSet res = prep.executeQuery();
 
-                //?if there are no hash return NULL
+                //?if there are no hash, return NULL
                 try{
                 res.next();
                 }
