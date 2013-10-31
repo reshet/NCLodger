@@ -81,7 +81,7 @@ public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "DELETE FROM CONFIRM_EMAIL WHERE CONFIRM_HASH=?"
+                        "DELETE FROM CONFIRM_EMAILS WHERE CONFIRM_HASH=?"
                 );
                 prep.setString(1, hash);
                 java.sql.ResultSet res = prep.executeQuery();
@@ -98,7 +98,7 @@ public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
             @Override
             public Integer doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT ID_USER FROM CONFIRM_EMAIL WHERE CONFIRM_HASH=?"
+                        "SELECT ID_USER FROM CONFIRM_EMAILS WHERE CONFIRM_HASH=?"
                 );
                 prep.setString(1, hash);
 
