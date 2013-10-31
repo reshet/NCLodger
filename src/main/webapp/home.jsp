@@ -75,6 +75,8 @@
         </div>
 
         <div class="nav">
+            <!--helloween lol -->
+            <img src="img/switcher_med.png"/>
             <ul>
                 <li><a href="home.jsp">Home</a></li>
                 <li><a href="#">About Us</a></li>

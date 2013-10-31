@@ -5,7 +5,7 @@ import com.nclodger.dao.ConfirmationEmail;
 import com.nclodger.dao.UserDao;
 import com.nclodger.dao.Users;
 import com.nclodger.dao.ConfirmationEmailDAO;
-import com.nclodger.mail.MailConfirm;
+import com.nclodger.mail.MailConfirmation;
 import com.nclodger.myexception.MyException;
 //import org.springframework.context.annotation.Bean;
 
@@ -30,23 +30,19 @@ public class SignUpAction implements Action {
         try {
             user = new Users(1,request.getParameter("email"),request.getParameter("password1"),request.getParameter("username"),0);
             bool = users.insert(user);
+
+            ConfirmationEmailDAO ConEmail = new ConfirmationEmailDAO();
+            //get hash
+            String hash = new MD5Value().getmd5value(user.getEmail()+"."+user.getPswd());
+            ConEmail.insert(new ConfirmationEmail(user.getId(),hash));
+            //send mail
+            new MailConfirmation().sendMail(user.getEmail(),"http://37.139.6.189:8080/NCLodger/confirmation/?param="+hash);
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";
         }
 
-         //get hash
-        String hash = new MD5Value().getmd5value(user.getEmail()+"."+user.getPswd());
-        //add to DB
-        putNewConfirmationEmailToDB(user.getId(),hash);
-        //send mail
-        new MailConfirm().sendMail(user.getEmail(),"http://37.139.6.189:8080/NCLodger/confirmation/"+hash);
-
         return "signup_succeed";
     }
 
-     private boolean putNewConfirmationEmailToDB(int idUser,String hash) {
-          ConfirmationEmailDAO ConEmail = new ConfirmationEmailDAO();
-          return ConEmail.insert(new ConfirmationEmail(idUser,hash));
-     }
 }
