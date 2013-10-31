@@ -75,7 +75,7 @@ public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
     }
 
     @Override
-    public boolean delete(final String hash) throws MyException{
+    public boolean deleteByHash(final String hash) throws MyException{
         return booleanOperation(new WrapperDBOperation<Boolean>() {
 
             @Override
@@ -91,5 +91,31 @@ public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
         });
     }
 
+    @Override
+    public int getUserIDbyHash(final String hash) throws MyException{
+        return booleanOperation(new WrapperDBOperation<Integer>()  {
+
+            @Override
+            public Integer doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_USER FROM CONFIRM_EMAIL WHERE CONFIRM_HASH=?"
+                );
+                prep.setString(1, hash);
+
+                java.sql.ResultSet res = prep.executeQuery();
+
+                //?if there are no hash return NULL
+                try{
+                res.next();
+                }
+                catch (Exception ex){
+                    throw new MyException(ex.getMessage());
+                }
+                int userID = res.getInt(1);
+                return userID;
+            }
+
+        });
+    }
 }
 
