@@ -15,6 +15,7 @@ public class SignOutAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
         request.getSession().removeAttribute("username");
+        request.getSession().removeAttribute("utype");
         return "home";
     }
 }
