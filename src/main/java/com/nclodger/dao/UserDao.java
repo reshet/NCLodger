@@ -93,6 +93,35 @@ public class UserDao implements UserDaoInterface {
 
     }
 
+    public boolean confirmRegisterByUserID(final int userID) throws MyException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
+                Statement st = dataBase.createStatement();
+                PreparedStatement prepGetUserID = dataBase.prepareStatement(
+                        "SELECT ID_USER FROM USERS WHERE WHERE ID_USER=?"
+                );
+                prepGetUserID.setInt(1, userID);
+                java.sql.ResultSet res = prepGetUserID.executeQuery();
+                try{
+                    res.next();
+                    int id = res.getInt(1);
+                    PreparedStatement prepSetUserConfirmStatus = dataBase.prepareStatement(
+                            "UPDATE USERS SET CONFIRM_REGISTER =1 WHERE ID_USER=?"
+                    );
+                    java.sql.ResultSet execUpdation = prepGetUserID.executeQuery();
+                    execUpdation.next();
+                }
+                 catch (Exception ex){
+                        throw new MyException(ex.getMessage());
+                 }
+                return true;
+            }
+        });
+
+    }
+
+
     @Override
     public boolean insert(final Users user) throws MyException {
         //Tested valid sql

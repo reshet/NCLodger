@@ -21,4 +21,5 @@ public interface UserDaoInterface {
     public boolean getUser(String email, String password) throws SQLException, NamingException, ClassNotFoundException, MyException;
     public Users find(int id) throws ClassNotFoundException, SQLException, MyException;
     public boolean confirm_register(Users user) throws Exception;
+    public boolean confirmRegisterByUserID(int userID) throws Exception;
 }
