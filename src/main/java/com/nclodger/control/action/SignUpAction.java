@@ -30,13 +30,13 @@ public class SignUpAction implements Action {
         try {
             user = new Users(1,request.getParameter("email"),request.getParameter("password1"),request.getParameter("username"),0);
             bool = users.insert(user);
-
+            Users user_stored = users.getUserObj(user.getEmail(),user.getPswd());
             ConfirmationEmailDAO ConEmail = new ConfirmationEmailDAO();
             //get hash
             String hash = new MD5Value().getmd5value(user.getEmail()+"."+user.getPswd());
-            ConEmail.insert(new ConfirmationEmail(user.getId(),hash));
+            ConEmail.insert(new ConfirmationEmail(user_stored.getId(),hash));
             //send mail
-            new MailConfirmation().sendMail(user.getEmail(),"http://37.139.6.189:8080/NCLodger/confirmation/?param="+hash);
+            new MailConfirmation().sendMail(user.getEmail(),"http://"+request.getLocalAddr()+":8080/NCLodger/confirmation/?param="+hash);
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";

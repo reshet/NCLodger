@@ -165,7 +165,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Users doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT ID_USER,USERNAME,ID_UT FROM USERS WHERE email=? AND pswd= ?"
+                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL FROM USERS WHERE email=? AND pswd= ?"
                 );
                 prep.setString(1,email);
                 prep.setString(2,password);
@@ -178,8 +178,12 @@ public class UserDao implements UserDaoInterface {
                     //answer = true;
                     String uname = res.getString(2);
                     Integer utype = res.getInt(3);
+                    String email = res.getString(4);
+                    //String pswd = res.getString(5);
                     Users user = new Users(id,uname);
                     user.setId_ut(utype);
+                    user.setEmail(email);
+                    //user.setPswd();
                     return user;
                 }
 
