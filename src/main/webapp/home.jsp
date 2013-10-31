@@ -1,4 +1,7 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.nclodger.webservices.Hotel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
@@ -55,13 +58,13 @@
                 }
             %>
             <%
-                if((Integer)session.getAttribute("utype") == 2) {
+                if((Integer)session.getAttribute("utype") == (Integer)2) {
             %>
-                <br><a href="smsettings">Settings</a>
+                <br><a href="smsettings">Sales manager actions</a>
             <%
                 }
             %>
-            
+
             <%
                 if((Integer)session.getAttribute("utype") == (Integer)3) {
             %>
@@ -220,6 +223,20 @@
                 </ul>
             </form>
         </div>
+
+
+            <%
+                if(request.getAttribute("servlet_value") != null) {
+                    List<Hotel> hotels = (List) request.getAttribute("servlet_value");
+
+                    for(Hotel hotel : hotels) {
+                        out.println("<div class=\"search\">");
+                        out.print(hotel.getName()+"<br/>");
+                        out.print("Location: "+hotel.getLoc_lat()+", "+hotel.getLoc_lng()+"<br/><br/>");
+                        out.println("</div>");
+                    }
+                }
+            %>
     </div><!-- #content -->
 
     <div id="footer">
