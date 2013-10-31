@@ -22,7 +22,7 @@ public class MailConfirmation {
 
     public void sendMail(String to,String confirmURL){
         final String username = "nclodger@gmail.com";
-        final String password = "123456";
+        final String password = "nclodger123456";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
