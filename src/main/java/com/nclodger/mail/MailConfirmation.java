@@ -42,17 +42,15 @@ public class MailConfirmation {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject("Testing Subject");
-            message.setText("Dear Mail Crawler,"
-                    + "\n\n No spam to my email, please!");
+            message.setSubject("Confirmation");
 
-/*            message.setContent("<h1>Thanks for signing up! \n" +
+            message.setContent("<h1>Thanks for signing up! \n" +
                     "Your account has been created, you can login after you have activated your account by pressing the url below.\n " +
                     confirmURL+
                     "\nif you did not register, please ignore this"+
 
                     "</h1>",
-                    "text/html" );*/
+                    "text/html" );
             Transport.send(message);
         } catch (MessagingException e) {
             throw new RuntimeException(e);

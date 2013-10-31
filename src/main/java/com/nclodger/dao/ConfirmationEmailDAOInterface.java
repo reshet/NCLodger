@@ -13,5 +13,7 @@ public interface ConfirmationEmailDAOInterface {
 
     public boolean insert(ConfirmationEmail ConMail) throws MyException;
     public boolean update (ConfirmationEmail ConMail);
-    public boolean delete(String Hash) throws MyException;
+    public boolean deleteByHash(String Hash) throws MyException;
+
+    public int getUserIDbyHash(String hash) throws MyException;
 }
