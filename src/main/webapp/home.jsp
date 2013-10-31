@@ -128,13 +128,16 @@
                     <li>
                         Country:
                         <select id="country" name="country" style="width: 130px;">
-                            <option> - Choose - </option>
+                            <option value=""> - Choose - </option>
+                            <option value="UA">Ukraine</option>
                         </select>
                     </li>
                     <li>
                         City:
                         <select id="city" name="city" style="width: 130px;">
-                            <option> - Choose - </option>
+                            <option value=""> - Choose - </option>
+                            <option value="Kiev">Kiev</option>
+                            <option value="Lviv">Lviv</option>
                         </select>
                     </li>
                 </ul>

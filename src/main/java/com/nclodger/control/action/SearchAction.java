@@ -21,7 +21,14 @@ public class SearchAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ExpediaSearcher searcher = new ExpediaSearcher();
         // String state,String city, Date arrivalDate, Date departureDate, Integer adults, Integer response_count
-        String results = searcher.searchHotels("UA","Lviv","11/28/2013","11/30/2013",2,10);
+        String checkin = request.getParameter("checkin_month").concat("/")
+                .concat(request.getParameter("checkin_day")).concat("/")
+                .concat(request.getParameter("checkin_year"));
+        String checkout = request.getParameter("checkout_month").concat("/")
+                .concat(request.getParameter("checkout_day")).concat("/")
+                .concat(request.getParameter("checkout_year"));
+        String city = request.getParameter("city");
+        String results = searcher.searchHotels("UA",city,checkin,checkout,2,10);
         System.out.println(results);
         JSONObject resp = searcher.parseResults(results);
         try {
