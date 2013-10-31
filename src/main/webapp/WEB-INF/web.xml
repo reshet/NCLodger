@@ -44,7 +44,6 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
-
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

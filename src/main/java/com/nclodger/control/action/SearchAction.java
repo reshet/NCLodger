@@ -5,7 +5,6 @@ import com.nclodger.webservices.Hotel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
