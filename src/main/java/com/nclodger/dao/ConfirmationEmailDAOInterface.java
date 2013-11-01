@@ -1,5 +1,7 @@
 package com.nclodger.dao;
 
+import com.nclodger.myexception.MyException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pasha
@@ -9,7 +11,9 @@ package com.nclodger.dao;
  */
 public interface ConfirmationEmailDAOInterface {
 
-    public boolean insert(ConfirmationEmail conMail);
-    public boolean update (ConfirmationEmail conMail);
-    public boolean delete(ConfirmationEmail conMail);
+    public boolean insert(ConfirmationEmail ConMail) throws MyException;
+    public boolean update (ConfirmationEmail ConMail);
+    public boolean deleteByHash(String Hash) throws MyException;
+
+    public int getUserIDbyHash(String hash) throws MyException;
 }

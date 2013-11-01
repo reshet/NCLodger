@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Registration</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<script src="js/md5-min.js"></script>
 <!--[if lt IE 7]>
 <style type="text/css">
      #wrapper { height:100%; }
@@ -42,6 +43,9 @@
         }
         else { document.getElementById("span_email").style.display = 'none'; }
 
+        if(isValid){
+            document.regfrm.password1.value = hex_md5(document.regfrm.password1.value);
+        }
         return isValid;
     }
 </script>

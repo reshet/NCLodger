@@ -25,7 +25,9 @@
             isValid = false;
         }
         else { document.getElementById("span_pswd").style.display = 'none'; }
-
+        if(isValid){
+            document.loginfrm.password.value = hex_md5(document.loginfrm.password.value);
+        }
 
         return isValid;
     }

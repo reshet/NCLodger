@@ -18,8 +18,9 @@ public class ActionFactory {
         actions.put("/signup", new SignUpAction());
         actions.put("/signin", new SignInAction());
         actions.put("/signout", new SignOutAction());
-        //actions.put("/confirmation", new ConfirmAction());
+        actions.put("/search", new SearchAction());
         actions.put("/smsettings", new SmSettingsAction());
+        actions.put("/confirmation", new ConfirmationAction());
         //TODO: other actions
     }
 

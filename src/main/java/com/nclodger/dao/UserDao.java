@@ -93,6 +93,35 @@ public class UserDao implements UserDaoInterface {
 
     }
 
+    public boolean confirmRegisterByUserID(final int userID) throws MyException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
+                Statement st = dataBase.createStatement();
+                PreparedStatement prepGetUserID = dataBase.prepareStatement(
+                        "SELECT ID_USER FROM USERS WHERE WHERE ID_USER=?"
+                );
+                prepGetUserID.setInt(1, userID);
+                java.sql.ResultSet res = prepGetUserID.executeQuery();
+                try{
+                    res.next();
+                    int id = res.getInt(1);
+                    PreparedStatement prepSetUserConfirmStatus = dataBase.prepareStatement(
+                            "UPDATE USERS SET CONFIRM_REGISTER =1 WHERE ID_USER=?"
+                    );
+                    java.sql.ResultSet execUpdation = prepGetUserID.executeQuery();
+                    execUpdation.next();
+                }
+                 catch (Exception ex){
+                        throw new MyException(ex.getMessage());
+                 }
+                return true;
+            }
+        });
+
+    }
+
+
     @Override
     public boolean insert(final Users user) throws MyException {
         //Tested valid sql
@@ -165,7 +194,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Users doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT ID_USER,USERNAME FROM USERS WHERE email=? AND pswd= ?"
+                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL FROM USERS WHERE email=? AND pswd= ?"
                 );
                 prep.setString(1,email);
                 prep.setString(2,password);
@@ -177,7 +206,14 @@ public class UserDao implements UserDaoInterface {
                 if (id > 0){
                     //answer = true;
                     String uname = res.getString(2);
-                    return new Users(id,uname);
+                    Integer utype = res.getInt(3);
+                    String email = res.getString(4);
+                    //String pswd = res.getString(5);
+                    Users user = new Users(id,uname);
+                    user.setId_ut(utype);
+                    user.setEmail(email);
+                    //user.setPswd();
+                    return user;
                 }
 
                 return null;

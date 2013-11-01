@@ -1,4 +1,7 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.nclodger.webservices.Hotel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
@@ -55,16 +58,26 @@
                 }
             %>
             <%
-                if((Integer)session.getAttribute("utype") == 2) {
+                if((Integer)session.getAttribute("utype") == (Integer)2) {
             %>
-                <br><a href="smsettings">Settings</a>
+                <br><a href="smsettings">Sales manager actions</a>
+            <%
+                }
+            %>
+
+            <%
+                if((Integer)session.getAttribute("utype") == (Integer)3) {
+            %>
+            <br><a href="adminsettings">Administrator actions</a>
             <%
                 }
             %>
         </div>
 
         <div class="nav">
+            <!--helloween lol -->
             <ul>
+                <li><a href="home.jsp"><img src="img/switcher_med.png"/></a></li>
                 <li><a href="home.jsp">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contacts</a></li>
@@ -115,13 +128,16 @@
                     <li>
                         Country:
                         <select id="country" name="country" style="width: 130px;">
-                            <option> - Choose - </option>
+                            <option value=""> - Choose - </option>
+                            <option value="UA">Ukraine</option>
                         </select>
                     </li>
                     <li>
                         City:
                         <select id="city" name="city" style="width: 130px;">
-                            <option> - Choose - </option>
+                            <option value=""> - Choose - </option>
+                            <option value="Kiev">Kiev</option>
+                            <option value="Lviv">Lviv</option>
                         </select>
                     </li>
                 </ul>
@@ -212,6 +228,20 @@
                 </ul>
             </form>
         </div>
+
+
+            <%
+                if(request.getAttribute("servlet_value") != null) {
+                    List<Hotel> hotels = (List) request.getAttribute("servlet_value");
+
+                    for(Hotel hotel : hotels) {
+                        out.println("<div class=\"search\">");
+                        out.print(hotel.getName()+"<br/>");
+                        out.print("Location: "+hotel.getLoc_lat()+", "+hotel.getLoc_lng()+"<br/><br/>");
+                        out.println("</div>");
+                    }
+                }
+            %>
     </div><!-- #content -->
 
     <div id="footer">

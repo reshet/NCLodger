@@ -5,10 +5,10 @@
 
    <display-name>NCLodger Application</display-name>
 
-   <context-param>
+<!--   <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
-    </context-param>
+    </context-param>-->
 
     <!--<listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -40,7 +40,14 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/smsettings</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/confirmation</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
