@@ -58,6 +58,7 @@
     <div id="header">
         <div class="nav">
             <ul>
+                <li><a href="home.jsp"><h1>NCLodger</h1></a></li>
                 <li><a href="home.jsp">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contacts</a></li>
