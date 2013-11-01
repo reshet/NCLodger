@@ -16,19 +16,65 @@
 <script>
     function valideSearchForm() {
         var isValid = true;
-        var message = "Invalid parameters input: ";
+        var myDate = new Date();
+        var curYear = myDate.getFullYear();
+        var curMonth = myDate.getMonth();
+        var curDay = myDate.getDay();
+        var message = "Dear user, you might have entered invalid parameters:\n";
         if(document.searchfrm.min_price.value != ""){
             if(document.searchfrm.min_price.value < 0 || (!(/^[0-9]+$/).test(document.searchfrm.min_price.value))) {
-                message += "min price; "
+                message += "\nMinimum price; "
                 isValid = false;
             }
         }
         if(document.searchfrm.max_price.value != ""){
             if(document.searchfrm.max_price.value < 0 || (!(/^[0-9]+$/).test(document.searchfrm.max_price.value))
                     || document.searchfrm.max_price.value < document.searchfrm.min_price.value) {
-                message += "max price; "
+                message += "\nMaximum price; "
                 isValid = false;
             }
+        }
+        if(document.searchfrm.checkin_month.value == ""
+                || document.searchfrm.checkin_day.value == "" || document.searchfrm.checkin_year.value == ""){
+                message += "\nCheckin date wasn't selected;"
+                isValid = false;
+        }
+        if(document.searchfrm.checkout_month.value == ""
+                || document.searchfrm.checkout_day.value == "" || document.searchfrm.checkout_year.value == ""){
+            message += "\nCheckout date wasn't selected;"
+            isValid = false;
+        }
+        if(document.searchfrm.country.value == ""){
+            message += "\nCountry wasn't selected;"
+            isValid = false;
+        }
+        if(document.searchfrm.city.value == ""){
+            message += "\nCity wasn't selected;"
+            isValid = false;
+        }
+        if((document.searchfrm.checkin_year.value <= curYear
+                && curMonth <= document.searchfrm.checkin_month.value
+                && curDay <= document.searchfrm.checkin_day.value )){
+            if(document.searchfrm.checkin_year.value == document.searchfrm.checkout_year.value){
+                if(document.searchfrm.checkin_month.value == document.searchfrm.checkout_month.value){
+                    if(document.searchfrm.checkout_day.value <= document.searchfrm.checkin_day.value){
+                        message += "\nCheckin or checkout day;"
+                        isValid = false;
+                    }
+                }
+                if (document.searchfrm.checkout_month.value < document.searchfrm.checkin_month.value){
+                    message += "\nCheckin or checkout month;"
+                    isValid = false;
+                }
+            }
+            if (document.searchfrm.checkout_year.value < document.searchfrm.checkin_year.value){
+                message += "\nCheckin or checkout year;"
+                isValid = false;
+            }
+        }
+        else {
+            message += "\nCheckin date is old;"
+            isValid = false;
         }
         if(!isValid) {
             alert(message);
@@ -43,7 +89,7 @@
 <div id="wrapper">
 
     <div id="header">
-        <div class="greeting" style="float: right; padding-right: 2em; ">
+        <div class="greeting">
             <%
                 if(session.getAttribute("username") == null){
             %>
@@ -52,37 +98,30 @@
                 }
                 else {
             %>
-                Hello, <%=session.getAttribute("username")%>!
-                <br><a href="signout">Log out</a>
-            <%
-                }
-            %>
+                    Hello, <%=session.getAttribute("username")%>!
+                    <br><a href="signout">Log out</a>
+                    <br><a href="signout">User settings</a>
+            <% } %>
             <%
                 if((Integer)session.getAttribute("utype") == (Integer)2) {
             %>
-                <br><a href="smsettings">Sales manager actions</a>
-            <%
-                }
-            %>
-
+                    <br><a href="smsettings">Sales manager actions</a>
+            <% } %>
             <%
                 if((Integer)session.getAttribute("utype") == (Integer)3) {
             %>
-            <br><a href="adminsettings">Administrator actions</a>
-            <%
-                }
-            %>
+                    <br><a href="adminsettings">Administrator actions</a>
+            <% } %>
         </div>
-
         <div class="nav">
-            <!--helloween lol -->
             <ul>
-                <li><a href="home.jsp"><img src="img/switcher_med.png"/></a></li>
+                <%--<li><a href="home.jsp"><img src="img/switcher_med.png"/></a></li>--%>
                 <li><a href="home.jsp">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contacts</a></li>
             </ul>
         </div>
+
     </div><!-- #header -->
 
     <div id="content">
@@ -90,9 +129,9 @@
             <form name="searchfrm" method="POST" action="search" onsubmit="return valideSearchForm();">
                 <ul>
                     <li> <!--    CHECK IN    -->
-                        Check in:
+                        Check in:&nbsp&nbsp
                         <select id="checkin_month" name="checkin_month">
-                            <option> - Month - </option>
+                            <option value=""> - Month - </option>
                             <option value="January">January</option>
                             <option value="Febuary">Febuary</option>
                             <option value="March">March</option>
@@ -107,7 +146,7 @@
                             <option value="December">December</option>
                         </select> /
                         <select id="checkin_day" name="checkin_day">
-                            <option> - Day - </option>
+                            <option value=""> - Day - </option>
                             <script>
                                 for(var i = 1; i <= 31; i++){
                                     document.write('<option value="'+i+'">'+i+'</option>');
@@ -115,7 +154,7 @@
                             </script>
                         </select> /
                         <select id="checkin_year" name="checkin_year">
-                            <option> - Year - </option>
+                            <option value=""> - Year - </option>
                             <script>
                                 var myDate = new Date();
                                 var year = myDate.getFullYear();
@@ -145,7 +184,7 @@
                     <li>  <!--    CHECK OUT   -->
                         Check out:
                         <select id="checkout_month" name="checkout_month">
-                            <option> - Month - </option>
+                            <option value=""> - Month - </option>
                             <option value="January">January</option>
                             <option value="Febuary">Febuary</option>
                             <option value="March">March</option>
@@ -160,7 +199,7 @@
                             <option value="December">December</option>
                         </select> /
                         <select id="checkout_day" name="checkout_day">
-                            <option> - Day - </option>
+                            <option value=""> - Day - </option>
                             <script>
                                 for(var i = 1; i <= 31; i++){
                                     document.write('<option value="'+i+'">'+i+'</option>');
@@ -168,7 +207,7 @@
                             </script>
                         </select> /
                         <select id="checkout_year" name="checkout_year">
-                            <option> - Year - </option>
+                            <option value=""> - Year - </option>
                             <script>
                                 var myDate = new Date();
                                 var year = myDate.getFullYear();
@@ -182,7 +221,7 @@
                         Price:
                         <input type="text" id="min_price" name="min_price" /> to
                         <input type="text" id="max_price" name="max_price" />
-                        <select id="currency" name="currency" style="width: 80px">
+                        <select id="currency" name="currency" style="width: 100px">
                             <option value="$">$</option>
                             <option value="$">€</option>
                             <option value="UAH">UAH</option>
@@ -217,13 +256,9 @@
                             <option value="8">8</option>
                         </select>
                     </li>
-                    <li>
-                        Promo code:
-                        <input type="text" id="promo_code" name="promo_code" value="" style="width:200px;" maxlength="20"/>
-                    </li>
-                    <li>
-                        <input type="reset" name="reset" value="Reset">
-                        <input type="submit" name="search" value="Search">
+                    <li class="submit">
+                            <input type="reset" name="reset" value="Reset">
+                            <input type="submit" name="search" value="Search">
                     </li>
                 </ul>
             </form>
