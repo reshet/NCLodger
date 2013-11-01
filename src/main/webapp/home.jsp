@@ -129,7 +129,7 @@
             <form name="searchfrm" method="POST" action="search" onsubmit="return valideSearchForm();">
                 <ul>
                     <li> <!--    CHECK IN    -->
-                        Check in:&nbsp&nbsp
+                        Check in: *&nbsp&nbsp
                         <select id="checkin_month" name="checkin_month">
                             <option value=""> - Month - </option>
                             <option value="January">January</option>
@@ -165,14 +165,14 @@
                         </select>
                     </li>
                     <li>
-                        Country:
+                        Country: *
                         <select id="country" name="country" style="width: 130px;">
                             <option value=""> - Choose - </option>
                             <option value="UA">Ukraine</option>
                         </select>
                     </li>
                     <li>
-                        City:
+                        City: *
                         <select id="city" name="city" style="width: 130px;">
                             <option value=""> - Choose - </option>
                             <option value="Kiev">Kiev</option>
@@ -182,7 +182,7 @@
                 </ul>
                 <ul>
                     <li>  <!--    CHECK OUT   -->
-                        Check out:
+                        Check out: *
                         <select id="checkout_month" name="checkout_month">
                             <option value=""> - Month - </option>
                             <option value="January">January</option>
@@ -232,6 +232,7 @@
                     <li>
                         Adults(18+):
                         <select id="guests_adults" name="guests_adults" style="width: 60px">
+                            <option value="">-</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -245,6 +246,7 @@
                     <li>
                         Children:
                         <select id="guests_children" name="guests_children" style="width: 60px">
+                            <option value="">-</option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>

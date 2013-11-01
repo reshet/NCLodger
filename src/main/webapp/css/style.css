@@ -228,7 +228,7 @@ input[type=submit]:active, input[type=reset]:active {
     border: gray thin solid;
 }
 .search select {
-    width: 120px;
+    width: 110px;
 }
 .search input {
     width: 60px;
