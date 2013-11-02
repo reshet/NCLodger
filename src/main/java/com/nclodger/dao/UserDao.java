@@ -221,6 +221,7 @@ public class UserDao implements UserDaoInterface {
     }
 
 
+
     public Users getUserObj(final String email, final String password) throws MyException {
                 return booleanOperation(new WrapperDBOperation<Users>() {
 
