@@ -181,9 +181,7 @@ public class UserDao implements UserDaoInterface {
                 if (exist > 0){
                     answer = true;
                 }
-
                 return answer;
-                //return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
 
@@ -217,7 +215,6 @@ public class UserDao implements UserDaoInterface {
                 }
 
                 return null;
-                //return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
 
@@ -225,7 +222,6 @@ public class UserDao implements UserDaoInterface {
 
     @Override
     public Users find(final int id) throws MyException {
-        //return null;  //To change body of implemented methods use File | Settings | File Templates.
         return booleanOperation(new WrapperDBOperation<Users>() {
 
             @Override
@@ -234,14 +230,12 @@ public class UserDao implements UserDaoInterface {
                         "SELECT * FROM Users WHERE id=?"
                 );
                 prep.setInt(1, id);
-                //prep.setString(2,password);
 
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
                 int exist = res.getInt(1);
                 Users user = new Users(res.getInt(1),res.getString(2), res.getString(3),res.getString(4),res.getInt(5));
                 return user;
-                //return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
     }
