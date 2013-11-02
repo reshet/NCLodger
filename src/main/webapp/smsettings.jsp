@@ -31,6 +31,11 @@
             <%
                 }
             %>
+            <%
+                if((Integer)session.getAttribute("utype") == (Integer)2) {
+            %>
+            <br><a href="smsettings" class="orangelink"><img src="img/user.gif">Sales manager actions</a>
+            <% } %>
         </div>
 
         <div class="nav">

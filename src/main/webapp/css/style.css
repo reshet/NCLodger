@@ -262,3 +262,10 @@ input[type=submit]:active, input[type=reset]:active {
     color: #fa8736;
     text-decoration: none;
 }
+.greeting a img{
+    height: 16px;
+    width: 16px;
+    padding-right: 0.5em;
+}
+a.orangelink{ text-decoration: none; color: #fa8736; }
+a.orangelink:hover{ text-decoration: none; color: #9ec7dd; }
