@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>NCLodger | Settings: sales manager</title>
+<title>NCLodger | Settings: administrator</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <!--[if lt IE 7]>
 <style type="text/css">
@@ -32,9 +32,9 @@
                 }
             %>
             <%
-                if((Integer)session.getAttribute("utype") == (Integer)2) {
+                if((Integer)session.getAttribute("utype") == (Integer)3) {
             %>
-            <br><a href="smsettings" class="orangelink"><img src="img/user.gif">Sales manager actions</a>
+            <br><a href="adsettings" class="orangelink"><img src="img/user.gif">Sales manager actions</a>
             <% } %>
         </div>
 
