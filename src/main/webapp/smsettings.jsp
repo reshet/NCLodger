@@ -10,6 +10,12 @@
      #wrapper { height:100%; }
 </style>
 <![endif]-->
+<style type="text/css">
+    .sortable .head h3 { background: url(img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* unsort 2 arrows */
+    .sortable .desc, .sortable .asc {background:#4b708d}                                                        /* selected header */
+    .sortable .desc h3 { background: url(img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* dsc arrpw */
+    .sortable .asc h3 { background: url(img/asc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}   /* asc arrow */
+</style>
 </head>
 
 <body>
@@ -50,8 +56,69 @@
 
     <div id="content">
         <div class="search">
-
+            <a href="">View all users</a>
         </div>
+
+        <%--<%
+        if(request.getAttribute("servlet_value") != null) {--%>
+        <div class="actionres">
+            All users:
+        </div>
+        <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+            <thead>
+            <tr>
+                <th><h3>Name</h3></th>
+                <th><h3>Email</h3></th>
+            </tr>
+            </thead>
+            <tbody>
+            <script>
+                document.write('<tr>');
+                document.write('<td>Iaroslav Dmytruk</td>');
+                document.write('<td><a>Iaroslav@example.org</a></td>');
+                document.write('</tr>');
+
+                document.write('<tr>');
+                document.write('<td>John Terry</td>');
+                document.write('<td><a>John@example.org</a></td>');
+                document.write('</tr>');
+
+            </script>
+            </tbody>
+        </table>
+        <div id="controls">
+            <div id="perpage">
+                <select onchange="sorter.size(this.value)">
+                    <option value="5">5</option>
+                    <option value="10" selected="selected">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span>Entries Per Page</span>
+            </div>
+            <div id="navigation">
+                <img src="img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" />
+                <img src="img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)" />
+                <img src="img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)" />
+                <img src="img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)" />
+            </div>
+            <div id="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
+        </div>
+        <script type="text/javascript">
+            var sorter = new TINY.table.sorter("sorter");
+            sorter.head = "head";
+            sorter.asc = "asc";
+            sorter.desc = "desc";
+            sorter.even = "evenrow";
+            sorter.odd = "oddrow";
+            sorter.evensel = "evenselected";
+            sorter.oddsel = "oddselected";
+            sorter.paginate = true;
+            sorter.currentid = "currentpage";
+            sorter.limitid = "pagelimit";
+            sorter.init("table",1);
+        </script>
     </div><!-- #content -->
 
     <div id="footer">
