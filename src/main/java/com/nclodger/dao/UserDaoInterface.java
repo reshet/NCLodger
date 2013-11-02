@@ -6,6 +6,7 @@ import com.nclodger.myexception.MyException;
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +20,7 @@ public interface UserDaoInterface {
     public boolean update (Users user);
     public boolean delete(Users user) throws ClassNotFoundException, SQLException;
     public boolean getUser(String email, String password) throws SQLException, NamingException, ClassNotFoundException, MyException;
+    public List<Users>  getAllUsers() throws MyException;
     public Users find(int id) throws ClassNotFoundException, SQLException, MyException;
     public boolean confirm_register(Users user) throws Exception;
     public boolean confirmRegisterByUserID(int userID) throws Exception;

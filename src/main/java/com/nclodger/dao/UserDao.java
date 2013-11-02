@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +27,7 @@ public class UserDao implements UserDaoInterface {
         abstract public T doMethod(Connection dataBase) throws MyException, SQLException;
     }
 
-    private <T> T booleanOperation (WrapperDBOperation<T> operation) throws MyException {
+    private <T> T booleanOperation(WrapperDBOperation<T> operation) throws MyException {
         Connection dataBase = null;
         try {
             InitialContext ctx = new InitialContext();
@@ -51,7 +53,7 @@ public class UserDao implements UserDaoInterface {
                 throw new MyException(e1.getMessage());
             }
             //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }finally {
+        } finally {
             try {
                 dataBase.close();
             } catch (SQLException e) {
@@ -62,7 +64,7 @@ public class UserDao implements UserDaoInterface {
         }
     }
 
-    public boolean insert(String _email, String _pswd, String _name, int register_confirm) throws MyException{
+    public boolean insert(String _email, String _pswd, String _name, int register_confirm) throws MyException {
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) {
@@ -88,7 +90,7 @@ public class UserDao implements UserDaoInterface {
                         "SET confirm_register = 1 " +
                         "WHERE id=" + _id + ";");
                 return true;
-                }
+            }
         });
 
     }
@@ -103,7 +105,7 @@ public class UserDao implements UserDaoInterface {
                 );
                 prepGetUserID.setInt(1, userID);
                 java.sql.ResultSet res = prepGetUserID.executeQuery();
-                try{
+                try {
                     res.next();
                     int id = res.getInt(1);
                     PreparedStatement prepSetUserConfirmStatus = dataBase.prepareStatement(
@@ -111,10 +113,9 @@ public class UserDao implements UserDaoInterface {
                     );
                     java.sql.ResultSet execUpdation = prepGetUserID.executeQuery();
                     execUpdation.next();
+                } catch (Exception ex) {
+                    throw new MyException(ex.getMessage());
                 }
-                 catch (Exception ex){
-                        throw new MyException(ex.getMessage());
-                 }
                 return true;
             }
         });
@@ -128,15 +129,15 @@ public class UserDao implements UserDaoInterface {
         //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
-            public Boolean doMethod(Connection dataBase) throws SQLException,MyException {
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "INSERT INTO USERS (USERNAME,EMAIL,PSWD,CONFIRM_REGISTER,ID_UT,IS_BLOCKED) values (?,?,?,0,1,0)"
                 );
                 //NamedParameterStatement p = new NamedParameterStatement(con, query);
-               // prep.setInt(1,11);
-                prep.setString(1,user.getName());
-                prep.setString(2,user.getEmail());
-                prep.setString(3,user.getPswd());
+                // prep.setInt(1,11);
+                prep.setString(1, user.getName());
+                prep.setString(2, user.getEmail());
+                prep.setString(3, user.getPswd());
                 //String str = prep.;
 
                 java.sql.ResultSet res = prep.executeQuery();
@@ -171,72 +172,110 @@ public class UserDao implements UserDaoInterface {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT ID_USER FROM USERS WHERE email=? AND pswd= ?"
                 );
-                prep.setString(1,email);
-                prep.setString(2,password);
+                prep.setString(1, email);
+                prep.setString(2, password);
 
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
                 int exist = res.getInt(1);
                 boolean answer = false;
-                if (exist > 0){
+                if (exist > 0) {
                     answer = true;
                 }
+
                 return answer;
-            }
-        });
-
-    }
-    public Users getUserObj(final String email, final String password) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Users>() {
-
-            @Override
-            public Users doMethod(Connection dataBase) throws MyException, SQLException {
-                PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL FROM USERS WHERE email=? AND pswd= ?"
-                );
-                prep.setString(1,email);
-                prep.setString(2,password);
-
-                java.sql.ResultSet res = prep.executeQuery();
-                res.next();
-                int id = res.getInt(1);
-                boolean answer = false;
-                if (id > 0){
-                    //answer = true;
-                    String uname = res.getString(2);
-                    Integer utype = res.getInt(3);
-                    String email = res.getString(4);
-                    //String pswd = res.getString(5);
-                    Users user = new Users(id,uname);
-                    user.setId_ut(utype);
-                    user.setEmail(email);
-                    //user.setPswd();
-                    return user;
-                }
-
-                return null;
+                //return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
 
     }
 
     @Override
-    public Users find(final int id) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Users>() {
+    public List<Users> getAllUsers() throws MyException {
+
+        return booleanOperation(new WrapperDBOperation<List<Users>>() {
 
             @Override
-            public Users doMethod(Connection dataBase) throws MyException, SQLException {
+            public List<Users> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT * FROM Users WHERE id=?"
+                        "SELECT * FROM USERS"
                 );
-                prep.setInt(1, id);
 
-                java.sql.ResultSet res = prep.executeQuery();
-                res.next();
-                int exist = res.getInt(1);
-                Users user = new Users(res.getInt(1),res.getString(2), res.getString(3),res.getString(4),res.getInt(5));
-                return user;
-            }
+                java.sql.ResultSet results = prep.executeQuery();
+                List<Users> uList = new ArrayList<Users>();
+                while (results.next()) {
+
+                    Integer id = results.getInt(1);
+                    String uname = results.getString(2);
+                    Integer utype = results.getInt(3);
+                    String email = results.getString(4);
+
+                    Users user = new Users(id, uname);
+                    user.setId_ut(utype);
+                    user.setEmail(email);
+                    uList.add(user);
+                }
+                return uList;
+                }
         });
     }
-}
+
+
+    public Users getUserObj(final String email, final String password) throws MyException {
+                return booleanOperation(new WrapperDBOperation<Users>() {
+
+                    @Override
+                    public Users doMethod(Connection dataBase) throws MyException, SQLException {
+                        PreparedStatement prep = dataBase.prepareStatement(
+                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL FROM USERS WHERE email=? AND pswd= ?"
+                        );
+                        prep.setString(1, email);
+                        prep.setString(2, password);
+
+                        java.sql.ResultSet res = prep.executeQuery();
+                        res.next();
+                        int id = res.getInt(1);
+                        boolean answer = false;
+                        if (id > 0) {
+                            //answer = true;
+                            String uname = res.getString(2);
+                            Integer utype = res.getInt(3);
+                            String email = res.getString(4);
+                            //String pswd = res.getString(5);
+                            Users user = new Users(id, uname);
+                            user.setId_ut(utype);
+                            user.setEmail(email);
+                            //user.setPswd();
+                            return user;
+                        }
+
+                        return null;
+                        //return null;  //To change body of implemented methods use File | Settings | File Templates.
+                    }
+                });
+
+            }
+
+            @Override
+            public Users find(final int id) throws MyException {
+                //return null;  //To change body of implemented methods use File | Settings | File Templates.
+                return booleanOperation(new WrapperDBOperation<Users>() {
+
+                    @Override
+                    public Users doMethod(Connection dataBase) throws MyException, SQLException {
+                        PreparedStatement prep = dataBase.prepareStatement(
+                                "SELECT * FROM Users WHERE id=?"
+                        );
+                        prep.setInt(1, id);
+                        //prep.setString(2,password);
+
+                        java.sql.ResultSet res = prep.executeQuery();
+                        res.next();
+                        int exist = res.getInt(1);
+                        Users user = new Users(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getInt(5));
+                        return user;
+                        //return null;  //To change body of implemented methods use File | Settings | File Templates.
+                    }
+                });
+            }
+        }
