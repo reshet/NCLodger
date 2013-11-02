@@ -249,7 +249,9 @@ input[type=submit]:active, input[type=reset]:active {
     float: right;
 }
 
+
 /*  GREETING    */
+
 .greeting {
     float: right;
     padding-right: 2em;
@@ -269,3 +271,34 @@ input[type=submit]:active, input[type=reset]:active {
 }
 a.orangelink{ text-decoration: none; color: #fa8736; }
 a.orangelink:hover{ text-decoration: none; color: #9ec7dd; }
+
+
+/* Sorating table */
+
+.sortable {width:980px; border:1px solid #c6d5e1; margin:0 auto 15px;}
+.sortable th {background:#254762; text-align: left; color:#cfdce7; border:1px solid #fff; }
+.sortable th h3 { font-size:12px; }
+.sortable td {padding:4px 6px 6px; border:1px solid #c6d5e1; }
+.sortable .head:hover, .sortable .desc:hover, .sortable .asc:hover {color:#fff}
+.sortable .evenrow td {background:#fff}
+.sortable .oddrow td {background:#ecf2f6}
+.sortable td.evenselected {background:#ecf2f6}
+.sortable td.oddselected {background:#dce6ee}
+
+#controls {width:980px; margin:0 auto; height:20px}
+#perpage {float:left; width:200px}
+#perpage select {float:left; width: 70px; height: 20px;}
+#perpage span {float:left; margin:2px 0 0 5px}
+#navigation {float:left; width:580px; text-align:center}
+#navigation img {cursor:pointer}
+#text {float:left; width:200px; text-align:right; margin-top:2px}
+
+
+/* Action Result */
+.actionres {
+    margin: 10px auto;
+    width: 960px;
+    background-color: #ffa464;
+    color: black;
+    padding: .5em;
+}
