@@ -198,7 +198,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public List<Users> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT * FROM USERS"
+                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL FROM USERS"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
