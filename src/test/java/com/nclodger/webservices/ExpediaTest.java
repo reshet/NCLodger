@@ -1,3 +1,4 @@
+/*
 package com.nclodger.webservices;
 
 import junit.framework.TestCase;
@@ -15,13 +16,15 @@ import java.net.*;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * Created with IntelliJ IDEA.
  * User: reshet
  * Date: 10/29/13
  * Time: 12:55 PM
  * To change this template use File | Settings | File Templates.
- */
+ *//*
+
 public class ExpediaTest extends TestCase{
     public static String ean_key = "eeay5hbnwsh6ghjfagwcvxus";
     public static String base_urlParams = "?cid=55505&minorRev=99&apiKey="+ean_key+"&locale=en_US&currencyCode=USD&xml=";
@@ -163,3 +166,4 @@ public class ExpediaTest extends TestCase{
         }
     }
 }
+*/

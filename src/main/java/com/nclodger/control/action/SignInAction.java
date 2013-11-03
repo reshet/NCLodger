@@ -22,7 +22,7 @@ public class SignInAction implements Action {
         Users user;
         try {
             user = users.getUserObj(request.getParameter("email"),request.getParameter("password"));
-            if(user!=null){
+            if(user!=null && user.get_confirm_register()==1){
                 request.getSession().setAttribute("username",user.getName());
                 request.getSession().setAttribute("utype",user.getId_ut());
             }
