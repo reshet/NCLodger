@@ -60,6 +60,8 @@
             <a href="">View all users</a>
         </div>
 
+        <%--<%
+        if(request.getAttribute("servlet_value") != null) {--%>
         <div class="actionres">
             All users:
         </div>
@@ -82,10 +84,6 @@
                 document.write('<td><a>John@example.org</a></td>');
                 document.write('</tr>');
 
-                document.write('<tr>');
-                document.write('<td>Fernando Torres</td>');
-                document.write('<td><a>Fernando@example.org</a></td>');
-                document.write('</tr>');
             </script>
             </tbody>
         </table>

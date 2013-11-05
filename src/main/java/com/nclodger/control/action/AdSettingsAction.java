@@ -6,15 +6,15 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created with IntelliJ IDEA.
  * User: Miredean
- * Date: 30.10.13
- * Time: 12:36
+ * Date: 05.11.13
+ * Time: 19:31
+ * To change this template use File | Settings | File Templates.
  */
-
-public class SmSettingsAction implements Action  {
+public class AdSettingsAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if(request.getSession().getAttribute("utype")!=null && (Integer)request.getSession().getAttribute("utype") == 2) {
-            return "smsettings";
+        if(request.getSession().getAttribute("utype")!=null && (Integer)request.getSession().getAttribute("utype") == 3) {
+            return "adsettings";
         }
         else {
             return "home";

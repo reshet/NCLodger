@@ -21,6 +21,7 @@
         var curMonth = myDate.getMonth();
         var curDay = myDate.getDay();
         var message = "Dear user, you might have entered invalid parameters:\n";
+        alert("PASSED:"+curMonth+"-"+curDay+"-"+curYear);
         if(document.searchfrm.min_price.value != ""){
             if(document.searchfrm.min_price.value < 0 || (!(/^[0-9]+$/).test(document.searchfrm.min_price.value))) {
                 message += "\nMinimum price; "
@@ -52,28 +53,29 @@
             message += "\nCity wasn't selected;"
             isValid = false;
         }
-        if((document.searchfrm.checkin_year.value <= curYear
-                && curMonth <= document.searchfrm.checkin_month.value
-                && curDay <= document.searchfrm.checkin_day.value )){
+        if( (curYear < document.searchfrm.checkin_year.value)
+            || (curYear == document.searchfrm.checkin_year.value && curMonth < document.searchfrm.checkin_month.value)
+            || (curYear == document.searchfrm.checkin_year.value && curMonth == document.searchfrm.checkin_month.value && curDay <= document.searchfrm.checkin_day.value)
+           ) {
             if(document.searchfrm.checkin_year.value == document.searchfrm.checkout_year.value){
                 if(document.searchfrm.checkin_month.value == document.searchfrm.checkout_month.value){
                     if(document.searchfrm.checkout_day.value <= document.searchfrm.checkin_day.value){
-                        message += "\nCheckin or checkout day;"
+                        message += "\nCheckout day;"
                         isValid = false;
                     }
                 }
                 if (document.searchfrm.checkout_month.value < document.searchfrm.checkin_month.value){
-                    message += "\nCheckin or checkout month;"
+                    message += "\nCheckout month;"
                     isValid = false;
                 }
             }
             if (document.searchfrm.checkout_year.value < document.searchfrm.checkin_year.value){
-                message += "\nCheckin or checkout year;"
+                message += "\nCheckout year;"
                 isValid = false;
             }
         }
         else {
-            message += "\nCheckin date is old;"
+            message += "\nCheckin/checkout date is old;"
             isValid = false;
         }
         if(!isValid) {
@@ -94,8 +96,6 @@
                 if(session.getAttribute("username") == null){
             %>
                     <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
-            <br><a href="" class="orangelink"><img src="img/user.gif">User dashboard</a>
-            <br><a href="smsettings" class="orangelink"><img src="img/user.gif">Sales manager dashboard</a>
             <%
                 }
                 else {
@@ -133,18 +133,18 @@
                         Check in: *&nbsp&nbsp
                         <select id="checkin_month" name="checkin_month">
                             <option value=""> - Month - </option>
-                            <option value="January">January</option>
-                            <option value="Febuary">Febuary</option>
-                            <option value="March">March</option>
-                            <option value="April">April</option>
-                            <option value="May">May</option>
-                            <option value="June">June</option>
-                            <option value="July">July</option>
-                            <option value="August">August</option>
-                            <option value="September">September</option>
-                            <option value="October">October</option>
-                            <option value="November">November</option>
-                            <option value="December">December</option>
+                            <option value="1">January</option>
+                            <option value="2">Febuary</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
                         </select> /
                         <select id="checkin_day" name="checkin_day">
                             <option value=""> - Day - </option>
@@ -186,18 +186,18 @@
                         Check out: *
                         <select id="checkout_month" name="checkout_month">
                             <option value=""> - Month - </option>
-                            <option value="January">January</option>
-                            <option value="Febuary">Febuary</option>
-                            <option value="March">March</option>
-                            <option value="April">April</option>
-                            <option value="May">May</option>
-                            <option value="June">June</option>
-                            <option value="July">July</option>
-                            <option value="August">August</option>
-                            <option value="September">September</option>
-                            <option value="October">October</option>
-                            <option value="November">November</option>
-                            <option value="December">December</option>
+                            <option value="1">January</option>
+                            <option value="2">Febuary</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
                         </select> /
                         <select id="checkout_day" name="checkout_day">
                             <option value=""> - Day - </option>
