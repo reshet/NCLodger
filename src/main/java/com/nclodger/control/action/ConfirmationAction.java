@@ -2,7 +2,11 @@ package com.nclodger.control.action;
 
 import com.nclodger.dao.ConfirmationEmailDAO;
 import com.nclodger.dao.UserDao;
+import com.nclodger.mail.MailConfirmation;
 import com.nclodger.myexception.MyException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +23,12 @@ public class ConfirmationAction implements Action {
         String hash = request.getParameter("confirmation");
 
         try {
-            ConfirmationEmailDAO ConMail = new ConfirmationEmailDAO();
+            ApplicationContext context = new ClassPathXmlApplicationContext("dao-bean-config.xml");
+            ConfirmationEmailDAO ConMail =(ConfirmationEmailDAO) context.getBean("conemailDAO");
             int userID = ConMail.getUserIDbyHash(hash);
             //Change user confirm status to 1
-            new UserDao().confirmRegisterByUserID(userID);
+            UserDao UserDAO = (UserDao) context.getBean("userDAO");
+            UserDAO.confirmRegisterByUserID(userID);
             ConMail.deleteByHash(hash);
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
