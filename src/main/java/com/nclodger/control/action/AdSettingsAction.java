@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
  * User: Miredean
  * Date: 05.11.13
  * Time: 19:31
- * To change this template use File | Settings | File Templates.
  */
 public class AdSettingsAction implements Action {
     @Override

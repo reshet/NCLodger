@@ -22,7 +22,6 @@ public class ActionFactory {
         actions.put("/smsettings", new SmSettingsAction());
         actions.put("/adsettings", new SmSettingsAction());
         actions.put("/confirmation", new ConfirmationAction());
-        //TODO: other actions
     }
 
     public static Action getAction(HttpServletRequest request) {
