@@ -269,7 +269,6 @@
                 </ul>
             </form>
         </div>
-
             <%
                 if(request.getAttribute("servlet_value") != null) {
                     List<Hotel> hotels = (List) request.getAttribute("servlet_value");
