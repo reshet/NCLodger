@@ -1,5 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.nclodger.webservices.Hotel" %>
+<%@ page import="com.nclodger.webservices.ExpediaSearcher" %>
+<%@ page import="org.json.JSONObject" %>
+<%@ page import="org.json.JSONException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -7,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Home</title>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 <!--[if lt IE 7]>
 <style type="text/css">
      #wrapper { height:100%; }
@@ -21,7 +24,7 @@
         var curMonth = myDate.getMonth();
         var curDay = myDate.getDay();
         var message = "Dear user, you might have entered invalid parameters:\n";
-        alert("PASSED:"+curMonth+"-"+curDay+"-"+curYear);
+        /*alert("PASSED:"+curMonth+"-"+curDay+"-"+curYear);*/
         if(document.searchfrm.min_price.value != ""){
             if(document.searchfrm.min_price.value < 0 || (!(/^[0-9]+$/).test(document.searchfrm.min_price.value))) {
                 message += "\nMinimum price; "
@@ -266,7 +269,6 @@
                 </ul>
             </form>
         </div>
-
             <%
                 if(request.getAttribute("servlet_value") != null) {
                     List<Hotel> hotels = (List) request.getAttribute("servlet_value");
@@ -279,6 +281,7 @@
                     }
                 }
             %>
+
     </div><!-- #content -->
 
     <div id="footer">
