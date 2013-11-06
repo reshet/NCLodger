@@ -22,9 +22,11 @@ public class ActionFactory {
         actions.put("/smsettings", new SmSettingsAction());
         actions.put("/adsettings", new SmSettingsAction());
         actions.put("/confirmation", new ConfirmationAction());
+        actions.put("/smgetallusers", new SmGetAllUsersAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
+
         return actions.get(request.getServletPath());
     }
 }

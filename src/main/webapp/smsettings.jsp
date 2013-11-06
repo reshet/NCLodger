@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.nclodger.dao.Users" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -56,11 +58,11 @@
 
     <div id="content">
         <div class="search">
-            <a href="">View all users</a>
+            <a href="smgetallusers">View all users</a>
         </div>
 
-        <%--<%
-        if(request.getAttribute("servlet_value") != null) {--%>
+        <%
+        if(request.getAttribute("allusers") != null) { %>
         <div class="actionres">
             All users:
         </div>
@@ -72,7 +74,7 @@
             </tr>
             </thead>
             <tbody>
-            <script>
+           <%-- <script>
                 document.write('<tr>');
                 document.write('<td>Iaroslav Dmytruk</td>');
                 document.write('<td><a>Iaroslav@example.org</a></td>');
@@ -83,7 +85,19 @@
                 document.write('<td><a>John@example.org</a></td>');
                 document.write('</tr>');
 
-            </script>
+            </script>--%>
+
+            <%
+                List<Users> allusers = (List) request.getAttribute("allusers");
+
+                for(Users user : allusers) {
+                    out.println("<tr>");
+                    out.print("<td>"+user.getName()+"</td>");
+                    out.print("<td>"+user.getEmail()+"</td>");
+                    out.println("</tr>");
+
+                }
+            %>
             </tbody>
         </table>
         <div id="controls">
@@ -119,6 +133,7 @@
             sorter.limitid = "pagelimit";
             sorter.init("table",1);
         </script>
+        <%}%>
     </div><!-- #content -->
 
     <div id="footer">

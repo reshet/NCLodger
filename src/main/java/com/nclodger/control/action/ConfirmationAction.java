@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ConfirmationAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String hash = request.getParameter("confirmation");
+        String hash = request.getParameter("param");
 
         try {
             ApplicationContext context = new ClassPathXmlApplicationContext("dao-bean-config.xml");

@@ -81,6 +81,7 @@ public class UserDao implements UserDaoInterface {
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
+                //dataBase.
                 Statement st = dataBase.createStatement();
                 java.sql.ResultSet res = st.executeQuery("SELECT id FROM Users WHERE " +
                         "id=" + _user.getId() + ";");
@@ -101,7 +102,7 @@ public class UserDao implements UserDaoInterface {
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 Statement st = dataBase.createStatement();
                 PreparedStatement prepGetUserID = dataBase.prepareStatement(
-                        "SELECT ID_USER FROM USERS WHERE WHERE ID_USER=?"
+                        "SELECT ID_USER FROM USERS WHERE ID_USER=?"
                 );
                 prepGetUserID.setInt(1, userID);
                 java.sql.ResultSet res = prepGetUserID.executeQuery();
@@ -111,7 +112,8 @@ public class UserDao implements UserDaoInterface {
                     PreparedStatement prepSetUserConfirmStatus = dataBase.prepareStatement(
                             "UPDATE USERS SET CONFIRM_REGISTER =1 WHERE ID_USER=?"
                     );
-                    java.sql.ResultSet execUpdation = prepGetUserID.executeQuery();
+                    prepSetUserConfirmStatus.setInt(1, userID);
+                    java.sql.ResultSet execUpdation = prepSetUserConfirmStatus.executeQuery();
                     execUpdation.next();
                 } catch (Exception ex) {
                     throw new MyException(ex.getMessage());
@@ -228,7 +230,7 @@ public class UserDao implements UserDaoInterface {
                     @Override
                     public Users doMethod(Connection dataBase) throws MyException, SQLException {
                         PreparedStatement prep = dataBase.prepareStatement(
-                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL FROM USERS WHERE email=? AND pswd= ?"
+                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL, CONFIRM_REGISTER FROM USERS WHERE email=? AND pswd= ?"
                         );
                         prep.setString(1, email);
                         prep.setString(2, password);
@@ -242,10 +244,13 @@ public class UserDao implements UserDaoInterface {
                             String uname = res.getString(2);
                             Integer utype = res.getInt(3);
                             String email = res.getString(4);
+                            Integer confirmed = res.getInt(5);
                             //String pswd = res.getString(5);
                             Users user = new Users(id, uname);
                             user.setId_ut(utype);
+
                             user.setEmail(email);
+                            user.set_confirm_register(confirmed);
                             //user.setPswd();
                             return user;
                         }

@@ -13,6 +13,7 @@ import java.util.Properties;
  */
 
 
+//@Componennt("mail")
 public class MailConfirmation {
 
 
