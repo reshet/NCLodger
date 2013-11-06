@@ -29,7 +29,8 @@ public class SearchAction implements Action {
                 (request.getParameter("checkout_year"));
         String city = request.getParameter("city");
         String country = request.getParameter("country");
-        String results = searcher.searchHotels(country,city,checkin,checkout,2,10);
+        //String results = searcher.searchHotels(country,city,"10/5/2013","10/6/2013",2,10);
+        String results = searcher.searchHotels(country,city,"11/28/2013","11/30/2013",2,10);
         JSONObject resp = searcher.parseResults(results);
         List<Hotel> hotels = searcher.getHotelsList(resp);
         request.setAttribute("servlet_value",hotels);
