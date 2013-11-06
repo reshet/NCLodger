@@ -7,6 +7,8 @@ import com.nclodger.dao.Users;
 import com.nclodger.dao.ConfirmationEmailDAO;
 import com.nclodger.mail.MailConfirmation;
 import com.nclodger.myexception.MyException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 //import org.springframework.context.annotation.Bean;
 
 //import javax.inject.Inject;
@@ -24,19 +26,25 @@ public class SignUpAction implements Action {
     UserDao users;
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
-        users = new UserDao();
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[] {"dao-bean-config.xml",
+                        "additional-bean-config.xml","mail-bean-config.xml"});
+        UserDao users = (UserDao) ctx.getBean("userDAO");
+
         boolean bool;
         Users user;
         try {
             user = new Users(1,request.getParameter("email"),request.getParameter("password1"),request.getParameter("username"),0);
             bool = users.insert(user);
             Users user_stored = users.getUserObj(user.getEmail(),user.getPswd());
-            ConfirmationEmailDAO ConEmail = new ConfirmationEmailDAO();
+            ConfirmationEmailDAO ConEmail =(ConfirmationEmailDAO) ctx.getBean("conemailDAO");
+
             //get hash
-            String hash = new MD5Value().getmd5value(user.getEmail()+"."+user.getPswd());
+            MD5Value MD = (MD5Value) ctx.getBean("md5value");
+            String hash = MD.getmd5value(user.getEmail()+"."+user.getPswd());
             ConEmail.insert(new ConfirmationEmail(user_stored.getId(),hash));
             //send mail
-            new MailConfirmation().sendMail(user.getEmail(),"http://"+request.getLocalAddr()+":8080/NCLodger/confirmation?param="+hash);
+            MailConfirmation mailconfirm =(MailConfirmation) ctx.getBean("mailconfirmation");
+            mailconfirm.sendMail(user.getEmail(),"http://"+request.getLocalAddr()+":8080/NCLodger/confirmation?param="+hash);
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";

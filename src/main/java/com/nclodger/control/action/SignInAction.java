@@ -1,8 +1,11 @@
 package com.nclodger.control.action;
 
+import com.nclodger.dao.ConfirmationEmailDAO;
 import com.nclodger.dao.UserDao;
 import com.nclodger.dao.Users;
 import com.nclodger.myexception.MyException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +21,8 @@ public class SignInAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
-        users = new UserDao();
+        ApplicationContext context = new ClassPathXmlApplicationContext("dao-bean-config.xml");
+        UserDao users = (UserDao) context.getBean("userDAO");
         Users user;
         try {
             user = users.getUserObj(request.getParameter("email"),request.getParameter("password"));
