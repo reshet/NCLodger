@@ -17,6 +17,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class SearchAction implements Action {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ExpediaSearcher searcher = new ExpediaSearcher();

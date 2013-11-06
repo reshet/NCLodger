@@ -175,7 +175,7 @@ input {
 input[type=text], input[type=password] , select {
   margin: 5px;
   padding: 0 10px;
-  width: 300px;
+  width: 270px;
   height: 34px;
   color: #404040;
   background: white;
