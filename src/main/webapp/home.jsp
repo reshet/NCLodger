@@ -21,7 +21,6 @@
         var curMonth = myDate.getMonth();
         var curDay = myDate.getDay();
         var message = "Dear user, you might have entered invalid parameters:\n";
-        alert("PASSED:"+curMonth+"-"+curDay+"-"+curYear);
         if(document.searchfrm.min_price.value != ""){
             if(document.searchfrm.min_price.value < 0 || (!(/^[0-9]+$/).test(document.searchfrm.min_price.value))) {
                 message += "\nMinimum price; "
