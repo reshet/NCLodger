@@ -30,7 +30,6 @@ public class SearchAction implements Action {
         String city = request.getParameter("city");
         String country = request.getParameter("country");
         String results = searcher.searchHotels(country,city,checkin,checkout,2,10);
-        //System.out.println(results);
         JSONObject resp = searcher.parseResults(results);
         List<Hotel> hotels = searcher.getHotelsList(resp);
         request.setAttribute("servlet_value",hotels);
