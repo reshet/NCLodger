@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Home</title>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 <!--[if lt IE 7]>
 <style type="text/css">
      #wrapper { height:100%; }
