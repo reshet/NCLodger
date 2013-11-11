@@ -236,7 +236,7 @@ input[type=submit]:active, input[type=reset]:active {
     border: gray thin solid;
 }
 .search select {
-    width: 110px;
+    width: 80px;
 }
 .search input {
     width: 60px;
@@ -248,7 +248,9 @@ input[type=submit]:active, input[type=reset]:active {
 .search li input[type=submit],input[type=reset]  {
     float: right;
 }
-
+#checkin_month, #checkout_month {
+    width: 100px;
+}
 
 /*  GREETING    */
 
