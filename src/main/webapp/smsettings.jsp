@@ -1,5 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="com.nclodger.dao.Users" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -69,14 +67,15 @@
             %>
             Hello, <%=session.getAttribute("username")%>!
             <br><a href="signout">Log out</a>
+            <br><a href="" class="orangelink"><img src="img/user.gif">User dashboard</a>
             <%
                 }
             %>
-            <%
+<%--            <%
                 if ((Integer) session.getAttribute("utype") == (Integer) 2) {
             %>
             <br><a href="smsettings" class="orangelink"><img src="resources/img/user.gif">Sales manager actions</a>
-            <% } %>
+            <% } %>--%>
         </div>
 
         <div class="nav">
