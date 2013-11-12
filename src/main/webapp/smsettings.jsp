@@ -3,12 +3,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>NCLodger | Settings: sales manager</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
     <script type="text/javascript" src="js/sorttable.js"></script>
     <!--[if lt IE 7]>
 
@@ -24,7 +26,7 @@
     <![endif]-->
     <style type="text/css">
         .sortable .head h3 {
-            background: url(img/sort.gif) 7px center no-repeat;
+            background: url(resources/img/sort.gif) 7px center no-repeat;
             cursor: pointer;
             padding-left: 18px
         }
@@ -36,14 +38,14 @@
 
             /* selected header */
         .sortable .desc h3 {
-            background: url(img/desc.gif) 7px center no-repeat;
+            background: url(resources/img/desc.gif) 7px center no-repeat;
             cursor: pointer;
             padding-left: 18px
         }
 
             /* dsc arrpw */
         .sortable .asc h3 {
-            background: url(img/asc.gif) 7px center no-repeat;
+            background: url(resources/img/asc.gif) 7px center no-repeat;
             cursor: pointer;
             padding-left: 18px
         }
