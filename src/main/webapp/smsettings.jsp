@@ -5,11 +5,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
-<%--xmlns:c="http://java.sun.com/jsp/jstl/core" >--%>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>NCLodger | Settings: sales manager</title>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script type="text/javascript" src="js/sorttable.js"></script>
     <!--[if lt IE 7]>
     <style type="text/css">
         #wrapper {
@@ -88,8 +88,8 @@
             <a href="smgetallusers">View all users</a>
         </div>
 
-        <%--<%--%>
-        <%--if(request.getAttribute("allusers") != null) { %>--%>
+
+        <%--<% if(request.getAttribute("allusers") != null) { %>--%>
         <c:if test="${requestScope.allusers != null}">
 
             <div class="actionres">
@@ -103,18 +103,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <%-- <script>
-                         document.write('<tr>');
-                         document.write('<td>Iaroslav Dmytruk</td>');
-                         document.write('<td><a>Iaroslav@example.org</a></td>');
-                         document.write('</tr>');
+                     <%--<script>--%>
+                         <%--document.write('<tr>');--%>
+                         <%--document.write('<td>Iaroslav Dmytruk</td>');--%>
+                         <%--document.write('<td><a>Iaroslav@example.org</a></td>');--%>
+                         <%--document.write('</tr>');--%>
 
-                         document.write('<tr>');
-                         document.write('<td>John Terry</td>');
-                         document.write('<td><a>John@example.org</a></td>');
-                         document.write('</tr>');
+                         <%--document.write('<tr>');--%>
+                         <%--document.write('<td>John Terry</td>');--%>
+                         <%--document.write('<td><a>John@example.org</a></td>');--%>
+                         <%--document.write('</tr>');--%>
 
-                     </script>--%>
+                     <%--</script>--%>
 
                     <%--<%--%>
                     <%--List<Users> allusers = (List) request.getAttribute("allusers");--%>
