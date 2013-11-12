@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Home</title>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 <!--[if lt IE 7]>
 <style type="text/css">
      #wrapper { height:100%; }
@@ -135,7 +135,7 @@
                     <li> <!--    CHECK IN    -->
                         Check in: *&nbsp&nbsp
                         <select id="checkin_month" name="checkin_month">
-                            <option value=""> - Month - </option>
+                            <option value="">Month</option>
                             <option value="1">January</option>
                             <option value="2">Febuary</option>
                             <option value="3">March</option>
@@ -150,7 +150,7 @@
                             <option value="12">December</option>
                         </select> /
                         <select id="checkin_day" name="checkin_day">
-                            <option value=""> - Day - </option>
+                            <option value="">Day</option>
                             <script>
                                 for(var i = 1; i <= 31; i++){
                                     document.write('<option value="'+i+'">'+i+'</option>');
@@ -158,7 +158,7 @@
                             </script>
                         </select> /
                         <select id="checkin_year" name="checkin_year">
-                            <option value=""> - Year - </option>
+                            <option value="">Year</option>
                             <script>
                                 var myDate = new Date();
                                 var year = myDate.getFullYear();
@@ -170,15 +170,15 @@
                     </li>
                     <li>
                         Country: *
-                        <select id="country" name="country" style="width: 130px;">
-                            <option value=""> - Choose - </option>
+                        <select id="country" name="country" style="width: 100px;">
+                            <option value=""> --- </option>
                             <option value="UA">Ukraine</option>
                         </select>
                     </li>
                     <li>
                         City: *
-                        <select id="city" name="city" style="width: 130px;">
-                            <option value=""> - Choose - </option>
+                        <select id="city" name="city" style="width: 100px;">
+                            <option value=""> --- </option>
                             <option value="Kiev">Kiev</option>
                             <option value="Lviv">Lviv</option>
                         </select>
@@ -188,7 +188,7 @@
                     <li>  <!--    CHECK OUT   -->
                         Check out: *
                         <select id="checkout_month" name="checkout_month">
-                            <option value=""> - Month - </option>
+                            <option value="">Month</option>
                             <option value="1">January</option>
                             <option value="2">Febuary</option>
                             <option value="3">March</option>
@@ -203,7 +203,7 @@
                             <option value="12">December</option>
                         </select> /
                         <select id="checkout_day" name="checkout_day">
-                            <option value=""> - Day - </option>
+                            <option value="">Day</option>
                             <script>
                                 for(var i = 1; i <= 31; i++){
                                     document.write('<option value="'+i+'">'+i+'</option>');
@@ -211,7 +211,7 @@
                             </script>
                         </select> /
                         <select id="checkout_year" name="checkout_year">
-                            <option value=""> - Year - </option>
+                            <option value="">Year</option>
                             <script>
                                 var myDate = new Date();
                                 var year = myDate.getFullYear();
@@ -236,7 +236,6 @@
                     <li>
                         Adults(18+):
                         <select id="guests_adults" name="guests_adults" style="width: 60px">
-                            <option value="">-</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
