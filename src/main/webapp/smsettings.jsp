@@ -11,7 +11,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>NCLodger | Settings: sales manager</title>
     <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
-    <script type="text/javascript" src="js/sorttable.js"></script>
+    <script type="text/javascript" src="resources/js/sorttable.js"></script>
     <!--[if lt IE 7]>
 
 
@@ -75,7 +75,7 @@
             <%
                 if ((Integer) session.getAttribute("utype") == (Integer) 2) {
             %>
-            <br><a href="smsettings" class="orangelink"><img src="img/user.gif">Sales manager actions</a>
+            <br><a href="smsettings" class="orangelink"><img src="resources/img/user.gif">Sales manager actions</a>
             <% } %>
         </div>
 
@@ -155,10 +155,10 @@
                     <span>Entries Per Page</span>
                 </div>
                 <div id="navigation">
-                    <img src="img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                    <img src="img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                    <img src="img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                    <img src="img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                    <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                    <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                    <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                    <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                 </div>
                 <div id="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
             </div>
