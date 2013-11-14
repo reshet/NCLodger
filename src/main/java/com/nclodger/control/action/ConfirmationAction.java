@@ -23,7 +23,7 @@ public class ConfirmationAction implements Action {
         String hash = request.getParameter("param");
 
         try {
-            ApplicationContext context = new ClassPathXmlApplicationContext("dao-bean-config.xml");
+            ApplicationContext context = new ClassPathXmlApplicationContext("bean-config.xml");
             ConfirmationEmailDAO ConMail =(ConfirmationEmailDAO) context.getBean("conemailDAO");
             int userID = ConMail.getUserIDbyHash(hash);
             //Change user confirm status to 1

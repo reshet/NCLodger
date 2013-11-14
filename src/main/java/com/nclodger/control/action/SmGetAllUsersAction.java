@@ -23,7 +23,7 @@ public class SmGetAllUsersAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-            ApplicationContext context = new ClassPathXmlApplicationContext("dao-bean-config.xml");
+            ApplicationContext context = new ClassPathXmlApplicationContext("bean-config.xml");
             UserDao userDAO = (UserDao) context.getBean("userDAO");
             List<Users> users = userDAO.getAllUsers();
             request.setAttribute("allusers",users);

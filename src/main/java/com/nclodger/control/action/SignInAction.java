@@ -21,7 +21,7 @@ public class SignInAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
-        ApplicationContext context = new ClassPathXmlApplicationContext("dao-bean-config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean-config.xml");
         UserDao users = (UserDao) context.getBean("userDAO");
         Users user;
         try {
