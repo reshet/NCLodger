@@ -11,12 +11,6 @@
     <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
     <script type="text/javascript" src="resources/js/sorttable.js"></script>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
-    <!-- Optional Mousewheel support: http://brandonaaron.net/code/mousewheel/docs -->
-    <script type="text/javascript" src="PATH/TO/YOUR/COPY/OF/jquery.mousewheel.min.js"></script>
-    <script type="text/javascript" src="http://dev.jtsage.com/cdn/spinbox/latest/jqm-spinbox.min.js"></script>
-
     <!--[if lt IE 7]>
     <style type="text/css">
         #wrapper {
