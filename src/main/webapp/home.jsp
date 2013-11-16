@@ -107,7 +107,8 @@
 <div id="wrapper">
 
     <div id="header">
-        <div class="greeting">
+        <jsp:include page="header.jsp"/>
+      <%--  <div class="greeting">
             <%
                 if(session.getAttribute("username") == null){
             %>
@@ -138,7 +139,7 @@
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contacts</a></li>
             </ul>
-        </div>
+        </div>--%>
     </div><!-- #header -->
 
     <div id="content">
@@ -186,7 +187,7 @@
                     <c:set var="cities" value="${fn:split('Lviv,Kyiv', ',')}" scope="session" />
                     <c:set var="adults" value="${fn:split('1,2,3,4,5,6,7,8', ',')}" scope="session" />
                     <c:set var="children" value="${fn:split('0,1,2,3,4,5,6,7,8', ',')}" scope="session" />
-                    <c:set var="currencies" value="${fn:split('$,€,UAH', ',')}" scope="session" />
+                    <c:set var="currencies" value="${fn:split('USD,EUR,UAH', ',')}" scope="session" />
 
 
 
@@ -288,7 +289,7 @@
                 </ul>
             </form>
         </div>
-            <%
+          <%--  <%
                 if(request.getAttribute("servlet_value") != null) {
                     List<Hotel> hotels = (List) request.getAttribute("servlet_value");
 
@@ -299,7 +300,32 @@
                         out.println("</div>");
                     }
                 }
-            %>
+            %>--%>
+
+        <c:forEach items="${requestScope.hotels}" var="hotel">
+            <div class="search">
+                <p style="padding-left: 10px;">
+                   <c:if test="${hotel.getImage_url() != null}">
+                    <img src="${hotel.getImage_url()}"/>
+                   </c:if>
+                ${hotel.getName()}</p>
+                <p>
+                     Address:   ${hotel.getAddress()}
+                </p>
+                <p>
+                    Type:  ${hotel.getRoomType()}
+                </p>
+
+                <p>
+                    Prices:   ${hotel.getPrice()}
+                </p>
+
+                <p>
+                    Occupancy:    ${hotel.getRoomOccupancy()}
+                </p>
+
+            </div>
+        </c:forEach>
 
     </div><!-- #content -->
 

@@ -12,6 +12,12 @@ public class Hotel {
     private final String name;
     private Double loc_lat;
     private Double loc_lng;
+    private String image_url;
+    private String address;
+    private String price;
+    private String roomType;
+    private String roomOccupancy;
+
 
     public Hotel(Integer id, String name, Double loc_lat, Double loc_lng) {
         this.id = id;
@@ -46,5 +52,45 @@ public class Hotel {
 
     public String getName() {
         return name;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public void setRoomOccupancy(String roomOccupancy){
+        this.roomOccupancy = roomOccupancy;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public String getRoomOccupancy() {
+        return roomOccupancy;
     }
 }
