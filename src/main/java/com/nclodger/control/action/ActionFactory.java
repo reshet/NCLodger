@@ -23,6 +23,9 @@ public class ActionFactory {
         actions.put("/adsettings", new SmSettingsAction());
         actions.put("/confirmation", new ConfirmationAction());
         actions.put("/smgetallusers", new SmGetAllUsersAction());
+        actions.put("/acdetails", new ACDetailsAction());
+        actions.put("/orderstart", new OrderStartAction());
+        actions.put("/orderfinish", new OrderFinishAction());
     }
 
     public static Action getAction(HttpServletRequest request) {

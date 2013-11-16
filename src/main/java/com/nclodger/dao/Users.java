@@ -1,5 +1,7 @@
 package com.nclodger.dao;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: antoshka
@@ -7,7 +9,7 @@ package com.nclodger.dao;
  * Time: 9:01
  * To change this template use File | Settings | File Templates.
  */
-public class Users {
+public class Users implements Serializable{
     private int id;
     private String email;
     private String pswd;

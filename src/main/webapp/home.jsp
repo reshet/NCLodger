@@ -184,7 +184,7 @@
                         </select>--%>
                     </li>
                     <c:set var="countries" value="${fn:split('UA,USA', ',')}" scope="session" />
-                    <c:set var="cities" value="${fn:split('Lviv,Kyiv', ',')}" scope="session" />
+                    <c:set var="cities" value="${fn:split('Lviv,Kiev', ',')}" scope="session" />
                     <c:set var="adults" value="${fn:split('1,2,3,4,5,6,7,8', ',')}" scope="session" />
                     <c:set var="children" value="${fn:split('0,1,2,3,4,5,6,7,8', ',')}" scope="session" />
                     <c:set var="currencies" value="${fn:split('USD,EUR,UAH', ',')}" scope="session" />
@@ -310,7 +310,7 @@
                    </c:if>
                 ${hotel.getName()}</p>
                 <p>
-                     Address:   ${hotel.getAddress()}
+                    Address:   ${hotel.getAddress()}
                 </p>
                 <p>
                     Type:  ${hotel.getRoomType()}
@@ -323,6 +323,11 @@
                 <p>
                     Occupancy:    ${hotel.getRoomOccupancy()}
                 </p>
+                <%--<form name="searchfrm" method="POST" action="acdetails">
+                    <input type="hidden" name="currentac" value="${hotel}">
+                    <input type="submit" ></input>
+               </form>--%>
+               <a href="acdetails?idhotel=${hotel.id}">Details&rarr;</a>
 
             </div>
         </c:forEach>

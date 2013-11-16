@@ -1,5 +1,6 @@
 package com.nclodger.webservices;
 
+import com.nclodger.myexception.MyException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,12 +97,13 @@ public class ExpediaSearcher {
         return map_hotels;  //To change body of created methods use File | Settings | File Templates.
     }
 
-    public List<Hotel> getHotelsList(JSONObject resp) {
+    public List<Hotel> getHotelsList(JSONObject resp) throws MyException{
         List<Hotel> list = new ArrayList<Hotel>();
         JSONArray hotels = null;
         if(resp == null) return list;
         try {
             if(resp.has("HotelListResponse")){
+                if(!resp.getJSONObject("HotelListResponse").has("HotelList")) throw new MyException("Hotels not found");
                 hotels = resp.getJSONObject("HotelListResponse").getJSONObject("HotelList").getJSONArray("HotelSummary");
 
                 for(int i = 0; i < hotels.length();i++){
@@ -136,6 +138,13 @@ public class ExpediaSearcher {
                     if(room!=null){
                         String room_type = room.getString("roomDescription");
                         String room_occupancy = room.getString("maxRoomOccupancy");
+                        JSONObject rateinfo = room.getJSONObject("RateInfos").getJSONObject("RateInfo");
+                        JSONObject rates = rateinfo.getJSONObject("ChargeableRateInfo").getJSONObject("NightlyRatesPerRoom");
+                        JSONArray arr = rates.getJSONArray("NightlyRate");
+                        JSONObject rate_obj = arr.getJSONObject(0);
+                        String baserate = rate_obj.getString("@baseRate");
+                        Double ratepr  = Double.parseDouble(baserate);
+                        h1.setRoomPrice(ratepr);
                         h1.setRoomType(room_type);
                         h1.setRoomOccupancy(room_occupancy);
                     }

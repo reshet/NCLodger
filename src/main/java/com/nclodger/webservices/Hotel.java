@@ -1,5 +1,7 @@
 package com.nclodger.webservices;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: reshet
@@ -7,7 +9,7 @@ package com.nclodger.webservices;
  * Time: 3:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Hotel {
+public class Hotel implements Serializable {
     private final Integer id;
     private final String name;
     private Double loc_lat;
@@ -17,6 +19,7 @@ public class Hotel {
     private String price;
     private String roomType;
     private String roomOccupancy;
+    private Double roomPrice;
 
 
     public Hotel(Integer id, String name, Double loc_lat, Double loc_lng) {
@@ -92,5 +95,13 @@ public class Hotel {
 
     public String getRoomOccupancy() {
         return roomOccupancy;
+    }
+
+    public Double getRoomPrice() {
+        return roomPrice;
+    }
+
+    public void setRoomPrice(Double roomPrice) {
+        this.roomPrice = roomPrice;
     }
 }

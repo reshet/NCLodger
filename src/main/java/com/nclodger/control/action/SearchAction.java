@@ -57,6 +57,7 @@ public class SearchAction implements Action {
         JSONObject resp = searcher.parseResults(results);
         List<Hotel> hotels = searcher.getHotelsList(resp);
         request.setAttribute("hotels",hotels);
+        request.getSession().setAttribute("hotels",hotels);
         /*try {
             //Integer eResponse = resp.getJSONObject("HotelListResponse").getInt("numberOfRoomsRequested");
             List<Hotel> hotels = searcher.getHotelsList(resp);

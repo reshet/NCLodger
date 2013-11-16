@@ -29,6 +29,8 @@ public class SignInAction implements Action {
             if(user!=null && user.get_confirm_register()==1){
                 request.getSession().setAttribute("username",user.getName());
                 request.getSession().setAttribute("utype",user.getId_ut());
+                request.getSession().setAttribute("userfull",user);
+
             }
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
