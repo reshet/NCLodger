@@ -44,7 +44,7 @@
         else { document.getElementById("span_email").style.display = 'none'; }
 
         if(isValid){
-            document.regfrm.password1.value = hex_md5(document.regfrm.password1.value);
+            document.regfrm.password.value = hex_md5(document.regfrm.password1.value);
         }
         return isValid;
     }
@@ -78,6 +78,7 @@
                 <p>Password:<input type="password" name="password1" maxlength="20"></p>
                 <span id="span_pswd1">Password must contain only latin letters and numbers (6 to 20 symbols)!</span>
                 <p>Confirm password:<input type="password" name="password2" maxlength="20"></p>
+                <input type="hidden" name="password" maxlength="20">
                 <span id="span_pswd2">Passwords do not match!</span>
                 <p class="submit">
                     <input type="reset" name="reset" value="Reset">

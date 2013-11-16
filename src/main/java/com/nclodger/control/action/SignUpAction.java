@@ -32,7 +32,7 @@ public class SignUpAction implements Action {
         boolean bool;
         Users user;
         try {
-            user = new Users(1,request.getParameter("email"),request.getParameter("password1"),request.getParameter("username"),0);
+            user = new Users(1,request.getParameter("email"),request.getParameter("password"),request.getParameter("username"),0);
             bool = users.insert(user);
             Users user_stored = users.getUserObj(user.getEmail(),user.getPswd());
             ConfirmationEmailDAO ConEmail =(ConfirmationEmailDAO) ctx.getBean("conemailDAO");

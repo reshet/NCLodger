@@ -27,9 +27,9 @@ import java.util.TreeMap;
 public class ExpediaSearcher {
 
     public static String ean_key = "eeay5hbnwsh6ghjfagwcvxus";
-    public static String base_urlParams = "?cid=55505&minorRev=99&apiKey="+ean_key+"&locale=en_US&currencyCode=USD&xml=";
+    public static String base_urlParams = "?cid=55505&minorRev=99&apiKey="+ean_key+"&locale=en_US";
     public static String base_urlString = "https://api.eancdn.com/ean-services/rs/hotel/v3/";
-    public String searchHotels(String state, String city, String arrival, String departure, int adults, int limit) {
+    public String searchHotels(String state, String city, String arrival, String departure,String currency, int adults, int limit) {
         String xml_body = "<HotelListRequest>\n" +
                 "    <city>"+city+"</city>\n" +
                 "    <countryCode>"+state+"</countryCode>\n" +
@@ -44,7 +44,8 @@ public class ExpediaSearcher {
                 "</HotelListRequest>";
         URLConnection conn = null;
         try {
-            String urlString = base_urlString+ "list"+base_urlParams+ URLEncoder.encode(xml_body, "ISO-8859-1");
+
+            String urlString = base_urlString+ "list"+base_urlParams + "&currencyCode="+currency+"&xml="+ URLEncoder.encode(xml_body, "ISO-8859-1");
             URL url = new URL(urlString);
             conn = url.openConnection();
             InputStream is = conn.getInputStream();
@@ -109,10 +110,39 @@ public class ExpediaSearcher {
                     String name = hotel.getString("name");
                     Double loc_lat = hotel.getDouble("latitude");
                     Double loc_lng = hotel.getDouble("longitude");
+                    String address = hotel.getString("address1");
+                    String img_small_url = hotel.getString("thumbNailUrl");
+                    String price = hotel.getString("lowRate")+"-"+hotel.getString("highRate")+" "+hotel.getString("rateCurrencyCode");
+                    JSONObject room = null;
+                    if(hotel.has("RoomRateDetailsList")){
+                        JSONObject rooms = hotel.getJSONObject("RoomRateDetailsList");
+                        if(rooms.get("RoomRateDetails") instanceof JSONObject)
+                        {
+                            room = rooms.getJSONObject("RoomRateDetails");
+                        }else{
+                            if(rooms.get("RoomRateDetails") instanceof JSONArray){
+                                room = rooms.getJSONArray("RoomRateDetails").getJSONObject(0);
+                            }
+                        }
+                    }
+
+
+                    img_small_url  = "http://images.travelnow.com/"+img_small_url;
+                    Hotel h1 =new Hotel(id,name,loc_lat,loc_lng);
+                    if(!img_small_url.equals("http://images.travelnow.com/"))h1.setImage_url(img_small_url);
+
+                    h1.setAddress(address);
+                    h1.setPrice(price);
+                    if(room!=null){
+                        String room_type = room.getString("roomDescription");
+                        String room_occupancy = room.getString("maxRoomOccupancy");
+                        h1.setRoomType(room_type);
+                        h1.setRoomOccupancy(room_occupancy);
+                    }
 
                     //map_hotels.put(id,name);
                     //System.out.println("ID: "+id+", name: "+name);
-                    list.add(new Hotel(id,name,loc_lat,loc_lng));
+                    list.add(h1);
                 }
             }
 
