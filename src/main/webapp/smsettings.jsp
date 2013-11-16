@@ -10,12 +10,14 @@
     <title>NCLodger | Settings: sales manager</title>
     <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
     <script type="text/javascript" src="resources/js/sorttable.js"></script>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+    <!-- Optional Mousewheel support: http://brandonaaron.net/code/mousewheel/docs -->
+    <script type="text/javascript" src="PATH/TO/YOUR/COPY/OF/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="http://dev.jtsage.com/cdn/spinbox/latest/jqm-spinbox.min.js"></script>
+
     <!--[if lt IE 7]>
-
-
-
-
-
     <style type="text/css">
         #wrapper {
             height: 100%;
@@ -90,8 +92,24 @@
     <!-- #header -->
 
     <div id="content">
+
+        <div data-role="fieldcontain">
+            <label for="agency_com">Agency comission:</label>
+            <input type="range" name="agency_com" id="agency_com" value="" min="3" max="17" />
+        </div>
+
+        <div data-role="fieldcontain">
+            <label for="user_discount">User discount:</label>
+            <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
+        </div>
+
+        <div data-role="fieldcontain">
+            <label for="vip_user_discount">VIP User discount:</label>
+            <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
+        </div>
+
         <div class="search">
-            <a href="smgetallusers">View all users</a>
+            <a href="smgetallusers">All users</a>
         </div>
 
 
