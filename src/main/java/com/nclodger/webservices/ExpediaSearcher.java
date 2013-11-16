@@ -25,6 +25,7 @@ import java.util.TreeMap;
  * To change this template use File | Settings | File Templates.
  */
 public class ExpediaSearcher {
+
     public static String ean_key = "eeay5hbnwsh6ghjfagwcvxus";
     public static String base_urlParams = "?cid=55505&minorRev=99&apiKey="+ean_key+"&locale=en_US&currencyCode=USD&xml=";
     public static String base_urlString = "https://api.eancdn.com/ean-services/rs/hotel/v3/";
@@ -99,19 +100,22 @@ public class ExpediaSearcher {
         JSONArray hotels = null;
         if(resp == null) return list;
         try {
-            hotels = resp.getJSONObject("HotelListResponse").getJSONObject("HotelList").getJSONArray("HotelSummary");
+            if(resp.has("HotelListResponse")){
+                hotels = resp.getJSONObject("HotelListResponse").getJSONObject("HotelList").getJSONArray("HotelSummary");
 
-            for(int i = 0; i < hotels.length();i++){
-                JSONObject hotel = hotels.getJSONObject(i);
-                Integer id = hotel.getInt("hotelId");
-                String name = hotel.getString("name");
-                Double loc_lat = hotel.getDouble("latitude");
-                Double loc_lng = hotel.getDouble("longitude");
+                for(int i = 0; i < hotels.length();i++){
+                    JSONObject hotel = hotels.getJSONObject(i);
+                    Integer id = hotel.getInt("hotelId");
+                    String name = hotel.getString("name");
+                    Double loc_lat = hotel.getDouble("latitude");
+                    Double loc_lng = hotel.getDouble("longitude");
 
-                //map_hotels.put(id,name);
-                //System.out.println("ID: "+id+", name: "+name);
-                list.add(new Hotel(id,name,loc_lat,loc_lng));
+                    //map_hotels.put(id,name);
+                    //System.out.println("ID: "+id+", name: "+name);
+                    list.add(new Hotel(id,name,loc_lat,loc_lng));
+                }
             }
+
         } catch (JSONException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

@@ -1,9 +1,14 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.nclodger.webservices.Hotel" %>
 <%@ page import="com.nclodger.webservices.ExpediaSearcher" %>
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="org.json.JSONException" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -11,12 +16,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Home</title>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <!--[if lt IE 7]>
 <style type="text/css">
      #wrapper { height:100%; }
 </style>
 <![endif]-->
 <script>
+
+    $(function() {
+        $("#checkindate").datepicker();
+        $("#checkoutdate").datepicker();
+    })
     function valideSearchForm() {
         var isValid = true;
         var myDate = new Date();
@@ -38,7 +51,7 @@
                 isValid = false;
             }
         }
-        if(document.searchfrm.checkin_month.value == ""
+        /*if(document.searchfrm.checkin_month.value == ""
                 || document.searchfrm.checkin_day.value == "" || document.searchfrm.checkin_year.value == ""){
                 message += "\nCheckin date wasn't selected;"
                 isValid = false;
@@ -47,7 +60,7 @@
                 || document.searchfrm.checkout_day.value == "" || document.searchfrm.checkout_year.value == ""){
             message += "\nCheckout date wasn't selected;"
             isValid = false;
-        }
+        }*/
         if(document.searchfrm.country.value == ""){
             message += "\nCountry wasn't selected;"
             isValid = false;
@@ -56,7 +69,7 @@
             message += "\nCity wasn't selected;"
             isValid = false;
         }
-        if( (curYear < document.searchfrm.checkin_year.value)
+        /*if( (curYear < document.searchfrm.checkin_year.value)
             || (curYear == document.searchfrm.checkin_year.value && curMonth < document.searchfrm.checkin_month.value)
             || (curYear == document.searchfrm.checkin_year.value && curMonth == document.searchfrm.checkin_month.value && curDay <= document.searchfrm.checkin_day.value)
            ) {
@@ -80,7 +93,7 @@
         else {
             message += "\nCheckin/checkout date is old;"
             isValid = false;
-        }
+        }*/
         if(!isValid) {
             alert(message);
         }
@@ -134,7 +147,8 @@
                 <ul>
                     <li> <!--    CHECK IN    -->
                         Check in: *&nbsp&nbsp
-                        <select id="checkin_month" name="checkin_month">
+                        <input id="checkindate" name="checkindate" style="width:100px;" value="<%=session.getAttribute("checkindate")!=null?session.getAttribute("checkindate"):"" %>"/>
+                        <%--<select id="checkin_month" name="checkin_month">
                             <option value="">Month</option>
                             <option value="1">January</option>
                             <option value="2">Febuary</option>
@@ -166,28 +180,43 @@
                                     document.write('<option value="'+i+'">'+i+'</option>');
                                 }
                             </script>
-                        </select>
+                        </select>--%>
                     </li>
+                    <c:set var="countries" value="${fn:split('UA,USA', ',')}" scope="session" />
+                    <c:set var="cities" value="${fn:split('Lviv,Kyiv', ',')}" scope="session" />
+                    <c:set var="adults" value="${fn:split('1,2,3,4,5,6,7,8', ',')}" scope="session" />
+                    <c:set var="children" value="${fn:split('0,1,2,3,4,5,6,7,8', ',')}" scope="session" />
+                    <c:set var="currencies" value="${fn:split('$,€,UAH', ',')}" scope="session" />
+
+
+
                     <li>
+
                         Country: *
                         <select id="country" name="country" style="width: 100px;">
-                            <option value=""> --- </option>
-                            <option value="UA">Ukraine</option>
+                            <c:forEach items="${countries}" var="country">
+                                <option value="${country}" ${sessionScope.country == country ? 'selected' : ''}>${country}</option>
+                            </c:forEach>
+                           <%-- <option value=""> --- </option>
+                            <option value="UA">Ukraine</option>--%>
                         </select>
                     </li>
                     <li>
                         City: *
                         <select id="city" name="city" style="width: 100px;">
-                            <option value=""> --- </option>
+                            <%--<option value=""> --- </option>
                             <option value="Kiev">Kiev</option>
-                            <option value="Lviv">Lviv</option>
+                            <option value="Lviv">Lviv</option>--%>
+                                <c:forEach items="${cities}" var="city">
+                                    <option value="${city}" ${sessionScope.city == city ? 'selected' : ''}>${city}</option>
+                                </c:forEach>
                         </select>
                     </li>
                 </ul>
                 <ul>
                     <li>  <!--    CHECK OUT   -->
                         Check out: *
-                        <select id="checkout_month" name="checkout_month">
+                        <%--<select id="checkout_month" name="checkout_month">
                             <option value="">Month</option>
                             <option value="1">January</option>
                             <option value="2">Febuary</option>
@@ -219,16 +248,18 @@
                                     document.write('<option value="'+i+'">'+i+'</option>');
                                 }
                             </script>
-                        </select>
+                        </select>--%>
+                        <input id="checkoutdate" name="checkoutdate" style="width:100px;" value="<%=session.getAttribute("checkoutdate")!=null?session.getAttribute("checkoutdate"):"" %>"/>
                     </li>
                     <li>
                         Price:
-                        <input type="text" id="min_price" name="min_price" /> to
-                        <input type="text" id="max_price" name="max_price" />
+                        <input type="text" id="min_price" name="min_price" value="<%=session.getAttribute("min_price")!=null?session.getAttribute("min_price"):"" %>"/> to
+                        <input type="text" id="max_price" name="max_price" value="<%=session.getAttribute("max_price")!=null?session.getAttribute("max_price"):"" %>"/>
                         <select id="currency" name="currency" style="width: 100px">
-                            <option value="$">$</option>
-                            <option value="$">€</option>
-                            <option value="UAH">UAH</option>
+                            <c:forEach items="${currencies}" var="currency">
+                                <option value="${currency}" ${sessionScope.currency == currency ? 'selected' : ''}>${currency}</option>
+                            </c:forEach>
+
                         </select>
                     </li>
                 </ul>
@@ -236,30 +267,18 @@
                     <li>
                         Adults(18+):
                         <select id="guests_adults" name="guests_adults" style="width: 60px">
-                            <option value="">-</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
+                            <c:forEach items="${adults}" var="adult">
+                                <option value="${adult}" ${sessionScope.guests_adults == adult ? 'selected' : ''}>${adult}</option>
+                            </c:forEach>
+
                         </select>
                     </li>
                     <li>
                         Children:
-                        <select id="guests_children" name="guests_children" style="width: 60px">
-                            <option value="">-</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
+                        <select id="guests_children" name="guests_children" style="width: 60px" selected="<%=session.getAttribute("guests_children")!=null?session.getAttribute("guests_children"):"" %>">
+                            <c:forEach items="${children}" var="children">
+                                <option value="${children}" ${sessionScope.guests_children == children ? 'selected' : ''}>${children}</option>
+                            </c:forEach>
                         </select>
                     </li>
                     <li class="submit">
