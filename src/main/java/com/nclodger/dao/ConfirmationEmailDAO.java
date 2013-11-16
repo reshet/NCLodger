@@ -56,7 +56,7 @@ public class ConfirmationEmailDAO implements ConfirmationEmailDAOInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException,MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "INSERT INTO CONFIRM_EMAILS (ID_USER,CONFIRM_HASH,DATE_C) values (?,?,?)"
+                        "INSERT INTO CONFIRM(ID_USER,CONFIRM_HASH,DATE_C) values (?,?,?)"
                 );
                 prep.setInt(1,ConMail.getIdUser());
                 prep.setString(2,ConMail.getConfirmHash());

@@ -21,14 +21,14 @@
         }
         else { document.getElementById("span_email").style.display = 'none'; }
 
-        if(document.loginfrm.password.value.length < 6 || document.loginfrm.password.value.length > 20
-                || (!(/^[a-zA-Z0-9]+$/).test(document.loginfrm.password.value))) {
+        if(document.loginfrm.password1.value.length < 6 || document.loginfrm.password1.value.length > 20
+                || (!(/^[a-zA-Z0-9]+$/).test(document.loginfrm.password1.value))) {
             document.getElementById("span_pswd").style.display = 'inline';
             isValid = false;
         }
         else { document.getElementById("span_pswd").style.display = 'none'; }
         if(isValid){
-            document.loginfrm.password.value = hex_md5(document.loginfrm.password.value);
+            document.loginfrm.password.value = hex_md5(document.loginfrm.password1.value);
         }
 
         return isValid;
@@ -59,11 +59,13 @@
                 <span id="span_notfound">User with such email and password was not found!</span>
                 <p>Email:<input type="text" name="email" maxlength="50"></p>
                 <span id="span_email">Invalid email!</span>
-                <p>Password:<input type="password" name="password" maxlength="20"></p>
+                <p>Password:<input type="password" name="password1" maxlength="20"></p>
                 <span id="span_pswd"><p>Invalid password!</p></span>
                 <a href="registration.jsp">Haven't got account yet?</a></br>
                 <a href="">Login with GOOGLE?</a>
+
                 <p class="submit">
+                    <input type="hidden" name="password" value=""/>
                     <input type="submit" name="commit" value="Login">
                     <input type="submit" name="commit" value="Login as guest">
                 </p>
