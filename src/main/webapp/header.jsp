@@ -17,17 +17,17 @@
     %>
     Hello, <%=session.getAttribute("username")%>!
     <br><a href="signout">Log out</a>
-    <br><a href="" class="orangelink"><img src="img/user.gif">User dashboard</a>
+    <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
     <% } %>
     <%
         if((Integer)session.getAttribute("utype") == (Integer)2) {
     %>
-    <br><a href="smsettings" class="orangelink"><img src="img/user.gif">Sales manager dashboard</a>
+    <br><a href="smsettings" class="orangelink"><img src="resources/img/user.gif">Sales manager dashboard</a>
     <% } %>
     <%
         if((Integer)session.getAttribute("utype") == (Integer)3) {
     %>
-    <br><a href="adminsettings" class="orangelink"><img src="img/user.gif">Administrator dashboard</a>
+    <br><a href="adminsettings" class="orangelink"><img src="resources/img/user.gif">Administrator dashboard</a>
     <% } %>
 </div>
 <div class="nav">
