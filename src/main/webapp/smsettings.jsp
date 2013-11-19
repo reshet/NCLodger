@@ -1,23 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>NCLodger | Settings: sales manager</title>
+    <title>NCLodger | Sales Manager dashboard</title>
+    <!-- Main Css -->
     <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+    <!-- Script and css for the sorting table -->
     <script type="text/javascript" src="resources/js/sorttable.js"></script>
-
-    <!--[if lt IE 7]>
-    <style type="text/css">
-        #wrapper {
-            height: 100%;
-        }
-    </style>
-    <![endif]-->
     <style type="text/css">
         .sortable .head h3 {
             background: url(resources/img/sort.gif) 7px center no-repeat;
@@ -43,9 +35,26 @@
             cursor: pointer;
             padding-left: 18px
         }
-
             /* asc arrow */
     </style>
+    <!-- JQuery and scripts for the tabs -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $( "#tabs" ).tabs();
+        });
+    </script>
+
+
+    <!--[if lt IE 7]>
+    <style type="text/css">
+        #wrapper {
+            height: 100%;
+        }
+    </style>
+    <![endif]-->
 </head>
 
 <body>
@@ -67,11 +76,6 @@
             <%
                 }
             %>
-<%--            <%
-                if ((Integer) session.getAttribute("utype") == (Integer) 2) {
-            %>
-            <br><a href="smsettings" class="orangelink"><img src="resources/img/user.gif">Sales manager actions</a>
-            <% } %>--%>
         </div>
 
         <div class="nav">
@@ -87,109 +91,88 @@
 
     <div id="content">
 
-        <div data-role="fieldcontain">
-            <label for="agency_com">Agency comission:</label>
-            <input type="range" name="agency_com" id="agency_com" value="" min="3" max="17" />
-        </div>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Users</a></li>
+                <li><a href="#tabs-2">Commission & Discounts</a></li>
+                <li><a href="#tabs-3">Promo codes</a></li>
+                <li><a href="#tabs-4">Reports</a></li>
+            </ul>
+            <div id="tabs-1"><!-- 'Users' tab -->
+                <a href="smgetallusers">All users</a>
+                <c:if test="${requestScope.allusers != null}">
 
-        <div data-role="fieldcontain">
-            <label for="user_discount">User discount:</label>
-            <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
-        </div>
+                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+                        <thead>
+                        <tr>
+                            <th><h3>Name</h3></th>
+                            <th><h3>Email</h3></th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-        <div data-role="fieldcontain">
-            <label for="vip_user_discount">VIP User discount:</label>
-            <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
-        </div>
-
-        <div class="search">
-            <a href="smgetallusers">All users</a>
-        </div>
-
-
-        <%--<% if(request.getAttribute("allusers") != null) { %>--%>
-        <c:if test="${requestScope.allusers != null}">
-
-            <div class="actionres">
-                All users:
+                        <c:forEach items="${requestScope.allusers}" var="user">
+                            <tr>
+                                <td><c:out value="${user.name}"/></td>
+                                <td><c:out value="${user.email}"/></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <div id="controls">
+                        <div id="perpage">
+                            <select onchange="sorter.size(this.value)">
+                                <option value="5">5</option>
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span>Entries Per Page</span>
+                        </div>
+                        <div id="navigation">
+                            <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                            <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                            <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                            <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                        </div>
+                        <div id="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
+                    </div>
+                    <script type="text/javascript">
+                        var sorter = new TINY.table.sorter("sorter");
+                        sorter.head = "head";
+                        sorter.asc = "asc";
+                        sorter.desc = "desc";
+                        sorter.even = "evenrow";
+                        sorter.odd = "oddrow";
+                        sorter.evensel = "evenselected";
+                        sorter.oddsel = "oddselected";
+                        sorter.paginate = true;
+                        sorter.currentid = "currentpage";
+                        sorter.limitid = "pagelimit";
+                        sorter.init("table", 1);
+                    </script>
+                </c:if>
             </div>
-            <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
-                <thead>
-                <tr>
-                    <th><h3>Name</h3></th>
-                    <th><h3>Email</h3></th>
-                </tr>
-                </thead>
-                <tbody>
-                     <%--<script>--%>
-                         <%--document.write('<tr>');--%>
-                         <%--document.write('<td>Iaroslav Dmytruk</td>');--%>
-                         <%--document.write('<td><a>Iaroslav@example.org</a></td>');--%>
-                         <%--document.write('</tr>');--%>
+            <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
 
-                         <%--document.write('<tr>');--%>
-                         <%--document.write('<td>John Terry</td>');--%>
-                         <%--document.write('<td><a>John@example.org</a></td>');--%>
-                         <%--document.write('</tr>');--%>
+                    <input type="text" id="range_1" />
 
-                     <%--</script>--%>
-
-                    <%--<%--%>
-                    <%--List<Users> allusers = (List) request.getAttribute("allusers");--%>
-
-                    <%--for(Users user : allusers) {--%>
-                    <%--out.println("<tr>");--%>
-                    <%--out.print("<td>"+user.getName()+"</td>");--%>
-                    <%--out.print("<td>"+user.getEmail()+"</td>");--%>
-                    <%--out.println("</tr>");--%>
-
-                    <%--}--%>
-                    <%--%>--%>
-
-                <c:forEach items="${requestScope.allusers}" var="user">
-                    <tr>
-                        <td><c:out value="${user.name}"/></td>
-                        <td><c:out value="${user.email}"/></td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-            <div id="controls">
-                <div id="perpage">
-                    <select onchange="sorter.size(this.value)">
-                        <option value="5">5</option>
-                        <option value="10" selected="selected">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <span>Entries Per Page</span>
-                </div>
-                <div id="navigation">
-                    <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                    <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                    <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                    <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
-                </div>
-                <div id="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
+                <p>Agency comission:</p>
+                <input type="range" name="agency_com" id="agency_com" value="" min="3" max="17" />
+                <p>User discount:</p>
+                <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
+                <p>VIP User discount:</p>
+                <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
             </div>
-            <script type="text/javascript">
-                var sorter = new TINY.table.sorter("sorter");
-                sorter.head = "head";
-                sorter.asc = "asc";
-                sorter.desc = "desc";
-                sorter.even = "evenrow";
-                sorter.odd = "oddrow";
-                sorter.evensel = "evenselected";
-                sorter.oddsel = "oddselected";
-                sorter.paginate = true;
-                sorter.currentid = "currentpage";
-                sorter.limitid = "pagelimit";
-                sorter.init("table", 1);
+            <div id="tabs-3"><!-- 'Promo codes' tab -->
+                <p>tab3</p>
+            </div>
+            <div id="tabs-4"><!-- 'Reports' tab-->
+                <p>tab4</p>
+            </div>
+        </div>
 
-            </script>
-            <%--<%}%>--%>
-        </c:if>
     </div>
     <!-- #content -->
 
