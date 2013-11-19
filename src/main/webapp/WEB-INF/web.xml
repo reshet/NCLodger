@@ -21,6 +21,7 @@
         <servlet-class>com.nclodger.control.ControllerServlet</servlet-class>
     </servlet>
     <!-- On registration submit -->
+
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -31,6 +32,7 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signout</url-pattern>
@@ -66,6 +68,10 @@
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/orderfinish</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/generatepromo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

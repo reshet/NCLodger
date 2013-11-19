@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ActionFactory {
 
     private static final Map<String,Action> actions;
+
     static{
         actions = new HashMap<String, Action>();
         actions.put("/signup", new SignUpAction());
@@ -26,6 +27,7 @@ public class ActionFactory {
         actions.put("/acdetails", new ACDetailsAction());
         actions.put("/orderstart", new OrderStartAction());
         actions.put("/orderfinish", new OrderFinishAction());
+        actions.put("/generatepromo", new GeneratePromoAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
