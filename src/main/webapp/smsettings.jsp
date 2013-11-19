@@ -48,6 +48,7 @@
     </script>
 
 
+
     <!--[if lt IE 7]>
     <style type="text/css">
         #wrapper {
@@ -101,8 +102,7 @@
             <div id="tabs-1"><!-- 'Users' tab -->
                 <a href="smgetallusers">All users</a>
                 <c:if test="${requestScope.allusers != null}">
-
-                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+                   <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
                             <th><h3>Name</h3></th>
@@ -113,7 +113,7 @@
 
                         <c:forEach items="${requestScope.allusers}" var="user">
                             <tr>
-                                <td><c:out value="${user.name}"/></td>
+                                <td><c:out value="${user.name}"/><input type="button" name="vip" value="Vip/Unvip"></td>
                                 <td><c:out value="${user.email}"/></td>
                             </tr>
                         </c:forEach>
