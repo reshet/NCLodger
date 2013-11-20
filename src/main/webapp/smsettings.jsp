@@ -6,8 +6,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>NCLodger | Sales Manager dashboard</title>
-    <!-- Main Css -->
     <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <!-- Script and css for the sorting table -->
     <script type="text/javascript" src="resources/js/sorttable.js"></script>
     <style type="text/css">
@@ -37,11 +39,12 @@
         }
             /* asc arrow */
     </style>
-    <!-- JQuery and scripts for the tabs -->
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script>
+        $(function() {
+            $("#start_promo").datepicker();
+            $("#end_promo").datepicker();
+        })
+
         $(function() {
             $( "#tabs" ).tabs();
         });
@@ -166,7 +169,15 @@
                 <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
             </div>
             <div id="tabs-3"><!-- 'Promo codes' tab -->
-                <p>tab3</p>
+                <form name="searchfrm" method="POST" action="generatepromo" onsubmit="">
+                    <p>Start date:<input id="start_promo" name="start_promo" style="width:100px;"/></p>
+                    <p>Expiration date:<input id="end_promo" name="end_promo" style="width:100px;"/></p>
+                    <p>Discount:<input type="text" id="promo_discount" name="promo_discount" /></p>
+                    <c:if test="${promo_code != null}">
+                        <p>Generated promo code: ${promo_code}</p>
+                    </c:if>
+                    <input type="submit" name="generate_promo" value="Generate">
+                </form>
             </div>
             <div id="tabs-4"><!-- 'Reports' tab-->
                 <p>tab4</p>

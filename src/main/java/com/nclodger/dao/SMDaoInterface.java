@@ -14,8 +14,10 @@ import java.sql.SQLException;
  */
 public interface SMDaoInterface {
     public boolean insert(SManager smanager) throws MyException;
-    public boolean update (SManager smanager);
-    public boolean delete(SManager smanager) throws ClassNotFoundException, SQLException;
-    public boolean getSManager(String email, String password) throws SQLException, NamingException, ClassNotFoundException, MyException;
-    public SManager find(int id) throws ClassNotFoundException, SQLException, MyException;
+    public boolean insert(int id_user) throws MyException;
+    public boolean delete(SManager smanager) throws MyException;
+    public boolean delete(int id_user) throws MyException;
+    public boolean getSManager(String email, String password) throws MyException;
+    public SManager getSManager(int id) throws MyException;
+    public int getSmanagerId(String email) throws MyException;
 }

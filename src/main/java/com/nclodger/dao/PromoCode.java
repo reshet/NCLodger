@@ -14,20 +14,27 @@ public class PromoCode {
     private String code;
     private Date start_date;
     private Date end_date;
-    private int discount;
-    private int isUsed;
+    private double discount;
+    private int isUsed = 0;
     private int id_sm;
 
-    public PromoCode(int id_pc,String code,Date start_date, Date end_date, int discount,int isUsed){
+    public PromoCode(String code,Date start_date, Date end_date, double discount){
+        this.code = code;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.discount = discount;
+    }
+
+    public PromoCode(int id_pc, String code, Date start_date, Date end_date, double discount, int used) {
         this.id_pc = id_pc;
         this.code = code;
         this.start_date = start_date;
         this.end_date = end_date;
         this.discount = discount;
-        this.isUsed = isUsed;
+        isUsed = used;
     }
 
-    public PromoCode(int id_pc,String code,Date start_date, Date end_date, int discount,int isUsed, int id_sm){
+    public PromoCode(int id_pc,String code,Date start_date, Date end_date, double discount,int isUsed, int id_sm){
         this.id_pc = id_pc;
         this.code = code;
         this.start_date = start_date;
@@ -72,11 +79,11 @@ public class PromoCode {
         this.end_date = end_date;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

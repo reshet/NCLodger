@@ -66,7 +66,7 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                 prep.setString(1,pc.getCode());
                 prep.setDate(2,new java.sql.Date(pc.getStart_date().getTime()));
                 prep.setDate(3,new java.sql.Date(pc.getEnd_date().getTime()));
-                prep.setInt(4,pc.getDiscount());
+                //prep.setInt(4,pc.getDiscount());
                 prep.setInt(5,pc.getUsed());
                 prep.setInt(6,pc.getId_sm());
 
@@ -77,11 +77,6 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                 } catch (Exception ex) {
                 throw new MyException(ex.getMessage());
                 }
-
-
-
-
-
                 return true;
             }
         });

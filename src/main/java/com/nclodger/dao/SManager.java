@@ -8,15 +8,24 @@ package com.nclodger.dao;
  * To change this template use File | Settings | File Templates.
  */
 public class SManager {
+
+    // PROPERTIES
+
     private int id;
     private int id_user;
-    private Double commision;
 
-    public SManager(int id, int id_user, Double commision) {
+    // CONSTRUCTORS
+
+    public SManager(int id_user) {
+        this.id_user = id_user;
+    }
+
+    public SManager(int id, int id_user) {
         this.id = id;
         this.id_user = id_user;
-        this.commision = commision;
     }
+
+    // GETTERS
 
     public int getId() {
         return id;
@@ -26,9 +35,7 @@ public class SManager {
         return id_user;
     }
 
-    public Double getCommision() {
-        return commision;
-    }
+    // SETTERS
 
     public void setId(int id) {
         this.id = id;
@@ -38,7 +45,4 @@ public class SManager {
         this.id_user = id_user;
     }
 
-    public void setCommision(Double commision) {
-        this.commision = commision;
-    }
 }

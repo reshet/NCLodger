@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 public class SignOutAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
+        request.getSession().removeAttribute("email");
         request.getSession().removeAttribute("username");
         request.getSession().removeAttribute("utype");
+        request.getSession().removeAttribute("promo_code");
         return "home";
     }
 }
