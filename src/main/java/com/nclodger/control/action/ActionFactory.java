@@ -29,6 +29,7 @@ public class ActionFactory {
         actions.put("/orderfinish", new OrderFinishAction());
         actions.put("/generatepromo", new GeneratePromoAction());
         actions.put("/makevip", new MakeVIPAction());
+        actions.put("/showmostpopularhotel", new getPopHotelsAction());
     }
 
     public static Action getAction(HttpServletRequest request) {

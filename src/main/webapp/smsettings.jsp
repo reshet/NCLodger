@@ -46,6 +46,11 @@
         })
 
         $(function() {
+            $("#start_mostvalacc").datepicker();
+            $("#end_mostvalacc").datepicker();
+        })
+
+        $(function() {
             $( "#tabs" ).tabs();
         });
     </script>
@@ -188,7 +193,21 @@
                 </form>
             </div>
             <div id="tabs-4"><!-- 'Reports' tab-->
-                <p>tab4</p>
+                <form name="mostvaluableacc" method="POST" action="getmostvaluableacc" onsubmit="">
+                    <p>Start date:<input id="start_mostvalacc" name="start_mostvalacc" style="width:100px;"/></p>
+                    <p>Expiration date:<input id="end_mostvalacc" name="end_mostvalacc" style="width:100px;"/></p>
+
+
+                    <input type="submit" name="show_acc" value="Show most valuable accomodations">
+                </form>
+
+                <form name="mostpophotels" method="POST" action="showmostpopularhotel" onsubmit="">
+                    <c:forEach items="${mostpophotel}" var="hotel">
+                        <td>${hotel}</td>
+
+                    </c:forEach>
+                    <input type="submit" name="show_hotel" value="Show most populat hotel">
+                </form>
             </div>
         </div>
 

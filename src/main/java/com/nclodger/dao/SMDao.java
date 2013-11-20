@@ -9,6 +9,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -106,4 +108,28 @@ public class SMDao implements SMDaoInterface{
             }
         });
     }
+
+    // @Override
+    public List<String> sortHotelbyPopular() throws MyException {
+        return booleanOperation(new WrapperDBOperation<List<String>>() {
+
+            @Override
+            public List<String> doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT NAME_H FROM HOTEL"
+                );
+
+                java.sql.ResultSet results = prep.executeQuery();
+                List<String> hList = new ArrayList<String>();
+                while (results.next()) {
+
+                    String hotelName = results.getString(1);
+                    hList.add(hotelName);
+                }
+                return hList;
+            }
+        });
+    }
+
 }
+
