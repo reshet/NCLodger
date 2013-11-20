@@ -8,21 +8,19 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: pasha
- * Date: 11/16/13
- * Time: 1:25 PM
- */
+
 public class PromoCodeDAO implements PromoCodeDAOInterface {
 
     abstract class WrapperDBOperation<T> {
         abstract public T doMethod(Connection dataBase) throws MyException, SQLException;
     }
+
     private <T> T booleanOperation (WrapperDBOperation<T> operation) throws MyException {
         Connection dataBase = null;
         try {
@@ -56,6 +54,11 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
 
     @Override
     public boolean insert(final PromoCode pc) throws MyException {
+        /**
+         * Working sql query example:
+         * INSERT INTO PROMOCODE(CODE, START_DATE,END_DATE,discount,ISUSED,ID_SM)
+         * VALUES('UKNSGC-1', TO_DATE('10/11/2013', 'MM-DD-YYYY'), TO_DATE('12/11/2013', 'MM-DD-YYYY'),0.1, 0, 1)
+         */
         return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
@@ -63,19 +66,26 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                         "INSERT INTO PROMOCODE (code,start_date,end_date,discount,isUsed, id_sm) values (?,?,?,?,?,?)"
                 );
                 try {
-                prep.setString(1,pc.getCode());
-                prep.setDate(2,new java.sql.Date(pc.getStart_date().getTime()));
-                prep.setDate(3,new java.sql.Date(pc.getEnd_date().getTime()));
-                //prep.setInt(4,pc.getDiscount());
-                prep.setInt(5,pc.getUsed());
-                prep.setInt(6,pc.getId_sm());
+                    DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+                    Date date1 = formatter.parse(pc.getStart_date());
+                    Date date2 = formatter.parse(pc.getEnd_date());
+                    java.util.Date utilDate1 = new java.util.Date();
+                    java.util.Date utilDate2 = new java.util.Date();
+                    java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
+                    java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
 
+                    prep.setString(1,pc.getCode());
+                    prep.setDate(2, sqlDate1);
+                    prep.setDate(3, sqlDate2);
+                    prep.setDouble(4, pc.getDiscount());
+                    prep.setInt(5,pc.getUsed());
+                    prep.setInt(6,pc.getId_sm());
 
-                java.sql.ResultSet res = prep.executeQuery();
-                res.next();
+                    java.sql.ResultSet res = prep.executeQuery();
+                    res.next();
 
                 } catch (Exception ex) {
-                throw new MyException(ex.getMessage());
+                    throw new MyException(ex.getMessage());
                 }
                 return true;
             }
@@ -91,7 +101,8 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT id_pc,code,start_date,end_date,discount,isUsed FROM PROMOCODE WHERE is_sm=?"
                 );
-                 prep.setInt(1,id_sm);
+
+                prep.setInt(1,id_sm);
                 java.sql.ResultSet results = prep.executeQuery();
                 List<PromoCode> pcList = new ArrayList<PromoCode>();
                 while (results.next()) {
@@ -103,8 +114,8 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                     int discount = results.getInt(5);
                     int isUsed = results.getInt(6);
 
-                    PromoCode pc = new PromoCode(id,code,start_date,end_date,discount,isUsed);
-                    pcList.add(pc);
+//                    PromoCode pc = new PromoCode(id,code,start_date,end_date,discount,isUsed);
+//                    pcList.add(pc);
                 }
                 return pcList;
             }

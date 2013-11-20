@@ -1,6 +1,7 @@
 package com.nclodger.control.action;
 
 import com.nclodger.dao.PromoCode;
+import com.nclodger.dao.PromoCodeDAO;
 import com.nclodger.dao.SMDao;
 import com.nclodger.myexception.MyException;
 
@@ -18,7 +19,7 @@ import java.util.Date;
  */
 public class GeneratePromoAction implements Action{
 
-    private void generatePromoCode(HttpServletRequest request, HttpServletResponse response) throws MyException {
+    private String generatePromoCode(HttpServletRequest request, HttpServletResponse response) throws MyException {
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -42,11 +43,23 @@ public class GeneratePromoAction implements Action{
         } catch (MyException ex) {
             throw new MyException(ex.getMessage());
         }
+        return sb.toString();
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        generatePromoCode(request,response);
+
+        String code = generatePromoCode(request,response);
+        SMDao smDao;
+        smDao = new SMDao();
+        int idSm = smDao.getSmanagerId(request.getSession().getAttribute("email").toString());
+        PromoCode pc = new PromoCode(code,
+                request.getParameter("start_promo"),
+                request.getParameter("end_promo"),
+                Double.parseDouble(request.getParameter("promo_discount"))/100.0,
+                0,idSm);
+        PromoCodeDAO pcDao = new PromoCodeDAO();
+        pcDao.insert(pc);
         return "smsettings";
     }
 }
