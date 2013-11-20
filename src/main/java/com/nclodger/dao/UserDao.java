@@ -147,9 +147,31 @@ public class UserDao implements UserDaoInterface {
                 return true;  //To change body of implemented methods use File | Settings | File Templates.
             }
         });
-
-
     }
+
+
+
+
+    @Override
+    public boolean update(final int userID) throws MyException {
+       return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "UPDATE USERS SET VIP=? WHERE ID_USER=?"
+                );
+
+                prep.setInt(1,1);
+                prep.setInt(2,userID);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+    }
+
+
 
     @Override
     public boolean update(Users _user) {
