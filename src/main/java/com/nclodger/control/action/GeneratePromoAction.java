@@ -44,7 +44,6 @@ public class GeneratePromoAction implements Action{
         }
     }
 
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         generatePromoCode(request,response);
