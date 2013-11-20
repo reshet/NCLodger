@@ -169,9 +169,6 @@
             </div>
             </form>
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
-
-                    <input type="text" id="range_1" />
-
                 <p>Agency comission:</p>
                 <input type="range" name="agency_com" id="agency_com" value="" min="3" max="17" />
                 <p>User discount:</p>
