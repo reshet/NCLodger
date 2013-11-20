@@ -17,7 +17,7 @@ public class MakeVIPAction implements Action {
 
     private void makeVip(HttpServletRequest request, HttpServletResponse response) throws MyException {
         UserDao uDao = new UserDao();
-        boolean flag = uDao.updateForSM(63);
+        boolean flag = uDao.updateForSM(521);
         request.getSession().setAttribute("user_field", "VIP");
 
 

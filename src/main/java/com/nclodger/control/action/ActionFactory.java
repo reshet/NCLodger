@@ -28,6 +28,7 @@ public class ActionFactory {
         actions.put("/orderstart", new OrderStartAction());
         actions.put("/orderfinish", new OrderFinishAction());
         actions.put("/generatepromo", new GeneratePromoAction());
+        actions.put("/makevip", new MakeVIPAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
