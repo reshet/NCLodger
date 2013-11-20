@@ -108,6 +108,7 @@
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
+                            <th><input type="checkbox"/></th>
                             <th><h3>Name</h3></th>
                             <th><h3>Email</h3></th>
                         </tr>
@@ -116,12 +117,15 @@
 
                         <c:forEach items="${requestScope.allusers}" var="user">
                             <tr>
-                                <td><c:out value="${user.name}"/><input type="button" name="vip" value="Vip/Unvip"></td>
+                                <td><input type="checkbox" name = "vip" c:out value="${user.id}"/> </td>
+                                <td><c:out value="${user.name}"/></td>
                                 <td><c:out value="${user.email}"/></td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
+                    <input type = "submit" name = "UNVIP" value="UNVIP">
+                    <input type="submit" name = "VIP" value="VIP">
                     <div id="controls">
                         <div id="perpage">
                             <select onchange="sorter.size(this.value)">
