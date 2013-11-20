@@ -1,5 +1,6 @@
 package com.nclodger.dao;
 
+
 public class PromoCode {
     private int id_pc;
     private String code;

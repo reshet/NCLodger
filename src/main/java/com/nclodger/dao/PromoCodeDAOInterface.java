@@ -2,7 +2,6 @@ package com.nclodger.dao;
 
 import com.nclodger.myexception.MyException;
 
-import java.util.Date;
 import java.util.List;
 
 /**

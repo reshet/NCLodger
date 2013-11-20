@@ -2,12 +2,9 @@ package com.nclodger.dao;
 
 import com.nclodger.myexception.MyException;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
-
 /**
  * Created with IntelliJ IDEA.
- * User: Miredean
+ * User: Iaroslav
  * Date: 30.10.13
  * Time: 11:26
  * To change this template use File | Settings | File Templates.

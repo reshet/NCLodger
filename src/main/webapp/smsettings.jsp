@@ -76,7 +76,7 @@
             %>
             Hello, <%=session.getAttribute("username")%>!
             <br><a href="signout">Log out</a>
-            <%--<br><a href="" class="orangelink"><img src="img/user.gif">User dashboard</a>--%>
+            <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
             <%
                 }
             %>

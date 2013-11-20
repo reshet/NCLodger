@@ -48,7 +48,6 @@ public class GeneratePromoAction implements Action{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
         String code = generatePromoCode(request,response);
         SMDao smDao;
         smDao = new SMDao();
