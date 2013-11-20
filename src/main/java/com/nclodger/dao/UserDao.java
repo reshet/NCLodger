@@ -153,7 +153,7 @@ public class UserDao implements UserDaoInterface {
 
 
     @Override
-    public boolean update(final int userID) throws MyException {
+    public boolean updateForSM(final int userID) throws MyException {
        return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {

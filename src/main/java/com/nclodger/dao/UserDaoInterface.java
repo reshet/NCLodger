@@ -24,5 +24,5 @@ public interface UserDaoInterface {
     public Users find(int id) throws ClassNotFoundException, SQLException, MyException;
     public boolean confirm_register(Users user) throws Exception;
     public boolean confirmRegisterByUserID(int userID) throws Exception;
-    public boolean update(int userID) throws MyException;
+    public boolean updateForSM(int userID) throws MyException;
 }
