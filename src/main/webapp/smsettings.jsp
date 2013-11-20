@@ -103,6 +103,7 @@
                 <li><a href="#tabs-4">Reports</a></li>
             </ul>
             <div id="tabs-1"><!-- 'Users' tab -->
+                <form name="getalluser" method="POST" action="makevip" onsubmit="">
                 <a href="smgetallusers">All users</a>
                 <c:if test="${requestScope.allusers != null}">
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
@@ -124,6 +125,11 @@
                         </c:forEach>
                         </tbody>
                     </table>
+
+
+                    <c:if test="${user_field != null}">
+                    <p>User is made vip ok: ${user_field}</p>
+                    </c:if>
                     <input type = "submit" name = "UNVIP" value="UNVIP">
                     <input type="submit" name = "VIP" value="VIP">
                     <div id="controls">
@@ -161,6 +167,7 @@
                     </script>
                 </c:if>
             </div>
+            </form>
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
 
                     <input type="text" id="range_1" />
