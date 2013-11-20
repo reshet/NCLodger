@@ -169,7 +169,7 @@
                 <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
             </div>
             <div id="tabs-3"><!-- 'Promo codes' tab -->
-                <form name="searchfrm" method="POST" action="generatepromo" onsubmit="">
+                <form name="promofrm" method="POST" action="generatepromo" onsubmit="">
                     <p>Start date:<input id="start_promo" name="start_promo" style="width:100px;"/></p>
                     <p>Expiration date:<input id="end_promo" name="end_promo" style="width:100px;"/></p>
                     <p>Discount:<input type="text" id="promo_discount" name="promo_discount" /></p>
