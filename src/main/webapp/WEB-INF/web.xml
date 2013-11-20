@@ -73,6 +73,13 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/generatepromo</url-pattern>
     </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/makevip</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
