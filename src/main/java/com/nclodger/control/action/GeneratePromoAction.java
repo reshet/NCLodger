@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Iaroslav
+ * User: Iaroslav Dmytruk
  * Date: 19.11.13
  * Time: 20:36
  * To change this template use File | Settings | File Templates.
@@ -43,7 +43,6 @@ public class GeneratePromoAction implements Action{
             smDao = new SMDao();
             int idSm = smDao.getSmanagerId(smEmail);
             sb.append(idSm);
-            request.getSession().setAttribute("promo_code",sb.toString());
         } catch (MyException ex) {
             throw new MyException(ex.getMessage());
         }
@@ -53,16 +52,23 @@ public class GeneratePromoAction implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String code = generatePromoCode(request,response);
+        request.getSession().setAttribute("promo_code",code);
         SMDao smDao;
+        PromoCode pc;
         smDao = new SMDao();
-        int idSm = smDao.getSmanagerId(request.getSession().getAttribute("email").toString());
-        PromoCode pc = new PromoCode(code,
+        try {
+            int idSm = smDao.getSmanagerId(request.getSession().getAttribute("email").toString());
+            pc = new PromoCode(code,
                 request.getParameter("start_promo"),
                 request.getParameter("end_promo"),
                 Double.parseDouble(request.getParameter("promo_discount"))/100.0,
                 0,idSm);
-        PromoCodeDAO pcDao = new PromoCodeDAO();
-        pcDao.insert(pc);
+            PromoCodeDAO pcDao = new PromoCodeDAO();
+            pcDao.insert(pc);
+        } catch(MyException ex) {
+            request.setAttribute("error_message",ex.getMessage());
+            return "exception";
+        }
         return "smsettings";
     }
 }
