@@ -27,11 +27,15 @@ public class GeneratePromoAction implements Action{
         final int N = 65;
         final int M = 25;
         sb.append(Character.toString((char) ((cal.get(Calendar.DAY_OF_MONTH) % M) + N)));
+        sb.append(cal.get(Calendar.DAY_OF_MONTH) / M);
         sb.append(Character.toString((char) ((cal.get(Calendar.MONTH) % M) + N)));
         sb.append(Character.toString((char) ((cal.get(Calendar.YEAR) % M) + N)));
+        sb.append(cal.get(Calendar.YEAR) / M);
         sb.append(Character.toString((char) ((cal.get(Calendar.HOUR_OF_DAY) % M) + N)));
         sb.append(Character.toString((char) ((cal.get(Calendar.MINUTE) % M) + N)));
+        sb.append(cal.get(Calendar.MINUTE) / M);
         sb.append(Character.toString((char) ((cal.get(Calendar.SECOND) % M) + N)));
+        sb.append(cal.get(Calendar.SECOND) / M);
         sb.append("-");
         String smEmail = request.getSession().getAttribute("email").toString();
         SMDao smDao;
