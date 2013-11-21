@@ -109,8 +109,9 @@
             </ul>
             <div id="tabs-1"><!-- 'Users' tab -->
                 <form name="getalluser" method="POST" action="makevip" onsubmit="">
+
                 <a href="smgetallusers">All users</a>
-                <c:if test="${requestScope.allusers != null}">
+                  <c:if test="${requestScope.allusers != null}">
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
@@ -123,7 +124,7 @@
 
                         <c:forEach items="${requestScope.allusers}" var="user">
                             <tr>
-                                <td><input type="checkbox" name = "vip" c:out value="${user.id}"/> </td>
+                                <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>
                                 <td><c:out value="${user.name}"/></td>
                                 <td><c:out value="${user.email}"/></td>
                             </tr>
@@ -132,11 +133,11 @@
                     </table>
 
 
-                    <c:if test="${user_field != null}">
-                    <p>User is made vip ok: ${user_field}</p>
-                    </c:if>
                     <input type = "submit" name = "UNVIP" value="UNVIP">
                     <input type="submit" name = "VIP" value="VIP">
+
+
+
                     <div id="controls">
                         <div id="perpage">
                             <select onchange="sorter.size(this.value)">
@@ -173,6 +174,7 @@
                 </c:if>
             </div>
             </form>
+
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
                 <p>Agency comission:</p>
                 <input type="range" name="agency_com" id="agency_com" value="" min="3" max="17" />
@@ -181,6 +183,8 @@
                 <p>VIP User discount:</p>
                 <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
             </div>
+
+
             <div id="tabs-3"><!-- 'Promo codes' tab -->
                 <form name="promofrm" method="POST" action="generatepromo" onsubmit="">
                     <p>Start date:<input id="start_promo" name="start_promo" style="width:100px;"/></p>
