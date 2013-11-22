@@ -5,6 +5,9 @@ import com.nclodger.myexception.MyException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,18 +18,19 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MakeVIPAction implements Action {
 
-    private void makeVip(HttpServletRequest request, HttpServletResponse response) throws MyException {
-        UserDao uDao = new UserDao();
-        boolean flag = uDao.updateForSM(521);
-        request.getSession().setAttribute("user_field", "VIP");
-
-
-    }
-
         @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
-            makeVip(request, response);
-           return "smsettings";
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException, IOException {
+            UserDao uDao = new UserDao();
+            boolean flag = true; //uDao.updateForSM(521);
+            //      request.getParameterValues("vip");
+            String[] users = request.getParameterValues("vip[]");
+
+            for(int i=0; i<users.length; i++){
+                flag = uDao.updateForSM(Integer.parseInt(users[i]));
+            }
+
+     //       request.getSession().setAttribute("user_field", users);
+            return "smsettings";
     }
 
 }

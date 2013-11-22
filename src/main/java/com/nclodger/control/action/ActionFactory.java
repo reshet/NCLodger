@@ -30,13 +30,10 @@ public class ActionFactory {
         actions.put("/generatepromo", new GeneratePromoAction());
         actions.put("/makevip", new MakeVIPAction());
         actions.put("/showmostpopularhotel", new getPopHotelsAction());
-        actions.put("/smsetdiscounts", new SmSetDiscountsAction());
-        actions.put("/smsetdiscounts", new SmSetDiscountsAction());
-        actions.put("/getallpromocodes", new SmGetAllPromoCodes());
-
     }
 
     public static Action getAction(HttpServletRequest request) {
+
         return actions.get(request.getServletPath());
     }
 }
