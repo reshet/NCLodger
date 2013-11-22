@@ -268,13 +268,13 @@ a.orangelink:hover{ text-decoration: none; color: #9ec7dd; }
 .sortable td.evenselected {background:#ecf2f6}
 .sortable td.oddselected {background:#dce6ee}
 
-#controls {width:980px; margin:0 auto; height:20px}
-#perpage {float:left; width:200px}
-#perpage select {float:left; width: 70px; height: 20px;}
-#perpage span {float:left; margin:2px 0 0 5px}
-#navigation {float:left; width:580px; text-align:center}
-#navigation img {cursor:pointer}
-#text {float:left; width:200px; text-align:right; margin-top:2px}
+.controls {width:980px; margin:0 auto; height:20px}
+.perpage {float:left; width:200px}
+.perpage select {float:left; width: 70px; height: 20px;}
+.perpage span {float:left; margin:2px 0 0 5px}
+.navigation {float:left; width:580px; text-align:center}
+.navigation img {cursor:pointer}
+.text {float:left; width:200px; text-align:right; margin-top:2px}
 
 
 /***************** Action Result *****************/
