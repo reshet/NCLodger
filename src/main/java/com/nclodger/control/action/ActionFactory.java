@@ -30,6 +30,7 @@ public class ActionFactory {
         actions.put("/generatepromo", new GeneratePromoAction());
         actions.put("/makevip", new MakeVIPAction());
         actions.put("/showmostpopularhotel", new getPopHotelsAction());
+        actions.put("/getallpromocodes", new SmGetAllPromoCodes());
     }
 
     public static Action getAction(HttpServletRequest request) {
