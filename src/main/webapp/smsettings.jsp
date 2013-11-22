@@ -59,6 +59,14 @@
             document.getalluser.submit();
             return true;
         }
+
+        function OnMakeUnvip(){
+            document.getalluser.action = "makeunvip";
+            document.getalluser.submit();
+            return true;
+        }
+
+
     </script>
 
 
@@ -139,7 +147,7 @@
                     </table>
 
 
-                    <input type = "submit" name = "UNVIP" value="UNVIP">
+                    <input type = "submit" name = "UNVIP" value="UNVIP" onclick="OnMakeUnvip();">
                     <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">
 
 
