@@ -1,11 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Settings: administrator</title>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript" src="resources/js/sorttable.js"></script>
+
+    <script>
+        $(function() {
+            $("#start_promo").datepicker();
+            $("#end_promo").datepicker();
+        })
+        $(function() {
+            $("#start_mostvalacc").datepicker();
+            $("#end_mostvalacc").datepicker();
+        })
+        $(function() {
+            $( "#tabs" ).tabs();
+        });
+    </script>
+
 <!--[if lt IE 7]>
 <style type="text/css">
      #wrapper { height:100%; }
@@ -25,25 +44,19 @@
 
     <div id="header">
         <div class="greeting" style="float: right; padding-right: 2em; ">
-            <%
-                if(session.getAttribute("username") == null){
-            %>
-                    <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
-            <%
-                }
-                else {
-            %>
-                Hello, <%=session.getAttribute("username")%>!
+            <c:if test="${sessionScope.username == null}">
+                <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
+            </c:if>
+            <c:if test="${sessionScope.username != null}">
+                Hello, <c:out value="${sessionScope.username}"/>!
                 <br><a href="signout">Log out</a>
-                <br><a href="" class="orangelink"><img src="img/user.gif">User dashboard</a>
-            <%
-                }
-            %>
-            <%
-                if((Integer)session.getAttribute("utype") == (Integer)3) {
-            %>
-            <br><a href="adsettings" class="orangelink"><img src="img/user.gif">Sales manager actions</a>
-            <% } %>
+                <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
+            </c:if>
+            <%--<%--%>
+                <%--if((Integer)session.getAttribute("utype") == (Integer)3) {--%>
+            <%--%>--%>
+            <%--<br><a href="adsettings" class="orangelink"><img src="img/user.gif">Sales manager actions</a>--%>
+            <%--<% } %>--%>
         </div>
 
         <div class="nav">
@@ -57,70 +70,48 @@
     </div><!-- #header -->
 
     <div id="content">
-        <div class="search">
-            <a href="">View all users</a>
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Users</a></li>
+            <li><a href="#tabs-2">Commission & Discounts</a></li>
+            <li><a href="#tabs-3">Hotels</a></li>
+        </ul>
+        <div id="tabs-1"><!-- 'Users' tab -->
+
         </div>
 
-        <%--<%
-        if(request.getAttribute("servlet_value") != null) {--%>
-        <div class="actionres">
-            All users:
-        </div>
-        <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
-            <thead>
-            <tr>
-                <th><h3>Name</h3></th>
-                <th><h3>Email</h3></th>
-            </tr>
-            </thead>
-            <tbody>
-            <script>
-                document.write('<tr>');
-                document.write('<td>Iaroslav Dmytruk</td>');
-                document.write('<td><a>Iaroslav@example.org</a></td>');
-                document.write('</tr>');
-
-                document.write('<tr>');
-                document.write('<td>John Terry</td>');
-                document.write('<td><a>John@example.org</a></td>');
-                document.write('</tr>');
-
+    <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
+        <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
+            <div id="agency_com">
+                Agency comission: <span id="agency_com_currentval">0</span>%
+            </div>
+            <div id="defaultslide"></div>
+            <script type="text/javascript">
+                $(function(){
+                    $('#agency_com').slider({
+                        max: 17,
+                        min: 3,
+                        value: 0,
+                        slide: function(e,ui) {
+                            $('#agency_com_currentval').html(ui.value);
+                        }
+                    });
+                });
             </script>
-            </tbody>
-        </table>
-        <div id="controls">
-            <div id="perpage">
-                <select onchange="sorter.size(this.value)">
-                    <option value="5">5</option>
-                    <option value="10" selected="selected">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-                <span>Entries Per Page</span>
-            </div>
-            <div id="navigation">
-                <img src="img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" />
-                <img src="img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)" />
-                <img src="img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)" />
-                <img src="img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)" />
-            </div>
-            <div id="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
-        </div>
-        <script type="text/javascript">
-            var sorter = new TINY.table.sorter("sorter");
-            sorter.head = "head";
-            sorter.asc = "asc";
-            sorter.desc = "desc";
-            sorter.even = "evenrow";
-            sorter.odd = "oddrow";
-            sorter.evensel = "evenselected";
-            sorter.oddsel = "oddselected";
-            sorter.paginate = true;
-            sorter.currentid = "currentpage";
-            sorter.limitid = "pagelimit";
-            sorter.init("table",1);
-        </script>
+
+            <p>User discount:</p>
+            <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
+            <p>VIP User discount:</p>
+            <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
+            <p><input type="submit" name="save_changes" value="Save changes"></p>
+        </form>
+    </div>
+    <div id="tabs-3"><!-- 'Promo codes' tab -->
+    </div>
+    </div>
+
+
     </div><!-- #content -->
 
     <div id="footer">
