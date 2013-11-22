@@ -30,6 +30,10 @@
         $("#checkindate").datepicker();
         $("#checkoutdate").datepicker();
     })
+
+
+
+
     function valideSearchForm() {
         var isValid = true;
         var myDate = new Date();
@@ -100,6 +104,10 @@
         return isValid;
     }
 </script>
+
+
+
+
 </head>
     <%----%>
 <body>

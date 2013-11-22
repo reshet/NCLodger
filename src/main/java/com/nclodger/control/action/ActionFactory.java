@@ -31,6 +31,7 @@ public class ActionFactory {
         actions.put("/makevip", new MakeVIPAction());
         actions.put("/showmostpopularhotel", new getPopHotelsAction());
         actions.put("/getallpromocodes", new SmGetAllPromoCodes());
+        actions.put("/makeunvip", new MakeUnvipAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
