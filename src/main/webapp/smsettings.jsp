@@ -86,7 +86,15 @@
 
     <div id="header">
         <div class="greeting" style="float: right; padding-right: 2em; ">
-            <%
+            <c:if test="${sessionScope.username == null}">
+                <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
+            </c:if>
+            <c:if test="${sessionScope.username != null}">
+                Hello, <c:out value="${sessionScope.username}"/>!
+                <br><a href="signout">Log out</a>
+                <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
+            </c:if>
+            <%--<%
                 if (session.getAttribute("username") == null) {
             %>
             <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
@@ -98,7 +106,7 @@
             <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
             <%
                 }
-            %>
+            %>--%>
         </div>
 
         <div class="nav">
