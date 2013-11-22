@@ -13,31 +13,10 @@
     <!-- Script and css for the sorting table -->
     <script type="text/javascript" src="resources/js/sorttable.js"></script>
     <style type="text/css">
-        .sortable .head h3 {
-            background: url(resources/img/sort.gif) 7px center no-repeat;
-            cursor: pointer;
-            padding-left: 18px
-        }
-
-            /* unsort 2 arrows */
-        .sortable .desc, .sortable .asc {
-            background: #4b708d
-        }
-
-            /* selected header */
-        .sortable .desc h3 {
-            background: url(resources/img/desc.gif) 7px center no-repeat;
-            cursor: pointer;
-            padding-left: 18px
-        }
-
-            /* dsc arrpw */
-        .sortable .asc h3 {
-            background: url(resources/img/asc.gif) 7px center no-repeat;
-            cursor: pointer;
-            padding-left: 18px
-        }
-            /* asc arrow */
+    .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
+    .sortable .desc, .sortable .asc { background: #4b708d } /* unsort 2 arrows */
+    .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
+    .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
     </style>
     <script>
         $(function() {
