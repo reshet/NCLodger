@@ -17,7 +17,7 @@ import java.util.Date;
  * Time: 20:36
  * To change this template use File | Settings | File Templates.
  */
-public class GeneratePromoAction implements Action{
+public class GeneratePromoAction implements Action {
 
     private String generatePromoCode(HttpServletRequest request, HttpServletResponse response) throws MyException {
         Date date = new Date();

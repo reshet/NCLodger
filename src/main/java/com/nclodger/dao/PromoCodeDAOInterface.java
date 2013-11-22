@@ -14,4 +14,5 @@ import java.util.List;
 public interface PromoCodeDAOInterface {
     public boolean insert(PromoCode pc) throws MyException;
     public List<PromoCode> getAllPCbySMid(int id_sm) throws MyException;
+
 }

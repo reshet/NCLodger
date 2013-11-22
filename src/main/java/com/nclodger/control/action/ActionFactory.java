@@ -33,7 +33,6 @@ public class ActionFactory {
     }
 
     public static Action getAction(HttpServletRequest request) {
-
         return actions.get(request.getServletPath());
     }
 }
