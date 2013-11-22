@@ -53,6 +53,12 @@
         $(function() {
             $( "#tabs" ).tabs();
         });
+
+        function OnMakeVip(){
+            document.getalluser.action = "makevip";
+            document.getalluser.submit();
+            return true;
+        }
     </script>
 
 
@@ -108,8 +114,8 @@
                 <li><a href="#tabs-4">Reports</a></li>
             </ul>
             <div id="tabs-1"><!-- 'Users' tab -->
-                <form name="getalluser" method="POST" action="makevip" onsubmit="">
-
+            <!--    <form name="getalluser" method="POST" action="makevip" onsubmit=""> -->
+            <form name="getalluser" method="POST" onsubmit="">
                 <a href="smgetallusers">All users</a>
                   <c:if test="${requestScope.allusers != null}">
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
@@ -134,7 +140,7 @@
 
 
                     <input type = "submit" name = "UNVIP" value="UNVIP">
-                    <input type="submit" name = "VIP" value="VIP">
+                    <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">
 
 
 
