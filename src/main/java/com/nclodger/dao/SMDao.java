@@ -143,7 +143,7 @@ public class SMDao implements SMDaoInterface{
         });
     }
 
-    //the same as sortHotelbyPopular and timeframe
+    //the same as sortHotelbyPopular but with  timeframe
     public HashMap<Hotel,Integer> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException {
         return booleanOperation(new WrapperDBOperation<HashMap<Hotel,Integer>>() {
 
