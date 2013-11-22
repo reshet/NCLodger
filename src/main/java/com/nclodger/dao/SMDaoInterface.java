@@ -2,6 +2,8 @@ package com.nclodger.dao;
 
 import com.nclodger.myexception.MyException;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,5 +21,6 @@ public interface SMDaoInterface {
     public boolean getSManager(String email, String password) throws MyException;
     public SManager getSManager(int id) throws MyException;
     public int getSmanagerId(String email) throws MyException;
-    public List<String> sortHotelbyPopular() throws MyException;
+    public HashMap<Hotel,Integer> sortHotelbyPopular() throws MyException;
+    public HashMap<Hotel,Integer> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException;
 }

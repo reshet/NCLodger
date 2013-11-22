@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -110,26 +112,68 @@ public class SMDao implements SMDaoInterface{
     }
 
     // @Override
-    public List<String> sortHotelbyPopular() throws MyException {
-        return booleanOperation(new WrapperDBOperation<List<String>>() {
-
+    public HashMap<Hotel,Integer> sortHotelbyPopular() throws MyException {
+        return booleanOperation(new WrapperDBOperation<HashMap<Hotel,Integer>>() {
+            //added sql request that return all atribute of HOTEL and total order for this hotel
+            // sorting by decrease
             @Override
-            public List<String> doMethod(Connection dataBase) throws MyException, SQLException {
+            public HashMap<Hotel,Integer> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT NAME_H FROM HOTEL"
+                        "SELECT * FROM HOTEL"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
-                List<String> hList = new ArrayList<String>();
+                HashMap<Hotel,Integer> hotelsList = new HashMap<Hotel,Integer>();
                 while (results.next()) {
+                    int id_hotel = results.getInt(1);
+                    String name_hotel = results.getString(2);
+                    double loc_lat = results.getFloat(3);
+                    double loc_lng = results.getFloat(4);
+                    int category = results.getInt(5);
+                    int id_sm = results.getInt(6);
+                    String city = results.getString(7);
+                    String country = results.getString(8);
+                    int totalOrder = results.getInt(9);
 
-                    String hotelName = results.getString(1);
-                    hList.add(hotelName);
+                    Hotel h = new Hotel(id_hotel,name_hotel,loc_lat,loc_lng,category,id_sm,city,country);
+                    hotelsList.put(h,totalOrder);
                 }
-                return hList;
+                return hotelsList;
             }
         });
     }
+
+    //the same as sortHotelbyPopular and timeframe
+    public HashMap<Hotel,Integer> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException {
+        return booleanOperation(new WrapperDBOperation<HashMap<Hotel,Integer>>() {
+
+            @Override
+            public HashMap<Hotel,Integer> doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT * FROM HOTEL"
+                );
+
+                java.sql.ResultSet results = prep.executeQuery();
+                HashMap<Hotel,Integer> hotelsList = new HashMap<Hotel,Integer>();
+                while (results.next()) {
+                    int id_hotel = results.getInt(1);
+                    String name_hotel = results.getString(2);
+                    double loc_lat = results.getFloat(3);
+                    double loc_lng = results.getFloat(4);
+                    int category = results.getInt(5);
+                    int id_sm = results.getInt(6);
+                    String city = results.getString(7);
+                    String country = results.getString(8);
+                    int totalOrder = results.getInt(9);
+
+                    Hotel h = new Hotel(id_hotel,name_hotel,loc_lat,loc_lng,category,id_sm,city,country);
+                    hotelsList.put(h,totalOrder);
+                }
+                return hotelsList;
+            }
+        });
+    }
+
 
 }
 
