@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PromoCodeDAO implements PromoCodeDAOInterface {
@@ -64,10 +65,11 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                         "INSERT INTO PROMOCODE (code,start_date,end_date,discount,isUsed, id_sm) values (?,?,?,?,?,?)"
                 );
                 try {
-                    java.util.Date utilDate1 = new java.util.Date();
-                    java.util.Date utilDate2 = new java.util.Date();
-                    java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
-                    java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+                    DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+                    Date date1 = formatter.parse(pc.getStart_date());
+                    Date date2 = formatter.parse(pc.getEnd_date());
+                    java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
+                    java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
 
                     prep.setString(1,pc.getCode());
                     prep.setDate(2, sqlDate1);
