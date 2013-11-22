@@ -25,11 +25,9 @@ public class MakeVIPAction implements Action {
             //      request.getParameterValues("vip");
             String[] users = request.getParameterValues("vip[]");
 
-            for(int i=0; i<users.length; i++){
-                flag = uDao.updateForSM(Integer.parseInt(users[i]));
-            }
-
-     //       request.getSession().setAttribute("user_field", users);
+                for(int i=0; i<users.length; i++){
+                  flag = uDao.updateForSM(Integer.parseInt(users[i]));
+             }
             return "smsettings";
     }
 
