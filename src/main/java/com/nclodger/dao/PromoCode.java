@@ -7,16 +7,25 @@ public class PromoCode {
     private String start_date;
     private String end_date;
     private double discount;
-    private int isUsed = 0;
+    private int status;
     private int id_sm;
 
-    public PromoCode(String code, String start_date, String end_date, double discount, int used, int id_sm) {
+    public PromoCode(String code, String start_date, String end_date, double discount, int status, int id_sm) {
         this.code = code;
         this.start_date = start_date;
         this.end_date = end_date;
         this.discount = discount;
-        isUsed = used;
+        this.status = status;
         this.id_sm = id_sm;
+    }
+
+    public PromoCode(int id_pc, String code, String start_date, String end_date, double discount, int status) {
+        this.id_pc = id_pc;
+        this.code = code;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.discount = discount;
+        this.status = status;
     }
 
     public int getId_pc() {
@@ -59,12 +68,12 @@ public class PromoCode {
         this.discount = discount;
     }
 
-    public int getUsed() {
-        return isUsed;
+    public int getStatus() {
+        return status;
     }
 
-    public void setUsed(int used) {
-        isUsed = used;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getId_sm() {

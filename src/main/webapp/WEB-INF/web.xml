@@ -73,11 +73,17 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/generatepromo</url-pattern>
     </servlet-mapping>
-
-
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/getallpromocodes</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/makevip</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/smsetdiscounts</url-pattern>
     </servlet-mapping>
 
     <session-config>

@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
     <!-- Script and css for the sorting table -->
     <script type="text/javascript" src="resources/js/sorttable.js"></script>
     <style type="text/css">
@@ -39,7 +44,7 @@
         }
             /* asc arrow */
     </style>
-    <script>
+    <script type="text/javascript">
         $(function() {
             $("#start_promo").datepicker();
             $("#end_promo").datepicker();
@@ -54,8 +59,6 @@
             $( "#tabs" ).tabs();
         });
     </script>
-
-
 
     <!--[if lt IE 7]>
     <style type="text/css">
@@ -131,7 +134,6 @@
                         </tbody>
                     </table>
 
-
                     <c:if test="${user_field != null}">
                     <p>User is made vip ok: ${user_field}</p>
                     </c:if>
@@ -174,12 +176,40 @@
             </div>
             </form>
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
-                <p>Agency comission:</p>
-                <input type="range" name="agency_com" id="agency_com" value="" min="3" max="17" />
-                <p>User discount:</p>
-                <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
-                <p>VIP User discount:</p>
-                <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
+                <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
+                    <%--<p>Agency comission:</p>--%>
+                    <%--<input type="range" name="agency_com" id="agency_com" value="" min="3" max="17" />--%>
+                    <%--<div id="defaultval">--%>
+                        <%--Agency comission: <span id="currentval">0</span>%--%>
+                        <%--</div>--%>
+                        <%--<div id="defaultslide"></div>--%>
+
+                        <div id="agency_com">
+                        Agency comission: <span id="agency_com_currentval">0</span>%
+                        </div>
+                        <div id="defaultslide"></div>
+
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#agency_com').slider({
+                                    max: 17,
+                                    min: 3,
+                                    value: 0,
+                                    slide: function(e,ui) {
+                                        $('#agency_com_currentval').html(ui.value);
+                                    }
+                                });
+                            });
+                        </script>
+
+                    <p>User discount:</p>
+                    <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
+                    <p>VIP User discount:</p>
+                    <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
+                    <p><input type="submit" name="save_changes" value="Save changes"></p>
+                </form>
+
+
             </div>
             <div id="tabs-3"><!-- 'Promo codes' tab -->
                 <form name="promofrm" method="POST" action="generatepromo" onsubmit="">
@@ -190,6 +220,34 @@
                         <p>Generated promo code: ${promo_code}</p>
                     </c:if>
                     <input type="submit" name="generate_promo" value="Generate">
+                    </br>
+                    <a href="getallpromocodes">All promo codes:</a>
+                    </br>
+                    <c:if test="${requestScope.allpromocodes != null}">
+                        <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+                            <thead>
+                            <tr>
+                                <th><h3>Name</h3></th>
+                                <th><h3>Discount</h3></th>
+                                <th><h3>Start date</h3></th>
+                                <th><h3>Expiration date</h3></th>
+                                <th><h3>Status</h3></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${requestScope.allpromocodes}" var="pc">
+                                <tr>
+                                    <td><c:out value="${pc.code}"/></td>
+                                    <td><c:out value="${(pc.discount * 100)}"/>%</td>
+                                    <td><c:out value="${pc.start_date}"/></td>
+                                    <td><c:out value="${pc.end_date}"/></td>
+                                    <td><c:out value="${pc.status}"/></td>
+                                </tr>
+                                </br>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:if>
                 </form>
             </div>
             <div id="tabs-4"><!-- 'Reports' tab-->
@@ -209,6 +267,7 @@
                     <input type="submit" name="show_hotel" value="Show most populat hotel">
                 </form>
             </div>
+
         </div>
 
     </div>

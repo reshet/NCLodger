@@ -65,9 +65,6 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                         "INSERT INTO PROMOCODE (code,start_date,end_date,discount,isUsed, id_sm) values (?,?,?,?,?,?)"
                 );
                 try {
-                    DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-                    Date date1 = formatter.parse(pc.getStart_date());
-                    Date date2 = formatter.parse(pc.getEnd_date());
                     java.util.Date utilDate1 = new java.util.Date();
                     java.util.Date utilDate2 = new java.util.Date();
                     java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
@@ -77,7 +74,7 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                     prep.setDate(2, sqlDate1);
                     prep.setDate(3, sqlDate2);
                     prep.setDouble(4, pc.getDiscount());
-                    prep.setInt(5,pc.getUsed());
+                    prep.setInt(5,pc.getStatus());
                     prep.setInt(6,pc.getId_sm());
 
                     java.sql.ResultSet res = prep.executeQuery();
@@ -98,23 +95,21 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
             @Override
             public List<PromoCode> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT id_pc,code,start_date,end_date,discount,isUsed FROM PROMOCODE WHERE is_sm=?"
+                        "SELECT ID_PC,CODE,START_DATE,END_DATE,DISCOUNT,ISUSED FROM PROMOCODE WHERE ID_SM=?"
                 );
-
                 prep.setInt(1,id_sm);
                 java.sql.ResultSet results = prep.executeQuery();
                 List<PromoCode> pcList = new ArrayList<PromoCode>();
                 while (results.next()) {
-
                     int id = results.getInt(1);
                     String code = results.getString(2);
-                    Date start_date = results.getDate(3);
-                    Date end_date = results.getDate(4);
-                    int discount = results.getInt(5);
-                    int isUsed = results.getInt(6);
-
-//                    PromoCode pc = new PromoCode(id,code,start_date,end_date,discount,isUsed);
-//                    pcList.add(pc);
+                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                    String start_date = df.format(results.getDate(3));
+                    String end_date = df.format(results.getDate(4));
+                    double discount = results.getDouble(5);
+                    int status = results.getInt(6);
+                    PromoCode pc = new PromoCode(id,code,start_date,end_date,discount,status);
+                    pcList.add(pc);
                 }
                 return pcList;
             }

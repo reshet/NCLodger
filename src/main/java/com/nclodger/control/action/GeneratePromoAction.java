@@ -55,8 +55,8 @@ public class GeneratePromoAction implements Action{
         request.getSession().setAttribute("promo_code",code);
         SMDao smDao;
         PromoCode pc;
-        smDao = new SMDao();
         try {
+            smDao = new SMDao();
             int idSm = smDao.getSmanagerId(request.getSession().getAttribute("email").toString());
             pc = new PromoCode(code,
                 request.getParameter("start_promo"),
