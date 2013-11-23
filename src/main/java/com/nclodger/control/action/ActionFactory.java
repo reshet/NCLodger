@@ -34,6 +34,7 @@ public class ActionFactory {
         actions.put("/showmostpopularhotel", new getPopHotelsAction());
         actions.put("/getallpromocodes", new SmGetAllPromoCodes());
         actions.put("/initialdiscounts", new AdInitialDiscountsAction());
+        actions.put("/admingetallusers", new AdminGetAllUsersAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
