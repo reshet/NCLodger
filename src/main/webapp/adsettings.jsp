@@ -52,11 +52,6 @@
                 <br><a href="signout">Log out</a>
                 <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
             </c:if>
-            <%--<%--%>
-                <%--if((Integer)session.getAttribute("utype") == (Integer)3) {--%>
-            <%--%>--%>
-            <%--<br><a href="adsettings" class="orangelink"><img src="img/user.gif">Sales manager actions</a>--%>
-            <%--<% } %>--%>
         </div>
 
         <div class="nav">
@@ -82,8 +77,8 @@
         </div>
 
     <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
-        <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
-            <div id="agency_com">
+        <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
+            <%--<div id="agency_com">
                 Agency comission: <span id="agency_com_currentval">0</span>%
             </div>
             <div id="defaultslide"></div>
@@ -98,8 +93,9 @@
                         }
                     });
                 });
-            </script>
-
+            </script>--%>
+            <p>Commission:</p>
+            <input type="range" name="agency_com" id="agency_com" value="" min="0" max="33" />
             <p>User discount:</p>
             <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
             <p>VIP User discount:</p>
