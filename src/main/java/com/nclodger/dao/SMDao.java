@@ -111,11 +111,13 @@ public class SMDao implements SMDaoInterface{
         });
     }
 
-    // @Override
+
+    //add sql request that return all atribute of HOTEL and total order for this hotel
+    // sorting by decrease
+    @Override
     public HashMap<Hotel,Integer> sortHotelbyPopular() throws MyException {
         return booleanOperation(new WrapperDBOperation<HashMap<Hotel,Integer>>() {
-            //added sql request that return all atribute of HOTEL and total order for this hotel
-            // sorting by decrease
+
             @Override
             public HashMap<Hotel,Integer> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
@@ -144,6 +146,7 @@ public class SMDao implements SMDaoInterface{
     }
 
     //the same as sortHotelbyPopular but with  timeframe
+    @Override
     public HashMap<Hotel,Integer> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException {
         return booleanOperation(new WrapperDBOperation<HashMap<Hotel,Integer>>() {
 
@@ -166,8 +169,8 @@ public class SMDao implements SMDaoInterface{
                     String country = results.getString(8);
                     int totalOrder = results.getInt(9);
 
-                    Hotel h = new Hotel(id_hotel,name_hotel,loc_lat,loc_lng,category,id_sm,city,country);
-                    hotelsList.put(h,totalOrder);
+                    Hotel hotel = new Hotel(id_hotel,name_hotel,loc_lat,loc_lng,category,id_sm,city,country);
+                    hotelsList.put(hotel,totalOrder);
                 }
                 return hotelsList;
             }
@@ -175,5 +178,36 @@ public class SMDao implements SMDaoInterface{
     }
 
 
+    @Override
+    public HashMap<Accommodation, Double> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException {
+        return booleanOperation(new WrapperDBOperation<HashMap<Accommodation, Double> >() {
+
+            @Override
+            public HashMap<Accommodation, Double>  doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT * FROM ACCOMODATION"
+                );
+
+                java.sql.ResultSet results = prep.executeQuery();
+                HashMap<Accommodation,Double> accList = new HashMap<Accommodation,Double>();
+                while (results.next()) {
+                    int id_acc = results.getInt(1);
+                    int id_hotel = results.getInt(2);
+                    double price = results.getDouble(3);
+                    int quantity = results.getInt(4);
+                    String type = results.getString(5);
+                    String city = results.getString(6);
+                    String coutry = results.getString(7);
+
+                    double totalValue = results.getDouble(8);
+
+
+                    Accommodation acc = new Accommodation(id_acc,id_hotel,price,quantity,type,city,coutry);
+                    accList.put(acc,totalValue);
+                }
+                return accList;
+            }
+        });
+    }
 }
 
