@@ -17,6 +17,7 @@ public class Users implements Serializable{
     private int confirm_register;
     private int id_ut;
     private int vip;
+    private int isBlocked;
 
   /*  public void setConfirm_register(int confirm_register) {
         this.confirm_register = confirm_register;
@@ -26,12 +27,16 @@ public class Users implements Serializable{
         this.id_ut = id_ut;
     }
 
-   /* public int getConfirm_register() {
-        return confirm_register;
-    }*/
-
     public int getId_ut() {
-        return id_ut;
+        return this.id_ut;
+    }
+
+    public void setisBlocked(int block) {
+        this.isBlocked = block;
+    }
+
+    public int getisBlocked() {
+        return this.isBlocked;
     }
 
     public Users(int id,String username) {
@@ -46,8 +51,17 @@ public class Users implements Serializable{
         this.confirm_register = confirm_register;
     }
 
-    public Users(int id, String email, String pswd, String name, int confirm_register, int vip) {
+
+    public Users(int id, String email, String pswd, String name, int confirm_register, int block) {
         this.id = id;
+        this.email = email;
+        this.name = name;
+        this.pswd = pswd;
+        this.confirm_register = confirm_register;
+        this.isBlocked = block;
+    }
+
+    public Users(String email, String pswd, String name, int confirm_register, int vip) {
         this.email = email;
         this.name = name;
         this.pswd = pswd;
