@@ -24,14 +24,9 @@
             $( "#tabs" ).tabs();
         });
 
-        function OnMakeVip(){
-            document.getalluser.action = "makevip";
-            document.getalluser.submit();
-            return true;
-        }
-        function OnMakeUnvip(){
-            document.getalluser.action = "makeunvip";
-            document.getalluser.submit();
+        function OnMakeBlock(){
+            document.adgetalluser.action = "makeblock";
+            document.adgetalluser.submit();
             return true;
         }
 
@@ -106,7 +101,7 @@
 
                     <c:forEach items="${requestScope.allusers}" var="user">
                         <tr>
-                            <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>
+                            <td><input type="checkbox" name = "block[]" c:out value="${user.id}"/> </td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.email}"/></td>
                             <td><c:out value="${user.isBlocked}"/></td>
@@ -115,8 +110,8 @@
                     </c:forEach>
                     </tbody>
                 </table>
-     <!--           <input type = "submit" name = "UNVIP" value="UNVIP" onclick="OnMakeUnvip();">
-                <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">   -->
+                <input type = "submit" name = "Block" value="Block" onclick="OnMakeBlock();">
+                <!--         <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">   -->
                 <div class="controls">
                     <div class="perpage">
                         <select onchange="sorter.size(this.value)">
