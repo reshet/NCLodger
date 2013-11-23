@@ -20,7 +20,7 @@
     <%
         if((Integer)session.getAttribute("utype") == (Integer)3) {
     %>
-    <br><a href="adsettings" class="orangelink"><img src="resources/img/user.gif">Administrator dashboard</a>
+    <br><a href="adsettings.jsp" class="orangelink"><img src="resources/img/user.gif">Administrator dashboard</a>
     <% } %>
 </div>
 <div class="nav">
