@@ -2,47 +2,25 @@ package com.nclodger.dao;
 
 import java.io.Serializable;
 
-/**
- * Created with IntelliJ IDEA.
- * User: antoshka
- * Date: 09.10.13
- * Time: 9:01
- * To change this template use File | Settings | File Templates.
- */
 public class Users implements Serializable{
+    // PROPERTIES
     private int id;
     private String email;
     private String pswd;
     private String name;
     private int confirm_register;
     private int id_ut;
-    private int vip;
-    private int isBlocked;
 
-  /*  public void setConfirm_register(int confirm_register) {
-        this.confirm_register = confirm_register;
-    }*/
 
-    public void setId_ut(int id_ut) {
-        this.id_ut = id_ut;
-    }
-
-    public int getId_ut() {
-        return this.id_ut;
-    }
-
-    public void setisBlocked(int block) {
-        this.isBlocked = block;
-    }
-
-    public int getisBlocked() {
-        return this.isBlocked;
+    // CONSTRUCTORS
+    public Users() {
     }
 
     public Users(int id,String username) {
         this.id = id;
         this.name = username;
     }
+
     public Users(int id, String email, String pswd, String name, int confirm_register) {
         this.id = id;
         this.email = email;
@@ -51,34 +29,13 @@ public class Users implements Serializable{
         this.confirm_register = confirm_register;
     }
 
-
-    public Users(int id, String email, String pswd, String name, int confirm_register, int block) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.pswd = pswd;
-        this.confirm_register = confirm_register;
-        this.isBlocked = block;
+    // GETTERS / SETTERS
+    public void setId_ut(int id_ut) {
+        this.id_ut = id_ut;
     }
 
-    public Users(String email, String pswd, String name, int confirm_register, int vip) {
-        this.email = email;
-        this.name = name;
-        this.pswd = pswd;
-        this.confirm_register = confirm_register;
-        this.vip = vip;
-    }
-
-    public Users() {
-        //To change body of created methods use File | Settings | File Templates.
-    }
-
-    public void setVip(int vip) {
-        this.vip = vip;
-    }
-
-    public int getVip() {
-        return this.vip;
+    public int getId_ut() {
+        return id_ut;
     }
 
     public void setId(int id) {

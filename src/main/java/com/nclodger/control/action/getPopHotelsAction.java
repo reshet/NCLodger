@@ -20,8 +20,8 @@ public class getPopHotelsAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SMDao smdao = new SMDao();
-    //    List<String> hotel = (List<String>)smdao.sortHotelbyPopular();
-    //    request.setAttribute("mostpophotel",hotel);
+        //List<String> hotel = smdao.sortHotelbyPopular();
+        //request.setAttribute("mostpophotel",hotel);
 
         return "smsettings";
     }

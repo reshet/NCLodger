@@ -2,7 +2,6 @@ package com.nclodger.control.action;
 
 import com.nclodger.dao.ConfirmationEmailDAO;
 import com.nclodger.dao.UserDao;
-import com.nclodger.mail.MailConfirmation;
 import com.nclodger.myexception.MyException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

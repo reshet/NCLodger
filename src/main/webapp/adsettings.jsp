@@ -30,6 +30,13 @@
             return true;
         }
 
+        function OnMakeUnBlock(){
+            document.adgetalluser.action = "makeunblock";
+            document.adgetalluser.submit();
+            return true;
+        }
+
+
     </script>
 
 <!--[if lt IE 7]>
@@ -104,14 +111,14 @@
                             <td><input type="checkbox" name = "block[]" c:out value="${user.id}"/> </td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.email}"/></td>
-                            <td><c:out value="${user.isBlocked}"/></td>
+                            <td><c:out value="${user.is_blocked}"/></td>
                             <td><c:out value="${user.id_ut}"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
                 <input type = "submit" name = "Block" value="Block" onclick="OnMakeBlock();">
-                <!--         <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">   -->
+                <input type="submit" name = "UnBlock" value="UnBlock" onclick="OnMakeUnBlock();">
                 <div class="controls">
                     <div class="perpage">
                         <select onchange="sorter.size(this.value)">

@@ -79,21 +79,29 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/makeunvip</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/initialdiscounts</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/admingetallusers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/chnagepswd</url-pattern>
     </servlet-mapping>
 
 
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/makeblock</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/makeunblock</url-pattern>
     </servlet-mapping>
 
     <session-config>

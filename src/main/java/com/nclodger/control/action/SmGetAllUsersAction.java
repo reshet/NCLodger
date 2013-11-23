@@ -1,10 +1,7 @@
 package com.nclodger.control.action;
 
-import com.nclodger.dao.ConfirmationEmailDAO;
 import com.nclodger.dao.UserDao;
 import com.nclodger.dao.Users;
-import com.nclodger.webservices.Hotel;
-import org.json.JSONException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

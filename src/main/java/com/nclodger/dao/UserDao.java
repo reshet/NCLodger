@@ -38,27 +38,20 @@ public class UserDao implements UserDaoInterface {
             try {
                 dataBase.rollback();
                 throw new MyException(e.getMessage());
-                //return null;
             } catch (SQLException e1) {
-                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 throw new MyException(e1.getMessage());
             }
         } catch (NamingException e) {
             try {
                 dataBase.rollback();
-                //return null;
                 throw new MyException(e.getMessage());
             } catch (SQLException e1) {
-                //e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 throw new MyException(e1.getMessage());
             }
-            //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
             try {
                 dataBase.close();
             } catch (SQLException e) {
-                //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                //return null;
                 throw new MyException(e.getMessage());
             }
         }
@@ -83,13 +76,13 @@ public class UserDao implements UserDaoInterface {
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 //dataBase.
                 Statement st = dataBase.createStatement();
-                java.sql.ResultSet res = st.executeQuery("SELECT id FROM Users WHERE " +
-                        "id=" + _user.getId() + ";");
+                java.sql.ResultSet res = st.executeQuery("SELECT ID_USER FROM Users WHERE " +
+                        "ID_USER=" + _user.getId() + ";");
                 res.next();
                 int _id = res.getInt(1);
                 res = st.executeQuery("UPDATE Users" +
                         "SET confirm_register = 1 " +
-                        "WHERE id=" + _id + ";");
+                        "WHERE ID_USER=" + _id + ";");
                 return true;
             }
         });
@@ -135,16 +128,13 @@ public class UserDao implements UserDaoInterface {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "INSERT INTO USERS (USERNAME,EMAIL,PSWD,CONFIRM_REGISTER,ID_UT,IS_BLOCKED) values (?,?,?,0,1,0)"
                 );
-                //NamedParameterStatement p = new NamedParameterStatement(con, query);
-                // prep.setInt(1,11);
                 prep.setString(1, user.getName());
                 prep.setString(2, user.getEmail());
                 prep.setString(3, user.getPswd());
-                //String str = prep.;
 
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
-                return true;  //To change body of implemented methods use File | Settings | File Templates.
+                return true;
             }
         });
     }
@@ -202,11 +192,8 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public boolean delete(Users _user) throws ClassNotFoundException, SQLException {
-        //To change body of implemented methods use File | Settings | File Templates.
-        //TODO method
-        return false;
-
+    public boolean delete(String email) throws MyException {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public boolean getUser(final String email, final String password) throws MyException {

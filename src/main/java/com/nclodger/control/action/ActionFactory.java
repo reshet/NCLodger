@@ -21,7 +21,7 @@ public class ActionFactory {
         actions.put("/signout", new SignOutAction());
         actions.put("/search", new SearchAction());
         actions.put("/smsettings", new SmSettingsAction());
-        actions.put("/adsettings", new SmSettingsAction());
+        actions.put("/adsettings", new AdSettingsAction());
         actions.put("/confirmation", new ConfirmationAction());
         actions.put("/smgetallusers", new SmGetAllUsersAction());
         actions.put("/acdetails", new ACDetailsAction());
@@ -36,6 +36,9 @@ public class ActionFactory {
         actions.put("/initialdiscounts", new AdInitialDiscountsAction());
         actions.put("/admingetallusers", new AdminGetAllUsersAction());
         actions.put("/makeblock", new MakeBlockAction());
+        actions.put("/chnagepswd", new ChangePswdAction());
+        actions.put("/makeunblock", new MakeUnBlockAction());
+
     }
 
     public static Action getAction(HttpServletRequest request) {
