@@ -98,6 +98,8 @@
                         <th><input type="checkbox"/></th>
                         <th><h3>Name</h3></th>
                         <th><h3>Email</h3></th>
+                        <th><h3>Block Status</h3></th>
+                        <th><h3>Role in the system</h3></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -107,6 +109,8 @@
                             <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.email}"/></td>
+                            <td><c:out value="${user.isBlocked}"/></td>
+                            <td><c:out value="${user.id_ut}"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>

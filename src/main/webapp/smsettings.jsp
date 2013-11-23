@@ -97,6 +97,7 @@
                             <th><input type="checkbox"/></th>
                             <th><h3>Name</h3></th>
                             <th><h3>Email</h3></th>
+                            <th><h3>Vip Status</h3></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -106,6 +107,7 @@
                                 <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>
                                 <td><c:out value="${user.name}"/></td>
                                 <td><c:out value="${user.email}"/></td>
+                                <td><c:out value="${user.vip}"/></td>
                             </tr>
                         </c:forEach>
                         </tbody>
