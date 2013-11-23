@@ -23,6 +23,18 @@
         $(function() {
             $( "#tabs" ).tabs();
         });
+
+        function OnMakeVip(){
+            document.getalluser.action = "makevip";
+            document.getalluser.submit();
+            return true;
+        }
+        function OnMakeUnvip(){
+            document.getalluser.action = "makeunvip";
+            document.getalluser.submit();
+            return true;
+        }
+
     </script>
 
 <!--[if lt IE 7]>
@@ -74,7 +86,72 @@
         </ul>
         <div id="tabs-1"><!-- 'Users' tab -->
 
+
+
+
+            <form name="adgetalluser" method="POST" onsubmit="">
+                <a href="admingetallusers">All users</a>
+                <c:if test="${requestScope.allusers != null}">
+                <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox"/></th>
+                        <th><h3>Name</h3></th>
+                        <th><h3>Email</h3></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <c:forEach items="${requestScope.allusers}" var="user">
+                        <tr>
+                            <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>
+                            <td><c:out value="${user.name}"/></td>
+                            <td><c:out value="${user.email}"/></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+     <!--           <input type = "submit" name = "UNVIP" value="UNVIP" onclick="OnMakeUnvip();">
+                <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">   -->
+                <div class="controls">
+                    <div class="perpage">
+                        <select onchange="sorter.size(this.value)">
+                            <option value="5">5</option>
+                            <option value="10" selected="selected">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span>Entries Per Page</span>
+                    </div>
+                    <div class="navigation">
+                        <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                        <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                        <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                        <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                    </div>
+                    <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
+                </div>
+                <script type="text/javascript">
+                    var sorter = new TINY.table.sorter("sorter");
+                    sorter.head = "head";
+                    sorter.asc = "asc";
+                    sorter.desc = "desc";
+                    sorter.even = "evenrow";
+                    sorter.odd = "oddrow";
+                    sorter.evensel = "evenselected";
+                    sorter.oddsel = "oddselected";
+                    sorter.paginate = true;
+                    sorter.currentid = "currentpage";
+                    sorter.limitid = "pagelimit";
+                    sorter.init("table", 1);
+                </script>
+                </c:if>
         </div>
+        </form>
+
+
+
 
     <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
         <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
