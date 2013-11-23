@@ -35,6 +35,7 @@ public class ActionFactory {
         actions.put("/getallpromocodes", new SmGetAllPromoCodes());
         actions.put("/initialdiscounts", new AdInitialDiscountsAction());
         actions.put("/admingetallusers", new AdminGetAllUsersAction());
+        actions.put("/makeblock", new MakeBlockAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
