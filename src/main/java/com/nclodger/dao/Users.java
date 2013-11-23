@@ -16,6 +16,7 @@ public class Users implements Serializable{
     private String name;
     private int confirm_register;
     private int id_ut;
+    private int vip;
 
   /*  public void setConfirm_register(int confirm_register) {
         this.confirm_register = confirm_register;
@@ -45,10 +46,26 @@ public class Users implements Serializable{
         this.confirm_register = confirm_register;
     }
 
+    public Users(int id, String email, String pswd, String name, int confirm_register, int vip) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.pswd = pswd;
+        this.confirm_register = confirm_register;
+        this.vip = vip;
+    }
+
     public Users() {
         //To change body of created methods use File | Settings | File Templates.
     }
 
+    public void setVip(int vip) {
+        this.vip = vip;
+    }
+
+    public int getVip() {
+        return this.vip;
+    }
 
     public void setId(int id) {
         this.id = id;
