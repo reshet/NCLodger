@@ -75,10 +75,14 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/smsetdiscounts</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/makeunvip</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/initialdiscounts</url-pattern>
     </servlet-mapping>
 
     <session-config>

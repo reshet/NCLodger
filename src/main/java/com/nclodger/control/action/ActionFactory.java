@@ -33,6 +33,7 @@ public class ActionFactory {
         actions.put("/makeunvip", new MakeUnvipAction());
         actions.put("/showmostpopularhotel", new getPopHotelsAction());
         actions.put("/getallpromocodes", new SmGetAllPromoCodes());
+        actions.put("/initialdiscounts", new AdInitialDiscountsAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
