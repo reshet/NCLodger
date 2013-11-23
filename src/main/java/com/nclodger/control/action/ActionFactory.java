@@ -21,7 +21,7 @@ public class ActionFactory {
         actions.put("/signout", new SignOutAction());
         actions.put("/search", new SearchAction());
         actions.put("/smsettings", new SmSettingsAction());
-        actions.put("/adsettings", new SmSettingsAction());
+        actions.put("/adsettings", new AdSettingsAction());
         actions.put("/confirmation", new ConfirmationAction());
         actions.put("/smgetallusers", new SmGetAllUsersAction());
         actions.put("/acdetails", new ACDetailsAction());

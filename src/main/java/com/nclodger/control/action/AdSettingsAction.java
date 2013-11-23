@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AdSettingsAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if(request.getSession().getAttribute("utype")!=null && (Integer)request.getSession().getAttribute("utype") == 3) {
+        if(request.getSession().getAttribute("utype")!=null
+                && (Integer)request.getSession().getAttribute("utype") == 3) {
             return "adsettings";
         }
         else {

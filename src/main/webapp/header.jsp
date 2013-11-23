@@ -13,14 +13,14 @@
     <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
     <% } %>
     <%
-        if((Integer)session.getAttribute("utype") == (Integer)2) {
+        if(session.getAttribute("utype") == (Integer)2) {
     %>
     <br><a href="smsettings" class="orangelink"><img src="resources/img/user.gif">Sales manager dashboard</a>
     <% } %>
     <%
-        if((Integer)session.getAttribute("utype") == (Integer)3) {
+        if(session.getAttribute("utype") == (Integer)3) {
     %>
-    <br><a href="adsettings.jsp" class="orangelink"><img src="resources/img/user.gif">Administrator dashboard</a>
+    <br><a href="adsettings" class="orangelink"><img src="resources/img/user.gif">Administrator dashboard</a>
     <% } %>
 </div>
 <div class="nav">
