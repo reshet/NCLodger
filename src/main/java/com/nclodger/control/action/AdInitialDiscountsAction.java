@@ -27,6 +27,6 @@ public class AdInitialDiscountsAction implements Action {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";
         }
-        return "smsettings";
+        return "adsettings";
     }
 }
