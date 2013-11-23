@@ -4,14 +4,6 @@
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
    <display-name>NCLodger Application</display-name>
-<!--   <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
-    </context-param>-->
-
-    <!--<listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>&ndash;&gt;-->
 
     <welcome-file-list>
         <welcome-file>/home.jsp</welcome-file>
@@ -21,12 +13,10 @@
         <servlet-class>com.nclodger.control.ControllerServlet</servlet-class>
     </servlet>
     <!-- On registration submit -->
-
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
-
     <!-- On login submit -->
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>

@@ -12,14 +12,16 @@ public class SManager {
     // PROPERTIES
     private int id;
     private int id_user;
-    private int commission;
-    private int vip_discount;
-    private int user_discount;
+    private double commission;
+    private double vip_discount;
+    private double user_discount;
 
     // CONSTRUCTORS
     public SManager(int id_user) {
         this.id_user = id_user;
     }
+
+
 
     public SManager(int id, int id_user) {
         this.id = id;
@@ -36,15 +38,15 @@ public class SManager {
         return id_user;
     }
 
-    public int getCommission() {
+    public double getCommission() {
         return commission;
     }
 
-    public int getVip_discount() {
+    public double getVip_discount() {
         return vip_discount;
     }
 
-    public int getUser_discount() {
+    public double getUser_discount() {
         return user_discount;
     }
 
@@ -58,15 +60,15 @@ public class SManager {
         this.id_user = id_user;
     }
 
-    public void setCommission(int commission) {
+    public void setCommission(double commission) {
         this.commission = commission;
     }
 
-    public void setVip_discount(int vip_discount) {
+    public void setVip_discount(double vip_discount) {
         this.vip_discount = vip_discount;
     }
 
-    public void setUser_discount(int user_discount) {
+    public void setUser_discount(double user_discount) {
         this.user_discount = user_discount;
     }
 }

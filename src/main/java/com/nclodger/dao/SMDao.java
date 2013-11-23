@@ -111,6 +111,30 @@ public class SMDao implements SMDaoInterface{
         });
     }
 
+    @Override
+    public boolean setCommAndDiscounts(final int id_sm, final double commission,
+              final double vip_discount, final double user_discount) throws MyException {
+
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                    "UPDATE MANAGER SET COMMISSION=?,VIP_DISCOUNT=?,USER_DISCOUNT=?  WHERE ID_SM=?"
+                );
+
+                prep.setDouble(1,commission);
+                prep.setDouble(2,vip_discount);
+                prep.setDouble(3,user_discount);
+                prep.setInt(4,id_sm);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;
+            }
+        });
+
+    }
+
 
     //add sql request that return all atribute of HOTEL and total order for this hotel
     // sorting by decrease

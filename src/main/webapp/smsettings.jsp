@@ -23,12 +23,10 @@
             $("#start_promo").datepicker();
             $("#end_promo").datepicker();
         })
-
         $(function() {
             $("#start_mostvalacc").datepicker();
             $("#end_mostvalacc").datepicker();
         })
-
         $(function() {
             $( "#tabs" ).tabs();
         });
@@ -38,18 +36,12 @@
             document.getalluser.submit();
             return true;
         }
-
         function OnMakeUnvip(){
             document.getalluser.action = "makeunvip";
             document.getalluser.submit();
             return true;
         }
-
-
     </script>
-
-
-
     <!--[if lt IE 7]>
     <style type="text/css">
         #wrapper {
@@ -73,19 +65,6 @@
                 <br><a href="signout">Log out</a>
                 <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
             </c:if>
-            <%--<%
-                if (session.getAttribute("username") == null) {
-            %>
-            <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
-            <%
-            } else {
-            %>
-            Hello, <%=session.getAttribute("username")%>!
-            <br><a href="signout">Log out</a>
-            <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
-            <%
-                }
-            %>--%>
         </div>
 
         <div class="nav">
@@ -100,7 +79,6 @@
     <!-- #header -->
 
     <div id="content">
-
         <div id="tabs">
             <ul>
                 <li><a href="#tabs-1">Users</a></li>
@@ -112,7 +90,7 @@
             <!--    <form name="getalluser" method="POST" action="makevip" onsubmit=""> -->
             <form name="getalluser" method="POST" onsubmit="">
                 <a href="smgetallusers">All users</a>
-                  <c:if test="${requestScope.allusers != null}">
+                   <c:if test="${requestScope.allusers != null}">
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
@@ -132,59 +110,47 @@
                         </c:forEach>
                         </tbody>
                     </table>
-
-
                     <input type = "submit" name = "UNVIP" value="UNVIP" onclick="OnMakeUnvip();">
                     <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">
-
-
-
-                <div class="controls">
-                    <div class="perpage">
-                        <select onchange="sorter.size(this.value)">
-                            <option value="5">5</option>
-                            <option value="10" selected="selected">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <span>Entries Per Page</span>
+                    <div class="controls">
+                        <div class="perpage">
+                            <select onchange="sorter.size(this.value)">
+                                <option value="5">5</option>
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span>Entries Per Page</span>
+                        </div>
+                        <div class="navigation">
+                            <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                            <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                            <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                            <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                        </div>
+                        <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
                     </div>
-                    <div class="navigation">
-                        <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                        <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                        <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                        <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
-                    </div>
-                    <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
-                </div>
-                <script type="text/javascript">
-                    var sorter = new TINY.table.sorter("sorter");
-                    sorter.head = "head";
-                    sorter.asc = "asc";
-                    sorter.desc = "desc";
-                    sorter.even = "evenrow";
-                    sorter.odd = "oddrow";
-                    sorter.evensel = "evenselected";
-                    sorter.oddsel = "oddselected";
-                    sorter.paginate = true;
-                    sorter.currentid = "currentpage";
-                    sorter.limitid = "pagelimit";
-                    sorter.init("table", 1);
-                </script>
-                </c:if>
+                    <script type="text/javascript">
+                        var sorter = new TINY.table.sorter("sorter");
+                        sorter.head = "head";
+                        sorter.asc = "asc";
+                        sorter.desc = "desc";
+                        sorter.even = "evenrow";
+                        sorter.odd = "oddrow";
+                        sorter.evensel = "evenselected";
+                        sorter.oddsel = "oddselected";
+                        sorter.paginate = true;
+                        sorter.currentid = "currentpage";
+                        sorter.limitid = "pagelimit";
+                        sorter.init("table", 1);
+                    </script>
+                    </c:if>
             </div>
             </form>
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
                 <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
-                    <%--<p>Agency comission:</p>--%>
-                    <%--<input type="range" name="agency_com" id="agency_com" value="" min="3" max="17" />--%>
-                    <%--<div id="defaultval">--%>
-                    <%--Agency comission: <span id="currentval">0</span>%--%>
-                    <%--</div>--%>
-                    <%--<div id="defaultslide"></div>--%>
-
-                    <div id="agency_com">
+       <%--             <div id="agency_com">
                         Agency comission: <span id="agency_com_currentval">0</span>%
                     </div>
                     <div id="defaultslide"></div>
@@ -200,8 +166,9 @@
                                 }
                             });
                         });
-                    </script>
-
+                    </script>--%>
+                    <p>Commission:</p>
+                    <input type="range" name="agency_com" id="agency_com" value="" min="0" max="33" />
                     <p>User discount:</p>
                     <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
                     <p>VIP User discount:</p>

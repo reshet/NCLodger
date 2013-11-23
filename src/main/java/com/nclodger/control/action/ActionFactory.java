@@ -28,10 +28,11 @@ public class ActionFactory {
         actions.put("/orderstart", new OrderStartAction());
         actions.put("/orderfinish", new OrderFinishAction());
         actions.put("/generatepromo", new GeneratePromoAction());
+        actions.put("/smsetdiscounts", new SmSetDiscountsAction());
         actions.put("/makevip", new MakeVIPAction());
+        actions.put("/makeunvip", new MakeUnvipAction());
         actions.put("/showmostpopularhotel", new getPopHotelsAction());
         actions.put("/getallpromocodes", new SmGetAllPromoCodes());
-        actions.put("/makeunvip", new MakeUnvipAction());
     }
 
     public static Action getAction(HttpServletRequest request) {
