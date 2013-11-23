@@ -23,4 +23,5 @@ public interface SMDaoInterface {
     public int getSmanagerId(String email) throws MyException;
     public HashMap<Hotel,Integer> sortHotelbyPopular() throws MyException;
     public HashMap<Hotel,Integer> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException;
+    public HashMap<Accommodation,Double> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException;
 }
