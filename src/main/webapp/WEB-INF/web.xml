@@ -85,6 +85,11 @@
         <url-pattern>/initialdiscounts</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/admingetallusers</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
