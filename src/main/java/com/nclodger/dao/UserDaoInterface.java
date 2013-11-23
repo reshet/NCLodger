@@ -26,4 +26,6 @@ public interface UserDaoInterface {
     public boolean confirmRegisterByUserID(int userID) throws Exception;
     public boolean updateForSM(int userID) throws MyException;
     public boolean updateMakeUnvip(int userID) throws MyException;
+    public boolean makeBlock(final int userID) throws MyException;
+    public boolean makeUnBlock(final int userID) throws MyException;
 }

@@ -183,6 +183,47 @@ public class UserDao implements UserDaoInterface {
     }
 
 
+    @Override
+    public boolean makeBlock(final int userID) throws MyException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "UPDATE USERS SET IS_BLOCKED=? WHERE ID_USER=?"
+                );
+
+                prep.setInt(1,1);
+                prep.setInt(2,userID);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+    }
+
+
+
+    @Override
+    public boolean makeUnBlock(final int userID) throws MyException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "UPDATE USERS SET IS_BLOCKED=? WHERE ID_USER=?"
+                );
+
+                prep.setInt(1,0);
+                prep.setInt(2,userID);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+    }
+
+
 
     @Override
     public boolean update(Users _user) {

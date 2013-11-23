@@ -10,6 +10,7 @@ public class Users implements Serializable{
     private String name;
     private int confirm_register;
     private int id_ut;
+    private int is_blocked;
 
 
     // CONSTRUCTORS
@@ -36,6 +37,14 @@ public class Users implements Serializable{
 
     public int getId_ut() {
         return id_ut;
+    }
+
+    public void setIs_blocked(int block) {
+        this.is_blocked = block;
+    }
+
+    public int getIs_blocked() {
+        return this.is_blocked;
     }
 
     public void setId(int id) {
