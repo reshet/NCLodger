@@ -25,13 +25,6 @@ public class SearchAction implements Action {
         String checkin = request.getParameter("checkindate");
         String checkout = request.getParameter("checkoutdate");
 
-                /*
-        String checkin = request.getParameter("checkin_month") + "/" +
-                (request.getParameter("checkin_day")) + "/" +
-                (request.getParameter("checkin_year"));
-        String checkout = request.getParameter("checkout_month") + "/" +
-                (request.getParameter("checkout_day")) + "/" +
-                (request.getParameter("checkout_year"));*/
         String city = request.getParameter("city");
         String country = request.getParameter("country");
         String min_price = request.getParameter("min_price");
@@ -39,7 +32,6 @@ public class SearchAction implements Action {
         String guests_children = request.getParameter("guests_children");
         String guests_adults = request.getParameter("guests_adults");
         String currency = request.getParameter("currency");
-
 
         request.getSession().setAttribute("checkindate",checkin);
         request.getSession().setAttribute("checkoutdate",checkout);
@@ -51,20 +43,11 @@ public class SearchAction implements Action {
         request.getSession().setAttribute("guests_adults",guests_adults);
         request.getSession().setAttribute("currency", currency);
 
-
-        //String results = searcher.searchHotels(country,city,"10/5/2013","10/6/2013",2,10);
         String results = searcher.searchHotels(country,city,"11/28/2013","11/30/2013",currency,2,10);
         JSONObject resp = searcher.parseResults(results);
         List<Hotel> hotels = searcher.getHotelsList(resp);
         request.setAttribute("hotels",hotels);
         request.getSession().setAttribute("hotels",hotels);
-        /*try {
-            //Integer eResponse = resp.getJSONObject("HotelListResponse").getInt("numberOfRoomsRequested");
-            List<Hotel> hotels = searcher.getHotelsList(resp);
-            request.setAttribute("servlet_value",hotels);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         return "home";
     }
 }
