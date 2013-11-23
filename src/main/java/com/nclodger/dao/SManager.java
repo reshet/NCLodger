@@ -10,7 +10,6 @@ package com.nclodger.dao;
 public class SManager {
 
     // PROPERTIES
-
     private int id;
     private int id_user;
     private int commission;
@@ -18,7 +17,6 @@ public class SManager {
     private int user_discount;
 
     // CONSTRUCTORS
-
     public SManager(int id_user) {
         this.id_user = id_user;
     }
