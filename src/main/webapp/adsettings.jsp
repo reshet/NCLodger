@@ -36,6 +36,12 @@
             return true;
         }
 
+        function OnMakeSM(){
+            document.adgetalluser.action = "grantsm";
+            document.adgetalluser.submit();
+            return true;
+        }
+
 
     </script>
 
@@ -119,6 +125,11 @@
                 </table>
                 <input type = "submit" name = "Block" value="Block" onclick="OnMakeBlock();">
                 <input type="submit" name = "UnBlock" value="UnBlock" onclick="OnMakeUnBlock();">
+                <input type="submit" name = "GrantSM" value="Grant SM" onclick="OnMakeSM();">
+                <input type="submit" name = "DismissSM" value="Dismiss SM" >
+
+
+
                 <div class="controls">
                     <div class="perpage">
                         <select onchange="sorter.size(this.value)">
