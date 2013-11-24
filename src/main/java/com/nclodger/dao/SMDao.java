@@ -61,11 +61,9 @@ public class SMDao implements SMDaoInterface{
         return false;
     }
 
-
-
     @Override
     public boolean insert(final int id_user) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+          return booleanOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
 
@@ -76,6 +74,8 @@ public class SMDao implements SMDaoInterface{
                 prep.setInt(2,id_user);
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
+
+
 
                 PreparedStatement prep2 = dataBase.prepareStatement(
                         "SELECT COMMISSION, VIP_DISCOUNT, USER_DISCOUNT FROM INITIAL_DISCOUNT WHERE ID_ID=?"
@@ -89,8 +89,9 @@ public class SMDao implements SMDaoInterface{
                 double vip_discount = res2.getDouble(2);
                 double user_discount = res2.getDouble(3);
 
+
                 PreparedStatement prep2h = dataBase.prepareStatement(
-                     "SELECT MAX(ID_SM) FROM MANAGER;"
+                        "SELECT MAX(ID_SM) FROM MANAGER"
                 ) ;
                 java.sql.ResultSet res2h = prep2h.executeQuery();
                 res2h.next();
@@ -98,21 +99,24 @@ public class SMDao implements SMDaoInterface{
 
 
                 PreparedStatement prep3 = dataBase.prepareStatement(
-                        "INSERT INTO MANAGER(ID_SM,ID_USER,COMMISSION,VIP_DISCOUNT,USER_DISCOUNT)" +
+                        "INSERT INTO MANAGER(ID_SM,ID_USER,COMMISSION,VIP_DISCOUNT,USER_DISCOUNT,ID_ID)" +
                                 "VALUES" +
-                                "(?,?,?,?,?);"
+                                "(?,?,?,?,?,1)"
                 );
 
-                java.sql.ResultSet res3 = prep3.executeQuery();
                 maxId=maxId+1;
+
                 prep3.setInt(1,maxId);
                 prep3.setInt(2,id_user);
                 prep3.setDouble(3,commission);
                 prep3.setDouble(4,vip_discount);
                 prep3.setDouble(5,user_discount);
+
+                java.sql.ResultSet res3 = prep3.executeQuery();
                 res3.next();
 
-               return true;
+                return true;
+
             }
         });
     }
