@@ -1,7 +1,10 @@
 package com.nclodger.dao;
 
+import com.nclodger.additional.AccommodationTotalValue;
+import com.nclodger.additional.HotelTotalOrder;
 import com.nclodger.myexception.MyException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +25,7 @@ public interface SMDaoInterface {
     public SManager getSManager(int id) throws MyException;
     public int getSmanagerId(String email) throws MyException;
     public boolean setCommAndDiscounts(int id_sm, double commission, double vip_discount, double user_discount) throws MyException;
-    public HashMap<Hotel,Integer> sortHotelbyPopular() throws MyException;
-    public HashMap<Hotel,Integer> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException;
-    //public HashMap<Accommodation,Double> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException;
+    public ArrayList<HotelTotalOrder> sortHotelbyPopular() throws MyException;
+    public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException;
+    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException;
 }

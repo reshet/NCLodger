@@ -1,5 +1,7 @@
 package com.nclodger.dao;
 
+import com.nclodger.additional.AccommodationTotalValue;
+import com.nclodger.additional.HotelTotalOrder;
 import com.nclodger.myexception.MyException;
 
 
@@ -9,6 +11,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -108,7 +111,7 @@ public class SMDao implements SMDaoInterface{
 
                 prep3.setInt(1,maxId);
                 prep3.setInt(2,id_user);
-                prep3.setDouble(3,commission);
+                prep3.setDouble(3, commission);
                 prep3.setDouble(4,vip_discount);
                 prep3.setDouble(5,user_discount);
 
@@ -194,17 +197,17 @@ public class SMDao implements SMDaoInterface{
     //add sql request that return all atribute of HOTEL and total order for this hotel
     // sorting by decrease
     @Override
-    public HashMap<Hotel,Integer> sortHotelbyPopular() throws MyException {
-        return booleanOperation(new WrapperDBOperation<HashMap<Hotel,Integer>>() {
+    public ArrayList<HotelTotalOrder> sortHotelbyPopular() throws MyException {
+        return booleanOperation(new WrapperDBOperation<ArrayList<HotelTotalOrder>>() {
 
             @Override
-            public HashMap<Hotel,Integer> doMethod(Connection dataBase) throws MyException, SQLException {
+            public ArrayList<HotelTotalOrder> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT * FROM HOTEL"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
-                HashMap<Hotel,Integer> hotelsList = new HashMap<Hotel,Integer>();
+                ArrayList<HotelTotalOrder> hotelsList = new ArrayList< HotelTotalOrder >();
                 while (results.next()) {
                     int id_hotel = results.getInt(1);
                     String name_hotel = results.getString(2);
@@ -217,7 +220,7 @@ public class SMDao implements SMDaoInterface{
                     int totalOrder = results.getInt(9);
 
                     Hotel h = new Hotel(id_hotel,name_hotel,loc_lat,loc_lng,category,id_sm,city,country);
-                    hotelsList.put(h,totalOrder);
+                    hotelsList.add(new HotelTotalOrder(h,totalOrder));
                 }
                 return hotelsList;
             }
@@ -226,17 +229,17 @@ public class SMDao implements SMDaoInterface{
 
     //the same as sortHotelbyPopular but with  timeframe
     @Override
-    public HashMap<Hotel,Integer> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException {
-        return booleanOperation(new WrapperDBOperation<HashMap<Hotel,Integer>>() {
+    public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException {
+        return booleanOperation(new WrapperDBOperation<ArrayList<HotelTotalOrder>>() {
 
             @Override
-            public HashMap<Hotel,Integer> doMethod(Connection dataBase) throws MyException, SQLException {
+            public ArrayList<HotelTotalOrder> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT * FROM HOTEL"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
-                HashMap<Hotel,Integer> hotelsList = new HashMap<Hotel,Integer>();
+                ArrayList<HotelTotalOrder> hotelsList = new ArrayList< HotelTotalOrder >();
                 while (results.next()) {
                     int id_hotel = results.getInt(1);
                     String name_hotel = results.getString(2);
@@ -248,8 +251,8 @@ public class SMDao implements SMDaoInterface{
                     String country = results.getString(8);
                     int totalOrder = results.getInt(9);
 
-                    Hotel hotel = new Hotel(id_hotel,name_hotel,loc_lat,loc_lng,category,id_sm,city,country);
-                    hotelsList.put(hotel,totalOrder);
+                    Hotel h = new Hotel(id_hotel,name_hotel,loc_lat,loc_lng,category,id_sm,city,country);
+                    hotelsList.add(new HotelTotalOrder(h, totalOrder));
                 }
                 return hotelsList;
             }
@@ -257,36 +260,37 @@ public class SMDao implements SMDaoInterface{
     }
 
 
- /*   @Override
-    public HashMap<Accommodation, Double> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException {
-        return booleanOperation(new WrapperDBOperation<HashMap<Accommodation, Double> >() {
+    @Override
+    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException {
+        return booleanOperation(new WrapperDBOperation<ArrayList<AccommodationTotalValue> >() {
 
             @Override
-            public HashMap<Accommodation, Double>  doMethod(Connection dataBase) throws MyException, SQLException {
+            public ArrayList<AccommodationTotalValue>  doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT * FROM ACCOMODATION"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
-                HashMap<Accommodation,Double> accList = new HashMap<Accommodation,Double>();
+                ArrayList<AccommodationTotalValue> accList = new ArrayList<AccommodationTotalValue>();
                 while (results.next()) {
                     int id_acc = results.getInt(1);
                     int id_hotel = results.getInt(2);
                     double price = results.getDouble(3);
                     int quantity = results.getInt(4);
                     String type = results.getString(5);
-                    String city = results.getString(6);
-                    String coutry = results.getString(7);
+                    String hotel_name = results.getString(6);
+                    String city = results.getString(7);
+                    String coutry = results.getString(8);
 
-                    double totalValue = results.getDouble(8);
+                    double totalValue = results.getDouble(9);
 
 
-                    //Accommodation acc = new Accommodation(id_acc,id_hotel,price,quantity,type,city,coutry);
-                    accList.put(acc,totalValue);
+                    Accommodation acc = new Accommodation(id_acc,id_hotel,price,quantity,type);
+                    accList.add(new AccommodationTotalValue(acc,hotel_name,city,coutry,totalValue));
                 }
                 return accList;
             }
         });
-    } */
+    }
 }
 
