@@ -104,6 +104,7 @@ public class SMDao implements SMDaoInterface{
                 );
 
                 java.sql.ResultSet res3 = prep3.executeQuery();
+                maxId=maxId+1;
                 prep3.setInt(1,maxId);
                 prep3.setInt(2,id_user);
                 prep3.setDouble(3,commission);
