@@ -9,10 +9,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,10 +61,62 @@ public class SMDao implements SMDaoInterface{
         return false;
     }
 
+
+
     @Override
-    public boolean insert(int id_user) throws MyException {
-        return false;
+    public boolean insert(final int id_user) throws MyException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "UPDATE USERS SET ID_UT=? WHERE ID_USER=?"
+                );
+                prep.setInt(1,2);
+                prep.setInt(2,id_user);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+
+                PreparedStatement prep2 = dataBase.prepareStatement(
+                        "SELECT COMMISSION, VIP_DISCOUNT, USER_DISCOUNT FROM INITIAL_DISCOUNT WHERE ID_ID=?"
+                );
+
+                prep2.setInt(1,1);
+                java.sql.ResultSet res2 = prep2.executeQuery();
+                res2.next();
+
+                double commission = res2.getDouble(1);
+                double vip_discount = res2.getDouble(2);
+                double user_discount = res2.getDouble(3);
+
+                PreparedStatement prep2h = dataBase.prepareStatement(
+                     "SELECT MAX(ID_SM) FROM MANAGER;"
+                ) ;
+                java.sql.ResultSet res2h = prep2h.executeQuery();
+                res2h.next();
+                int maxId = res2h.getInt(1);
+
+
+                PreparedStatement prep3 = dataBase.prepareStatement(
+                        "INSERT INTO MANAGER(ID_SM,ID_USER,COMMISSION,VIP_DISCOUNT,USER_DISCOUNT)" +
+                                "VALUES" +
+                                "(?,?,?,?,?);"
+                );
+
+                java.sql.ResultSet res3 = prep3.executeQuery();
+                prep3.setInt(1,maxId);
+                prep3.setInt(2,id_user);
+                prep3.setDouble(3,commission);
+                prep3.setDouble(4,vip_discount);
+                prep3.setDouble(5,user_discount);
+                res3.next();
+
+               return true;
+            }
+        });
     }
+
+
 
     @Override
     public boolean delete(SManager smanager) throws MyException {
