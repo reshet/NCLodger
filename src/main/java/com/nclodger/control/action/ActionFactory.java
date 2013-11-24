@@ -38,6 +38,7 @@ public class ActionFactory {
         actions.put("/makeblock", new MakeBlockAction());
         actions.put("/chnagepswd", new ChangePswdAction());
         actions.put("/makeunblock", new MakeUnBlockAction());
+        actions.put("/grantsm", new GrantToSMAction());
 
     }
 
