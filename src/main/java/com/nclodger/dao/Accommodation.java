@@ -15,9 +15,7 @@ public class Accommodation {
     private int quantity;
     private String type;
 
-    //addition info about accommodation
-    private String city;
-    private String country;
+
 
     public Accommodation(){
 
@@ -32,17 +30,6 @@ public class Accommodation {
         this.type = type;
     }
 
-    //constructor by default ALL Accommodation attribute
-    //with additional information(country, city)
-    public Accommodation(int id_acc,int id_hotel, double price, int quantity, String type,String city,String country){
-        this.id_acc = id_acc;
-        this.id_hotel = id_hotel;
-        this.price = price;
-        this.quantity = quantity;
-        this.type = type;
-        this.city = city;
-        this.country = country;
-    }
 
     public int getId_acc() {
         return id_acc;
@@ -84,19 +71,4 @@ public class Accommodation {
         this.type = type;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 }
