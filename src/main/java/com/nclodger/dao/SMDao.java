@@ -257,7 +257,7 @@ public class SMDao implements SMDaoInterface{
     }
 
 
-    @Override
+ /*   @Override
     public HashMap<Accommodation, Double> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException {
         return booleanOperation(new WrapperDBOperation<HashMap<Accommodation, Double> >() {
 
@@ -281,12 +281,12 @@ public class SMDao implements SMDaoInterface{
                     double totalValue = results.getDouble(8);
 
 
-                    Accommodation acc = new Accommodation(id_acc,id_hotel,price,quantity,type,city,coutry);
+                    //Accommodation acc = new Accommodation(id_acc,id_hotel,price,quantity,type,city,coutry);
                     accList.put(acc,totalValue);
                 }
                 return accList;
             }
         });
-    }
+    } */
 }
 

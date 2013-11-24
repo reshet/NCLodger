@@ -24,5 +24,5 @@ public interface SMDaoInterface {
     public boolean setCommAndDiscounts(int id_sm, double commission, double vip_discount, double user_discount) throws MyException;
     public HashMap<Hotel,Integer> sortHotelbyPopular() throws MyException;
     public HashMap<Hotel,Integer> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException;
-    public HashMap<Accommodation,Double> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException;
+    //public HashMap<Accommodation,Double> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException;
 }

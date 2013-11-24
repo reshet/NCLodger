@@ -1,5 +1,6 @@
 package com.nclodger.additional;
 
+import com.nclodger.dao.Accommodation;
 import com.nclodger.dao.Hotel;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -31,6 +32,24 @@ public class ReportInExcelTest extends TestCase {
             re.createMostPopularHotel(hList);
         }
             catch (Exception e) {
+            e.getStackTrace();
+        }
+
+    }
+
+
+    public void testcreateMostValuableAccomodation() throws IOException {
+        try{
+            ArrayList<AccommodationTotalValue> aList = new ArrayList<AccommodationTotalValue>();
+            Accommodation a1 = new Accommodation(1,1,231,3,"luxe");
+            Accommodation a2 = new Accommodation(2,3,100,3,"standart");
+
+            aList.add(new AccommodationTotalValue(a1,"Plaza","Kiev","Ukraine",240));
+            aList.add(new AccommodationTotalValue(a2,"Plaza","Kiev","Ukraine",195));
+            ReportInExcel re = new ReportInExcel();
+            re.createMostValuableAccomodation(aList);
+        }
+        catch (Exception e) {
             e.getStackTrace();
         }
 
