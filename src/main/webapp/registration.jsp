@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
@@ -74,7 +75,10 @@
                 <span id="span_username">Username must contain only latin letters (4 to 20 symbols)!</span>
                 <p>Email:<input type="text" name="email" maxlength="50"/></p>
                 <span id="span_email">Invalid email!</span>
+                <c:if test="${requestScope.isExist==true}">
+                    <p>This email have already registered</p>
 
+                </c:if>
                 <p>Password:<input type="password" name="password1" maxlength="20"></p>
                 <span id="span_pswd1">Password must contain only latin letters and numbers (6 to 20 symbols)!</span>
                 <p>Confirm password:<input type="password" name="password2" maxlength="20"></p>

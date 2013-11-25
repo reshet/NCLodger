@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -59,7 +60,13 @@
                 <span id="span_notfound">User with such email and password was not found!</span>
                 <p>Email:<input type="text" name="email" maxlength="50"></p>
                 <span id="span_email">Invalid email!</span>
+                <c:if test="${requestScope.regConfirm==true}">
+                    <p>This email was not registered. Please, sign up or confirm your registration</p>
+                </c:if>
                 <p>Password:<input type="password" name="password1" maxlength="20"></p>
+                <c:if test="${requestScope.wrongPass==true}">
+                    <p>Wrong password</p>
+                </c:if>
                 <span id="span_pswd"><p>Invalid password!</p></span>
                 <a href="registration.jsp">Haven't got account yet?</a></br>
                 <a href="">Login with GOOGLE?</a>

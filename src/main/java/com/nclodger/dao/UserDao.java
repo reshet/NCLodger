@@ -6,10 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +30,7 @@ public class UserDao implements UserDaoInterface {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("jdbc/NCLodger");
             dataBase = ds.getConnection();
+
             return operation.doMethod(dataBase);
         } catch (SQLException e) {
             try {
@@ -408,5 +406,31 @@ public class UserDao implements UserDaoInterface {
         });
     }
 
+    //check if such email is exist in databases
+    @Override
+    public boolean isExistEmail(final String email) throws MyException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
 
+            @Override
+            public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT COUNT(1) FROM USERS WHERE EMAIL=?"
+                );
+                prep.setString(1, email);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int check = res.getInt(1);
+                boolean answer = false;
+                if(check==0){
+                    answer =false;
+                }
+                else{
+                    answer =true;
+                }
+                return answer;
+
+            }
+        });
+
+    }
 }
