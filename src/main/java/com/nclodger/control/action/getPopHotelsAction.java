@@ -1,14 +1,16 @@
 package com.nclodger.control.action;
 
+import com.nclodger.additional.AccommodationTotalValue;
+import com.nclodger.additional.HotelTotalOrder;
+import com.nclodger.additional.ReportInExcel;
 import com.nclodger.dao.SMDao;
-import com.nclodger.dao.UserDao;
-import com.nclodger.dao.Users;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,8 +22,18 @@ public class getPopHotelsAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SMDao smdao = new SMDao();
-        //List<String> hotel = smdao.sortHotelbyPopular();
-        //request.setAttribute("mostpophotel",hotel);
+
+        ArrayList<HotelTotalOrder> hList = new ArrayList<HotelTotalOrder>();
+        String start = request.getParameter("startDate");
+        String end  = request.getParameter("endDate");
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        Date startdate = formatter.parse(start);
+        Date enddate = formatter.parse(end);
+        hList = smdao.sortHotelbyPopularWithTimeFrame(startdate,enddate);
+
+        ReportInExcel re = new ReportInExcel();
+        re.createMostPopularHotel(hList);
+        //TODO: make link in jsp to download xls file
 
         return "smsettings";
     }

@@ -3,14 +3,6 @@ package com.nclodger.additional;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-
-import  org.apache.poi.hssf.usermodel.HSSFSheet;
-import  org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import  org.apache.poi.hssf.usermodel.HSSFRow;
-import  org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -56,7 +48,7 @@ public class ReportInExcel {
             FileOutputStream fileOut =  new FileOutputStream(filename);
             hwb.write(fileOut);
             fileOut.close();
-            System.out.println("Your excel file has been generated!");
+            //System.out.println("Your excel file has been generated!");
 
         } catch ( Exception ex ) {
             System.out.println(ex);
@@ -92,7 +84,7 @@ public class ReportInExcel {
             FileOutputStream fileOut =  new FileOutputStream(filename);
             hwb.write(fileOut);
             fileOut.close();
-            System.out.println("Your excel file has been generated!");
+           // System.out.println("Your excel file has been generated!");
 
         } catch ( Exception ex ) {
             System.out.println(ex);
