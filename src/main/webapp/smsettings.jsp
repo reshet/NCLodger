@@ -107,7 +107,12 @@
                                 <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>
                                 <td><c:out value="${user.name}"/></td>
                                 <td><c:out value="${user.email}"/></td>
-                                <td><c:out value="${user.vip}"/></td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${user.vip=='0'}">Not vip</c:when>
+                                        <c:when test="${user.vip=='1'}">Vip</c:when>
+                                    </c:choose>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
