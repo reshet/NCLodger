@@ -31,4 +31,5 @@ public interface UserDaoInterface {
     public boolean makeUnBlock(final int userID) throws MyException;
     public int getUserId(String email) throws MyException;
     public boolean updatePswd(Users u) throws MyException;
+    public boolean isExistEmail(String email) throws MyException;
 }

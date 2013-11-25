@@ -26,10 +26,13 @@ public class SignUpAction implements Action {
     UserDao users;
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[] {"dao-bean-config.xml",
-                        "additional-bean-config.xml","mail-bean-config.xml"});
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
         UserDao users = (UserDao) ctx.getBean("userDAO");
 
+        if(users.isExistEmail(request.getParameter("email"))){
+            request.setAttribute("isExist",true);
+            return "registration";
+        }
         boolean bool;
         Users user;
         try {
