@@ -36,7 +36,7 @@ public class ActionFactory {
         actions.put("/initialdiscounts", new AdInitialDiscountsAction());
         actions.put("/admingetallusers", new AdminGetAllUsersAction());
         actions.put("/makeblock", new MakeBlockAction());
-        actions.put("/chnagepswd", new ChangePswdAction());
+        actions.put("/changepswd", new ChangePswdAction());
         actions.put("/makeunblock", new MakeUnBlockAction());
         actions.put("/grantsm", new GrantToSMAction());
 

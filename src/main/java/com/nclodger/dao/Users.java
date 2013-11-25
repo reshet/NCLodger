@@ -22,6 +22,11 @@ public class Users implements Serializable{
         this.name = username;
     }
 
+    public Users(String pswd, int id) {
+        this.pswd = pswd;
+        this.id = id;
+    }
+
     public Users(int id, String email, String pswd, String name, int confirm_register) {
         this.id = id;
         this.email = email;

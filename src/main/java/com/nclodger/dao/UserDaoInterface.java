@@ -28,4 +28,6 @@ public interface UserDaoInterface {
     public boolean updateMakeUnvip(int userID) throws MyException;
     public boolean makeBlock(final int userID) throws MyException;
     public boolean makeUnBlock(final int userID) throws MyException;
+    public int getUserId(String email) throws MyException;
+    public boolean updatePswd(Users u) throws MyException;
 }

@@ -223,8 +223,6 @@ public class UserDao implements UserDaoInterface {
         });
     }
 
-
-
     @Override
     public boolean update(Users _user) {
         //To change body of implemented methods use File | Settings | File Templates.
@@ -355,4 +353,47 @@ public class UserDao implements UserDaoInterface {
                     }
                 });
             }
+
+        @Override
+        public int getUserId(final String email) throws MyException {
+            /**
+             * Working sql query example:
+             * SELECT ID_SM FROM MANAGER WHERE MANAGER.ID_USER IN
+             *      (SELECT ID_USER FROM USERS WHERE USERS.EMAIL = 'reshet.ukr@gmail.com')
+             */
+            return booleanOperation(new WrapperDBOperation<Integer>() {
+                @Override
+                public Integer doMethod(Connection dataBase) throws SQLException, MyException {
+                    PreparedStatement prep = dataBase.prepareStatement(
+                            "SELECT ID_USER FROM USERS WHERE USERS.EMAIL=?"
+                    );
+                    prep.setString(1,email);
+                    java.sql.ResultSet res = prep.executeQuery();
+                    res.next();
+                    int idSm = res.getInt(1);
+                    return idSm;
+                }
+            });
         }
+
+    @Override
+    public boolean updatePswd(final Users u) throws MyException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "UPDATE USERS SET PSWD=? WHERE ID_USER=?"
+                );
+
+                prep.setString(1,u.getPswd());
+                prep.setInt(2,u.getId());
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;
+            }
+        });
+    }
+
+
+}
