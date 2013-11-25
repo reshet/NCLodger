@@ -21,7 +21,7 @@ public class ChangePswdAction implements Action {
         int idUser = userDao.getUserId(request.getSession().getAttribute("email").toString());
         Users u = new Users(request.getParameter("password").toString(),idUser);
         userDao.updatePswd(u);
-        request.setAttribute("iduser",u.getPswd());
+        request.setAttribute("notify_changepswd","Your password has been successfully changed!");
         return "ussettings";
     }
 }

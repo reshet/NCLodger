@@ -262,6 +262,11 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
+    public boolean checkPswd(int userID, String password) throws MyException {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public List<Users> getAllUsers() throws MyException {
 
         return booleanOperation(new WrapperDBOperation<List<Users>>() {
@@ -385,7 +390,7 @@ public class UserDao implements UserDaoInterface {
                         "UPDATE USERS SET PSWD=? WHERE ID_USER=?"
                 );
 
-                prep.setString(1,u.getPswd());
+                prep.setString(1, u.getPswd());
                 prep.setInt(2,u.getId());
 
                 java.sql.ResultSet res = prep.executeQuery();
