@@ -64,6 +64,18 @@
     </p>
     <form name="orderfrm" method="POST" action="orderfinish" >
         Your promo code if any: <input type="text" name="promocode" value="">
+        <c:if test="${requestScope.isExist==false}">
+            <p>This Promocode do not exist. Please,ask Salesmanager to give you promocode</p>
+
+        </c:if>
+        <c:if test="${requestScope.isUsed==true}">
+            <p>This Promocode have already used. Please, try another</p>
+
+        </c:if>
+        <c:if test="${requestScope.isExpired==true}">
+            <p>This Promocode have already expired. Please, try another</p>
+
+        </c:if>
         <input type="submit" text="Make Payment" value="Make Payment">
     </form>
 </div>

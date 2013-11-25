@@ -6,6 +6,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -116,4 +117,85 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
             }
         });
     }
+
+    //return true if promocode exist
+    @Override
+    public boolean isExist(final String code) throws MyException {
+
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT COUNT(1) FROM PROMOCODE WHERE CODE=?"
+                );
+
+                    prep.setString(1,code);
+                    java.sql.ResultSet res = prep.executeQuery();
+                    res.next();
+                int check = res.getInt(1);
+                boolean answer = false;
+                if(check!=0){
+                    answer =true;
+                }
+                return answer;
+
+            }
+        });
+    }
+
+    //return true if code was used
+    @Override
+    public boolean isUsed(final String code) throws MyException {
+
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ISUSED FROM PROMOCODE WHERE CODE=?"
+                );
+
+                prep.setString(1,code);
+                java.sql.ResultSet res = prep.executeQuery();
+                boolean answer = false;
+                if (res.next()){
+                    int check = res.getInt(1);
+                    if(check==1){
+                        answer =true;
+                    }
+                }
+                return answer;
+
+            }
+        });
+    }
+
+    //true if promocode time is expired
+    @Override
+    public boolean isExpired(final String code) throws MyException {
+
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT COUNT(1) FROM PROMOCODE WHERE CODE=? AND ISUSED=2"
+                );
+
+                prep.setString(1,code);
+
+
+                java.sql.ResultSet res = prep.executeQuery();
+                boolean answer = false;
+                res.next();
+                int check = res.getInt(1);
+                if(check!=0){
+                    answer =true;
+                }
+
+                return answer;
+
+            }
+        });
+    }
+
+
 }

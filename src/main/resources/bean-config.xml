@@ -17,6 +17,9 @@
     <bean id="userDAO"
           class="com.nclodger.dao.UserDao" />
 
+    <bean id="promocodeDAO"
+          class="com.nclodger.dao.PromoCodeDAO" />
+
     <bean id="user"
           class="com.nclodger.dao.Users" />
 

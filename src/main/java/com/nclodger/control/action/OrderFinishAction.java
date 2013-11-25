@@ -1,6 +1,7 @@
 package com.nclodger.control.action;
 
 import com.nclodger.dao.Users;
+import com.nclodger.dao.PromoCodeDAO;
 import com.nclodger.mail.MailConfirmation;
 import com.nclodger.webservices.Hotel;
 import org.springframework.context.ApplicationContext;
@@ -25,6 +26,27 @@ public class OrderFinishAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
+
+        //check
+        PromoCodeDAO pcDAO = (PromoCodeDAO) ctx.getBean("promocodeDAO");
+        if(!pcDAO.isExist(request.getParameter("promocode"))){
+            request.setAttribute("isExist",false);
+            return "orderstart";
+        }
+        else{
+            if(pcDAO.isUsed(request.getParameter("promocode"))){
+                request.setAttribute("isUsed",true);
+                return "orderstart";
+            }
+            else{
+                if(pcDAO.isExpired(request.getParameter("promocode"))){
+                    request.setAttribute("isExpired",true);
+                    return "orderstart";
+                }
+            }
+
+        }
+
 
         Hotel h = (Hotel)request.getSession().getAttribute("hotel");
         String promo = (String)request.getAttribute("promocode");

@@ -2,6 +2,7 @@ package com.nclodger.dao;
 
 import com.nclodger.myexception.MyException;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,5 +15,8 @@ import java.util.List;
 public interface PromoCodeDAOInterface {
     public boolean insert(PromoCode pc) throws MyException;
     public List<PromoCode> getAllPCbySMid(int id_sm) throws MyException;
+    public boolean isExist(final String code) throws MyException;
+    public boolean isUsed(final String code) throws MyException;
+    public boolean isExpired(final String code) throws MyException;
 
 }
