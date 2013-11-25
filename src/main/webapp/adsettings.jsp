@@ -138,6 +138,8 @@
                 <input type="submit" name = "UnBlock" value="UnBlock" onclick="OnMakeUnBlock();">
                 <input type="submit" name = "GrantSM" value="Grant SM" onclick="OnMakeSM();">
                 <input type="submit" name = "DismissSM" value="Dismiss SM" >
+                <input type="submit" name = "CreateUser" value="Create User">
+                <input type="submit" name="DeleteUser" value="Delete User">
 
 
 
