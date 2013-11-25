@@ -11,7 +11,8 @@ public class Users implements Serializable{
     private int confirm_register;
     private int id_ut;
     private int is_blocked;
-
+    private Integer bonus;
+    private int vip;
 
     // CONSTRUCTORS
     public Users() {
@@ -36,6 +37,24 @@ public class Users implements Serializable{
     }
 
     // GETTERS / SETTERS
+
+
+    public Integer getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Integer bonus) {
+        this.bonus = bonus;
+    }
+
+    public int getVip() {
+        return vip;
+    }
+
+    public void setVip(int vip) {
+        this.vip = vip;
+    }
+
     public void setId_ut(int id_ut) {
         this.id_ut = id_ut;
     }

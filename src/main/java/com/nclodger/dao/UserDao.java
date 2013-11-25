@@ -274,7 +274,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public List<Users> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL FROM USERS"
+                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL,IS_BLOCKED,BONUS,VIP FROM USERS"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
@@ -285,10 +285,18 @@ public class UserDao implements UserDaoInterface {
                     String uname = results.getString(2);
                     Integer utype = results.getInt(3);
                     String email = results.getString(4);
+                    Integer is_blocked = results.getInt(5);
+                    Integer bonus = results.getInt(6);
+                    Integer vip = results.getInt(7);
+
 
                     Users user = new Users(id, uname);
                     user.setId_ut(utype);
                     user.setEmail(email);
+                    user.setIs_blocked(is_blocked);
+                    user.setBonus(bonus);
+                    user.setVip(vip);
+
                     uList.add(user);
                 }
                 return uList;

@@ -119,8 +119,8 @@
                             <td><c:out value="${user.email}"/></td>
                            <td>
                                <c:choose>
-                                <c:when test="${user.isBlocked=='0'}">not blocked</c:when>
-                                <c:when test="${user.isBlocked=='1'}">blocked</c:when>
+                                <c:when test="${user.is_blocked=='0'}">not blocked</c:when>
+                                <c:when test="${user.is_blocked=='1'}">blocked</c:when>
                                </c:choose>
                            </td>
                             <td>
