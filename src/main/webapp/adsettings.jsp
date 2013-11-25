@@ -117,8 +117,19 @@
                             <td><input type="checkbox" name = "block[]" c:out value="${user.id}"/> </td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.email}"/></td>
-                            <td><c:out value="${user.is_blocked}"/></td>
-                            <td><c:out value="${user.id_ut}"/></td>
+                           <td>
+                               <c:choose>
+                                <c:when test="${user.isBlocked=='0'}">not blocked</c:when>
+                                <c:when test="${user.isBlocked=='1'}">blocked</c:when>
+                               </c:choose>
+                           </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${user.id_ut=='3'}">Admin</c:when>
+                                    <c:when test="${user.id_ut=='2'}">Sales Manager</c:when>
+                                    <c:when test="${user.id_ut=='1'}">Customer</c:when>
+                                </c:choose>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
