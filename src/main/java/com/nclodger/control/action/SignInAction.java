@@ -21,6 +21,17 @@ public class SignInAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
         ApplicationContext context = new ClassPathXmlApplicationContext("bean-config.xml");
         UserDao users = (UserDao) context.getBean("userDAO");
+        if(!users.isExistEmail(request.getParameter("email"))){
+            request.setAttribute("regConfirm",true);
+            return "login";
+        }
+        else if(users.isExistEmail(request.getParameter("email")) && !users.getUser(request.getParameter("email"),request.getParameter("password")))
+        {
+            request.setAttribute("wrongPass",true);
+            return "login";
+        }
+
+
         Users user;
         try {
             user = users.getUserObj(request.getParameter("email"),request.getParameter("password"));
