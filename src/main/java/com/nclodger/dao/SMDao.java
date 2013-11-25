@@ -70,7 +70,7 @@ public class SMDao implements SMDaoInterface{
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
 
-                PreparedStatement prep = dataBase.prepareStatement(
+                 PreparedStatement prep = dataBase.prepareStatement(
                         "UPDATE USERS SET ID_UT=? WHERE ID_USER=?"
                 );
                 prep.setInt(1,2);
@@ -92,7 +92,7 @@ public class SMDao implements SMDaoInterface{
                 double vip_discount = res2.getDouble(2);
                 double user_discount = res2.getDouble(3);
 
-
+         /*
                 PreparedStatement prep2h = dataBase.prepareStatement(
                         "SELECT MAX(ID_SM) FROM MANAGER"
                 ) ;
@@ -100,20 +100,20 @@ public class SMDao implements SMDaoInterface{
                 res2h.next();
                 int maxId = res2h.getInt(1);
 
-
+          */
                 PreparedStatement prep3 = dataBase.prepareStatement(
-                        "INSERT INTO MANAGER(ID_SM,ID_USER,COMMISSION,VIP_DISCOUNT,USER_DISCOUNT,ID_ID)" +
+                              "INSERT INTO MANAGER(ID_USER,COMMISSION,VIP_DISCOUNT,USER_DISCOUNT,ID_ID)" +
                                 "VALUES" +
-                                "(?,?,?,?,?,1)"
+                                "(?,?,?,?,1)"
                 );
 
-                maxId=maxId+1;
+            //    maxId=maxId+1;
 
-                prep3.setInt(1,maxId);
-                prep3.setInt(2,id_user);
-                prep3.setDouble(3, commission);
-                prep3.setDouble(4,vip_discount);
-                prep3.setDouble(5,user_discount);
+        //        prep3.setInt(1,id_user);
+                prep3.setInt(1,id_user);
+                prep3.setDouble(2, commission);
+                prep3.setDouble(3,vip_discount);
+                prep3.setDouble(4,user_discount);
 
                 java.sql.ResultSet res3 = prep3.executeQuery();
                 res3.next();
@@ -132,8 +132,58 @@ public class SMDao implements SMDaoInterface{
     }
 
     @Override
-    public boolean delete(int id_user) throws MyException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean delete(final int id_user) throws MyException {
+        return booleanOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement first = dataBase.prepareStatement(
+                        "UPDATE USERS SET ID_UT=? WHERE ID_USER=?"
+                );
+                first.setInt(1,1);
+                first.setInt(2,id_user);
+                java.sql.ResultSet firstRes = first.executeQuery();
+                firstRes.next();
+
+
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_SM FROM MANAGER WHERE ID_USER=?"
+                );
+                prep.setInt(1,id_user);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int id_sm = res.getInt(1);
+
+                //теперь нужно удалить все записи этого менеджеришки в подчиненных таблицах
+
+                PreparedStatement prep2 = dataBase.prepareStatement(
+                        "DELETE FROM PROMOCODE WHERE ID_SM=?"
+                );
+                prep2.setInt(1,id_sm);
+                prep2.executeUpdate();
+
+                PreparedStatement prep3 = dataBase.prepareStatement(
+                        "DELETE FROM ORDER WHERE ID_SM=?"
+                );
+                prep3.setInt(1,id_sm);
+                prep3.executeUpdate();
+
+                PreparedStatement prep4 = dataBase.prepareStatement(
+                        "DELETE FROM HOTEL_MANAGER WHERE ID_SM=?"
+                );
+                prep4.setInt(1,id_sm);
+                prep4.executeUpdate();
+
+                //и наконец удалим самого менеджера
+
+                PreparedStatement prep5 = dataBase.prepareStatement(
+                        "DELETE FROM MANAGER WHERE ID_SM=?"
+                );
+                prep5.setInt(1,id_sm);
+                prep5.executeUpdate();
+
+                return true;
+            }
+        });
     }
 
     @Override
