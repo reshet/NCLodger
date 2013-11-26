@@ -48,6 +48,21 @@
             return true;
         }
 
+        function OnDeleteUser(){
+            document.adgetalluser.action = "deleteuser";
+            document.adgetalluser.submit();
+            return true;
+        }
+
+        function toggle(source) {
+            checkboxes = document.getElementsByName('blocked[]');
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
+
+
+
 
     </script>
 
@@ -109,7 +124,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                     <thead>
                     <tr>
-                        <th><input type="checkbox"/></th>
+                        <th><input type="checkbox" onClick="toggle(this)"/></th>
                         <th><h3>Name</h3></th>
                         <th><h3>Email</h3></th>
                         <th><h3>Block Status</h3></th>
@@ -120,7 +135,7 @@
 
                     <c:forEach items="${requestScope.allusers}" var="user">
                         <tr>
-                            <td><input type="checkbox" name = "block[]" c:out value="${user.id}"/> </td>
+                            <td><input type="checkbox" name = "block[]" c:out value="${user.id}"/></td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.email}"/></td>
                            <td>
@@ -145,7 +160,7 @@
                 <input type="submit" name = "GrantSM" value="Grant SM" onclick="OnMakeSM();">
                 <input type="submit" name = "DismissSM" value="Dismiss SM" onclick="OnDismissSM();">
                 <input type="submit" name = "CreateUser" value="Create User">
-                <input type="submit" name="DeleteUser" value="Delete User">
+                <input type="submit" name="DeleteUser" value="Delete User" onclick="OnDeleteUser();">
 
 
 
