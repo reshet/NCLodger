@@ -48,6 +48,7 @@ public class ActionFactory {
         actions.put("/makeunblock", new MakeUnBlockAction());
         actions.put("/grantsm", new GrantToSMAction());
         actions.put("/dismisssm", new DismissSMAction());
+        actions.put("/deleteuser", new AdminDeleteUserAction());
 
     }
 
