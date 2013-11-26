@@ -112,7 +112,7 @@
                     <c:set var="currencies" value="${fn:split('USD,EUR,UAH', ',')}" scope="session" />
                     <li>
                         Country: *
-                        <select id="country" name="country" style="width: 200px;">
+                        <select id="country" name="country" style="width: 180px;">
                             <option value=""> none </option>
                             <c:forEach items="${countries}" var="country">
                                 <option value="${country}" ${sessionScope.country == country ? 'selected' : ''}>${country}</option>
@@ -121,7 +121,7 @@
                     </li>
                     <li>
                         City: *
-                        <select id="city" name="city" style="width: 200px;">
+                        <select id="city" name="city" style="width: 180px;">
                                 <option value=""> none </option>
                                 <c:forEach items="${cities}" var="city">
                                     <option value="${city}" ${sessionScope.city == city ? 'selected' : ''}>${city}</option>
