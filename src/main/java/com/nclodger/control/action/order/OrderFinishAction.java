@@ -32,22 +32,24 @@ public class OrderFinishAction extends Action {
         request.getSession().setAttribute("promocode", promo);
 
         PromoCodeDAO pcDAO = (PromoCodeDAO) ctx.getBean("promocodeDAO");
-        if(!pcDAO.isExist(promo)){
-            request.setAttribute("isExist",false);
-            return "orderstart";
-        }
-        else{
-            if(pcDAO.isUsed(promo)){
-                request.setAttribute("isUsed",true);
+        if(promo!=null) {
+            if(!pcDAO.isExist(promo)){
+                request.setAttribute("isExist",false);
                 return "orderstart";
             }
             else{
-                if(pcDAO.isExpired(promo)){
-                    request.setAttribute("isExpired",true);
+                if(pcDAO.isUsed(promo)){
+                    request.setAttribute("isUsed",true);
                     return "orderstart";
                 }
-            }
+                else{
+                    if(pcDAO.isExpired(promo)){
+                        request.setAttribute("isExpired",true);
+                        return "orderstart";
+                    }
+                }
 
+            }
         }
 
 
