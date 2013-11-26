@@ -49,6 +49,14 @@
             document.getalluser.submit();
             return true;
         }
+
+        function toggle2(source) {
+            checkboxes = document.getElementsByName('vip[]');
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
+
     </script>
     <!--[if lt IE 7]>
     <style type="text/css">
@@ -104,7 +112,7 @@
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
-                            <th><input type="checkbox"/></th>
+                            <th><input type="checkbox" onClick="toggle2(this)"/></th>
                             <th><h3>Name</h3></th>
                             <th><h3>Email</h3></th>
                             <th><h3>Vip Status</h3></th>
