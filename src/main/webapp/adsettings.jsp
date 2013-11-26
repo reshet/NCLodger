@@ -76,7 +76,7 @@
             <c:if test="${sessionScope.username != null}">
                 Hello, <c:out value="${sessionScope.username}"/>!
                 <br><a href="signout">Log out</a>
-                <br><a href="" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
+                <br><a href="ussettings.jsp" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
             </c:if>
         </div>
 
