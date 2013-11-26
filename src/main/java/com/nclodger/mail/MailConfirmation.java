@@ -2,6 +2,7 @@ package com.nclodger.mail;
 
 
 import com.nclodger.webservices.Hotel;
+import org.springframework.stereotype.Component;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -15,7 +16,7 @@ import java.util.Properties;
  */
 
 
-//@Componennt("mail")
+@Component("mailconfirmation")
 public class MailConfirmation {
 
 

@@ -6,21 +6,18 @@
     <context:annotation-config />
     <context:component-scan base-package="com.nclodger"/>
 
-    <bean id="mailconfirmation"
-          class="com.nclodger.mail.MailConfirmation" />
-    <bean id="md5value"
-          class="com.nclodger.additional.MD5Value" />
+<!--    <bean id="mailconfirmation"
+          class="com.nclodger.mail.MailConfirmation" />-->
+   <!-- <bean id="md5value"
+          class="com.nclodger.additional.MD5Value" />-->
 
-    <bean id="conemailDAO"
-          class="com.nclodger.dao.ConfirmationEmailDAO" />
-
+    <!--<bean id="conemailDAO"
+          class="com.nclodger.dao.ConfirmationEmailDAO" />-->
+<!--
     <bean id="userDAO"
-          class="com.nclodger.dao.UserDao" />
+          class="com.nclodger.dao.UserDao" />-->
 
-    <bean id="promocodeDAO"
-          class="com.nclodger.dao.PromoCodeDAO" />
-
-    <bean id="user"
-          class="com.nclodger.dao.Users" />
+<!--    <bean id="user"
+          class="com.nclodger.domain.Users" />-->
 
 </beans>

@@ -1,5 +1,7 @@
 package com.nclodger.additional;
 
+import org.springframework.stereotype.Component;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -10,6 +12,7 @@ import java.util.logging.Logger;
  * Date: 10/29/13
  * Time: 8:03 PM
  */
+@Component("MD5Value")
 public class MD5Value {
 
     public MD5Value(){

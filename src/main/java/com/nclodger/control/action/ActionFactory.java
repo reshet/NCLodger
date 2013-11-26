@@ -1,5 +1,13 @@
 package com.nclodger.control.action;
 
+import com.nclodger.control.action.access.*;
+import com.nclodger.control.action.admin.*;
+import com.nclodger.control.action.order.OrderFinishAction;
+import com.nclodger.control.action.order.OrderStartAction;
+import com.nclodger.control.action.search.ACDetailsAction;
+import com.nclodger.control.action.search.SearchAction;
+import com.nclodger.control.action.sm.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +39,7 @@ public class ActionFactory {
         actions.put("/smsetdiscounts", new SmSetDiscountsAction());
         actions.put("/makevip", new MakeVIPAction());
         actions.put("/makeunvip", new MakeUnvipAction());
-        actions.put("/showmostpopularhotel", new getPopHotelsAction());
+        actions.put("/showmostpopularhotel", new PopHotelsAction());
         actions.put("/getallpromocodes", new SmGetAllPromoCodes());
         actions.put("/initialdiscounts", new AdInitialDiscountsAction());
         actions.put("/admingetallusers", new AdminGetAllUsersAction());

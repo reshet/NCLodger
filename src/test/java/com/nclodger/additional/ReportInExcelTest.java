@@ -1,7 +1,7 @@
 package com.nclodger.additional;
 
-import com.nclodger.dao.Accommodation;
-import com.nclodger.dao.Hotel;
+import com.nclodger.domain.Accommodation;
+import com.nclodger.domain.Hotel;
 import junit.framework.TestCase;
 import org.junit.Test;
 

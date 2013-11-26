@@ -1,6 +1,6 @@
 package com.nclodger.additional;
 
-import com.nclodger.dao.Hotel;
+import com.nclodger.domain.Hotel;
 
 /**
  * Created with IntelliJ IDEA.

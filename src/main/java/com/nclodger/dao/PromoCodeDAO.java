@@ -1,12 +1,11 @@
 package com.nclodger.dao;
 
+import com.nclodger.domain.PromoCode;
 import com.nclodger.myexception.MyException;
+import com.nclodger.publicdao.PromoCodeDAOInterface;
+import org.springframework.stereotype.Component;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -15,42 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PromoCodeDAO implements PromoCodeDAOInterface {
-
-    abstract class WrapperDBOperation<T> {
-        abstract public T doMethod(Connection dataBase) throws MyException, SQLException;
-    }
-
-    private <T> T booleanOperation (WrapperDBOperation<T> operation) throws MyException {
-        Connection dataBase = null;
-        try {
-            InitialContext ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("jdbc/NCLodger");
-            dataBase = ds.getConnection();
-            return operation.doMethod(dataBase);
-        } catch (SQLException e) {
-            try {
-                dataBase.rollback();
-                throw new MyException(e.getMessage());
-            } catch (SQLException e1) {
-                throw new MyException(e1.getMessage());
-            }
-        } catch (NamingException e) {
-            try {
-                dataBase.rollback();
-                throw new MyException(e.getMessage());
-            } catch (SQLException e1) {
-                throw new MyException(e1.getMessage());
-            }
-        }finally {
-            try {
-                dataBase.close();
-            } catch (SQLException e) {
-
-                throw new MyException(e.getMessage());
-            }
-        }
-    }
+@Component("promocodeDAO")
+public class PromoCodeDAO extends AbstractRepository implements PromoCodeDAOInterface {
 
     @Override
     public boolean insert(final PromoCode pc) throws MyException {
@@ -59,7 +24,7 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
          * INSERT INTO PROMOCODE(CODE, START_DATE,END_DATE,discount,ISUSED,ID_SM)
          * VALUES('UKNSGC-1', TO_DATE('10/11/2013', 'MM-DD-YYYY'), TO_DATE('12/11/2013', 'MM-DD-YYYY'),0.1, 0, 1)
          */
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
@@ -72,12 +37,12 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                     java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
                     java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
 
-                    prep.setString(1,pc.getCode());
+                    prep.setString(1, pc.getCode());
                     prep.setDate(2, sqlDate1);
                     prep.setDate(3, sqlDate2);
                     prep.setDouble(4, pc.getDiscount());
-                    prep.setInt(5,pc.getStatus());
-                    prep.setInt(6,pc.getId_sm());
+                    prep.setInt(5, pc.getStatus());
+                    prep.setInt(6, pc.getId_sm());
 
                     java.sql.ResultSet res = prep.executeQuery();
                     res.next();
@@ -92,14 +57,14 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
 
     @Override
     public List<PromoCode> getAllPCbySMid(final int id_sm) throws MyException {
-        return booleanOperation(new WrapperDBOperation<List<PromoCode>>() {
+        return dbOperation(new WrapperDBOperation<List<PromoCode>>() {
 
             @Override
             public List<PromoCode> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT ID_PC,CODE,START_DATE,END_DATE,DISCOUNT,ISUSED FROM PROMOCODE WHERE ID_SM=?"
                 );
-                prep.setInt(1,id_sm);
+                prep.setInt(1, id_sm);
                 java.sql.ResultSet results = prep.executeQuery();
                 List<PromoCode> pcList = new ArrayList<PromoCode>();
                 while (results.next()) {
@@ -110,7 +75,7 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
                     String end_date = df.format(results.getDate(4));
                     double discount = results.getDouble(5);
                     int status = results.getInt(6);
-                    PromoCode pc = new PromoCode(id,code,start_date,end_date,discount,status);
+                    PromoCode pc = new PromoCode(id, code, start_date, end_date, discount, status);
                     pcList.add(pc);
                 }
                 return pcList;
@@ -122,20 +87,20 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
     @Override
     public boolean isExist(final String code) throws MyException {
 
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT COUNT(1) FROM PROMOCODE WHERE CODE=?"
                 );
 
-                    prep.setString(1,code);
-                    java.sql.ResultSet res = prep.executeQuery();
-                    res.next();
+                prep.setString(1, code);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
                 int check = res.getInt(1);
                 boolean answer = false;
-                if(check!=0){
-                    answer =true;
+                if (check != 0) {
+                    answer = true;
                 }
                 return answer;
 
@@ -147,20 +112,20 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
     @Override
     public boolean isUsed(final String code) throws MyException {
 
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT ISUSED FROM PROMOCODE WHERE CODE=?"
                 );
 
-                prep.setString(1,code);
+                prep.setString(1, code);
                 java.sql.ResultSet res = prep.executeQuery();
                 boolean answer = false;
-                if (res.next()){
+                if (res.next()) {
                     int check = res.getInt(1);
-                    if(check==1){
-                        answer =true;
+                    if (check == 1) {
+                        answer = true;
                     }
                 }
                 return answer;
@@ -173,22 +138,22 @@ public class PromoCodeDAO implements PromoCodeDAOInterface {
     @Override
     public boolean isExpired(final String code) throws MyException {
 
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT COUNT(1) FROM PROMOCODE WHERE CODE=? AND ISUSED=2"
                 );
 
-                prep.setString(1,code);
+                prep.setString(1, code);
 
 
                 java.sql.ResultSet res = prep.executeQuery();
                 boolean answer = false;
                 res.next();
                 int check = res.getInt(1);
-                if(check!=0){
-                    answer =true;
+                if (check != 0) {
+                    answer = true;
                 }
 
                 return answer;

@@ -1,11 +1,10 @@
 package com.nclodger.dao;
 
+import com.nclodger.domain.Users;
 import com.nclodger.myexception.MyException;
+import com.nclodger.publicdao.UserDaoInterface;
 import org.springframework.stereotype.Component;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,46 +16,12 @@ import java.util.List;
  * Time: 21:24
  * To change this template use File | Settings | File Templates.
  */
-@Component("userdao")
-public class UserDao implements UserDaoInterface {
+@Component("userDAO")
+public class UserDao extends AbstractRepository implements UserDaoInterface {
 
-    abstract class WrapperDBOperation<T> {
-        abstract public T doMethod(Connection dataBase) throws MyException, SQLException;
-    }
-
-    private <T> T booleanOperation(WrapperDBOperation<T> operation) throws MyException {
-        Connection dataBase = null;
-        try {
-            InitialContext ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("jdbc/NCLodger");
-            dataBase = ds.getConnection();
-
-            return operation.doMethod(dataBase);
-        } catch (SQLException e) {
-            try {
-                dataBase.rollback();
-                throw new MyException(e.getMessage());
-            } catch (SQLException e1) {
-                throw new MyException(e1.getMessage());
-            }
-        } catch (NamingException e) {
-            try {
-                dataBase.rollback();
-                throw new MyException(e.getMessage());
-            } catch (SQLException e1) {
-                throw new MyException(e1.getMessage());
-            }
-        } finally {
-            try {
-                dataBase.close();
-            } catch (SQLException e) {
-                throw new MyException(e.getMessage());
-            }
-        }
-    }
 
     public boolean insert(String _email, String _pswd, String _name, int register_confirm) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) {
                 return true;
@@ -69,7 +34,7 @@ public class UserDao implements UserDaoInterface {
     }
 
     public boolean confirm_register(final Users _user) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 //dataBase.
@@ -88,7 +53,7 @@ public class UserDao implements UserDaoInterface {
     }
 
     public boolean confirmRegisterByUserID(final int userID) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 Statement st = dataBase.createStatement();
@@ -120,7 +85,7 @@ public class UserDao implements UserDaoInterface {
     public boolean insert(final Users user) throws MyException {
         //Tested valid sql
         //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
@@ -142,36 +107,36 @@ public class UserDao implements UserDaoInterface {
 
     @Override
     public boolean updateForSM(final int userID) throws MyException {
-       return booleanOperation(new WrapperDBOperation<Boolean>() {
-            @Override
-            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
-                PreparedStatement prep = dataBase.prepareStatement(
-                        "UPDATE USERS SET VIP=? WHERE ID_USER=?"
-                );
+       return dbOperation(new WrapperDBOperation<Boolean>() {
+           @Override
+           public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+               PreparedStatement prep = dataBase.prepareStatement(
+                       "UPDATE USERS SET VIP=? WHERE ID_USER=?"
+               );
 
-                prep.setInt(1,1);
-                prep.setInt(2,userID);
+               prep.setInt(1, 1);
+               prep.setInt(2, userID);
 
-                java.sql.ResultSet res = prep.executeQuery();
-                res.next();
-                return true;  //To change body of implemented methods use File | Settings | File Templates.
-            }
-        });
+               java.sql.ResultSet res = prep.executeQuery();
+               res.next();
+               return true;  //To change body of implemented methods use File | Settings | File Templates.
+           }
+       });
     }
 
 
 
     @Override
     public boolean updateMakeUnvip(final int userID) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "UPDATE USERS SET VIP=? WHERE ID_USER=?"
                 );
 
-                prep.setInt(1,0);
-                prep.setInt(2,userID);
+                prep.setInt(1, 0);
+                prep.setInt(2, userID);
 
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
@@ -183,15 +148,15 @@ public class UserDao implements UserDaoInterface {
 
     @Override
     public boolean makeBlock(final int userID) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "UPDATE USERS SET IS_BLOCKED=? WHERE ID_USER=?"
                 );
 
-                prep.setInt(1,1);
-                prep.setInt(2,userID);
+                prep.setInt(1, 1);
+                prep.setInt(2, userID);
 
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
@@ -204,15 +169,15 @@ public class UserDao implements UserDaoInterface {
 
     @Override
     public boolean makeUnBlock(final int userID) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "UPDATE USERS SET IS_BLOCKED=? WHERE ID_USER=?"
                 );
 
-                prep.setInt(1,0);
-                prep.setInt(2,userID);
+                prep.setInt(1, 0);
+                prep.setInt(2, userID);
 
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
@@ -234,7 +199,7 @@ public class UserDao implements UserDaoInterface {
     }
 
     public boolean getUser(final String email, final String password) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
 
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
@@ -267,7 +232,7 @@ public class UserDao implements UserDaoInterface {
     @Override
     public List<Users> getAllUsers() throws MyException {
 
-        return booleanOperation(new WrapperDBOperation<List<Users>>() {
+        return dbOperation(new WrapperDBOperation<List<Users>>() {
 
             @Override
             public List<Users> doMethod(Connection dataBase) throws MyException, SQLException {
@@ -298,14 +263,14 @@ public class UserDao implements UserDaoInterface {
                     uList.add(user);
                 }
                 return uList;
-                }
+            }
         });
     }
 
 
 
     public Users getUserObj(final String email, final String password) throws MyException {
-                return booleanOperation(new WrapperDBOperation<Users>() {
+                return dbOperation(new WrapperDBOperation<Users>() {
 
                     @Override
                     public Users doMethod(Connection dataBase) throws MyException, SQLException {
@@ -345,7 +310,7 @@ public class UserDao implements UserDaoInterface {
             @Override
             public Users find(final int id) throws MyException {
                 //return null;  //To change body of implemented methods use File | Settings | File Templates.
-                return booleanOperation(new WrapperDBOperation<Users>() {
+                return dbOperation(new WrapperDBOperation<Users>() {
 
                     @Override
                     public Users doMethod(Connection dataBase) throws MyException, SQLException {
@@ -372,13 +337,13 @@ public class UserDao implements UserDaoInterface {
              * SELECT ID_SM FROM MANAGER WHERE MANAGER.ID_USER IN
              *      (SELECT ID_USER FROM USERS WHERE USERS.EMAIL = 'reshet.ukr@gmail.com')
              */
-            return booleanOperation(new WrapperDBOperation<Integer>() {
+            return dbOperation(new WrapperDBOperation<Integer>() {
                 @Override
                 public Integer doMethod(Connection dataBase) throws SQLException, MyException {
                     PreparedStatement prep = dataBase.prepareStatement(
                             "SELECT ID_USER FROM USERS WHERE USERS.EMAIL=?"
                     );
-                    prep.setString(1,email);
+                    prep.setString(1, email);
                     java.sql.ResultSet res = prep.executeQuery();
                     res.next();
                     int idSm = res.getInt(1);
@@ -389,7 +354,7 @@ public class UserDao implements UserDaoInterface {
 
     @Override
     public boolean updatePswd(final Users u) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
@@ -397,7 +362,7 @@ public class UserDao implements UserDaoInterface {
                 );
 
                 prep.setString(1, u.getPswd());
-                prep.setInt(2,u.getId());
+                prep.setInt(2, u.getId());
 
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
@@ -409,7 +374,7 @@ public class UserDao implements UserDaoInterface {
     //check if such email is exist in databases
     @Override
     public boolean isExistEmail(final String email) throws MyException {
-        return booleanOperation(new WrapperDBOperation<Boolean>() {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
 
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
@@ -421,11 +386,10 @@ public class UserDao implements UserDaoInterface {
                 res.next();
                 int check = res.getInt(1);
                 boolean answer = false;
-                if(check==0){
-                    answer =false;
-                }
-                else{
-                    answer =true;
+                if (check == 0) {
+                    answer = false;
+                } else {
+                    answer = true;
                 }
                 return answer;
 

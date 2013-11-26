@@ -1,5 +1,6 @@
 package com.nclodger.control.action;
 
+import com.nclodger.control.action.search.SearchAction;
 import junit.framework.TestCase;
 import org.junit.Test;
 
