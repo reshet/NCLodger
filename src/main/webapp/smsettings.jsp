@@ -28,7 +28,15 @@
             $("#end_mostvalacc").datepicker();
         })
         $(function() {
-            $( "#tabs" ).tabs();
+//            $( "#tabs" ).tabs();
+            $("#tabs").tabs({
+                create: function(event, ui){
+                    $(this).tabs({'select': $(this).find("ul").index($(this).find('a[href="' + window.location.hash + '"]').parent())});
+                },
+                activate: function(event, ui){
+                    window.location.hash = $(ui.newTab[0]).find('a[href^="#tab"]').attr("href");
+                }
+            });
         });
 
         function OnMakeVip(){
@@ -65,7 +73,6 @@
                 <br><a href="ussettings.jsp" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
             </c:if>
         </div>
-
         <div class="nav">
             <ul>
                 <li><a href="home.jsp"><h1>NCLodger</h1></a></li>
@@ -79,7 +86,11 @@
 
     <div id="content">
         <div id="tabs">
+            <%--<c:set var="tabs" value="${fn:split('#tabs-1,#tabs-2,#tabs-3,#tabs-4', ',')}" scope="session" />--%>
             <ul>
+    <%--            <c:forEach items="${tabs}" var="tabs">
+                    <li><a href="${tabs}">${tabs}</a></li>
+                </c:forEach>--%>
                 <li><a href="#tabs-1">Users</a></li>
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <li><a href="#tabs-3">Promo codes</a></li>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>NCLodger | Settings: administrator</title>
+<title>NCLodger | Administrator dashboard</title>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -21,7 +21,15 @@
             $("#end_mostvalacc").datepicker();
         })
         $(function() {
-            $( "#tabs" ).tabs();
+//            $( "#tabs" ).tabs();
+            $("#tabs").tabs({
+                create: function(event, ui){
+                    $(this).tabs({'select': $(this).find("ul").index($(this).find('a[href="' + window.location.hash + '"]').parent())});
+                },
+                activate: function(event, ui){
+                    window.location.hash = $(ui.newTab[0]).find('a[href^="#tab"]').attr("href");
+                }
+            });
         });
 
         function OnMakeBlock(){
@@ -60,9 +68,6 @@
                 checkboxes[i].checked = source.checked;
             }
         }
-
-
-
 
     </script>
 
@@ -106,7 +111,7 @@
     </div><!-- #header -->
 
     <div id="content">
-
+        <input type="text" id="curtab" name="curtab"/>
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Users</a></li>
