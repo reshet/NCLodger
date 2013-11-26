@@ -161,11 +161,13 @@ public class SMDao implements SMDaoInterface{
                 prep2.setInt(1,id_sm);
                 prep2.executeUpdate();
 
+
                 PreparedStatement prep3 = dataBase.prepareStatement(
-                        "DELETE FROM ORDER WHERE ID_SM=?"
+                        "DELETE FROM ORDERS WHERE ID_SM=?"
                 );
                 prep3.setInt(1,id_sm);
                 prep3.executeUpdate();
+
 
                 PreparedStatement prep4 = dataBase.prepareStatement(
                         "DELETE FROM HOTEL_MANAGER WHERE ID_SM=?"
