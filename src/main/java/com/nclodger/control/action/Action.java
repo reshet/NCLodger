@@ -15,6 +15,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 abstract public class Action {
-    static protected ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
+    static public ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
     abstract public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
