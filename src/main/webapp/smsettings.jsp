@@ -101,7 +101,6 @@
                         </tr>
                         </thead>
                         <tbody>
-
                         <c:forEach items="${requestScope.allusers}" var="user">
                             <tr>
                                 <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>
@@ -182,8 +181,6 @@
                     <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
                     <p><input type="submit" name="save_changes" value="Save changes"></p>
                 </form>
-
-
             </div>
             <div id="tabs-3"><!-- 'Promo codes' tab -->
                 <form name="promofrm" method="POST" action="generatepromo" onsubmit="">
@@ -215,7 +212,13 @@
                                     <td><c:out value="${(pc.discount * 100)}"/>%</td>
                                     <td><c:out value="${pc.start_date}"/></td>
                                     <td><c:out value="${pc.end_date}"/></td>
-                                    <td><c:out value="${pc.status}"/></td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${pc.status=='0'}">Available</c:when>
+                                            <c:when test="${pc.status=='1'}">Used</c:when>
+                                            <c:when test="${pc.status=='2'}">Expired</c:when>
+                                        </c:choose>
+                                    </td>
                                 </tr>
                                 </br>
                             </c:forEach>
@@ -254,7 +257,6 @@
                             sorter.limitid = "pagelimit_pc";
                             sorter.init("table_pc", 1);
                         </script>
-
                     </c:if>
                 </form>
             </div>
@@ -262,15 +264,12 @@
                 <form name="mostvaluableacc" method="POST" action="getmostvaluableacc" onsubmit="">
                     <p>Start date:<input id="start_mostvalacc" name="start_mostvalacc" style="width:100px;"/></p>
                     <p>Expiration date:<input id="end_mostvalacc" name="end_mostvalacc" style="width:100px;"/></p>
-
-
                     <input type="submit" name="show_acc" value="Show most valuable accomodations">
                 </form>
 
                 <form name="mostpophotels" method="POST" action="showmostpopularhotel" onsubmit="">
                     <c:forEach items="${mostpophotel}" var="hotel">
                         <td>${hotel}</td>
-
                     </c:forEach>
                     <input type="submit" name="show_hotel" value="Show most populat hotel">
                 </form>
