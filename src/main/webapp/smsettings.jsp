@@ -54,7 +54,6 @@
 <body>
 
 <div id="wrapper">
-
     <div id="header">
         <div class="greeting" style="float: right; padding-right: 2em; ">
             <c:if test="${sessionScope.username == null}">
