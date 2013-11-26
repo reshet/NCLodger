@@ -116,8 +116,13 @@
     </servlet-mapping>
 
     <servlet-mapping>
+    <servlet-name>ControllerServlet</servlet-name>
+    <url-pattern>/dismisssm</url-pattern>
+</servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/dismisssm</url-pattern>
+        <url-pattern>/deleteuser</url-pattern>
     </servlet-mapping>
 
 
