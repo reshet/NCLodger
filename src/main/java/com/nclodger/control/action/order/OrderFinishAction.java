@@ -28,18 +28,21 @@ public class OrderFinishAction extends Action {
         //ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
 
         //check
+        String promo = (String)request.getAttribute("promocode");
+        request.getSession().setAttribute("promocode", promo);
+
         PromoCodeDAO pcDAO = (PromoCodeDAO) ctx.getBean("promocodeDAO");
-        if(!pcDAO.isExist(request.getParameter("promocode"))){
+        if(!pcDAO.isExist(promo)){
             request.setAttribute("isExist",false);
             return "orderstart";
         }
         else{
-            if(pcDAO.isUsed(request.getParameter("promocode"))){
+            if(pcDAO.isUsed(promo)){
                 request.setAttribute("isUsed",true);
                 return "orderstart";
             }
             else{
-                if(pcDAO.isExpired(request.getParameter("promocode"))){
+                if(pcDAO.isExpired(promo)){
                     request.setAttribute("isExpired",true);
                     return "orderstart";
                 }
@@ -49,8 +52,6 @@ public class OrderFinishAction extends Action {
 
 
         Hotel h = (Hotel)request.getSession().getAttribute("hotel");
-        String promo = (String)request.getAttribute("promocode");
-        request.getSession().setAttribute("promocode", promo);
         Double final_price = h.getRoomPrice() - h.getRoomPrice()*getPromoPercent(promo);
         request.setAttribute("finalprice", final_price);
         MailConfirmation mailconfirm =(MailConfirmation) ctx.getBean("mailconfirmation");
