@@ -81,6 +81,8 @@
             <c:if test="${requestScope.notify_changepswd != null}">
                 <p><c:out value="${requestScope.notify_changepswd}"/></p>
             </c:if>
+        </div>
+        <a href="ordershistory">Show my orders history</a>
     </div><!-- #content -->
 
     <div id="footer">

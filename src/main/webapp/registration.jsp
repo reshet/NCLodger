@@ -71,17 +71,16 @@
         <div class="window" >
             <h1>Registration</h1>
             <form name="regfrm" method="POST" action="signup" onsubmit="return validateRegForm();">
-                <p>Username:<input type="text" name="username" maxlength="20"/></p>
+                <p>Username:*<input type="text" name="username" maxlength="20"/></p>
                 <span id="span_username">Username must contain only latin letters (4 to 20 symbols)!</span>
-                <p>Email:<input type="text" name="email" maxlength="50"/></p>
+                <p>Email:*<input type="text" name="email" maxlength="50"/></p>
                 <span id="span_email">Invalid email!</span>
                 <c:if test="${requestScope.isExist==true}">
-                    <p>This email have already registered</p>
-
+                    <p>This email have already registered.</p>
                 </c:if>
-                <p>Password:<input type="password" name="password1" maxlength="20"></p>
+                <p>Password:*<input type="password" name="password1" maxlength="20"></p>
                 <span id="span_pswd1">Password must contain only latin letters and numbers (6 to 20 symbols)!</span>
-                <p>Confirm password:<input type="password" name="password2" maxlength="20"></p>
+                <p>Confirm password:*<input type="password" name="password2" maxlength="20"></p>
                 <input type="hidden" name="password" maxlength="20">
                 <span id="span_pswd2">Passwords do not match!</span>
                 <p class="submit">
