@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * Date: 10/29/13
  * Time: 8:03 PM
  */
-@Component("MD5Value")
+@Component("md5value")
 public class MD5Value {
 
     public MD5Value(){

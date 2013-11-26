@@ -1,6 +1,7 @@
 package com.nclodger.control.action.search;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.myexception.MyException;
 import com.nclodger.webservices.ExpediaSearcher;
 import com.nclodger.webservices.Hotel;
 import org.json.JSONException;
@@ -21,6 +22,9 @@ public class SearchAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //test log4j logging
+        new MyException("search queried");
+
         ExpediaSearcher searcher = new ExpediaSearcher();
         // String state,String city, Date arrivalDate, Date departureDate, Integer adults, Integer response_count
         String checkin = request.getParameter("checkindate");
