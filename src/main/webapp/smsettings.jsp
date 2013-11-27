@@ -194,13 +194,13 @@
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
                 <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
                     <p>Commission:</p>
-                    <input type="range" id="slider1" name="agency_com" value="" min="3" max="17" onchange="OnSliderChanged (this)" />
+                    <input type="range" id="slider1" name="agency_com" value="${curcom}" min="3" max="17" onchange="OnSliderChanged (this)" />
                     <span id="slider1Value" class="sliderValue"></span>
                     <p>User discount:</p>
-                    <input type="range" id="slider2" name="user_discount" value="" min="0" max="33" onchange="OnSliderChanged (this)" />
+                    <input type="range" id="slider2" name="user_discount" value="${curdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
                     <span id="slider2Value" class="sliderValue"></span>
                     <p>VIP User discount:</p>
-                    <input type="range" id="slider3" name="vip_user_discount" value="" min="0" max="33" onchange="OnSliderChanged (this)" />
+                    <input type="range" id="slider3" name="vip_user_discount" value="${curvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
                     <span id="slider3Value" class="sliderValue"></span>
                     <p><input type="submit" name="save_changes" value="Save changes"></p>
                 </form>
@@ -212,7 +212,7 @@
                     <p><b>Expiration date:</b></p>
                     <input id="end_promo" name="end_promo" style="width:100px;"/>
                     <p>Discount:</p>
-                    <input type="range" id="slider4" name="promo_discount" value="" min="0" max="33" onchange="OnSliderChanged (this)"/>
+                    <input type="range" id="slider4" name="promo_discount" value="" min="1" max="33" onchange="OnSliderChanged (this)"/>
                     <span id="slider4Value" class="sliderValue"></span>
                     <c:if test="${promo_code != null}">
                         <p>Generated promo code: ${promo_code}</p>

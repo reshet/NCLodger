@@ -25,6 +25,9 @@ public class SmSetDiscountsAction extends Action {
                     Double.parseDouble(request.getParameter("agency_com")),
                     Double.parseDouble(request.getParameter("vip_user_discount")),
                     Double.parseDouble(request.getParameter("user_discount")));
+            request.getSession().setAttribute("curcom",request.getParameter("agency_com"));
+            request.getSession().setAttribute("curdisc",request.getParameter("user_discount"));
+            request.getSession().setAttribute("curvipdisc",request.getParameter("vip_user_discount"));
         } catch(MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";

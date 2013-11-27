@@ -249,6 +249,26 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
         });
     }
 
+    @Override
+    public SManager getCurrentCommAndDiscounts(final String email) throws MyException {
+        return dbOperation(new WrapperDBOperation<SManager>() {
+            @Override
+            public SManager doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT COMMISSION,VIP_DISCOUNT,USER_DISCOUNT FROM MANAGER WHERE MANAGER.ID_USER IN" +
+                                "(SELECT ID_USER FROM USERS WHERE USERS.EMAIL = ?)"
+                );
+                prep.setString(1, email);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                SManager sm = new SManager(res.getDouble(1),res.getDouble(2),res.getDouble(3));
+                return sm;
+            }
+        });
+
+    }
+
+
     //the same as sortHotelbyPopular but with  timeframe
     @Override
     public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException {

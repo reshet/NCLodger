@@ -21,7 +21,11 @@ public class SManager {
         this.id_user = id_user;
     }
 
-
+    public SManager(double commission, double vip_discount, double user_discount) {
+        this.commission = commission;
+        this.vip_discount = vip_discount;
+        this.user_discount = user_discount;
+    }
 
     public SManager(int id, int id_user) {
         this.id = id;
