@@ -157,7 +157,7 @@
     <%--            <c:forEach items="${tabs}" var="tabs">
                     <li><a href="${tabs}">${tabs}</a></li>
                 </c:forEach>--%>
-                <li><a href="#tabs-1">Users</a></li>
+                <li><a href="#tabs-1"> <a href="smgetallusers">Users</a></a></li>
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <li><a href="#tabs-3">Promo codes</a></li>
                 <li><a href="#tabs-4">Reports</a></li>
@@ -165,7 +165,7 @@
             <div id="tabs-1"><!-- 'Users' tab -->
             <!--    <form name="getalluser" method="POST" action="makevip" onsubmit=""> -->
             <form name="getalluser" method="POST" onsubmit="">
-                <a href="smgetallusers">All users</a>
+        <!--        <a href="smgetallusers">All users</a>    -->
                    <c:if test="${requestScope.allusers != null}">
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>

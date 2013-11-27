@@ -176,13 +176,13 @@
     <div id="content">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Users</a></li>
+            <li><a href="#tabs-1" ><a href = "admingetallusers">Users</a></a></li>
             <li><a href="#tabs-2">Commission & Discounts</a></li>
             <li><a href="#tabs-3">Hotels</a></li>
         </ul>
         <div id="tabs-1"><!-- 'Users' tab -->
             <form name="adgetalluser" method="POST">
-                <a href="admingetallusers">All users</a>
+      <!--          <a href="admingetallusers">All users</a>     -->
                 <c:if test="${requestScope.allusers != null}">
                 <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                     <thead>
