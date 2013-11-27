@@ -32,34 +32,55 @@
             });
         });
 
+
+
+
         function OnMakeBlock(){
-            document.adgetalluser.action = "makeblock";
-            document.adgetalluser.submit();
-            return true;
+                var flag = validate();
+                if(flag==true){
+                    document.adgetalluser.action = "makeblock";
+                    document.adgetalluser.submit();
+                }
+
+                return true;
         }
 
         function OnMakeUnBlock(){
-            document.adgetalluser.action = "makeunblock";
-            document.adgetalluser.submit();
-            return true;
+                var flag = validate();
+                if(flag==true){
+                    document.adgetalluser.action = "makeunblock";
+                    document.adgetalluser.submit();
+                }
+
+                return true;
+
         }
 
         function OnMakeSM(){
-            document.adgetalluser.action = "grantsm";
-            document.adgetalluser.submit();
-            return true;
+            var flag = validate();
+            if(flag==true){
+                document.adgetalluser.action = "grantsm";
+                document.adgetalluser.submit();
+            }
+                return true;
         }
 
         function OnDismissSM(){
-            document.adgetalluser.action = "dismisssm";
-            document.adgetalluser.submit();
-            return true;
-        }
+            var flag = validate();
+            if(flag==true){
+                document.adgetalluser.action = "dismisssm";
+                document.adgetalluser.submit();
+            }
+                return true;
+          }
 
         function OnDeleteUser(){
-            document.adgetalluser.action = "deleteuser";
-            document.adgetalluser.submit();
-            return true;
+            var flag = validate();
+            if(flag==true){
+                document.adgetalluser.action = "deleteuser";
+                document.adgetalluser.submit();
+            }
+                return true;
         }
 
         function toggle(source) {
@@ -68,6 +89,32 @@
                 checkboxes[i].checked = source.checked;
             }
         }
+
+
+        function validate() {
+            var inputElements = document.getElementsByName('block[]');
+            var chekSelect = false;
+            for (var i = 0; i < inputElements.length; i++) {
+                var myElement = inputElements[i];
+
+                if (myElement.type === "checkbox") {
+                    if (myElement.checked) {
+                        chekSelect = true;
+                        break;
+                    }
+                }
+            }
+
+            if(!chekSelect) {
+                alert('Nothing was selected!');
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+
+
 
     </script>
 
@@ -134,7 +181,7 @@
             <li><a href="#tabs-3">Hotels</a></li>
         </ul>
         <div id="tabs-1"><!-- 'Users' tab -->
-            <form name="adgetalluser" method="POST" onsubmit="">
+            <form name="adgetalluser" method="POST">
                 <a href="admingetallusers">All users</a>
                 <c:if test="${requestScope.allusers != null}">
                 <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
