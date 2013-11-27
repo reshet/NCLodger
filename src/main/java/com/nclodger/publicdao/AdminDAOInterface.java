@@ -15,4 +15,5 @@ public interface AdminDAOInterface {
     public boolean update (double commission, double vip_disc, double user_disc) throws MyException;
     public SManager getCurDefaultCommAndDisc() throws MyException;
     public boolean insertHotel(Hotel hotel) throws MyException;
+
 }

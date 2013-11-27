@@ -92,7 +92,6 @@
         <url-pattern>/chnagepswd</url-pattern>
     </servlet-mapping>
 
-
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/makeblock</url-pattern>

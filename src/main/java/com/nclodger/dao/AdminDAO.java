@@ -17,7 +17,6 @@ import java.sql.SQLException;
  * To change this template use File | Settings | File Templates.
  */
 public class AdminDAO extends AbstractRepository implements AdminDAOInterface {
-
     @Override
     public boolean update(final double commission, final double vip_disc, final double user_disc) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {

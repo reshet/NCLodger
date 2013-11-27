@@ -328,7 +328,6 @@
                 </form>
             </div>
 
-
             <div id="tabs-4"><!-- 'Reports' tab-->
 <%--                <form name="mostvaluableacc" method="POST" action="getmostvaluableacc" onsubmit="">
                     <p>Start date:<input id="start_mostvalacc" name="start_mostvalacc" style="width:100px;"/></p>

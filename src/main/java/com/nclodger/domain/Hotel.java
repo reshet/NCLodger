@@ -18,7 +18,6 @@ public class Hotel {
     private String country;
 
     public Hotel(){
-
     }
 
     public Hotel(String name_hotel, String country, String city, int category, double loc_lng, double loc_lat) {

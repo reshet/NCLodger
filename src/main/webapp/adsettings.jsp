@@ -64,7 +64,6 @@
             return isValid;
         }
 
-
         function OnMakeBlock(){
                 var flag = validate();
                 if(flag==true){

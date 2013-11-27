@@ -52,7 +52,6 @@ public class ActionFactory {
         actions.put("/deleteuser", new AdminDeleteUserAction());
         actions.put("/saveexcel",new SmSaveExcelAction());
         actions.put("/addhotel",new AddHotelAction());
-
     }
 
     public static Action getAction(HttpServletRequest request) {
