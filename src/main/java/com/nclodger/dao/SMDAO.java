@@ -221,24 +221,28 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
             @Override
             public ArrayList<HotelTotalOrder> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT * FROM HOTEL"
+                        "SELECT HOTEL.NAME_H,HOTEL.CITY,HOTEL.CITY,TOTALORDER FROM " +
+                                "(SELECT ID_HOTEL as HOT, COUNT(ID_ORDER) AS TOTALORDER FROM (" +
+                                "         SELECT ORDERS.ID_ORDER ,ACCOMMODATION.id_acc,HOTEL.id_hotel,HOTEL.NAME_H FROM ORDERS" +
+                                "         LEFT JOIN ACCOMMODATION " +
+                                "              ON ORDERS.ID_ACC=ACCOMMODATION.ID_ACC " +
+                                "              LEFT JOIN HOTEL " +
+                                "                    ON ACCOMMODATION.ID_HOTEL=HOTEL.id_hotel " +
+                                "                    )" +
+                                " GROUP BY ID_HOTEL  ),HOTEL\n" +
+                        "WHERE HOTEL.ID_HOTEL=HOT\n" +
+                         "ORDER BY TOTALORDER DESC"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
                 ArrayList<HotelTotalOrder> hotelsList = new ArrayList<HotelTotalOrder>();
                 while (results.next()) {
-                    int id_hotel = results.getInt(1);
-                    String name_hotel = results.getString(2);
-                    double loc_lat = results.getFloat(3);
-                    double loc_lng = results.getFloat(4);
-                    int category = results.getInt(5);
-                    int id_sm = results.getInt(6);
-                    String city = results.getString(7);
-                    String country = results.getString(8);
-                    int totalOrder = results.getInt(9);
-
-                    Hotel h = new Hotel(id_hotel, name_hotel, loc_lat, loc_lng, category, id_sm, city, country);
-                    hotelsList.add(new HotelTotalOrder(h, totalOrder));
+                    String name_hotel = results.getString(1);
+                    String city = results.getString(2);
+                    String country = results.getString(3);
+                    int totalorder = results.getInt(4);
+                    HotelTotalOrder h = new HotelTotalOrder(name_hotel,city,country,totalorder);
+                    hotelsList.add(h);
                 }
                 return hotelsList;
             }
@@ -270,7 +274,7 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                     int totalOrder = results.getInt(9);
 
                     Hotel h = new Hotel(id_hotel, name_hotel, loc_lat, loc_lng, category, id_sm, city, country);
-                    hotelsList.add(new HotelTotalOrder(h, totalOrder));
+                    //hotelsList.add(new HotelTotalOrder(h, totalOrder));
                 }
                 return hotelsList;
             }

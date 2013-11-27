@@ -26,10 +26,10 @@ public class ReportInExcelTest extends TestCase {
 
             Hotel h1 = new Hotel(1,"hilton",35,25,5,2,"London","Great Britain");
             Hotel h2 = new Hotel(2,"Plaza",27,45,4,1,"Kiev","Ukraine");
-            hList.add(new HotelTotalOrder(h1,150));
-            hList.add(new HotelTotalOrder(h2,222));
+/*            hList.add(new HotelTotalOrder(h1,150));
+            hList.add(new HotelTotalOrder(h2,222))*/;
             ReportInExcel re = new ReportInExcel();
-            re.createMostPopularHotel(hList);
+            //re.createMostPopularHotel(hList);
         }
             catch (Exception e) {
             e.getStackTrace();

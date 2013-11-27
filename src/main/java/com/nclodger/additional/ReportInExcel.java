@@ -4,6 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class ReportInExcel {
 
     }
 
-    public void createMostPopularHotel(ArrayList<HotelTotalOrder> hList){
+    public void createMostPopularHotel(ArrayList<HotelTotalOrder> hList,HttpServletResponse response){
         try{
             String filename="hotelList.xls" ;
             HSSFWorkbook hwb=new HSSFWorkbook();
@@ -37,17 +38,17 @@ public class ReportInExcel {
             for(int i=0;i<hList.size();i++){
                 HSSFRow row = sheet.createRow(i + 1);
 
-                row.createCell((short) 0).setCellValue(hList.get(i).getH().getName_hotel());
-                row.createCell((short) 1).setCellValue(hList.get(i).getH().getCity());
-                row.createCell((short) 2).setCellValue(hList.get(i).getH().getCountry());
+                row.createCell((short) 0).setCellValue(hList.get(i).getHotelname());
+                row.createCell((short) 1).setCellValue(hList.get(i).getCity());
+                row.createCell((short) 2).setCellValue(hList.get(i).getCountry());
                 row.createCell((short) 3).setCellValue(hList.get(i).getTotalOrder());
 
             }
 
-
-            FileOutputStream fileOut =  new FileOutputStream(filename);
-            hwb.write(fileOut);
-            fileOut.close();
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-Disposition", "attachment; filename=hotelList.xls");
+            hwb.write(response.getOutputStream());
+            response.getOutputStream().close();
             //System.out.println("Your excel file has been generated!");
 
         } catch ( Exception ex ) {

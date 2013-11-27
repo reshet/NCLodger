@@ -285,21 +285,76 @@
                     </c:if>
                 </form>
             </div>
+
+
             <div id="tabs-4"><!-- 'Reports' tab-->
-                <form name="mostvaluableacc" method="POST" action="getmostvaluableacc" onsubmit="">
+<%--                <form name="mostvaluableacc" method="POST" action="getmostvaluableacc" onsubmit="">
                     <p>Start date:<input id="start_mostvalacc" name="start_mostvalacc" style="width:100px;"/></p>
                     <p>Expiration date:<input id="end_mostvalacc" name="end_mostvalacc" style="width:100px;"/></p>
-                    <input type="submit" name="show_acc" value="Show most valuable accomodations">
-                </form>
+&lt;%&ndash;                    <input type="submit" name="show_acc" value="Show most valuable accomodations">&ndash;%&gt;
+                </form>--%>
+                <form name="getallhotel" method="POST" onsubmit="">
+                    <a href="showmostpopularhotel">Show most popular hotels</a>
+                    <c:if test="${requestScope.mostpophotel != null}">
+                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+                        <thead>
+                        <tr>
+                            <th><h3>Hotel name</h3></th>
+                            <th><h3>City</h3></th>
+                            <th><h3>Country</h3></th>
+                            <th><h3>Total order for period</h3></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${requestScope.mostpophotel}" var="hotel">
+                            <tr>
 
-                <form name="mostpophotels" method="POST" action="showmostpopularhotel" onsubmit="">
-                    <c:forEach items="${mostpophotel}" var="hotel">
-                        <td>${hotel}</td>
-                    </c:forEach>
-                    <input type="submit" name="show_hotel" value="Show most populat hotel">
-                </form>
-            </div>
+                                <td><c:out value="${hotel.hotelname}"/></td>
+                                <td><c:out value="${hotel.city}"/></td>
+                                <td><c:out value="${hotel.country}"/></td>
+                                <td><c:out value="${hotel.totalOrder}"/></td>
 
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <a href="saveexcel">Save as Excel</a>
+                    <div class="controls">
+                        <div class="perpage">
+                            <select onchange="sorter.size(this.value)">
+                                <option value="5">5</option>
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span>Entries Per Page</span>
+                        </div>
+                        <div class="navigation">
+                            <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                            <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                            <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                            <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                        </div>
+                        <div class="text">Displaying Page <span id="currentpage_h"></span> of <span id="pagelimit_h"></span></div>
+                    </div>
+                    <script type="text/javascript">
+                        var sorter = new TINY.table.sorter("sorter");
+                        sorter.head = "head";
+                        sorter.asc = "asc";
+                        sorter.desc = "desc";
+                        sorter.even = "evenrow";
+                        sorter.odd = "oddrow";
+                        sorter.evensel = "evenselected";
+                        sorter.oddsel = "oddselected";
+                        sorter.paginate = true;
+                        sorter.currentid = "currentpage";
+                        sorter.limitid = "pagelimit";
+                        sorter.init("table", 1);
+                    </script>
+                    </c:if>
+
+              </div>
         </div>
 
     </div>

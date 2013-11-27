@@ -124,6 +124,15 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/deleteuser</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/saveexcel</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/showmostpopularhotel</url-pattern>
+    </servlet-mapping>
 
 
     <session-config>

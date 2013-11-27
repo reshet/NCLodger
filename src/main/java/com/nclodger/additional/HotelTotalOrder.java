@@ -10,24 +10,21 @@ import com.nclodger.domain.Hotel;
  * To change this template use File | Settings | File Templates.
  */
 public class HotelTotalOrder {
-    private Hotel h;
+    private String hotelname;
+    private String city;
+    private String country;
     private int totalOrder;
 
     public HotelTotalOrder(){
 
     }
 
-    public HotelTotalOrder(Hotel h, int totalOrder){
-        this.h = h;
-        this.totalOrder = totalOrder;
-    }
+    public HotelTotalOrder(String hotelname,String city,String country,int totalOrder){
+        this.hotelname = hotelname;
+        this.city = city;
+        this.country = country;
+        this.totalOrder =totalOrder;
 
-    public Hotel getH() {
-        return h;
-    }
-
-    public void setH(Hotel h) {
-        this.h = h;
     }
 
     public int getTotalOrder() {
@@ -36,5 +33,29 @@ public class HotelTotalOrder {
 
     public void setTotalOrder(int totalOrder) {
         this.totalOrder = totalOrder;
+    }
+
+    public String getHotelname() {
+        return hotelname;
+    }
+
+    public void setHotelname(String hotelname) {
+        this.hotelname = hotelname;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
