@@ -18,6 +18,7 @@ public interface UserDaoInterface {
     public boolean insert(Users user) throws MyException;
     public boolean update (Users user);
     public boolean delete(String email) throws MyException;
+    public boolean delete(final int userid) throws MyException;
     public boolean getUser(String email, String password) throws MyException;
     public boolean checkPswd(int userID, String password) throws MyException;
     public List<Users>  getAllUsers() throws MyException;
