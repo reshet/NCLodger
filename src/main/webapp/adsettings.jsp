@@ -187,7 +187,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                     <thead>
                     <tr>
-                        <th><input type="checkbox" onClick="toggle(this)"/></th>
+                        <th class="nosort"><input type="checkbox" onClick="toggle(this)"/></th>
                         <th><h3>Name</h3></th>
                         <th><h3>Email</h3></th>
                         <th><h3>Block Status</h3></th>
@@ -272,12 +272,17 @@
             <p><b>VIP User discount:</b></p>
             <input type="range" name="vip_user_discount" id="slider3" value="${defcurvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
             <span id="slider3Value" class="sliderValue"></span>
-            </br>
             <p><input type="submit" name="save_changes" value="Save changes"></p>
         </form>
     </div>
 
-    <div id="tabs-3"><!-- 'Promo codes' tab -->
+    <div id="tabs-3"><!-- 'Hotels' tab -->
+        <p><b>Hotel name:*</b></p>
+        <p><b>Country:*</b></p>
+        <p><b>City:*</b></p>
+        <p><b>Category:</b></p>
+        <p><b>Latitude:</b></p>
+        <p><b>Longitude:</b></p>
     </div>
     </div>
 

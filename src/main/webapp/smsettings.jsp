@@ -101,7 +101,7 @@
     <script type="text/javascript">
         function OnSliderChanged (slider) {
             var sliderValue = document.getElementById (slider.id + "Value");
-            sliderValue.innerHTML = slider.value;
+            sliderValue.innerHTML = slider.value+"%";
         }
 
         function Init () {
@@ -170,7 +170,7 @@
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
-                            <th><input type="checkbox" onClick="toggle2(this)"/></th>
+                            <th class="nosort"><input type="checkbox" onClick="toggle2(this)"/></th>
                             <th><h3>Name</h3></th>
                             <th><h3>Email</h3></th>
                             <th><h3>Vip Status</h3></th>
