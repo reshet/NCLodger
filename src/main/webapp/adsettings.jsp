@@ -71,6 +71,22 @@
 
     </script>
 
+    <script type="text/javascript">
+        function OnSliderChanged (slider) {
+            var sliderValue = document.getElementById (slider.id + "Value");
+            sliderValue.innerHTML = slider.value;
+        }
+
+        function Init () {
+            var slider = document.getElementById ("slider1");
+            OnSliderChanged (slider);
+            var slider = document.getElementById ("slider2");
+            OnSliderChanged (slider);
+            var slider = document.getElementById ("slider3");
+            OnSliderChanged (slider);
+        }
+    </script>
+
 <!--[if lt IE 7]>
 <style type="text/css">
      #wrapper { height:100%; }
@@ -84,7 +100,7 @@
 </style>
 </head>
 
-<body>
+<body onload="Init ()">
 
 <div id="wrapper">
 
@@ -111,7 +127,6 @@
     </div><!-- #header -->
 
     <div id="content">
-        <input type="text" id="curtab" name="curtab"/>
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Users</a></li>
@@ -119,10 +134,6 @@
             <li><a href="#tabs-3">Hotels</a></li>
         </ul>
         <div id="tabs-1"><!-- 'Users' tab -->
-
-
-
-
             <form name="adgetalluser" method="POST" onsubmit="">
                 <a href="admingetallusers">All users</a>
                 <c:if test="${requestScope.allusers != null}">
@@ -166,9 +177,6 @@
                 <input type="submit" name = "DismissSM" value="Dismiss SM" onclick="OnDismissSM();">
                 <input type="submit" name = "CreateUser" value="Create User">
                 <input type="submit" name="DeleteUser" value="Delete User" onclick="OnDeleteUser();">
-
-
-
                 <div class="controls">
                     <div class="perpage">
                         <select onchange="sorter.size(this.value)">
@@ -206,36 +214,21 @@
         </div>
         </form>
 
-
-
-
     <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
         <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
-            <%--<div id="agency_com">
-                Agency comission: <span id="agency_com_currentval">0</span>%
-            </div>
-            <div id="defaultslide"></div>
-            <script type="text/javascript">
-                $(function(){
-                    $('#agency_com').slider({
-                        max: 17,
-                        min: 3,
-                        value: 0,
-                        slide: function(e,ui) {
-                            $('#agency_com_currentval').html(ui.value);
-                        }
-                    });
-                });
-            </script>--%>
             <p>Commission:</p>
-            <input type="range" name="agency_com" id="agency_com" value="" min="0" max="33" />
+            <input type="range" name="agency_com" id="slider1" value="" min="3" max="17" onchange="OnSliderChanged (this)"/>
+            <span id="slider1Value" class="sliderValue"></span>
             <p>User discount:</p>
-            <input type="range" name="user_discount" id="user_discount" value="" min="0" max="33" />
+            <input type="range" name="user_discount" id="slider2" value="" min="0" max="33" onchange="OnSliderChanged (this)"/>
+            <span id="slider2Value" class="sliderValue"></span>
             <p>VIP User discount:</p>
-            <input type="range" name="vip_user_discount" id="vip_user_discount" value="" min="0" max="33" />
+            <input type="range" name="vip_user_discount" id="slider3" value="" min="0" max="33" onchange="OnSliderChanged (this)"/>
+            <span id="slider3Value" class="sliderValue"></span>
             <p><input type="submit" name="save_changes" value="Save changes"></p>
         </form>
     </div>
+
     <div id="tabs-3"><!-- 'Promo codes' tab -->
     </div>
     </div>

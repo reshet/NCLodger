@@ -16,7 +16,7 @@ input {
     font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
     font-size: 14px;
 }
-input[type=text], input[type=password] , select, #checkoutdate, #checkindate {
+input[type=text], input[type=password] , select, #checkoutdate, #checkindate, #start_promo, #end_promo {
     margin: 5px;
     padding: 0 10px;
     width: 270px;
@@ -312,3 +312,10 @@ a.orangelink:hover{ text-decoration: none; color: #9ec7dd; }
 }
 #agency_com { display: block; margin-bottom: 25px; }
 
+.sliderValue {
+    margin-left: 20px;
+    padding: 3px;
+    background-color: #d0d0f0;
+    border: 1px solid #808080;
+    border-radius: 3px;
+}

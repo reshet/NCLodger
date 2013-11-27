@@ -113,7 +113,7 @@
                     <li>
                         Country: *
                         <select id="country" name="country" style="width: 180px;">
-                            <option value=""> none </option>
+                            <option value=""> choose </option>
                             <c:forEach items="${countries}" var="country">
                                 <option value="${country}" ${sessionScope.country == country ? 'selected' : ''}>${country}</option>
                             </c:forEach>
@@ -122,7 +122,7 @@
                     <li>
                         City: *
                         <select id="city" name="city" style="width: 180px;">
-                                <option value=""> none </option>
+                                <option value=""> choose </option>
                                 <c:forEach items="${cities}" var="city">
                                     <option value="${city}" ${sessionScope.city == city ? 'selected' : ''}>${city}</option>
                                 </c:forEach>
