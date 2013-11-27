@@ -3,6 +3,7 @@ package com.nclodger.myexception;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: Iaroslav
