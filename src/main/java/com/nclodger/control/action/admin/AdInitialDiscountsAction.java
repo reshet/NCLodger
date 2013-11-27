@@ -24,6 +24,9 @@ public class AdInitialDiscountsAction extends Action {
                     Double.parseDouble(request.getParameter("agency_com")),
                     Double.parseDouble(request.getParameter("vip_user_discount")),
                     Double.parseDouble(request.getParameter("user_discount")));
+            request.getSession().setAttribute("defcurcom",request.getParameter("agency_com"));
+            request.getSession().setAttribute("defcurdisc",request.getParameter("user_discount"));
+            request.getSession().setAttribute("defcurvipdisc",request.getParameter("vip_user_discount"));
         } catch(MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";

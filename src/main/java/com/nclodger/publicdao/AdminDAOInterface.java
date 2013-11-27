@@ -1,5 +1,6 @@
 package com.nclodger.publicdao;
 
+import com.nclodger.domain.SManager;
 import com.nclodger.myexception.MyException;
 
 /**
@@ -11,4 +12,5 @@ import com.nclodger.myexception.MyException;
  */
 public interface AdminDAOInterface {
     public boolean update (double commission, double vip_disc, double user_disc) throws MyException;
+    public SManager getCurDefaultCommAndDisc() throws MyException;
 }

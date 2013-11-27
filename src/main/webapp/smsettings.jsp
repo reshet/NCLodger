@@ -207,11 +207,11 @@
             </div>
             <div id="tabs-3"><!-- 'Promo codes' tab -->
                 <form name="promofrm" method="POST" action="generatepromo" onsubmit="">
-                    <p><b>Start date:</b></p>
+                    <p><b>Start date: *</b></p>
                     <input id="start_promo" name="start_promo" style="width:100px;"/>
-                    <p><b>Expiration date:</b></p>
+                    <p><b>Expiration date: *</b></p>
                     <input id="end_promo" name="end_promo" style="width:100px;"/>
-                    <p>Discount:</p>
+                    <p>Discount: *</p>
                     <input type="range" id="slider4" name="promo_discount" value="" min="1" max="33" onchange="OnSliderChanged (this)"/>
                     <span id="slider4Value" class="sliderValue"></span>
                     <c:if test="${promo_code != null}">
