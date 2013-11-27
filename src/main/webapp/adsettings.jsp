@@ -182,12 +182,11 @@
         </ul>
         <div id="tabs-1"><!-- 'Users' tab -->
             <form name="adgetalluser" method="POST">
-      <!--          <a href="admingetallusers">All users</a>     -->
                 <c:if test="${requestScope.allusers != null}">
                 <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                     <thead>
                     <tr>
-                        <th class="nosort"><input type="checkbox" onClick="toggle(this)"/></th>
+                        <th class="nosort" ><input type="checkbox" onClick="toggle(this)"/></th>
                         <th><h3>Name</h3></th>
                         <th><h3>Email</h3></th>
                         <th><h3>Block Status</h3></th>
