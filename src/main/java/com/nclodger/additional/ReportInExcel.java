@@ -56,7 +56,7 @@ public class ReportInExcel {
         }
     }
 
-    public void createMostValuableAccomodation(ArrayList<AccommodationTotalValue> aList){
+    public void createMostValuableAccomodation(ArrayList<AccommodationTotalValue> aList,HttpServletResponse response){
         try{
             String filename="AccList.xls" ;
             HSSFWorkbook hwb=new HSSFWorkbook();
@@ -73,7 +73,7 @@ public class ReportInExcel {
             for(int i=0;i<aList.size();i++){
                 HSSFRow row = sheet.createRow(i + 1);
 
-                row.createCell((short) 0).setCellValue(aList.get(i).getAcc().getType());
+                row.createCell((short) 0).setCellValue(aList.get(i).getType());
                 row.createCell((short) 1).setCellValue(aList.get(i).getHotel_name());
                 row.createCell((short) 2).setCellValue(aList.get(i).getCity());
                 row.createCell((short) 3).setCellValue(aList.get(i).getCountry());
@@ -82,9 +82,10 @@ public class ReportInExcel {
             }
 
 
-            FileOutputStream fileOut =  new FileOutputStream(filename);
-            hwb.write(fileOut);
-            fileOut.close();
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-Disposition", "attachment; filename=hotelList.xls");
+            hwb.write(response.getOutputStream());
+            response.getOutputStream().close();
            // System.out.println("Your excel file has been generated!");
 
         } catch ( Exception ex ) {

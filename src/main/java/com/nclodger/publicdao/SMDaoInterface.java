@@ -27,5 +27,7 @@ public interface SMDaoInterface {
     public ArrayList<HotelTotalOrder> sortHotelbyPopular() throws MyException;
     public SManager getCurrentCommAndDiscounts(final String email) throws MyException;
     public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException;
+    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException;
     public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException;
+
 }
