@@ -327,8 +327,44 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                     double totalValue = results.getDouble(9);
 
 
-                    Accommodation acc = new Accommodation(id_acc, id_hotel, price, quantity, type);
-                    accList.add(new AccommodationTotalValue(acc, hotel_name, city, coutry, totalValue));
+/*                    Accommodation acc = new Accommodation(id_acc, id_hotel, price, quantity, type);
+                    accList.add(new AccommodationTotalValue(acc, hotel_name, city, coutry, totalValue));*/
+                }
+                return accList;
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException {
+        return dbOperation(new WrapperDBOperation<ArrayList<AccommodationTotalValue>>() {
+
+            @Override
+            public ArrayList<AccommodationTotalValue> doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ACCTYPE,HOTEL.NAME_H,HOTEL.CITY,HOTEL.COUNTRY,TOTALVALUE FROM (" +
+                                "          SELECT ACCOMMODATION.id_hotel AS ACCHOTID,ACCOMMODATION.TYPE AS ACCTYPE,ACCOMMODATION.ID_ACC,TOTACC,TOTALVALUE FROM (" +
+                                "            SELECT ACCOMMODATION.ID_ACC AS TOTACC, SUM(ORDERS.PRICE) AS TOTALVALUE FROM ORDERS" +
+                                "              LEFT JOIN ACCOMMODATION" +
+                                "                ON ORDERS.ID_ACC=ACCOMMODATION.ID_ACC" +
+                                "            GROUP BY ACCOMMODATION.ID_ACC),ACCOMMODATION" +
+                                "          WHERE ACCOMMODATION.ID_ACC=TOTACC" +
+                                "          ),HOTEL" +
+                                "  WHERE HOTEL.ID_HOTEL=ACCHOTID" +
+                                "  ORDER BY TOTALVALUE DESC"
+                );
+
+                java.sql.ResultSet results = prep.executeQuery();
+                ArrayList<AccommodationTotalValue> accList = new ArrayList<AccommodationTotalValue>();
+                while (results.next()) {
+                    String type = results.getString(1);
+                    String hotel_name = results.getString(2);
+                    String city = results.getString(3);
+                    String coutry = results.getString(4);
+                    double totalValue = results.getDouble(5);
+
+                    AccommodationTotalValue acc = new AccommodationTotalValue(type,hotel_name,city,coutry,totalValue);
+                    accList.add(acc);
                 }
                 return accList;
             }

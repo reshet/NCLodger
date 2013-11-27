@@ -11,8 +11,8 @@ import com.nclodger.domain.Accommodation;
  */
 public class AccommodationTotalValue {
 
-    private Accommodation acc;
     //addition info about accommodation
+    private String type;
     private String hotel_name;
     private String city;
     private String country;
@@ -23,20 +23,12 @@ public class AccommodationTotalValue {
 
     }
 
-    public AccommodationTotalValue(Accommodation acc,String hotel_name,String city, String country,double totalValue){
+    public AccommodationTotalValue(String type,String hotel_name,String city,String country,double totalValue){
+        this.type = type;
         this.hotel_name = hotel_name;
-        this.acc = acc;
         this.city = city;
         this.country = country;
         this.totalValue = totalValue;
-    }
-
-    public Accommodation getAcc() {
-        return acc;
-    }
-
-    public void setAcc(Accommodation acc) {
-        this.acc = acc;
     }
 
     public String getCity() {
@@ -69,5 +61,13 @@ public class AccommodationTotalValue {
 
     public void setTotalValue(double totalValue) {
         this.totalValue = totalValue;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

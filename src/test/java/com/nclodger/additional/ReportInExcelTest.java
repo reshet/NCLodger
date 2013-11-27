@@ -44,10 +44,10 @@ public class ReportInExcelTest extends TestCase {
             Accommodation a1 = new Accommodation(1,1,231,3,"luxe");
             Accommodation a2 = new Accommodation(2,3,100,3,"standart");
 
-            aList.add(new AccommodationTotalValue(a1,"Plaza","Kiev","Ukraine",240));
+/*            aList.add(new AccommodationTotalValue(a1,"Plaza","Kiev","Ukraine",240));
             aList.add(new AccommodationTotalValue(a2,"Plaza","Kiev","Ukraine",195));
             ReportInExcel re = new ReportInExcel();
-            re.createMostValuableAccomodation(aList);
+            re.createMostValuableAccomodation(aList);*/
         }
         catch (Exception e) {
             e.getStackTrace();
