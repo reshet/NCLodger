@@ -53,7 +53,7 @@ public class ActionFactory {
         actions.put("/saveexcel",new SmSaveExcelAction());
         actions.put("/addhotel",new AddHotelAction());
         actions.put("/saveaccexcel",new SmSaveAccExcelAction());
-        actions.put("/showmostvaluableacc",new SmSaveAccExcelAction());
+        actions.put("/showmostvaluableacc",new SmGetValueOfAccAction());
     }
 
     public static Action getAction(HttpServletRequest request) {

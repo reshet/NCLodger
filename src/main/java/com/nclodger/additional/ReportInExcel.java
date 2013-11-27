@@ -83,7 +83,7 @@ public class ReportInExcel {
 
 
             response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "attachment; filename=hotelList.xls");
+            response.setHeader("Content-Disposition", "attachment; filename=accList.xls");
             hwb.write(response.getOutputStream());
             response.getOutputStream().close();
            // System.out.println("Your excel file has been generated!");
