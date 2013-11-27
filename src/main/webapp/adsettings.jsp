@@ -216,15 +216,16 @@
 
     <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
         <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
-            <p>Commission:</p>
+            <p><b>Commission:</b></p>
             <input type="range" name="agency_com" id="slider1" value="${defcurcom}" min="3" max="17" onchange="OnSliderChanged (this)"/>
             <span id="slider1Value" class="sliderValue"></span>
-            <p>User discount:</p>
+            <p><b>User discount:</b></p>
             <input type="range" name="user_discount" id="slider2" value="${defcurdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
             <span id="slider2Value" class="sliderValue"></span>
-            <p>VIP User discount:</p>
+            <p><b>VIP User discount:</b></p>
             <input type="range" name="vip_user_discount" id="slider3" value="${defcurvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
             <span id="slider3Value" class="sliderValue"></span>
+            </br>
             <p><input type="submit" name="save_changes" value="Save changes"></p>
         </form>
     </div>

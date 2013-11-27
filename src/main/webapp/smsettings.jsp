@@ -193,15 +193,16 @@
             </form>
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
                 <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
-                    <p>Commission:</p>
+                    <p><b>Commission:</b></p>
                     <input type="range" id="slider1" name="agency_com" value="${curcom}" min="3" max="17" onchange="OnSliderChanged (this)" />
                     <span id="slider1Value" class="sliderValue"></span>
-                    <p>User discount:</p>
+                    <p><b>User discount:</b></p>
                     <input type="range" id="slider2" name="user_discount" value="${curdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
                     <span id="slider2Value" class="sliderValue"></span>
-                    <p>VIP User discount:</p>
+                    <p><b>VIP User discount:</b></p>
                     <input type="range" id="slider3" name="vip_user_discount" value="${curvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
                     <span id="slider3Value" class="sliderValue"></span>
+                    </br>
                     <p><input type="submit" name="save_changes" value="Save changes"></p>
                 </form>
             </div>
@@ -211,11 +212,12 @@
                     <input id="start_promo" name="start_promo" style="width:100px;"/>
                     <p><b>Expiration date: *</b></p>
                     <input id="end_promo" name="end_promo" style="width:100px;"/>
-                    <p>Discount: *</p>
+                    <p><b>Discount: *</b></p>
                     <input type="range" id="slider4" name="promo_discount" value="" min="1" max="33" onchange="OnSliderChanged (this)"/>
                     <span id="slider4Value" class="sliderValue"></span>
+                    </br>
                     <c:if test="${promo_code != null}">
-                        <p>Generated promo code: ${promo_code}</p>
+                        <p><b>Generated promo code:</b> ${promo_code}</p>
                     </c:if>
                     <p><input type="submit" name="generate_promo" value="Generate"></p>
                     <a href="getallpromocodes">All promo codes:</a>
