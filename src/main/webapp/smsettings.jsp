@@ -57,6 +57,14 @@
             }
         }
 
+        function validatePromoFrm() {
+            var isValid = true;
+            if(document.promofrm.start_promo.value == "" || document.promofrm.end_promo.value == "") {
+                isValid = false;
+                alert("In order to generate promo code the start and end dates must be filled.");
+            }
+            return isValid;
+        }
     </script>
 
     <script type="text/javascript">
@@ -202,12 +210,12 @@
                     <p><b>VIP User discount:</b></p>
                     <input type="range" id="slider3" name="vip_user_discount" value="${curvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
                     <span id="slider3Value" class="sliderValue"></span>
-                    </br>
+                    <p></p>
                     <p><input type="submit" name="save_changes" value="Save changes"></p>
                 </form>
             </div>
             <div id="tabs-3"><!-- 'Promo codes' tab -->
-                <form name="promofrm" method="POST" action="generatepromo" onsubmit="">
+                <form name="promofrm" method="POST" action="generatepromo" onsubmit="return validatePromoFrm();">
                     <p><b>Start date: *</b></p>
                     <input id="start_promo" name="start_promo" style="width:100px;"/>
                     <p><b>Expiration date: *</b></p>
@@ -215,13 +223,12 @@
                     <p><b>Discount: *</b></p>
                     <input type="range" id="slider4" name="promo_discount" value="" min="1" max="33" onchange="OnSliderChanged (this)"/>
                     <span id="slider4Value" class="sliderValue"></span>
-                    </br>
+                    <p></p>
                     <c:if test="${promo_code != null}">
                         <p><b>Generated promo code:</b> ${promo_code}</p>
                     </c:if>
                     <p><input type="submit" name="generate_promo" value="Generate"></p>
                     <a href="getallpromocodes">All promo codes:</a>
-                    </br>
                     <c:if test="${requestScope.allpromocodes != null}">
                         <table cellpadding="0" cellspacing="0" border="0" id="table_pc" class="sortable">
                             <thead>
