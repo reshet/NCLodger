@@ -48,8 +48,10 @@ public class ActionFactory {
         actions.put("/makeunblock", new MakeUnBlockAction());
         actions.put("/grantsm", new GrantToSMAction());
         actions.put("/dismisssm", new DismissSMAction());
+        actions.put("/ordershistory", new ShowOrdersHistoryAction());
         actions.put("/deleteuser", new AdminDeleteUserAction());
         actions.put("/saveexcel",new SmSaveExcelAction());
+        actions.put("/addhotel",new AddHotelAction());
 
     }
 

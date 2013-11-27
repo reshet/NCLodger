@@ -10,7 +10,7 @@ package com.nclodger.domain;
 public class Hotel {
     private int id_hotel;
     private String name_hotel;
-    private double loc_lal;
+    private double loc_lat;
     private double loc_lng;
     private int category;
     private int id_sm;
@@ -21,11 +21,20 @@ public class Hotel {
 
     }
 
-    public Hotel(int id_hotel,String name_hotel, double loc_lal,double loc_lng,
+    public Hotel(String name_hotel, String country, String city, int category, double loc_lng, double loc_lat) {
+        this.name_hotel = name_hotel;
+        this.country = country;
+        this.city = city;
+        this.loc_lng = loc_lng;
+        this.loc_lat = loc_lat;
+        this.category = category;
+    }
+
+    public Hotel(int id_hotel,String name_hotel, double loc_lat,double loc_lng,
                   int category, int id_sm, String city, String country){
         this.id_hotel = id_hotel;
         this.name_hotel = name_hotel;
-        this.loc_lal = loc_lal;
+        this.loc_lat = loc_lat;
         this.loc_lng = loc_lng;
         this.category = category;
         this.id_sm = id_sm;
@@ -49,12 +58,12 @@ public class Hotel {
         this.name_hotel = name_hotel;
     }
 
-    public double getLoc_lal() {
-        return loc_lal;
+    public double getLoc_lat() {
+        return loc_lat;
     }
 
-    public void setLoc_lal(double loc_lal) {
-        this.loc_lal = loc_lal;
+    public void setLoc_lat(double loc_lat) {
+        this.loc_lat = loc_lat;
     }
 
     public double getLoc_lng() {

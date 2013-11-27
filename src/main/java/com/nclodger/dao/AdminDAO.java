@@ -1,5 +1,6 @@
 package com.nclodger.dao;
 
+import com.nclodger.domain.Hotel;
 import com.nclodger.domain.SManager;
 import com.nclodger.myexception.MyException;
 import com.nclodger.publicdao.AdminDAOInterface;
@@ -7,7 +8,6 @@ import com.nclodger.publicdao.AdminDAOInterface;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,6 +50,27 @@ public class AdminDAO extends AbstractRepository implements AdminDAOInterface {
                 res.next();
                 SManager sm = new SManager(res.getDouble(1),res.getDouble(2),res.getDouble(3));
                 return sm;
+            }
+        });
+    }
+
+    @Override
+    public boolean insertHotel(final Hotel hotel) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "INSERT INTO HOTEL (NAME_H,COUNTRY,CITY,CATEGORY,LOC_LAT,LOC_LNG) VALUES (?,?,?,?,?,?)"
+                );
+                prep.setString(1, hotel.getName_hotel());
+                prep.setString(2, hotel.getCountry());
+                prep.setString(3, hotel.getCity());
+                prep.setInt(4, hotel.getCategory());
+                prep.setDouble(5, hotel.getLoc_lat());
+                prep.setDouble(6, hotel.getLoc_lng());
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;
             }
         });
     }

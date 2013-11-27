@@ -231,6 +231,7 @@
             </div>
             </form>
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
+                <h2>Current Values</h2>
                 <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
                     <p><b>Commission:</b></p>
                     <input type="range" id="slider1" name="agency_com" value="${curcom}" min="3" max="17" onchange="OnSliderChanged (this)" />
@@ -246,6 +247,7 @@
                 </form>
             </div>
             <div id="tabs-3"><!-- 'Promo codes' tab -->
+                <h2>New Promo Code</h2>
                 <form name="promofrm" method="POST" action="generatepromo" onsubmit="return validatePromoFrm();">
                     <p><b>Start date: *</b></p>
                     <input id="start_promo" name="start_promo" style="width:100px;"/>

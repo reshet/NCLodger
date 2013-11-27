@@ -32,7 +32,37 @@
             });
         });
 
-
+        function validateHotelFrm() {
+            var isValid = true;
+            var message = "In order to create new hotel the follwing fields must be filled:\n";
+            if(document.hotelfrm.hotelname.value == "") {
+                isValid = false;
+                message += "\n- Hotel name";
+            }
+            if(document.hotelfrm.country.value == "") {
+                isValid = false;
+                message += "\n- Country";
+            }
+            if(document.hotelfrm.city.value == "") {
+                isValid = false;
+                message += "\n- City";
+            }
+            if(!isValid) {
+                alert(message);
+            }
+//            else {
+//                if(document.hotelfrm.category.value == "") {
+//                    document.hotelfrm.category.value = 0;
+//                }
+//                if(document.hotelfrm.latitude.value == "") {
+//                    document.hotelfrm.latitude.value = 0;
+//                }
+//                if(document.hotelfrm.longitude.value == "") {
+//                    document.hotelfrm.latitude.value = 0;
+//                }
+//            }
+            return isValid;
+        }
 
 
         function OnMakeBlock(){
@@ -194,7 +224,6 @@
                     </tr>
                     </thead>
                     <tbody>
-
                     <c:forEach items="${requestScope.allusers}" var="user">
                         <tr>
                             <td><input type="checkbox" name = "block[]" c:out value="${user.id}"/></td>
@@ -261,6 +290,7 @@
         </form>
 
     <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
+        <h2>Current Default Values</h2>
         <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
             <p><b>Commission:</b></p>
             <input type="range" name="agency_com" id="slider1" value="${defcurcom}" min="3" max="17" onchange="OnSliderChanged (this)"/>
@@ -276,12 +306,23 @@
     </div>
 
     <div id="tabs-3"><!-- 'Hotels' tab -->
-        <p><b>Hotel name:*</b></p>
-        <p><b>Country:*</b></p>
-        <p><b>City:*</b></p>
-        <p><b>Category:</b></p>
-        <p><b>Latitude:</b></p>
-        <p><b>Longitude:</b></p>
+            <h2>New Hotel</h2>
+            <form name="hotelfrm" method="POST" action="addhotel" onsubmit="return validateHotelFrm();">
+                <p><b>Hotel name:*</b></p>
+                <input type="text" name="hotelname" maxlength="30">
+                <p><b>Country:*</b></p>
+                <input type="text" name="country" maxlength="20">
+                <p><b>City:*</b></p>
+                <input type="text" name="city" maxlength="30">
+                <p><b>Category:</b></p>
+                <input type="text" name="category" value="0">
+                <p><b>Latitude:</b></p>
+                <input type="text" name="latitude" value="0">
+                <p><b>Longitude:</b></p>
+                <input type="text" name="longitude" value="0">
+                <br>
+                <input type="submit" name="commit" value="Submit">
+                <input type="reset" name="reset" value="Reset">
     </div>
     </div>
 
