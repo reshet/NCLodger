@@ -40,13 +40,19 @@
         });
 
         function OnMakeVip(){
-            document.getalluser.action = "makevip";
-            document.getalluser.submit();
+            var flag = validateVip();
+            if(flag==true){
+                document.getalluser.action = "makevip";
+                document.getalluser.submit();
+            }
             return true;
         }
         function OnMakeUnvip(){
-            document.getalluser.action = "makeunvip";
-            document.getalluser.submit();
+            var flag = validateVip();
+            if(flag==true){
+                document.getalluser.action = "makeunvip";
+                document.getalluser.submit();
+            }
             return true;
         }
 
@@ -65,6 +71,31 @@
             }
             return isValid;
         }
+
+
+        function validateVip() {
+            var inputElements = document.getElementsByName('vip[]');
+            var chekSelect = false;
+            for (var i = 0; i < inputElements.length; i++) {
+                var myElement = inputElements[i];
+
+                if (myElement.type === "checkbox") {
+                    if (myElement.checked) {
+                        chekSelect = true;
+                        break;
+                    }
+                }
+            }
+
+            if(!chekSelect) {
+                alert('Nothing was selected!');
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+
     </script>
 
     <script type="text/javascript">
