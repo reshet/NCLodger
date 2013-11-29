@@ -12,7 +12,8 @@
     <script type="text/javascript" src="resources/js/sorttable.js"></script>
 
     <script>
-        $(function() {
+
+     $(function() {
             $("#start_promo").datepicker();
             $("#end_promo").datepicker();
         })
@@ -20,21 +21,54 @@
             $("#start_mostvalacc").datepicker();
             $("#end_mostvalacc").datepicker();
         })
-        $(function() {
+
+
+        $(function () {
 // $( "#tabs" ).tabs();
             $("#tabs").tabs({
-                create: function(event, ui){
+                create: function (event, ui) {
                     $(this).tabs({'select': $(this).find("ul").index($(this).find('a[href="' + window.location.hash + '"]').parent())});
                 },
-                activate: function(event, ui){
+                activate: function (event, ui) {
                     window.location.hash = $(ui.newTab[0]).find('a[href^="#tab"]').attr("href");
                 }
             });
         });
 
+
+  /*    //2 below fuctions also allow to select all checkboxes but they have bug...or it is because of incorrect pagination
+        function toggleChecked(status) {
+            $(".checkbox").each(function() {
+                $(this).attr("checked",status);
+            })
+        }
+
+
+
+        function toggleParentChecked(status) {
+                if(status==false)
+                    $("#check_all").prop("checked",status);
+                else
+                {
+                    var isallchecked = true;
+                    $(".checkbox").each(function() {
+                        if(!$(this).prop("checked"))
+                        isallchecked = false;
+                        })
+
+                         if(isallchecked)
+                            $("#check_all").prop("checked", true);
+            }
+
+        }
+
+
+     */
+
+
         function validateHotelFrm() {
             var isValid = true;
-            var message = "In order to create new hotel the follwing fields must be filled:\n";
+            var message = "In order to create new hotel the following fields must be filled:\n";
             if(document.hotelfrm.hotelname.value == "") {
                 isValid = false;
                 message += "\n- Hotel name";
@@ -63,6 +97,7 @@
 // }
             return isValid;
         }
+
 
         function OnMakeBlock(){
             var flag = validate();
@@ -112,12 +147,6 @@
             return true;
         }
 
-        function toggle(source) {
-            checkboxes = document.getElementsByName('block[]');
-            for(var i=0, n=checkboxes.length;i<n;i++) {
-                checkboxes[i].checked = source.checked;
-            }
-        }
 
 
         function validate() {
@@ -143,9 +172,10 @@
         }
 
 
-
-
     </script>
+
+
+
 
     <script type="text/javascript">
         function OnSliderChanged (slider) {
@@ -161,6 +191,11 @@
             var slider = document.getElementById ("slider3");
             OnSliderChanged (slider);
         }
+
+
+
+
+
     </script>
 
     <!--[if lt IE 7]>
@@ -215,7 +250,10 @@
                     <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
-                            <th class="nosort" ><input type="checkbox" onClick="toggle(this)"/></th>
+
+                            <!--           <th class="nosort"><input type="checkbox" id="check_all" onclick="toggleChecked(this.checked)"/></th>    -->
+
+                            <th class="nosort"><input type="checkbox" class="check_all" onclick="$('input[type=checkbox][class=checkboxes]').prop('checked',this.checked)"></th>
                             <th><h3>Name</h3></th>
                             <th><h3>Email</h3></th>
                             <th><h3>Block Status</h3></th>
@@ -225,7 +263,11 @@
                         <tbody>
                         <c:forEach items="${requestScope.allusers}" var="user">
                             <tr>
-                                <td><input type="checkbox" name = "block[]" c:out value="${user.id}"/></td>
+
+                               <td><input type="checkbox" name = "block[]" class="checkboxes" c:out value="${user.id}"/></td>
+
+
+         <!--                       <td><input type="checkbox" class="checkbox" onclick="toggleParentChecked(this.checked)" name = "block[]" c:out value="${user.id}"/></td>  -->
                                 <td><c:out value="${user.name}"/></td>
                                 <td><c:out value="${user.email}"/></td>
                                 <td>
