@@ -17,9 +17,22 @@
 <![endif]-->
 <script>
     $(function() {
-        $("#checkindate").datepicker();
-        $("#checkoutdate").datepicker();
-    })
+        $( "#checkindate" ).datepicker({
+            minDate: new Date(),
+            /*        defaultDate: "+1w",
+             changeMonth: true,
+             numberOfMonths: 3,*/
+            onClose: function( selectedDate ) {
+                $( "#checkoutdate" ).datepicker( "option", "minDate", selectedDate );
+            }
+        });
+        $( "#checkoutdate" ).datepicker({
+            onClose: function( selectedDate ) {
+                $( "#checkindate" ).datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+    });
+
 
     function valideSearchForm() {
         var isValid = true;
