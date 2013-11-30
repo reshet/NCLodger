@@ -19,13 +19,27 @@
     .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
     </style>
     <script>
+
+$(function() {
+    $( "#start_promo" ).datepicker({
+        minDate: new Date(),
+/*        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3,*/
+        onClose: function( selectedDate ) {
+            $( "#end_promo" ).datepicker( "option", "minDate", selectedDate );
+        }
+    });
+    $( "#end_promo" ).datepicker({
+        onClose: function( selectedDate ) {
+            $( "#start_promo" ).datepicker( "option", "maxDate", selectedDate );
+        }
+    });
+});
+
         $(function() {
-            $("#start_promo").datepicker();
-            $("#end_promo").datepicker();
-        })
-        $(function() {
-            $("#start_mostvalacc").datepicker();
-            $("#end_mostvalacc").datepicker();
+            $("#start_date").datepicker();
+            $("#end_date").datepicker();
         })
         $(function() {
 //            $( "#tabs" ).tabs();
@@ -263,9 +277,9 @@
             <div id="tabs-3"><!-- 'Promo codes' tab -->
                 <h2>New Promo Code</h2>
                 <form name="promofrm" method="POST" action="generatepromo" onsubmit="return validatePromoFrm();">
-                    <p><b>Start date: *</b></p>
+                    <label for="start_promo">*Start date:</label>
                     <input id="start_promo" name="start_promo" style="width:100px;"/>
-                    <p><b>Expiration date: *</b></p>
+                    <label for="end_promo">*Expiration date: </label>
                     <input id="end_promo" name="end_promo" style="width:100px;"/>
                     <p><b>Discount: *</b></p>
                     <input type="range" id="slider4" name="promo_discount" value="" min="1" max="33" onchange="OnSliderChanged (this)"/>
@@ -348,6 +362,11 @@
                     <p>Expiration date:<input id="end_mostvalacc" name="end_mostvalacc" style="width:100px;"/></p>
 &lt;%&ndash;                    <input type="submit" name="show_acc" value="Show most valuable accomodations">&ndash;%&gt;
                 </form>--%>
+                <p><b>Start date: *</b></p>
+                <input id="start_date" name="start_date" style="width:100px;"/>
+                <p><b>Expiration date: *</b></p>
+                <input id="end_date" name="end_date" style="width:100px;"/>
+
                 <input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
                 <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();">
 
