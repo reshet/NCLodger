@@ -80,9 +80,6 @@
             return true;
         }
 
-
-
-
        function toggleChecked(source) {
            var chec = document.getElementsByName('vip[]');
            var r = displayedCheckbox();
@@ -90,8 +87,6 @@
                chec[i].checked = source.checked;
            }
        }
-
-
 
        function toggleParentChecked(status) {
            if(status==false)
@@ -110,8 +105,6 @@
 
        }
 
-
-
        function displayedCheckbox(){
            var all = document.getElementById('uniq').rows;
            var result=0;
@@ -122,9 +115,6 @@
            }
            return result;
        }
-
-
-
 
         function validatePromoFrm() {
             var isValid = true;
@@ -214,6 +204,7 @@
                 <form name="getalluser" method="POST" onsubmit="">
                    <c:if test="${requestScope.allusers != null}">
                    <div class="tabcontent">
+                       <p class="h">Users</p>
                         <input type = "submit" name = "UNVIP" value="UNVIP" onclick="OnMakeUnvip();">
                         <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">
                    </div>
@@ -398,73 +389,76 @@
                                 <input id="end_date" name="end_date" style="width:100px;"/>
                                 </form>--%>
 
-                <input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
-                <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();">
-
                 <form name="getallhotel" method="POST" onsubmit="">
                     <%--                    <a href="showmostpopularhotel">Show most popular hotels</a>--%>
-                    <label for="start_date">From: </label>
-                    <input id="start_date" name="start_date" style="width:100px;"/>
-                    <label for="end_date">To: </label>
-                    <input id="end_date" name="end_date" style="width:100px;"/>
-                    <c:if test="${requestScope.mostpophotel != null}">
-                        <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
-                            <thead>
-                            <tr>
-                                <th><h3>Hotel name</h3></th>
-                                <th><h3>City</h3></th>
-                                <th><h3>Country</h3></th>
-                                <th><h3>Total order for period</h3></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${requestScope.mostpophotel}" var="hotel">
-                                <tr>
-
-                                    <td><c:out value="${hotel.hotelname}"/></td>
-                                    <td><c:out value="${hotel.city}"/></td>
-                                    <td><c:out value="${hotel.country}"/></td>
-                                    <td><c:out value="${hotel.totalOrder}"/></td>
-
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                        <a href="saveexcel">Save as Excel</a>
-                        <div class="controls">
-                            <div class="perpage">
-                                <select onchange="sorter.size(this.value)">
-                                    <option value="5">5</option>
-                                    <option value="10" selected="selected">10</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                <span>Entries Per Page</span>
-                            </div>
-                            <div class="navigation">
-                                <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
-                            </div>
-                            <div class="text">Displaying Page <span id="currentpage_h"></span> of <span id="pagelimit_h"></span></div>
+                        <div class="tabcontent">
+                            <p class="h">Reports</p>
+                            <p><label for="start_date">From: </label>
+                            <input id="start_date" name="start_date" style="width:100px;"/>
+                            <label for="end_date">To: </label>
+                            <input id="end_date" name="end_date" style="width:100px;"/></p>
+                            <p><input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
+                            <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();"></p>
                         </div>
-                        <script type="text/javascript">
-                            var sorter = new TINY.table.sorter("sorter");
-                            sorter.head = "head";
-                            sorter.asc = "asc";
-                            sorter.desc = "desc";
-                            sorter.even = "evenrow";
-                            sorter.odd = "oddrow";
-                            sorter.evensel = "evenselected";
-                            sorter.oddsel = "oddselected";
-                            sorter.paginate = true;
-                            sorter.currentid = "currentpage";
-                            sorter.limitid = "pagelimit";
-                            sorter.init("table", 1);
-                        </script>
-                    </c:if>
+                        <c:if test="${requestScope.mostpophotel != null}">
+                            <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+                                <thead>
+                                <tr>
+                                    <th><h3>Hotel name</h3></th>
+                                    <th><h3>City</h3></th>
+                                    <th><h3>Country</h3></th>
+                                    <th><h3>Total order for period</h3></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${requestScope.mostpophotel}" var="hotel">
+                                    <tr>
+
+                                        <td><c:out value="${hotel.hotelname}"/></td>
+                                        <td><c:out value="${hotel.city}"/></td>
+                                        <td><c:out value="${hotel.country}"/></td>
+                                        <td><c:out value="${hotel.totalOrder}"/></td>
+
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                            <a href="saveexcel">Save as Excel</a>
+                            <div class="controls">
+                                <div class="perpage">
+                                    <select onchange="sorter.size(this.value)">
+                                        <option value="5">5</option>
+                                        <option value="10" selected="selected">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <span>Entries Per Page</span>
+                                </div>
+                                <div class="navigation">
+                                    <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                    <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                    <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                    <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                </div>
+                                <div class="text">Displaying Page <span id="currentpage_h"></span> of <span id="pagelimit_h"></span></div>
+                            </div>
+                            <script type="text/javascript">
+                                var sorter = new TINY.table.sorter("sorter");
+                                sorter.head = "head";
+                                sorter.asc = "asc";
+                                sorter.desc = "desc";
+                                sorter.even = "evenrow";
+                                sorter.odd = "oddrow";
+                                sorter.evensel = "evenselected";
+                                sorter.oddsel = "oddselected";
+                                sorter.paginate = true;
+                                sorter.currentid = "currentpage";
+                                sorter.limitid = "pagelimit";
+                                sorter.init("table", 1);
+                            </script>
+                        </c:if>
+
                     <%--</form>--%>
 
 
