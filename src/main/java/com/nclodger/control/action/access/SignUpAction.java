@@ -53,7 +53,8 @@ public class SignUpAction extends Action {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";
         }
-
+        request.setAttribute("email",request.getParameter("email"));
+        request.setAttribute("username",request.getParameter("username"));
         return "signup_succeed";
     }
 

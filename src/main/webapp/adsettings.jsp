@@ -213,29 +213,9 @@
 
 <body onload="Init ()">
 
-<div id="wrapper">
+<div class="wrapper">
 
-    <div id="header">
-        <div class="greeting" style="float: right; padding-right: 2em; ">
-            <c:if test="${sessionScope.username == null}">
-                <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
-            </c:if>
-            <c:if test="${sessionScope.username != null}">
-                Hello, <c:out value="${sessionScope.username}"/>!
-                <br><a href="signout">Log out</a>
-                <br><a href="ussettings.jsp" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
-            </c:if>
-        </div>
-
-        <div class="nav">
-            <ul>
-                <li><a href="home.jsp"><h1>NCLodger</h1></a></li>
-                <li><a href="home.jsp">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contacts</a></li>
-            </ul>
-        </div>
-    </div><!-- #header -->
+    <jsp:include page="header.jsp"/>
 
     <div id="content">
         <div id="tabs">
@@ -244,9 +224,18 @@
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <li><a href="#tabs-3">Hotels</a></li>
             </ul>
+
             <div id="tabs-1"><!-- 'Users' tab -->
                 <form name="adgetalluser" method="POST">
                     <c:if test="${requestScope.allusers != null}">
+                    <div class="tabcontent">
+                        <input type = "submit" name = "Block" value="Block" onclick="OnMakeBlock();">
+                        <input type="submit" name = "UnBlock" value="UnBlock" onclick="OnMakeUnBlock();">
+                        <input type="submit" name = "GrantSM" value="Grant SM" onclick="OnMakeSM();">
+                        <input type="submit" name = "DismissSM" value="Dismiss SM" onclick="OnDismissSM();">
+                        <input type="submit" name = "CreateUser" value="Create User">
+                        <input type="submit" name="DeleteUser" value="Delete User" onclick="OnDeleteUser();">
+                    </div>
                     <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
@@ -287,12 +276,6 @@
                         </c:forEach>
                         </tbody>
                     </table>
-                    <input type = "submit" name = "Block" value="Block" onclick="OnMakeBlock();">
-                    <input type="submit" name = "UnBlock" value="UnBlock" onclick="OnMakeUnBlock();">
-                    <input type="submit" name = "GrantSM" value="Grant SM" onclick="OnMakeSM();">
-                    <input type="submit" name = "DismissSM" value="Dismiss SM" onclick="OnDismissSM();">
-                    <input type="submit" name = "CreateUser" value="Create User">
-                    <input type="submit" name="DeleteUser" value="Delete User" onclick="OnDeleteUser();">
                     <div class="controls">
                         <div class="perpage">
                             <select onchange="sorter.size(this.value)">
@@ -331,39 +314,42 @@
             </form>
 
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
-                <h2>Current Default Values</h2>
-                <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
-                    <p><b>Commission:</b></p>
-                    <input type="range" name="agency_com" id="slider1" value="${defcurcom}" min="3" max="17" onchange="OnSliderChanged (this)"/>
-                    <span id="slider1Value" class="sliderValue"></span>
-                    <p><b>User discount:</b></p>
-                    <input type="range" name="user_discount" id="slider2" value="${defcurdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
-                    <span id="slider2Value" class="sliderValue"></span>
-                    <p><b>VIP User discount:</b></p>
-                    <input type="range" name="vip_user_discount" id="slider3" value="${defcurvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
-                    <span id="slider3Value" class="sliderValue"></span>
-                    <p><input type="submit" name="save_changes" value="Save changes"></p>
-                </form>
+                <div class="tabcontent">
+                    <p class="h">Current Values<p>
+                    <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
+                        <p><b>Commission:</b></p>
+                        <input type="range" name="agency_com" id="slider1" value="${defcurcom}" min="3" max="17" onchange="OnSliderChanged (this)"/>
+                        <span id="slider1Value" class="sliderValue"></span>
+                        <p><b>User discount:</b></p>
+                        <input type="range" name="user_discount" id="slider2" value="${defcurdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
+                        <span id="slider2Value" class="sliderValue"></span>
+                        <p><b>VIP User discount:</b></p>
+                        <input type="range" name="vip_user_discount" id="slider3" value="${defcurvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
+                        <span id="slider3Value" class="sliderValue"></span>
+                        <p style="text-align: right;"><input type="submit" name="save_changes" value="Save changes"></p>
+                    </form>
+                </div>
             </div>
 
             <div id="tabs-3"><!-- 'Hotels' tab -->
-                <h2>New Hotel</h2>
+                <p class="h">New Hotel</p>
                 <form name="hotelfrm" method="POST" action="addhotel" onsubmit="return validateHotelFrm();">
-                    <p><b>Hotel name:*</b></p>
+                    <p>Hotel name <span class="mandatory">*</span>:</p>
                     <input type="text" name="hotelname" maxlength="30">
-                    <p><b>Country:*</b></p>
+                    <p>Country <span class="mandatory">*</span>:</p>
                     <input type="text" name="country" maxlength="20">
-                    <p><b>City:*</b></p>
+                    <p>City <span class="mandatory">*</span>:</p>
                     <input type="text" name="city" maxlength="30">
-                    <p><b>Category:</b></p>
+                    <p>Category:</p>
                     <input type="text" name="category" value="0">
-                    <p><b>Latitude:</b></p>
+                    <p>Latitude:</p>
                     <input type="text" name="latitude" value="0">
-                    <p><b>Longitude:</b></p>
+                    <p>Longitude:</p>
                     <input type="text" name="longitude" value="0">
-                    <br>
-                    <input type="submit" name="commit" value="Submit">
-                    <input type="reset" name="reset" value="Reset">
+                    <p style="text-align: right;">
+                        <input type="submit" name="commit" value="Submit">
+                        <input type="reset" name="reset" value="Reset">
+                    </p>
                     </form>
             </div>
         </div>

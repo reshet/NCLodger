@@ -7,15 +7,9 @@
 <title>NCLodger | Registration</title>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 <script src="resources/js/md5-min.js"></script>
-<!--[if lt IE 7]>
-<style type="text/css">
-     #wrapper { height:100%; }
-</style>
-<![endif]-->
 <script>
     function validateRegForm() {
         var isValid = true;
-
         if(document.regfrm.username.value.length < 4 || document.regfrm.username.value.length > 20
                 || (!(/^[a-zA-Z]+$/).test(document.regfrm.username.value))) {
             document.getElementById("span_username").style.display = 'inline';
@@ -37,7 +31,6 @@
             document.getElementById("span_pswd2").style.display = 'inline';
             isValid = false;
         }
-
         if (!(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/).test(document.regfrm.email.value)) {
             document.getElementById("span_email").style.display = 'inline';
             isValid = false;
@@ -54,33 +47,23 @@
 
 <body>
 
-<div id="wrapper">
+<div class="wrapper">
+    <jsp:include page="header.jsp"/>
 
-    <div id="header">
-        <div class="nav">
-            <ul>
-                <li><a href="home.jsp"><h1>NCLodger</h1></a></li>
-                <li><a href="home.jsp">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contacts</a></li>
-            </ul>
-        </div>
-    </div><!-- #header -->
-
-    <div id="content">
+    <div class="content">
         <div class="window" >
             <h1>Registration</h1>
             <form name="regfrm" method="POST" action="signup" onsubmit="return validateRegForm();">
-                <p>Username:*<input type="text" name="username" maxlength="20"/></p>
+                <p>Username <span class="mandatory">*</span>:<input type="text" name="username" maxlength="20"/></p>
                 <span id="span_username">Username must contain only latin letters (4 to 20 symbols)!</span>
-                <p>Email:*<input type="text" name="email" maxlength="50"/></p>
+                <p>Email <span class="mandatory">*</span>:<input type="text" name="email" maxlength="50"/></p>
                 <span id="span_email">Invalid email!</span>
                 <c:if test="${requestScope.isExist==true}">
-                    <p>This email have already registered.</p>
+                    <p style="color: #bc0f0f;">This email is already registered.</p>
                 </c:if>
-                <p>Password:*<input type="password" name="password1" maxlength="20"></p>
+                <p>Password <span class="mandatory">*</span>:<input type="password" name="password1" maxlength="20"></p>
                 <span id="span_pswd1">Password must contain only latin letters and numbers (6 to 20 symbols)!</span>
-                <p>Confirm password:*<input type="password" name="password2" maxlength="20"></p>
+                <p>Confirm password <span class="mandatory">*</span>:<input type="password" name="password2" maxlength="20"></p>
                 <input type="hidden" name="password" maxlength="20">
                 <span id="span_pswd2">Passwords do not match!</span>
                 <p class="submit">
@@ -89,10 +72,9 @@
                 </p>
             </form>
         </div>
-
     </div><!-- #content -->
 
-    <div id="footer">
+    <div class="footer">
     </div><!-- #footer -->
 
 </div><!-- #wrapper -->

@@ -1,33 +1,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="greeting">
-    <%
-        if(session.getAttribute("username") == null){
-    %>
-    <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
-    <%
-    }
-    else {
-    %>
-    Hello, <%=session.getAttribute("username")%>!
-    <br><a href="signout">Log out</a>
-    <br><a href="ussettings.jsp" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
-    <% } %>
-    <%
-        if(session.getAttribute("utype") == (Integer)2) {
-    %>
-    <br><a href="smsettings" class="orangelink"><img src="resources/img/user.gif">Sales manager dashboard</a>
-    <% } %>
-    <%
-        if(session.getAttribute("utype") == (Integer)3) {
-    %>
-    <br><a href="adsettings" class="orangelink"><img src="resources/img/user.gif">Administrator dashboard</a>
-    <% } %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- TOP MENU -->
+<div class="header">
+
+    <c:if test="${sessionScope.email == null}">
+        <ul class="navlist">
+            <li><a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a></li>
+        </ul>
+    </c:if>
+    <c:if test="${sessionScope.email != null}">
+        <div class="navlist">
+            <span>Welcome, <c:out value="${sessionScope.username}"/> !</span><a href="signout">(Log out)</a>
+            <span> / </span><a href="ussettings.jsp">Account</a>
+        </div>
+    </c:if>
 </div>
-<div class="nav">
+
+<!-- MAIN MENU -->
+<div class="mainmenu">
     <ul>
-        <li><a href="home.jsp"><h1>NCLodger</h1></a></li>
+        <li><a class="logo" href="home.jsp">NCLodger</a></li>
         <li><a href="home.jsp">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contacts</a></li>
+        <c:if test="${sessionScope.email != null}">
+            <li><a href="smsettings">My Orders</a></li>
+            <c:if test="${sessionScope.utype == 2}">
+                <li><a href="smsettings">Sales Manager</a></li>
+            </c:if>
+            <c:if test="${sessionScope.utype == 3}">
+                <li><a href="adsettings">Administrator</a></li>
+            </c:if>
+        </c:if>
+        <li><a href="">About Us</a></li>
+        <li><a href="">Contacts</a></li>
     </ul>
 </div>

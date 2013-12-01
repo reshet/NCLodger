@@ -4,39 +4,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>NCLodger | Sales Manager dashboard</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <!-- Script and css for the sorting table -->
-    <script type="text/javascript" src="resources/js/sorttable.js"></script>
-    <style type="text/css">
-    .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
-    .sortable .desc, .sortable .asc { background: #4b708d } /* unsort 2 arrows */
-    .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
-    .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
-    </style>
-    <script>
-
-$(function() {
-    $( "#start_promo" ).datepicker({
-        minDate: new Date(),
-/*        defaultDate: "+1w",
-        changeMonth: true,
-        numberOfMonths: 3,*/
-        onClose: function( selectedDate ) {
-            $( "#end_promo" ).datepicker( "option", "minDate", selectedDate );
-        }
-    });
-    $( "#end_promo" ).datepicker({
-        onClose: function( selectedDate ) {
-            $( "#start_promo" ).datepicker( "option", "maxDate", selectedDate );
-        }
-    });
-});
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>NCLodger | Sales Manager dashboard</title>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!-- Script and css for the sorting table -->
+<script type="text/javascript" src="resources/js/sorttable.js"></script>
+<style type="text/css">
+  .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
+  .sortable .desc, .sortable .asc { background: #4b708d } /* unsort 2 arrows */
+  .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
+  .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
+</style>
+   <script>
         $(function() {
             $("#start_date").datepicker();
             $("#end_date").datepicker();
@@ -86,7 +68,6 @@ $(function() {
             return isValid;
         }
 
-
         function validateVip() {
             var inputElements = document.getElementsByName('vip[]');
             var chekSelect = false;
@@ -100,7 +81,6 @@ $(function() {
                     }
                 }
             }
-
             if(!chekSelect) {
                 alert('Nothing was selected!');
                 return false;
@@ -108,7 +88,6 @@ $(function() {
                 return true;
             }
         }
-
 
         function OnViewPopHotel(){
                /* document.getallhotel.action = "getallhotel";*/
@@ -143,42 +122,15 @@ $(function() {
             OnSliderChanged (slider);
         }
     </script>
-
-    <!--[if lt IE 7]>
-    <style type="text/css">
-        #wrapper {
-            height: 100%;
-        }
-    </style>
-    <![endif]-->
 </head>
 
 <body onload="Init ()">
 
-<div id="wrapper">
-    <div id="header">
-        <div class="greeting" style="float: right; padding-right: 2em; ">
-            <c:if test="${sessionScope.username == null}">
-                <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
-            </c:if>
-            <c:if test="${sessionScope.username != null}">
-                Hello, <c:out value="${sessionScope.username}"/>!
-                <br><a href="signout">Log out</a>
-                <br><a href="ussettings.jsp" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
-            </c:if>
-        </div>
-        <div class="nav">
-            <ul>
-                <li><a href="home.jsp"><h1>NCLodger</h1></a></li>
-                <li><a href="home.jsp">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contacts</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- #header -->
+<div class="wrapper">
 
-    <div id="content">
+    <jsp:include page="header.jsp"/>
+
+    <div class="content">
         <div id="tabs">
             <%--<c:set var="tabs" value="${fn:split('#tabs-1,#tabs-2,#tabs-3,#tabs-4', ',')}" scope="session" />--%>
             <ul>
@@ -190,11 +142,14 @@ $(function() {
                 <li><a href="#tabs-3">Promo codes</a></li>
                 <li><a href="#tabs-4">Reports</a></li>
             </ul>
+
             <div id="tabs-1"><!-- 'Users' tab -->
-            <!--    <form name="getalluser" method="POST" action="makevip" onsubmit=""> -->
-            <form name="getalluser" method="POST" onsubmit="">
-        <!--        <a href="smgetallusers">All users</a>    -->
+                <form name="getalluser" method="POST" onsubmit="">
                    <c:if test="${requestScope.allusers != null}">
+                   <div class="tabcontent">
+                        <input type = "submit" name = "UNVIP" value="UNVIP" onclick="OnMakeUnvip();">
+                        <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">
+                   </div>
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
@@ -220,8 +175,6 @@ $(function() {
                         </c:forEach>
                         </tbody>
                     </table>
-                    <input type = "submit" name = "UNVIP" value="UNVIP" onclick="OnMakeUnvip();">
-                    <input type="submit" name = "VIP" value="VIP" onclick="OnMakeVip();">
                     <div class="controls">
                         <div class="perpage">
                             <select onchange="sorter.size(this.value)">
@@ -256,104 +209,110 @@ $(function() {
                         sorter.init("table", 1);
                     </script>
                     </c:if>
-            </div>
-            </form>
+                </form>
+            </div> <!-- #tab1 -->
+
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
-                <h2>Current Values</h2>
-                <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
-                    <p><b>Commission:</b></p>
-                    <input type="range" id="slider1" name="agency_com" value="${curcom}" min="3" max="17" onchange="OnSliderChanged (this)" />
-                    <span id="slider1Value" class="sliderValue"></span>
-                    <p><b>User discount:</b></p>
-                    <input type="range" id="slider2" name="user_discount" value="${curdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
-                    <span id="slider2Value" class="sliderValue"></span>
-                    <p><b>VIP User discount:</b></p>
-                    <input type="range" id="slider3" name="vip_user_discount" value="${curvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
-                    <span id="slider3Value" class="sliderValue"></span>
-                    <p></p>
-                    <p><input type="submit" name="save_changes" value="Save changes"></p>
-                </form>
+                <div class="tabcontent">
+                    <p class="h">Current Values<p>
+                    <form name="discountsfrm" method="POST" action="smsetdiscounts" onsubmit="">
+                        <p>Commission:</p>
+                        <input type="range" id="slider1" name="agency_com" value="${curcom}" min="3" max="17" onchange="OnSliderChanged (this)" />
+                        <span id="slider1Value" class="sliderValue"></span>
+                        <p>User discount:</p>
+                        <input type="range" id="slider2" name="user_discount" value="${curdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
+                        <span id="slider2Value" class="sliderValue"></span>
+                        <p>VIP User discount:</p>
+                        <input type="range" id="slider3" name="vip_user_discount" value="${curvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)" />
+                        <span id="slider3Value" class="sliderValue"></span>
+                        <p style="text-align: right;"><input type="submit" name="save_changes" value="Save changes"></p>
+                    </form>
+                </div>
             </div>
+
             <div id="tabs-3"><!-- 'Promo codes' tab -->
-                <h2>New Promo Code</h2>
-                <form name="promofrm" method="POST" action="generatepromo" onsubmit="return validatePromoFrm();">
-                    <label for="start_promo">*Start date:</label>
-                    <input id="start_promo" name="start_promo" style="width:100px;"/>
-                    <label for="end_promo">*Expiration date: </label>
-                    <input id="end_promo" name="end_promo" style="width:100px;"/>
-                    <p><b>Discount: *</b></p>
-                    <input type="range" id="slider4" name="promo_discount" value="" min="1" max="33" onchange="OnSliderChanged (this)"/>
-                    <span id="slider4Value" class="sliderValue"></span>
-                    <p></p>
-                    <c:if test="${promo_code != null}">
-                        <p><b>Generated promo code:</b> ${promo_code}</p>
-                    </c:if>
-                    <p><input type="submit" name="generate_promo" value="Generate"></p>
-                    <a href="getallpromocodes">All promo codes:</a>
-                    <c:if test="${requestScope.allpromocodes != null}">
-                        <table cellpadding="0" cellspacing="0" border="0" id="table_pc" class="sortable">
-                            <thead>
-                            <tr>
-                                <th><h3>Name</h3></th>
-                                <th><h3>Discount</h3></th>
-                                <th><h3>Start date</h3></th>
-                                <th><h3>Expiration date</h3></th>
-                                <th><h3>Status</h3></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${requestScope.allpromocodes}" var="pc">
-                                <tr>
-                                    <td><c:out value="${pc.code}"/></td>
-                                    <td><c:out value="${(pc.discount * 100)}"/>%</td>
-                                    <td><c:out value="${pc.start_date}"/></td>
-                                    <td><c:out value="${pc.end_date}"/></td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${pc.status=='0'}">Available</c:when>
-                                            <c:when test="${pc.status=='1'}">Used</c:when>
-                                            <c:when test="${pc.status=='2'}">Expired</c:when>
-                                        </c:choose>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                        <div class="controls">
-                            <div class="perpage">
-                                <select onchange="sorter.size(this.value)">
-                                    <option value="5">5</option>
-                                    <option value="10" selected="selected">10</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                <span>Entries Per Page</span>
-                            </div>
-                            <div class="navigation">
-                                <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
-                            </div>
-                            <div class="text">Displaying Page <span id="currentpage_pc"></span> of <span id="pagelimit_pc"></span></div>
+                <div class="tabcontent">
+                    <p class="h">New Promo Code<p>
+                    <form name="promofrm" method="POST" action="generatepromo" onsubmit="return validatePromoFrm();">
+                        <div class="tapcontent">
+                            <p>Start date <span class="mandatory">*</span>:
+                                <input id="start_promo" name="start_promo" style="width:100px;"/>
+                               Expiration date <span class="mandatory">*</span>:
+                                <input id="end_promo" name="end_promo" style="width:100px;"/></p>
+                            <p>Discount <span class="mandatory">*</span>:</p>
+                            <input type="range" id="slider4" name="promo_discount" value="" min="1" max="33" onchange="OnSliderChanged (this)"/>
+                            <span id="slider4Value" class="sliderValue"></span>
+                            <c:if test="${promo_code != null}">
+                                <p>Generated promo code: <span style="color: #0000ff;">${promo_code}</span></p>
+                            </c:if>
+                            <p style="text-align: right;"><input type="submit" name="generate_promo" value="Generate"></p>
                         </div>
-                        <script type="text/javascript">
-                            var sorter = new TINY.table.sorter("sorter");
-                            sorter.head = "head";
-                            sorter.asc = "asc";
-                            sorter.desc = "desc";
-                            sorter.even = "evenrow";
-                            sorter.odd = "oddrow";
-                            sorter.evensel = "evenselected";
-                            sorter.oddsel = "oddselected";
-                            sorter.paginate = true;
-                            sorter.currentid = "currentpage_pc";
-                            sorter.limitid = "pagelimit_pc";
-                            sorter.init("table_pc", 1);
-                        </script>
-                    </c:if>
-                </form>
+                        <a href="getallpromocodes">All promo codes:</a>
+                        <c:if test="${requestScope.allpromocodes != null}">
+                            <table cellpadding="0" cellspacing="0" border="0" id="table_pc" class="sortable">
+                                <thead>
+                                <tr>
+                                    <th><h3>Name</h3></th>
+                                    <th><h3>Discount</h3></th>
+                                    <th><h3>Start date</h3></th>
+                                    <th><h3>Expiration date</h3></th>
+                                    <th><h3>Status</h3></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${requestScope.allpromocodes}" var="pc">
+                                    <tr>
+                                        <td><c:out value="${pc.code}"/></td>
+                                        <td><c:out value="${(pc.discount * 100)}"/>%</td>
+                                        <td><c:out value="${pc.start_date}"/></td>
+                                        <td><c:out value="${pc.end_date}"/></td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${pc.status=='0'}">Available</c:when>
+                                                <c:when test="${pc.status=='1'}">Used</c:when>
+                                                <c:when test="${pc.status=='2'}">Expired</c:when>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                            <div class="controls">
+                                <div class="perpage">
+                                    <select onchange="sorter.size(this.value)">
+                                        <option value="5">5</option>
+                                        <option value="10" selected="selected">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <span>Entries Per Page</span>
+                                </div>
+                                <div class="navigation">
+                                    <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                    <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                    <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                    <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                </div>
+                                <div class="text">Displaying Page <span id="currentpage_pc"></span> of <span id="pagelimit_pc"></span></div>
+                            </div>
+                            <script type="text/javascript">
+                                var sorter = new TINY.table.sorter("sorter");
+                                sorter.head = "head";
+                                sorter.asc = "asc";
+                                sorter.desc = "desc";
+                                sorter.even = "evenrow";
+                                sorter.odd = "oddrow";
+                                sorter.evensel = "evenselected";
+                                sorter.oddsel = "oddselected";
+                                sorter.paginate = true;
+                                sorter.currentid = "currentpage_pc";
+                                sorter.limitid = "pagelimit_pc";
+                                sorter.init("table_pc", 1);
+                            </script>
+                        </c:if>
+                    </form>
+                </div>
             </div>
 
             <div id="tabs-4"><!-- 'Reports' tab-->
@@ -362,16 +321,16 @@ $(function() {
                     <p>Expiration date:<input id="end_mostvalacc" name="end_mostvalacc" style="width:100px;"/></p>
 &lt;%&ndash;                    <input type="submit" name="show_acc" value="Show most valuable accomodations">&ndash;%&gt;
                 </form>--%>
-                <p><b>Start date: *</b></p>
-                <input id="start_date" name="start_date" style="width:100px;"/>
-                <p><b>Expiration date: *</b></p>
-                <input id="end_date" name="end_date" style="width:100px;"/>
-
-                <input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
-                <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();">
-
+                <div class="tabcontent">
+                    <p class="h">Reports</p>
+                    <p>
+                        <input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
+                        <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();">
+                    </p>
+                </div>
                 <form name="getallhotel" method="POST" onsubmit="">
 <%--                    <a href="showmostpopularhotel">Show most popular hotels</a>--%>
+                    <p style="color:#0000ff;"><a href="saveexcel">Save as Excel</a></p>
                     <c:if test="${requestScope.mostpophotel != null}">
                     <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
@@ -385,17 +344,14 @@ $(function() {
                         <tbody>
                         <c:forEach items="${requestScope.mostpophotel}" var="hotel">
                             <tr>
-
                                 <td><c:out value="${hotel.hotelname}"/></td>
                                 <td><c:out value="${hotel.city}"/></td>
                                 <td><c:out value="${hotel.country}"/></td>
                                 <td><c:out value="${hotel.totalOrder}"/></td>
-
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
-                    <a href="saveexcel">Save as Excel</a>
                     <div class="controls">
                         <div class="perpage">
                             <select onchange="sorter.size(this.value)">
@@ -431,8 +387,6 @@ $(function() {
                     </script>
                     </c:if>
                 </form>
-
-
                     <form name="getallacc" method="POST" onsubmit="">
                         <%--<a href="showmostvaluableacc">View the most valuable accommodations</a>--%>
                         <c:if test="${requestScope.mostvalacc != null}">
@@ -496,17 +450,13 @@ $(function() {
                         </c:if>
                     </form>
             </div>
-<%--        </div>
+    </div>
 
 
-    </div>--%>
-</div>
-
-
-</div>
+    </div>
     <!-- #content -->
 
-    <div id="footer">
+    <div class="footer">
     </div>
     <!-- #footer -->
 

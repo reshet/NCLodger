@@ -6,13 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Login</title>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-    <script src="resources/js/md5-min.js"></script>
-
-    <!--[if lt IE 7]>
-<style type="text/css">
-     #wrapper { height:100%; }
-</style>
-<![endif]-->
+<script src="resources/js/md5-min.js"></script>
 <script>
     function validateLoginForm() {
         var isValid = true;
@@ -39,21 +33,10 @@
 
 <body>
 
-<div id="wrapper">
+<div class="wrapper">
+    <jsp:include page="header.jsp"/>
 
-    <div id="header">
-        <div class="nav">
-            <ul>
-                <li><a href="home.jsp"><h1>NCLodger</h1></a></li>
-                <li><a href="home.jsp">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contacts</a></li>
-            </ul>
-        </div>
-    </div><!-- #header -->
-
-    <div id="content">
-
+    <div class="content">
         <div class="window" >
             <h1>Login</h1>
             <form name="loginfrm" method="POST" action="signin" onsubmit="return validateLoginForm();">
@@ -61,31 +44,25 @@
                 <p>Email:<input type="text" name="email" maxlength="50"></p>
                 <span id="span_email">Invalid email!</span>
                 <c:if test="${requestScope.regConfirm==true}">
-                    <p>This email was not registered. Please, sign up or confirm your registration</p>
+                    <p style="color: #bc0f0f;">This email wasn't registered. Please, sign up or confirm your registration.</p>
                 </c:if>
                 <p>Password:<input type="password" name="password1" maxlength="20"></p>
                 <c:if test="${requestScope.wrongPass==true}">
-                    <p>Wrong password</p>
+                    <p style="color: #bc0f0f;">Wrong password!</p>
                 </c:if>
-                <span id="span_pswd"><p>Invalid password!</p></span>
+                <span id="span_pswd">Invalid password!</span><br>
                 <a href="registration.jsp">Haven't got account yet?</a></br>
-                <a href="">Login with GOOGLE?</a>
-
+                <%--<a href="">Login with GOOGLE?</a>--%>
                 <p class="submit">
                     <input type="hidden" name="password" value=""/>
                     <input type="submit" name="commit" value="Login">
-                    <input type="submit" name="commit" value="Login as guest">
+                    <input type="reset" name="reset" value="Reset">
                 </p>
             </form>
         </div>
-
-        <div class="window-help">
-            <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p>
-        </div>
-
     </div><!-- #content -->
 
-    <div id="footer">
+    <div class="footer">
     </div><!-- #footer -->
 
 </div><!-- #wrapper -->
