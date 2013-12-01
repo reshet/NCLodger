@@ -3,87 +3,122 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>NCLodger | Administrator dashboard</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script type="text/javascript" src="resources/js/sorttable.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>NCLodger | Administrator dashboard</title>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript" src="resources/js/sorttable.js"></script>
 
-    <script>
+<script>
 
-     $(function() {
-            $("#start_promo").datepicker();
-            $("#end_promo").datepicker();
-        })
-        $(function() {
-            $("#start_mostvalacc").datepicker();
-            $("#end_mostvalacc").datepicker();
-        })
+    $(function() {
+        $("#start_promo").datepicker();
+        $("#end_promo").datepicker();
+    })
+    $(function() {
+        $("#start_mostvalacc").datepicker();
+        $("#end_mostvalacc").datepicker();
+    })
 
 
-        $(function () {
+    $(function () {
 // $( "#tabs" ).tabs();
-            $("#tabs").tabs({
-                create: function (event, ui) {
-                    $(this).tabs({'select': $(this).find("ul").index($(this).find('a[href="' + window.location.hash + '"]').parent())});
-                },
-                activate: function (event, ui) {
-                    window.location.hash = $(ui.newTab[0]).find('a[href^="#tab"]').attr("href");
-                }
-            });
+        $("#tabs").tabs({
+            create: function (event, ui) {
+                $(this).tabs({'select': $(this).find("ul").index($(this).find('a[href="' + window.location.hash + '"]').parent())});
+            },
+            activate: function (event, ui) {
+                window.location.hash = $(ui.newTab[0]).find('a[href^="#tab"]').attr("href");
+            }
         });
+    });
 
 
-  /*    //2 below fuctions also allow to select all checkboxes but they have bug...or it is because of incorrect pagination
-        function toggleChecked(status) {
-            $(".checkbox").each(function() {
-                $(this).attr("checked",status);
-            })
+
+
+
+     //2 below fuctions also allow to select all checkboxes but they have bug...or it is because of incorrect pagination
+   /*  function toggleChecked(status) {
+     $(".checkbox").each(function() {
+     $(this).attr("checked",status);
+     })
+     }
+
+    */
+
+      /*
+        function toggleChecked(source) {
+   //     var r = displayedCheckbox();
+        var chec = document.getElementsByName('block[]');
+        for(var i=0, n=chec.length; i<n; i++) {
+                chec[i].checked = source.checked;
+            }
         }
 
+        */
 
 
-        function toggleParentChecked(status) {
+    function toggleChecked(source) {
+       var chec = document.getElementsByName('block[]');
+       var r = displayedCheckbox();
+        for(var i=0, n=r; i<n; i++) {
+            chec[i].checked = source.checked;
+        }
+    }
+
+
+
+             function toggleParentChecked(status) {
                 if(status==false)
                     $("#check_all").prop("checked",status);
-                else
-                {
+                 else
+                 {
                     var isallchecked = true;
                     $(".checkbox").each(function() {
-                        if(!$(this).prop("checked"))
-                        isallchecked = false;
-                        })
+                    if(!$(this).prop("checked"))
+                    isallchecked = false;
+                })
 
-                         if(isallchecked)
-                            $("#check_all").prop("checked", true);
+                    if(isallchecked)
+                $("#check_all").prop("checked", true);
+                }
+
+             }
+
+
+
+    function displayedCheckbox(){
+        var all = document.getElementById('uniq').rows;
+        var result=0;
+        for(var i=0; i<all.length; i++){
+            if(all[i].style.display !== "none"){
+                result++;
             }
-
         }
+         return result;
+    }
 
 
-     */
-
-
-        function validateHotelFrm() {
-            var isValid = true;
-            var message = "In order to create new hotel the following fields must be filled:\n";
-            if(document.hotelfrm.hotelname.value == "") {
-                isValid = false;
-                message += "\n- Hotel name";
-            }
-            if(document.hotelfrm.country.value == "") {
-                isValid = false;
-                message += "\n- Country";
-            }
-            if(document.hotelfrm.city.value == "") {
-                isValid = false;
-                message += "\n- City";
-            }
-            if(!isValid) {
-                alert(message);
-            }
+    function validateHotelFrm() {
+        var isValid = true;
+        var message = "In order to create new hotel the following fields must be filled:\n";
+        if(document.hotelfrm.hotelname.value == "") {
+            isValid = false;
+            message += "\n- Hotel name";
+        }
+        if(document.hotelfrm.country.value == "") {
+            isValid = false;
+            message += "\n- Country";
+        }
+        if(document.hotelfrm.city.value == "") {
+            isValid = false;
+            message += "\n- City";
+        }
+        if(!isValid) {
+            alert(message);
+        }
 // else {
 // if(document.hotelfrm.category.value == "") {
 // document.hotelfrm.category.value = 0;
@@ -95,127 +130,147 @@
 // document.hotelfrm.latitude.value = 0;
 // }
 // }
-            return isValid;
+        return isValid;
+    }
+
+
+    function OnMakeBlock(){
+        var flag = validate();
+        if(flag==true){
+            document.adgetalluser.action = "makeblock";
+            document.adgetalluser.submit();
         }
 
+        return true;
+    }
 
-        function OnMakeBlock(){
-            var flag = validate();
-            if(flag==true){
-                document.adgetalluser.action = "makeblock";
-                document.adgetalluser.submit();
-            }
-
-            return true;
+    function OnMakeUnBlock(){
+        var flag = validate();
+        if(flag==true){
+            document.adgetalluser.action = "makeunblock";
+            document.adgetalluser.submit();
         }
 
-        function OnMakeUnBlock(){
-            var flag = validate();
-            if(flag==true){
-                document.adgetalluser.action = "makeunblock";
-                document.adgetalluser.submit();
-            }
+        return true;
 
-            return true;
+    }
 
+    function OnMakeSM(){
+        var flag = validate();
+        if(flag==true){
+            document.adgetalluser.action = "grantsm";
+            document.adgetalluser.submit();
         }
+        return true;
+    }
 
-        function OnMakeSM(){
-            var flag = validate();
-            if(flag==true){
-                document.adgetalluser.action = "grantsm";
-                document.adgetalluser.submit();
-            }
-            return true;
+    function OnDismissSM(){
+        var flag = validate();
+        if(flag==true){
+            document.adgetalluser.action = "dismisssm";
+            document.adgetalluser.submit();
         }
+        return true;
+    }
 
-        function OnDismissSM(){
-            var flag = validate();
-            if(flag==true){
-                document.adgetalluser.action = "dismisssm";
-                document.adgetalluser.submit();
-            }
-            return true;
+    function OnDeleteUser(){
+        var flag = validate();
+        if(flag==true){
+            document.adgetalluser.action = "deleteuser";
+            document.adgetalluser.submit();
         }
-
-        function OnDeleteUser(){
-            var flag = validate();
-            if(flag==true){
-                document.adgetalluser.action = "deleteuser";
-                document.adgetalluser.submit();
-            }
-            return true;
-        }
+        return true;
+    }
 
 
 
-        function validate() {
-            var inputElements = document.getElementsByName('block[]');
-            var chekSelect = false;
-            for (var i = 0; i < inputElements.length; i++) {
-                var myElement = inputElements[i];
+    function validate() {
+        var inputElements = document.getElementsByName('block[]');
+        var chekSelect = false;
+        for (var i = 0; i < inputElements.length; i++) {
+            var myElement = inputElements[i];
 
-                if (myElement.type === "checkbox") {
-                    if (myElement.checked) {
-                        chekSelect = true;
-                        break;
-                    }
+            if (myElement.type === "checkbox") {
+                if (myElement.checked) {
+                    chekSelect = true;
+                    break;
                 }
             }
-
-            if(!chekSelect) {
-                alert('Please, select at least one User!');
-                return false;
-            } else {
-                return true;
-            }
         }
 
-
-    </script>
-
-
-
-
-    <script type="text/javascript">
-        function OnSliderChanged (slider) {
-            var sliderValue = document.getElementById (slider.id + "Value");
-            sliderValue.innerHTML = slider.value;
+        if(!chekSelect) {
+            alert('Please, select at least one User!');
+            return false;
+        } else {
+            return true;
         }
+    }
 
-        function Init () {
-            var slider = document.getElementById ("slider1");
-            OnSliderChanged (slider);
-            var slider = document.getElementById ("slider2");
-            OnSliderChanged (slider);
-            var slider = document.getElementById ("slider3");
-            OnSliderChanged (slider);
-        }
+
+</script>
 
 
 
 
+<script type="text/javascript">
+    function OnSliderChanged (slider) {
+        var sliderValue = document.getElementById (slider.id + "Value");
+        sliderValue.innerHTML = slider.value;
+    }
 
-    </script>
+    function Init () {
+        var slider = document.getElementById ("slider1");
+        OnSliderChanged (slider);
+        var slider = document.getElementById ("slider2");
+        OnSliderChanged (slider);
+        var slider = document.getElementById ("slider3");
+        OnSliderChanged (slider);
+    }
 
-    <!--[if lt IE 7]>
-    <style type="text/css">
-        #wrapper { height:100%; }
-    </style>
-    <![endif]-->
-    <style type="text/css">
-        .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* unsort 2 arrows */
-        .sortable .desc, .sortable .asc {background:#4b708d} /* selected header */
-        .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* dsc arrpw */
-        .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* asc arrow */
-    </style>
+
+
+
+
+</script>
+
+<!--[if lt IE 7]>
+<style type="text/css">
+    #wrapper { height:100%; }
+</style>
+<![endif]-->
+<style type="text/css">
+    .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* unsort 2 arrows */
+    .sortable .desc, .sortable .asc {background:#4b708d} /* selected header */
+    .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* dsc arrpw */
+    .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* asc arrow */
+</style>
 </head>
 
 <body onload="Init ()">
 
-<div class="wrapper">
+<div id="wrapper">
 
-    <jsp:include page="header.jsp"/>
+    <div id="header">
+        <div class="greeting" style="float: right; padding-right: 2em; ">
+            <c:if test="${sessionScope.username == null}">
+                <a href="login.jsp">Log in</a> / <a href="registration.jsp">Register</a>
+            </c:if>
+            <c:if test="${sessionScope.username != null}">
+                Hello, <c:out value="${sessionScope.username}"/>!
+                <br><a href="signout">Log out</a>
+                <br><a href="ussettings.jsp" class="orangelink"><img src="resources/img/user.gif">User dashboard</a>
+            </c:if>
+        </div>
+
+        <div class="nav">
+            <ul>
+                <li><a href="home.jsp"><h1>NCLodger</h1></a></li>
+                <li><a href="home.jsp">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contacts</a></li>
+            </ul>
+        </div>
+    </div><!-- #header -->
 
     <div id="content">
         <div id="tabs">
@@ -224,39 +279,29 @@
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <li><a href="#tabs-3">Hotels</a></li>
             </ul>
-
             <div id="tabs-1"><!-- 'Users' tab -->
                 <form name="adgetalluser" method="POST">
                     <c:if test="${requestScope.allusers != null}">
-                    <div class="tabcontent">
-                        <input type = "submit" name = "Block" value="Block" onclick="OnMakeBlock();">
-                        <input type="submit" name = "UnBlock" value="UnBlock" onclick="OnMakeUnBlock();">
-                        <input type="submit" name = "GrantSM" value="Grant SM" onclick="OnMakeSM();">
-                        <input type="submit" name = "DismissSM" value="Dismiss SM" onclick="OnDismissSM();">
-                        <input type="submit" name = "CreateUser" value="Create User">
-                        <input type="submit" name="DeleteUser" value="Delete User" onclick="OnDeleteUser();">
-                    </div>
                     <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
 
-                            <!--           <th class="nosort"><input type="checkbox" id="check_all" onclick="toggleChecked(this.checked)"/></th>    -->
+                            <th class="nosort"><input type="checkbox" id="check_all" onclick="toggleChecked(this)"/></th>
 
-                            <th class="nosort"><input type="checkbox" class="check_all" onclick="$('input[type=checkbox][class=checkboxes]').prop('checked',this.checked)"></th>
+                   <!--         <th class="nosort"><input type="checkbox" class="check_all" onclick="$('input[type=checkbox][class=checkboxes]').prop('checked',this.checked)"></th> -->
                             <th><h3>Name</h3></th>
                             <th><h3>Email</h3></th>
                             <th><h3>Block Status</h3></th>
                             <th><h3>Role in the system</h3></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="uniq">
                         <c:forEach items="${requestScope.allusers}" var="user">
                             <tr>
+                                <!--                 <td><input type="checkbox" name = "block[]" class="checkboxes" c:out value="${user.id}" id="slaves"/></td>  -->
 
-                               <td><input type="checkbox" name = "block[]" class="checkboxes" c:out value="${user.id}"/></td>
+                                 <td><input type="checkbox" class="checkboxes" onclick="toggleParentChecked(this.checked)" name = "block[]" c:out value="${user.id}"/></td>
 
-
-         <!--                       <td><input type="checkbox" class="checkbox" onclick="toggleParentChecked(this.checked)" name = "block[]" c:out value="${user.id}"/></td>  -->
                                 <td><c:out value="${user.name}"/></td>
                                 <td><c:out value="${user.email}"/></td>
                                 <td>
@@ -276,6 +321,12 @@
                         </c:forEach>
                         </tbody>
                     </table>
+                    <input type = "submit" name = "Block" value="Block" onclick="OnMakeBlock();">
+                    <input type="submit" name = "UnBlock" value="UnBlock" onclick="OnMakeUnBlock();">
+                    <input type="submit" name = "GrantSM" value="Grant SM" onclick="OnMakeSM();">
+                    <input type="submit" name = "DismissSM" value="Dismiss SM" onclick="OnDismissSM();">
+                    <input type="submit" name = "CreateUser" value="Create User">
+                    <input type="submit" name="DeleteUser" value="Delete User" onclick="OnDeleteUser();">
                     <div class="controls">
                         <div class="perpage">
                             <select onchange="sorter.size(this.value)">
@@ -314,43 +365,40 @@
             </form>
 
             <div id="tabs-2"><!-- 'Commission & Discounts' tab-->
-                <div class="tabcontent">
-                    <p class="h">Current Values<p>
-                    <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
-                        <p><b>Commission:</b></p>
-                        <input type="range" name="agency_com" id="slider1" value="${defcurcom}" min="3" max="17" onchange="OnSliderChanged (this)"/>
-                        <span id="slider1Value" class="sliderValue"></span>
-                        <p><b>User discount:</b></p>
-                        <input type="range" name="user_discount" id="slider2" value="${defcurdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
-                        <span id="slider2Value" class="sliderValue"></span>
-                        <p><b>VIP User discount:</b></p>
-                        <input type="range" name="vip_user_discount" id="slider3" value="${defcurvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
-                        <span id="slider3Value" class="sliderValue"></span>
-                        <p style="text-align: right;"><input type="submit" name="save_changes" value="Save changes"></p>
-                    </form>
-                </div>
+                <h2>Current Default Values</h2>
+                <form name="discountsfrm" method="POST" action="initialdiscounts" onsubmit="">
+                    <p><b>Commission:</b></p>
+                    <input type="range" name="agency_com" id="slider1" value="${defcurcom}" min="3" max="17" onchange="OnSliderChanged (this)"/>
+                    <span id="slider1Value" class="sliderValue"></span>
+                    <p><b>User discount:</b></p>
+                    <input type="range" name="user_discount" id="slider2" value="${defcurdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
+                    <span id="slider2Value" class="sliderValue"></span>
+                    <p><b>VIP User discount:</b></p>
+                    <input type="range" name="vip_user_discount" id="slider3" value="${defcurvipdisc}" min="0" max="33" onchange="OnSliderChanged (this)"/>
+                    <span id="slider3Value" class="sliderValue"></span>
+                    <p><input type="submit" name="save_changes" value="Save changes"></p>
+                </form>
             </div>
 
             <div id="tabs-3"><!-- 'Hotels' tab -->
-                <p class="h">New Hotel</p>
+                <h2>New Hotel</h2>
                 <form name="hotelfrm" method="POST" action="addhotel" onsubmit="return validateHotelFrm();">
-                    <p>Hotel name <span class="mandatory">*</span>:</p>
+                    <p><b>Hotel name:*</b></p>
                     <input type="text" name="hotelname" maxlength="30">
-                    <p>Country <span class="mandatory">*</span>:</p>
+                    <p><b>Country:*</b></p>
                     <input type="text" name="country" maxlength="20">
-                    <p>City <span class="mandatory">*</span>:</p>
+                    <p><b>City:*</b></p>
                     <input type="text" name="city" maxlength="30">
-                    <p>Category:</p>
+                    <p><b>Category:</b></p>
                     <input type="text" name="category" value="0">
-                    <p>Latitude:</p>
+                    <p><b>Latitude:</b></p>
                     <input type="text" name="latitude" value="0">
-                    <p>Longitude:</p>
+                    <p><b>Longitude:</b></p>
                     <input type="text" name="longitude" value="0">
-                    <p style="text-align: right;">
-                        <input type="submit" name="commit" value="Submit">
-                        <input type="reset" name="reset" value="Reset">
-                    </p>
-                    </form>
+                    <br>
+                    <input type="submit" name="commit" value="Submit">
+                    <input type="reset" name="reset" value="Reset">
+                </form>
             </div>
         </div>
 
