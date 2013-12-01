@@ -19,10 +19,38 @@
   .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
 </style>
    <script>
-        $(function() {
-            $("#start_date").datepicker();
-            $("#end_date").datepicker();
-        })
+       $(function() {
+           $( "#start_promo" ).datepicker({
+               minDate: new Date(),
+               /*        defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3,*/
+               onClose: function( selectedDate ) {
+                   $( "#end_promo" ).datepicker( "option", "minDate", selectedDate );
+               }
+           });
+           $( "#end_promo" ).datepicker({
+               onClose: function( selectedDate ) {
+                   $( "#start_promo" ).datepicker( "option", "maxDate", selectedDate );
+               }
+           });
+       });
+
+       $(function() {
+           $( "#start_date" ).datepicker({
+               maxDate: new Date(),
+
+               onClose: function( selectedDate ) {
+                   $( "#end_date" ).datepicker( "option", "minDate", selectedDate );
+               }
+           });
+           $( "#end_date" ).datepicker({
+               maxDate: new Date,
+               onClose: function( selectedDate ) {
+                   $( "#start_promo" ).datepicker( "option", "maxDate", selectedDate );
+               }
+           });
+       })
         $(function() {
 //            $( "#tabs" ).tabs();
             $("#tabs").tabs({
@@ -316,80 +344,90 @@
             </div>
 
             <div id="tabs-4"><!-- 'Reports' tab-->
-<%--                <form name="mostvaluableacc" method="POST" action="getmostvaluableacc" onsubmit="">
-                    <p>Start date:<input id="start_mostvalacc" name="start_mostvalacc" style="width:100px;"/></p>
-                    <p>Expiration date:<input id="end_mostvalacc" name="end_mostvalacc" style="width:100px;"/></p>
-&lt;%&ndash;                    <input type="submit" name="show_acc" value="Show most valuable accomodations">&ndash;%&gt;
-                </form>--%>
-                <div class="tabcontent">
-                    <p class="h">Reports</p>
-                    <p>
-                        <input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
-                        <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();">
-                    </p>
-                </div>
+                <%--                <form id ="reportdate" name="reportdate"  method="POST" onsubmit="">
+                                <label for="start_date">From: </label>
+                                <input id="start_date" name="start_date" style="width:100px;"/>
+                                <label for="end_date">To: </label>
+                                <input id="end_date" name="end_date" style="width:100px;"/>
+                                </form>--%>
+
+                <input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
+                <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();">
+
                 <form name="getallhotel" method="POST" onsubmit="">
-<%--                    <a href="showmostpopularhotel">Show most popular hotels</a>--%>
-                    <p style="color:#0000ff;"><a href="saveexcel">Save as Excel</a></p>
+                    <%--                    <a href="showmostpopularhotel">Show most popular hotels</a>--%>
+                    <label for="start_date">From: </label>
+                    <input id="start_date" name="start_date" style="width:100px;"/>
+                    <label for="end_date">To: </label>
+                    <input id="end_date" name="end_date" style="width:100px;"/>
                     <c:if test="${requestScope.mostpophotel != null}">
-                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
-                        <thead>
-                        <tr>
-                            <th><h3>Hotel name</h3></th>
-                            <th><h3>City</h3></th>
-                            <th><h3>Country</h3></th>
-                            <th><h3>Total order for period</h3></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${requestScope.mostpophotel}" var="hotel">
+                        <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+                            <thead>
                             <tr>
-                                <td><c:out value="${hotel.hotelname}"/></td>
-                                <td><c:out value="${hotel.city}"/></td>
-                                <td><c:out value="${hotel.country}"/></td>
-                                <td><c:out value="${hotel.totalOrder}"/></td>
+                                <th><h3>Hotel name</h3></th>
+                                <th><h3>City</h3></th>
+                                <th><h3>Country</h3></th>
+                                <th><h3>Total order for period</h3></th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                    <div class="controls">
-                        <div class="perpage">
-                            <select onchange="sorter.size(this.value)">
-                                <option value="5">5</option>
-                                <option value="10" selected="selected">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            <span>Entries Per Page</span>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${requestScope.mostpophotel}" var="hotel">
+                                <tr>
+
+                                    <td><c:out value="${hotel.hotelname}"/></td>
+                                    <td><c:out value="${hotel.city}"/></td>
+                                    <td><c:out value="${hotel.country}"/></td>
+                                    <td><c:out value="${hotel.totalOrder}"/></td>
+
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                        <a href="saveexcel">Save as Excel</a>
+                        <div class="controls">
+                            <div class="perpage">
+                                <select onchange="sorter.size(this.value)">
+                                    <option value="5">5</option>
+                                    <option value="10" selected="selected">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span>Entries Per Page</span>
+                            </div>
+                            <div class="navigation">
+                                <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                            </div>
+                            <div class="text">Displaying Page <span id="currentpage_h"></span> of <span id="pagelimit_h"></span></div>
                         </div>
-                        <div class="navigation">
-                            <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                            <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                            <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                            <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
-                        </div>
-                        <div class="text">Displaying Page <span id="currentpage_h"></span> of <span id="pagelimit_h"></span></div>
-                    </div>
-                    <script type="text/javascript">
-                        var sorter = new TINY.table.sorter("sorter");
-                        sorter.head = "head";
-                        sorter.asc = "asc";
-                        sorter.desc = "desc";
-                        sorter.even = "evenrow";
-                        sorter.odd = "oddrow";
-                        sorter.evensel = "evenselected";
-                        sorter.oddsel = "oddselected";
-                        sorter.paginate = true;
-                        sorter.currentid = "currentpage";
-                        sorter.limitid = "pagelimit";
-                        sorter.init("table", 1);
-                    </script>
+                        <script type="text/javascript">
+                            var sorter = new TINY.table.sorter("sorter");
+                            sorter.head = "head";
+                            sorter.asc = "asc";
+                            sorter.desc = "desc";
+                            sorter.even = "evenrow";
+                            sorter.odd = "oddrow";
+                            sorter.evensel = "evenselected";
+                            sorter.oddsel = "oddselected";
+                            sorter.paginate = true;
+                            sorter.currentid = "currentpage";
+                            sorter.limitid = "pagelimit";
+                            sorter.init("table", 1);
+                        </script>
                     </c:if>
-                </form>
-                    <form name="getallacc" method="POST" onsubmit="">
-                        <%--<a href="showmostvaluableacc">View the most valuable accommodations</a>--%>
-                        <c:if test="${requestScope.mostvalacc != null}">
+                    <%--</form>--%>
+
+
+                    <%-- <form name="getallacc" method="POST" onsubmit="">--%>
+                    <%--<a href="showmostvaluableacc">View the most valuable accommodations</a>--%>
+                    <%--                            <label for="start_date">From: </label>
+                                                <input id="start_date" name="start_date" style="width:100px;"/>
+                                                <label for="end_date">To: </label>
+                                                <input id="end_date" name="end_date" style="width:100px;"/>--%>
+                    <c:if test="${requestScope.mostvalacc != null}">
                         <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                             <thead>
                             <tr>
@@ -447,8 +485,8 @@
                             sorter.limitid = "pagelimit";
                             sorter.init("table", 1);
                         </script>
-                        </c:if>
-                    </form>
+                    </c:if>
+                </form>
             </div>
     </div>
 

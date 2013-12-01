@@ -14,9 +14,6 @@
     $(function() {
         $( "#checkindate" ).datepicker({
             minDate: new Date(),
-            /*        defaultDate: "+1w",
-             changeMonth: true,
-             numberOfMonths: 3,*/
             onClose: function( selectedDate ) {
                 $( "#checkoutdate" ).datepicker( "option", "minDate", selectedDate );
             }
