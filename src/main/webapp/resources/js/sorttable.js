@@ -35,6 +35,9 @@ TINY.table=function(){
         if(t.p==y){t.a.reverse(); x.className=t.d?this.asc:this.desc; t.d=t.d?0:1}
         else{t.p=y; t.a.sort(cp); t.d=0; x.className=this.asc}
         var n=document.createElement('tbody');
+
+        n.setAttribute("id","uniq");
+
         for(i=0;i<this.l;i++){
             var r=t.r[t.a[i].o].cloneNode(true); n.appendChild(r);
             r.className=i%2==0?this.even:this.odd; var cells=T$$('td',r);
