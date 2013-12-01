@@ -21,13 +21,23 @@ public class SmGetValueOfAccAction extends Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SMDAO smdao = new SMDAO();
 
-
+/*
         ArrayList<AccommodationTotalValue> alist;
         alist = smdao.sortAccommodationbyValuable();
 
-        request.setAttribute("mostvalacc",alist);
+        request.setAttribute("mostvalacc",alist);*/
         //
+        String startdate =  request.getParameter("start_date") ;
+        String enddate =request.getParameter("end_date") ;
+        ArrayList<AccommodationTotalValue> alist;
+        if(startdate.length()<7 && enddate.length()<7){
+            alist = smdao.sortAccommodationbyValuable();
+        }
+        else{
+            alist = smdao.sortAccommodationbyValuableWithTimeFrame(startdate,enddate);
+        }
 
+        request.setAttribute("mostvalacc",alist);
 
         return "smsettings";
     }

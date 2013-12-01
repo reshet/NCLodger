@@ -26,8 +26,8 @@ public interface SMDaoInterface {
     public boolean setCommAndDiscounts(int id_sm, double commission, double vip_discount, double user_discount) throws MyException;
     public ArrayList<HotelTotalOrder> sortHotelbyPopular() throws MyException;
     public SManager getCurrentCommAndDiscounts(final String email) throws MyException;
-    public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException;
+    public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(final String start, final String end) throws MyException;
     public ArrayList<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException;
-    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException;
+    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(final String start, final String end) throws MyException;
 
 }

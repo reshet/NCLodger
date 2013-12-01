@@ -1,6 +1,7 @@
 package com.nclodger.control.action.sm;
 
 import com.nclodger.additional.HotelTotalOrder;
+import com.nclodger.additional.ReportInExcel;
 import com.nclodger.control.action.Action;
 import com.nclodger.dao.SMDAO;
 
@@ -20,11 +21,19 @@ public class PopHotelsAction extends Action {
         SMDAO smdao = new SMDAO();
 
 
+        String startdate =  request.getParameter("start_date") ;
+        String enddate =request.getParameter("end_date") ;
         ArrayList<HotelTotalOrder> alist = new ArrayList<HotelTotalOrder>();
-        alist = smdao.sortHotelbyPopular();
-
+        if(startdate.length()<7 && enddate.length()<7){
+            alist = smdao.sortHotelbyPopular();
+        }
+        else{
+            alist = smdao.sortHotelbyPopularWithTimeFrame(startdate,enddate);
+        }
+      /*   request.setAttribute("start_date",startdate);
+        request.setAttribute("end_date",enddate);*/
+       /* response.set*/
         request.setAttribute("mostpophotel",alist);
-       //
 
 
         return "smsettings";

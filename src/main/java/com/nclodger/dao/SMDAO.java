@@ -222,16 +222,16 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
             public ArrayList<HotelTotalOrder> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT HOTEL.NAME_H,HOTEL.CITY,HOTEL.CITY,TOTALORDER FROM " +
-                                "(SELECT ID_HOTEL as HOT, COUNT(ID_ORDER) AS TOTALORDER FROM (" +
-                                "         SELECT ORDERS.ID_ORDER ,ACCOMMODATION.id_acc,HOTEL.id_hotel,HOTEL.NAME_H FROM ORDERS" +
+                                "(SELECT ID_HOTEL as HOT, COUNT(ID_ORDER) AS TOTALORDER FROM ( " +
+                                "         SELECT ORDERS.ID_ORDER ,ACCOMMODATION.id_acc,HOTEL.id_hotel,HOTEL.NAME_H FROM ORDERS " +
                                 "         LEFT JOIN ACCOMMODATION " +
                                 "              ON ORDERS.ID_ACC=ACCOMMODATION.ID_ACC " +
                                 "              LEFT JOIN HOTEL " +
                                 "                    ON ACCOMMODATION.ID_HOTEL=HOTEL.id_hotel " +
                                 "                    )" +
-                                " GROUP BY ID_HOTEL  ),HOTEL\n" +
-                        "WHERE HOTEL.ID_HOTEL=HOT\n" +
-                         "ORDER BY TOTALORDER DESC"
+                                " GROUP BY ID_HOTEL  ),HOTEL" +
+                        " WHERE HOTEL.ID_HOTEL=HOT " +
+                         " ORDER BY TOTALORDER DESC"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
@@ -271,30 +271,38 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
 
     //the same as sortHotelbyPopular but with  timeframe
     @Override
-    public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(Date start, Date end) throws MyException {
+    public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(final String start,final String end) throws MyException {
         return dbOperation(new WrapperDBOperation<ArrayList<HotelTotalOrder>>() {
 
             @Override
             public ArrayList<HotelTotalOrder> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT * FROM HOTEL"
+                        "SELECT HOTEL.NAME_H,HOTEL.CITY,HOTEL.CITY,TOTALORDER FROM " +
+                                "       (SELECT ID_HOTEL as HOT, COUNT(ID_ORDER) AS TOTALORDER FROM ( " +
+                                "                SELECT ORDERS.ID_ORDER ,ACCOMMODATION.id_acc,HOTEL.id_hotel,HOTEL.NAME_H FROM ORDERS " +
+                                "                LEFT JOIN ACCOMMODATION " +
+                                "                ON ORDERS.ID_ACC=ACCOMMODATION.ID_ACC " +
+                                "                LEFT JOIN HOTEL " +
+                                "                ON ACCOMMODATION.ID_HOTEL=HOTEL.id_hotel " +
+                                "                WHERE TRUNC(ORDERS.date_order) >= TO_DATE(?,'mm/dd/yy') AND " +
+                                "                      TRUNC(ORDERS.date_order) < TO_DATE(?,'mm/dd/yy')) " +
+                                "                GROUP BY ID_HOTEL  ),HOTEL " +
+                                " WHERE HOTEL.ID_HOTEL=HOT" +
+                                " ORDER BY TOTALORDER DESC"
                 );
+
+                prep.setString(1, start);
+                prep.setString(2, end);
 
                 java.sql.ResultSet results = prep.executeQuery();
                 ArrayList<HotelTotalOrder> hotelsList = new ArrayList<HotelTotalOrder>();
                 while (results.next()) {
-                    int id_hotel = results.getInt(1);
-                    String name_hotel = results.getString(2);
-                    double loc_lat = results.getFloat(3);
-                    double loc_lng = results.getFloat(4);
-                    int category = results.getInt(5);
-                    int id_sm = results.getInt(6);
-                    String city = results.getString(7);
-                    String country = results.getString(8);
-                    int totalOrder = results.getInt(9);
-
-                    Hotel h = new Hotel(id_hotel, name_hotel, loc_lat, loc_lng, category, id_sm, city, country);
-                    //hotelsList.add(new HotelTotalOrder(h, totalOrder));
+                    String name_hotel = results.getString(1);
+                    String city = results.getString(2);
+                    String country = results.getString(3);
+                    int totalorder = results.getInt(4);
+                    HotelTotalOrder h = new HotelTotalOrder(name_hotel,city,country,totalorder);
+                    hotelsList.add(h);
                 }
                 return hotelsList;
             }
@@ -303,32 +311,38 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
 
 
     @Override
-    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(Date start, Date end) throws MyException {
+    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(final String start, final String end) throws MyException {
         return dbOperation(new WrapperDBOperation<ArrayList<AccommodationTotalValue>>() {
 
             @Override
             public ArrayList<AccommodationTotalValue> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT * FROM ACCOMODATION"
+                        "SELECT ACCTYPE,HOTEL.NAME_H,HOTEL.CITY,HOTEL.COUNTRY,TOTALVALUE FROM ( " +
+                                "  SELECT ACCOMMODATION.id_hotel AS ACCHOTID,ACCOMMODATION.TYPE AS ACCTYPE,ACCOMMODATION.ID_ACC,TOTACC,TOTALVALUE FROM ( " +
+                                "    SELECT ACCOMMODATION.ID_ACC AS TOTACC, SUM(ORDERS.PRICE) AS TOTALVALUE FROM ORDERS " +
+                                "      LEFT JOIN ACCOMMODATION " +
+                                "        ON ORDERS.ID_ACC=ACCOMMODATION.ID_ACC " +
+                                "        WHERE TRUNC(ORDERS.date_order) >= TO_DATE(?,'mm/dd/yy') AND " +
+                                "              TRUNC(ORDERS.date_order) < TO_DATE(?,'mm/dd/yy') " +
+                                "    GROUP BY ACCOMMODATION.ID_ACC),ACCOMMODATION " +
+                                "  WHERE ACCOMMODATION.ID_ACC=TOTACC " +
+                                " ),HOTEL" +
+                                " WHERE HOTEL.ID_HOTEL=ACCHOTID " +
+                                " ORDER BY TOTALVALUE DESC "
                 );
-
+                prep.setString(1, start);
+                prep.setString(2, end);
                 java.sql.ResultSet results = prep.executeQuery();
                 ArrayList<AccommodationTotalValue> accList = new ArrayList<AccommodationTotalValue>();
                 while (results.next()) {
-                    int id_acc = results.getInt(1);
-                    int id_hotel = results.getInt(2);
-                    double price = results.getDouble(3);
-                    int quantity = results.getInt(4);
-                    String type = results.getString(5);
-                    String hotel_name = results.getString(6);
-                    String city = results.getString(7);
-                    String coutry = results.getString(8);
+                    String type = results.getString(1);
+                    String hotel_name = results.getString(2);
+                    String city = results.getString(3);
+                    String coutry = results.getString(4);
+                    double totalValue = results.getDouble(5);
 
-                    double totalValue = results.getDouble(9);
-
-
-/*                    Accommodation acc = new Accommodation(id_acc, id_hotel, price, quantity, type);
-                    accList.add(new AccommodationTotalValue(acc, hotel_name, city, coutry, totalValue));*/
+                    AccommodationTotalValue acc = new AccommodationTotalValue(type,hotel_name,city,coutry,totalValue);
+                    accList.add(acc);
                 }
                 return accList;
             }
