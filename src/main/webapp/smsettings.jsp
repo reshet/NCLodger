@@ -80,12 +80,51 @@
             return true;
         }
 
-        function toggle2(source) {
-            checkboxes = document.getElementsByName('vip[]');
-            for(var i=0, n=checkboxes.length;i<n;i++) {
-                checkboxes[i].checked = source.checked;
-            }
-        }
+
+
+
+       function toggleChecked(source) {
+           var chec = document.getElementsByName('vip[]');
+           var r = displayedCheckbox();
+           for(var i=0, n=r; i<n; i++) {
+               chec[i].checked = source.checked;
+           }
+       }
+
+
+
+       function toggleParentChecked(status) {
+           if(status==false)
+               $("#check_all").prop("checked",status);
+           else
+           {
+               var isallchecked = true;
+               $(".checkbox").each(function() {
+                   if(!$(this).prop("checked"))
+                       isallchecked = false;
+               })
+
+               if(isallchecked)
+                   $("#check_all").prop("checked", true);
+           }
+
+       }
+
+
+
+       function displayedCheckbox(){
+           var all = document.getElementById('uniq').rows;
+           var result=0;
+           for(var i=0; i<all.length; i++){
+               if(all[i].style.display !== "none"){
+                   result++;
+               }
+           }
+           return result;
+       }
+
+
+
 
         function validatePromoFrm() {
             var isValid = true;
@@ -110,7 +149,7 @@
                 }
             }
             if(!chekSelect) {
-                alert('Nothing was selected!');
+                alert('Please, select at least one user!');
                 return false;
             } else {
                 return true;
@@ -181,16 +220,24 @@
                    <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                         <thead>
                         <tr>
-                            <th class="nosort" ><input type="checkbox" onClick="toggle2(this)"/></th>
+
+           <!--                 <th class="nosort" ><input type="checkbox" onClick="toggle2(this)"/></th>    -->
+
+
+                            <th class="nosort"><input type="checkbox" id="check_all" onclick="toggleChecked(this)"/></th>
+
                             <th><h3>Name</h3></th>
                             <th><h3>Email</h3></th>
                             <th><h3>Vip Status</h3></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="uniq">
                         <c:forEach items="${requestScope.allusers}" var="user">
                             <tr>
-                                <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>
+
+                          <!--      <td><input type="checkbox" name = "vip[]" c:out value="${user.id}"/> </td>     -->
+                                <td><input type="checkbox" class="checkboxes" onclick="toggleParentChecked(this.checked)" name = "vip[]" c:out value="${user.id}"/></td>
+
                                 <td><c:out value="${user.name}"/></td>
                                 <td><c:out value="${user.email}"/></td>
                                 <td>
