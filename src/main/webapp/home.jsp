@@ -15,16 +15,19 @@
         $( "#checkindate" ).datepicker({
             minDate: new Date(),
             onClose: function( selectedDate ) {
-                $( "#checkoutdate" ).datepicker( "option", "minDate", selectedDate );
+             var d = new Date(selectedDate);
+                d.setHours(d.getHours()+24);
+                $( "#checkoutdate" ).datepicker( "option", "minDate", d );
             }
         });
         $( "#checkoutdate" ).datepicker({
             onClose: function( selectedDate ) {
-                $( "#checkindate" ).datepicker( "option", "maxDate", selectedDate );
+                var d = new Date(selectedDate);
+                d.setHours(d.getHours()-24);
+                $( "#checkindate" ).datepicker( "option", "maxDate", d);
             }
         });
     });
-
 
     function valideSearchForm() {
         var isValid = true;
@@ -84,7 +87,7 @@
     <jsp:include page="header.jsp"/>
 
     <div class="content">
-        <div class="search">
+        <div class="search" style="width: 450px;">
             <form name="searchfrm" method="POST" action="search" onsubmit="return valideSearchForm();">
                 <ul>
                     <li> <!--    CHECK IN    -->
