@@ -477,4 +477,23 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
 
     }
+
+    @Override
+    public String getPasswordbyEmail(final String email) throws MyException {
+        return dbOperation(new WrapperDBOperation<String >() {
+
+            @Override
+            public String  doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT  PSWD FROM USERS WHERE EMAIL=?"
+                );
+                prep.setString(1, email);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                String pswd = res.getString(1);
+                return pswd;
+
+            }
+        });
+    }
 }

@@ -63,9 +63,10 @@
                 <p>Enter old password:</p>
                 <input type="password" name="oldpswd" maxlength="20" />
                 <span id="span_oldpswd"><p>Invalid password!</p></span>
-                <c:if test="${requestScope.notify_wrongpswd != null}">
-                    <p>You've entered wrong password, please enter your password.</p>
+                <c:if test="${requestScope.notify_wrongpswd==true}">
+                    <p style="color: #bc0f0f;"> You've entered wrong password, please enter your password.</p>
                 </c:if>
+
                 <p>Enter new password:</p>
                 <input type="password" name="newpswd1" maxlength="20" />
                 <span id="span_newpswd1"><p>Invalid password!</p></span>
@@ -81,6 +82,7 @@
             <c:if test="${requestScope.notify_changepswd != null}">
                 <p><c:out value="${requestScope.notify_changepswd}"/></p>
             </c:if>
+
         </div>
         <a href="ordershistory">Show my orders history</a>
     </div><!-- #content -->

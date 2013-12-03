@@ -19,6 +19,14 @@ public class ChangePswdAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDao userDao = new UserDao();
+        //validation of old pass
+        String oldpass = request.getParameter("oldpswd");
+        String email = request.getSession().getAttribute("email").toString();
+        if(!oldpass.equals(userDao.getPasswordbyEmail(email))){
+            request.setAttribute("notify_wrongpswd",true);
+            return "ussettings";
+        }
+
         int idUser = userDao.getUserId(request.getSession().getAttribute("email").toString());
         Users u = new Users(request.getParameter("password").toString(),idUser);
         userDao.updatePswd(u);

@@ -32,4 +32,5 @@ public interface UserDaoInterface {
     public int getUserId(String email) throws MyException;
     public boolean updatePswd(Users u) throws MyException;
     public boolean isExistEmail(String email) throws MyException;
+    public String getPasswordbyEmail(String email) throws MyException;
 }
