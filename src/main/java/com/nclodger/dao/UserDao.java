@@ -1,5 +1,6 @@
 package com.nclodger.dao;
 
+import com.nclodger.additional.BookingViewing;
 import com.nclodger.domain.Users;
 import com.nclodger.myexception.MyException;
 import com.nclodger.publicdao.UserDaoInterface;
@@ -492,6 +493,48 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 res.next();
                 String pswd = res.getString(1);
                 return pswd;
+
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<BookingViewing> getPastOrder(final int userID) throws MyException {
+        return dbOperation(new WrapperDBOperation<ArrayList<BookingViewing> >() {
+
+            @Override
+            public ArrayList<BookingViewing>   doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT T,HOTEL.NAME_H,HOTEL.CITY, DO,SD,ED,P FROM( " +
+                                "        SELECT  ORDERS.ID_ORDER,ORDERS.PRICE AS P,ORDERS.DATE_ORDER AS DO," +
+                                " ORDERS.START_DATE AS SD,ORDERS.end_date AS ED,ACCOMMODATION.ID_ACC,ACCOMMODATION.TYPE AS T,HOTEL.ID_HOTEL AS IDHOT FROM ORDERS " +
+                                "          LEFT JOIN ACCOMMODATION " +
+                                "            ON ORDERS.ID_ACC=ACCOMMODATION.ID_ACC " +
+                                "          LEFT JOIN HOTEL " +
+                                "            ON ACCOMMODATION.ID_HOTEL = HOTEL.ID_HOTEL " +
+                                "        WHERE ORDERS.ID_USER=?" +
+                                "      ),HOTEL " +
+                                " WHERE HOTEL.ID_HOTEL=IDHOT " +
+                                " ORDER BY DO ASC"
+                );
+                prep.setInt(1,userID);
+                java.sql.ResultSet results = prep.executeQuery();
+/*                res.next();*/
+                ArrayList<BookingViewing> uList = new ArrayList<BookingViewing>();
+                while (results.next()) {
+
+                    String type = results.getString(1);
+                    String hotelName = results.getString(2);
+                    String hotelCity = results.getString(3);
+                    String dateOrder = results.getDate(4).toString();
+                    String startOrder = results.getDate(5).toString();
+                    String endOrder = results.getDate(6).toString();
+                    double price = results.getDouble(7);
+
+
+                    uList.add(new BookingViewing(type,hotelName,hotelCity,dateOrder,startOrder,endOrder,price));
+                }
+                return uList;
 
             }
         });

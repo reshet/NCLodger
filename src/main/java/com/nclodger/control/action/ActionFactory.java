@@ -54,6 +54,7 @@ public class ActionFactory {
         actions.put("/addhotel",new AddHotelAction());
         actions.put("/saveaccexcel",new SmSaveAccExcelAction());
         actions.put("/showmostvaluableacc",new SmGetValueOfAccAction());
+        actions.put("/viewpastbooking",new ViewPastBookingAction());
     }
 
     public static Action getAction(HttpServletRequest request) {

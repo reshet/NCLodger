@@ -1,10 +1,12 @@
 package com.nclodger.publicdao;
 
 
+import com.nclodger.additional.BookingViewing;
 import com.nclodger.domain.Users;
 import com.nclodger.myexception.MyException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,4 +35,5 @@ public interface UserDaoInterface {
     public boolean updatePswd(Users u) throws MyException;
     public boolean isExistEmail(String email) throws MyException;
     public String getPasswordbyEmail(String email) throws MyException;
+    public ArrayList<BookingViewing> getPastOrder(int userID) throws MyException;
 }
