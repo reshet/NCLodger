@@ -161,6 +161,7 @@
             </form>
         </div><!-- Search form -->
 
+        <c:if test="${requestScope.hotels != null}">
         <div class="hotel_info_wrapper">
             <c:forEach items="${requestScope.hotels}" var="hotel">
                 <div class="hotel_info">
@@ -183,6 +184,7 @@
                 </div>
             </c:forEach>
         </div>
+        </c:if>
 
 <%--
         <!-- EXAMPLE WITH STATIC VALUES -->
