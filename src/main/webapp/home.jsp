@@ -87,7 +87,7 @@
     <jsp:include page="header.jsp"/>
 
     <div class="content">
-        <div class="search" style="width: 450px;">
+        <div class="search">
             <form name="searchfrm" method="POST" action="search" onsubmit="return valideSearchForm();">
                 <ul>
                     <li> <!--    CHECK IN    -->
