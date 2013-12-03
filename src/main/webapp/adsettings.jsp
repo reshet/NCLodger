@@ -228,7 +228,9 @@
     }
 
 
-
+    $('#opencreate').click(function() {
+        window.location='createuser.jsp';
+    });
 
 
 </script>
@@ -261,7 +263,7 @@
                         <input type="submit" name = "UnBlock" value="UnBlock" onclick="OnMakeUnBlock();">
                         <input type="submit" name = "GrantSM" value="Grant SM" onclick="OnMakeSM();">
                         <input type="submit" name = "DismissSM" value="Dismiss SM" onclick="OnDismissSM();">
-                        <input type="submit" name = "CreateUser" value="Create User">
+                        <a href="createuser.jsp"><input type="button" name = "CreateUser" value="Create User"></a>
                         <input type="submit" name="DeleteUser" value="Delete User" onclick="OnDeleteUser();">
                     </div>
                     <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
