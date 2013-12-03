@@ -406,6 +406,35 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
 
+                PreparedStatement prep5 = dataBase.prepareStatement(
+                        "SELECT ID_SM FROM MANAGER WHERE ID_USER=?"
+                );
+                prep5.setInt(1,userId);
+                java.sql.ResultSet res = prep5.executeQuery();
+                if(res.next()){
+                    int smId = res.getInt(1);
+
+                    PreparedStatement prep7 = dataBase.prepareStatement(
+                            "DELETE FROM PROMOCODE WHERE ID_SM=?"
+                    );
+                    prep7.setInt(1,smId);
+                    prep7.executeUpdate();
+
+                    PreparedStatement prep8 = dataBase.prepareStatement(
+                            "DELETE FROM HOTEL_MANAGER WHERE ID_SM=?"
+                    );
+                    prep8.setInt(1,smId);
+                    prep8.executeUpdate();
+
+                    PreparedStatement prep9 = dataBase.prepareStatement(
+                            "DELETE FROM MANAGER WHERE ID_SM=?"
+                    );
+                    prep9.setInt(1,smId);
+                    prep9.executeUpdate();
+
+                }
+
+
                 PreparedStatement prep1 = dataBase.prepareStatement(
                         "DELETE FROM CONFIRM WHERE ID_USER=?"
                 );
@@ -418,21 +447,13 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 );
                 prep2.setInt(1, userId);
                 prep2.executeUpdate();
-
+      /*
                 PreparedStatement prep4 = dataBase.prepareStatement(
                         "DELETE FROM ORDERS WHERE ID_USER=?"
                 );
                 prep4.setInt(1,userId);
                 prep4.executeUpdate();
 
-
-                PreparedStatement prep5 = dataBase.prepareStatement(
-                        "SELECT ID_SM FROM MANAGER WHERE ID_USER=?"
-                );
-                prep5.setInt(1,userId);
-                java.sql.ResultSet res = prep5.executeQuery();
-                res.next();
-                int smId = res.getInt(1);
 
 
                 PreparedStatement prep6 = dataBase.prepareStatement(
@@ -441,25 +462,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 prep6.setInt(1,smId);
                 prep6.executeUpdate();
 
-
-                PreparedStatement prep7 = dataBase.prepareStatement(
-                        "DELETE FROM PROMOCODE WHERE ID_SM=?"
-                );
-                prep7.setInt(1,smId);
-                prep7.executeUpdate();
-
-                PreparedStatement prep8 = dataBase.prepareStatement(
-                        "DELETE FROM HOTEL_MANAGER WHERE ID_SM=?"
-                );
-                prep8.setInt(1,smId);
-                prep8.executeUpdate();
-
-                PreparedStatement prep9 = dataBase.prepareStatement(
-                        "DELETE FROM MANAGER WHERE ID_SM=?"
-                );
-                prep9.setInt(1,smId);
-                prep9.executeUpdate();
-
+   */
 
 
                 PreparedStatement prep3 = dataBase.prepareStatement(
@@ -467,9 +470,6 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 );
                 prep3.setInt(1,userId);
                 prep3.executeUpdate();
-
-
-
 
                 return true;
             }
