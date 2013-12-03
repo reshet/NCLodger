@@ -161,22 +161,64 @@
             </form>
         </div><!-- Search form -->
 
-        <c:forEach items="${requestScope.hotels}" var="hotel">
-            <div class="window" style="width: 700px; background: #F0F0F0;">
-                <h2>${hotel.getName()}</h2>
-                <p style="padding-left: 10px;">
-                   <c:if test="${hotel.getImage_url() != null}">
-                    <img src="${hotel.getImage_url()}" style=""/>
-                   </c:if>
-                </p>
-                <p><b>Address:</b>    ${hotel.getAddress()}</p>
-                <p><b>Type:</b>   ${hotel.getRoomType()}</p>
-                <p><b>Prices:</b>   ${hotel.getPrice()}</p>
-                <p><b>Occupancy:</b>   ${hotel.getRoomOccupancy()}</p>
-                <p><b><a href="acdetails?idhotel=${hotel.id}" style="color:#fa8736;">Details &rarr;</a></b></p>
+        <div class="hotel_info_wrapper">
+            <c:forEach items="${requestScope.hotels}" var="hotel">
+                <div class="hotel_info">
+                    <p>
+                        Hotel: <span>${hotel.getImage_url()}</span>
+                        <c:if test="${hotel.getImage_url() != null}">
+                            <img src="${hotel.getImage_url()}" style=""/>
+                        </c:if>
+                        <c:if test="${hotel.getImage_url() == null}">
+                            <img src="resources/img/noimage.gif"/>
+                        </c:if>
+                    </p>
+                    <p>Address: <span>${hotel.getAddress()}</span></p>
+                    <p>Type: <span>${hotel.getRoomType()}</span></p>
+                    <p>Prices: <span>${hotel.getPrice()}</span></p>
+                    <p>Occupancy: <span>${hotel.getRoomOccupancy()}</span></p>
+                    <p class="submit">
+                        <a href="acdetails?idhotel=${hotel.id}" style="color:#0000ff;">Details &rarr;</a>
+                    </p>
+                </div>
+            </c:forEach>
+        </div>
 
+<%--
+        <!-- EXAMPLE WITH STATIC VALUES -->
+        <div class="hotel_info_wrapper">
+            <div class="hotel_info">
+            <p><img src="resources/img/noimage.gif"/> <span><b>Name going to be here </b></span></p>
+            <p>Address: <span>Adress is going to be </span></p>
+            <p>Type:   <span>Type is going to be here </span></p>
+            <p>Prices:   <span>price is going to be here</span></p>
+            <p>Occupancy:   <span>occupancy</span></p>
+            <p class="submit">
+                <a href="acdetails?idhotel=${hotel.id}" style="color:#0000ff;">Details &rarr;</a>
+            </p>
+        </div>
+            <div class="hotel_info">
+                <p><img src="resources/img/noimage.gif"/></p>
+                <p>Address: <span>Adress is going to be here </span></p>
+                <p>Type:   <span>Type is going to be here </span></p>
+                <p>Prices:   <span>price is going to be here</span></p>
+                <p>Occupancy:   <span>occupancy</span></p>
+                <p class="submit">
+                    <a href="acdetails?idhotel=${hotel.id}" style="color:#0000ff;">Details &rarr;</a>
+                </p>
             </div>
-        </c:forEach>
+            <div class="hotel_info">
+                <p><img src="resources/img/noimage.gif"/></p>
+                <p>Address: <span>Adress is going to be here </span></p>
+                <p>Type:   <span>Type is going to be here </span></p>
+                <p>Prices:   <span>price is going to be here</span></p>
+                <p>Occupancy:   <span>occupancy</span></p>
+                <p class="submit">
+                    <a href="acdetails?idhotel=${hotel.id}" style="color:#0000ff;">Details &rarr;</a>
+                </p>
+            </div>
+            <br style="clear:both;"/>
+        </div>--%>
 
     </div><!-- #content -->
 

@@ -184,7 +184,7 @@ a:hover.logo {
 .tabcontent input[type=submit],input[type=reset], input[type=button]  { height: 18px; }
 
 
-/*****************  WINDOW  ****************************************************************************************/
+/*****************  .WINDOW  ****************************************************************************************/
 .window {
     margin: 35px auto;
     padding: 20px 20px 20px;
@@ -194,6 +194,7 @@ a:hover.logo {
     border-radius: 3px;
     -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    float:left;
 }
 .window:before {
     content: '';
@@ -265,6 +266,44 @@ a:hover.logo {
 	display: none;
 }
 
+
+/*****************  .HOTEL_INFO  ************************************************************************************/
+
+.hotel_info_wrapper {
+    width: 900px;
+    margin: 15px auto;
+    padding: 5px;
+    height: auto;
+    background: #E6E6FF;
+    border-radius: 9px;
+}
+.hotel_info {
+    float:left;
+    width: 380px;
+    background: #F0F0F0;
+    margin-top: 13px;
+    margin-bottom: 13px;
+    margin-left: 36px;
+    padding: 10px;
+    border-radius: 9px;
+}
+.hotel_info p {
+    font-weight: bold;
+    color: #000066;
+}
+.hotel_info img {
+    float:right;
+    width: 50px;
+    height: 50px;
+}
+.hotel_info span {
+    display: inline;
+    font-weight: normal;
+    color: #000000;
+}
+.hotel_info p.submit {
+    text-align: right;
+}
 
 /*****************  SEARCH  ****************************************************************************************/
 .search {
