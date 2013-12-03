@@ -36,6 +36,15 @@ public class Users implements Serializable{
         this.confirm_register = confirm_register;
     }
 
+
+    public Users(String email, String pswd, String name, int confirm_register) {
+   //     this.id = id;
+        this.email = email;
+        this.name = name;
+        this.pswd = pswd;
+        this.confirm_register = confirm_register;
+    }
+
     // GETTERS / SETTERS
 
 
