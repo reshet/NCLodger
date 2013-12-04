@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>NCLodger | Accomadation Details</title>
+    <title>NCLodger | Ordering Details</title>
     <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <%--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>

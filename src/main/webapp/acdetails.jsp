@@ -1,22 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: reshet
-  Date: 11/16/13
-  Time: 4:53 PM
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.nclodger.webservices.Hotel" %>
-<%@ page import="com.nclodger.webservices.ExpediaSearcher" %>
-<%@ page import="org.json.JSONObject" %>
-<%@ page import="org.json.JSONException" %>
-<%@ page import="java.util.Collections" %>
-<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -27,41 +11,33 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <!--[if lt IE 7]>
-    <style type="text/css">
-        #wrapper { height:100%; }
-    </style>
-    <![endif]-->
 </head>
 <body>
 
-<div id="header">
-    <jsp:include page="header.jsp"/>
-</div>
-<h2>Accomodation Details</h2>
-<div id="acdetails" style="padding-left: 30px;">
-    <p style="padding-left: 10px;">
-        <c:if test="${hotel.getImage_url() != null}">
-            <img src="${hotel.getImage_url()}"/>
-        </c:if>
-        ${hotel.getName()}</p>
-    <p>
-        Address:   ${hotel.getAddress()}
-    </p>
-    <p>
-        Type:  ${hotel.getRoomType()}
-    </p>
-
-    <p>
-        Prices:   ${hotel.getPrice()}
-    </p>
-
-    <p>
-        Occupancy:    ${hotel.getRoomOccupancy()}
-    </p>
-    <p>
-        <a href="orderstart">Book this accomodation&rarr;</a>
-    </p>
-</div>
+    <div class="wrapper">
+        <jsp:include page="header.jsp"/>
+        <div class="content">
+            <div class="window" style="width:450px;">
+                <h1>Accomodation Details</h1>
+                <p style="float:right;">
+                    <c:if test="${hotel.getImage_url() != null}">
+                        <img src="${hotel.getImage_url()}" style="float:right; width: 50px; height: 50px;"/>
+                    </c:if>
+                    <c:if test="${hotel.getImage_url() == null}">
+                        <img src="resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
+                    </c:if>
+                </p>
+                <p>Hotel: ${hotel.getName()} </p>
+                <p>Address: ${hotel.getAddress()}</p>
+                <p>Type: ${hotel.getRoomType()}</p>
+                <p>Prices: ${hotel.getPrice()}</p>
+                <p>Occupancy: ${hotel.getRoomOccupancy()}</p><br>
+                <p class="submit">
+                    <a href="orderstart">Book this accomodation&rarr;</a>
+                </p>
+            </div><!-- .window -->
+        </div><!-- content -->
+        <jsp:include page="footer.jsp"/>
+    </div><!-- .wrapper -->
 </body>
 </html>
