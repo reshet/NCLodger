@@ -22,9 +22,12 @@ public class SmSaveExcelAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ReportInExcel re = new ReportInExcel();
+        String start_date = request.getSession().getAttribute("start_date_excel").toString();
+        String end_date = request.getSession().getAttribute("end_date_excel").toString();
         ArrayList<HotelTotalOrder> hlist = new ArrayList<HotelTotalOrder>();
         SMDAO smdao = new SMDAO();
-        hlist = smdao.sortHotelbyPopular();
+        /*hlist = smdao.sortHotelbyPopular();*/
+        hlist = smdao.sortHotelbyPopularWithTimeFrame(start_date,end_date);
         re.createMostPopularHotel(hlist,response);
         return "smsetting";
     }

@@ -23,7 +23,10 @@ public class PopHotelsAction extends Action {
 
         String startdate =  request.getParameter("start_date") ;
         String enddate =request.getParameter("end_date") ;
+        request.getSession().setAttribute("start_date_excel",startdate);
+        request.getSession().setAttribute("end_date_excel",enddate);
         ArrayList<HotelTotalOrder> alist = new ArrayList<HotelTotalOrder>();
+
         if(startdate.length()<7 && enddate.length()<7){
             alist = smdao.sortHotelbyPopular();
         }

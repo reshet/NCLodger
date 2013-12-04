@@ -22,8 +22,10 @@ public class SmSaveAccExcelAction extends Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ReportInExcel re = new ReportInExcel();
         ArrayList<AccommodationTotalValue> alist;
+        String start_date = request.getSession().getAttribute("start_date_excel").toString();
+        String end_date = request.getSession().getAttribute("end_date_excel").toString();
         SMDAO smdao = new SMDAO();
-        alist = smdao.sortAccommodationbyValuable();
+        alist = smdao.sortAccommodationbyValuableWithTimeFrame(start_date,end_date);
         re.createMostValuableAccomodation(alist,response);
         return "smsetting";
     }
