@@ -396,8 +396,8 @@
                             <p><label for="start_date">From: </label>
                             <input id="start_date" name="start_date" style="width:100px;"/>
                             <label for="end_date">To: </label>
-                            <input id="end_date" name="end_date" style="width:100px;"/></p>
-                            <p><input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
+                            <input id="end_date" name="end_date" style="width:100px;"/></p><br>
+                            <p style="text-align: right;"><input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
                             <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();"></p>
                         </div>
                         <c:if test="${requestScope.mostpophotel != null}">

@@ -20,7 +20,7 @@ public class ChangePswdAction extends Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDao userDao = new UserDao();
         //validation of old pass
-        String oldpass = request.getParameter("oldpswd");
+        String oldpass = request.getParameter("oldpswd_hidden");
         String email = request.getSession().getAttribute("email").toString();
         if(!oldpass.equals(userDao.getPasswordbyEmail(email))){
             request.setAttribute("notify_wrongpswd",true);

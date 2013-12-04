@@ -215,7 +215,7 @@
 <script type="text/javascript">
     function OnSliderChanged (slider) {
         var sliderValue = document.getElementById (slider.id + "Value");
-        sliderValue.innerHTML = slider.value;
+        sliderValue.innerHTML = slider.value+"%";
     }
 
     function Init () {

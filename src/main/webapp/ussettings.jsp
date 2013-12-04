@@ -1,14 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>NCLodger | User dashboard</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
     <script src="resources/js/md5-min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <!--[if lt IE 7]>
+<%--    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>--%>
+<%--    <!--[if lt IE 7]>
     <style type="text/css">
         #wrapper { height:100%; }
     </style>
@@ -18,10 +19,9 @@
         .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
         .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
     </style>
-    <![endif]-->
+    <![endif]-->--%>
     <script>
-
-        $(function() {
+        /*$(function() {
 //            $( "#tabs" ).tabs();
             $("#tabs").tabs({
                 create: function(event, ui){
@@ -31,7 +31,7 @@
                     window.location.hash = $(ui.newTab[0]).find('a[href^="#tab"]').attr("href");
                 }
             });
-        });
+        });*/
 
         function validateChangePswdForm() {
 
@@ -61,65 +61,78 @@
 
             if(isValid){
                 document.changepswdfrm.password.value = hex_md5(document.changepswdfrm.newpswd1.value);
+                document.changepswdfrm.oldpswd_hidden.value = hex_md5(document.changepswdfrm.oldpswd.value);
             }
 
             return isValid;
         }
+
+        function hideshow() {
+            document.getElementById("hidden_div").style.display = 'inline';
+        }
+
     </script>
 </head>
 
 <body>
 
-<div id="wrapper">
+<div class="wrapper">
 
-    <div id="header">
-        <jsp:include page="header.jsp"/>
-    </div><!-- #header -->
+    <jsp:include page="header.jsp"/>
 
-    <div id="content">
-
-        <div id="tabs">
-            <%--<c:set var="tabs" value="${fn:split('#tabs-1,#tabs-2,#tabs-3,#tabs-4', ',')}" scope="session" />--%>
+    <div class="content">
+        <div class="window" style="width: 350px">
+            <h1>User information</h1>
+            <p>
+                Username <span class="mandatory">*</span>:
+                <span class="bluespan"><c:out value="${sessionScope.username}"/></span>
+            </p>
+            <p>
+                Email <span class="mandatory">*</span>:
+                <span class="bluespan"><c:out value="${sessionScope.email}"/></span>
+            </p>
+            <br><hr><br>
+            <p><a class="bluespan"<%-- onclick="hideshow()"--%>>Password change:</a></p><br>
+            <c:if test="${requestScope.notify_changepswd != null}">
+                <p style="color: #00FF00;"><c:out value="${requestScope.notify_changepswd}"/></p>
+            </c:if>
+            <div <%--id="hidden_div"--%>>
+                <form name="changepswdfrm" method="POST" action="changepswd" onsubmit="return validateChangePswdForm();">
+                    <p>Enter old password <span class="mandatory">*</span>:</p>
+                    <input type="password" name="oldpswd" maxlength="20" />
+                    <span id="span_oldpswd"><p>Invalid password!</p></span>
+                    <c:if test="${requestScope.notify_wrongpswd==true}">
+                        <p style="color: #bc0f0f;"> You've entered wrong password, please enter your password.</p>
+                    </c:if>
+                    <p>Enter new password <span class="mandatory">*</span>:</p>
+                    <input type="password" name="newpswd1" maxlength="20" />
+                    <span id="span_newpswd1"><p>Invalid password!</p></span>
+                    <p>Confirm new password <span class="mandatory">*</span>:</p>
+                    <input type="password" name="newpswd2" maxlength="20" />
+                    <span id="span_newpswd2"><p>Passwords don't match!</p></span>
+                    <br>
+                    <p class="submit">
+                        <input type="hidden" name="oldpswd_hidden" value=""/>
+                        <input type="hidden" name="password" value=""/>
+                        <input type="reset" name="reset" value="Reset">
+                        <input type="submit" name="confirm" value="Confirm">
+                    </p>
+                </form>
+            </div>
+        </div>
+<%--        <div id="tabs">
+            &lt;%&ndash;<c:set var="tabs" value="${fn:split('#tabs-1,#tabs-2,#tabs-3,#tabs-4', ',')}" scope="session" />&ndash;%&gt;
             <ul>
-                <%--            <c:forEach items="${tabs}" var="tabs">
+                &lt;%&ndash;            <c:forEach items="${tabs}" var="tabs">
                                 <li><a href="${tabs}">${tabs}</a></li>
-                            </c:forEach>--%>
+                            </c:forEach>&ndash;%&gt;
                 <li><a href="#tabs-1">Change Password</a></li>
                 <li><a href="#tabs-2">My Orders</a></li>
 
             </ul>
-                <div id="tabs-1"><!-- 'Users' tab -->
-                    <div class="window" style="width: 500px">
-                        <h1>User information</h1>
-                        <p>Username:<c:out value="${sessionScope.username}"/></p>
-                        <p>Email:<c:out value="${sessionScope.email}"/></p>
-                        </br>
-                        <form name="changepswdfrm" method="POST" action="changepswd" onsubmit="return validateChangePswdForm();">
-                            <p>Enter old password:</p>
-                            <input type="password" name="oldpswd" maxlength="20" />
-                            <span id="span_oldpswd"><p>Invalid password!</p></span>
-                            <c:if test="${requestScope.notify_wrongpswd==true}">
-                                <p style="color: #bc0f0f;"> You've entered wrong password, please enter your password.</p>
-                            </c:if>
+                <div id="tabs-1"><!-- 'Users' tab -->--%>
 
-                            <p>Enter new password:</p>
-                            <input type="password" name="newpswd1" maxlength="20" />
-                            <span id="span_newpswd1"><p>Invalid password!</p></span>
-                            <p>Confirm new password:</p>
-                            <input type="password" name="newpswd2" maxlength="20" />
-                            <span id="span_newpswd2"><p>Passwords don't match!</p></span>
-                            <p class="submit">
-                                <input type="hidden" name="password" value=""/>
-                                <input type="reset" name="reset" value="Reset">
-                                <input type="submit" name="confirm" value="Confirm">
-                            </p>
-                        </form>
-                        <c:if test="${requestScope.notify_changepswd != null}">
-                            <p><c:out value="${requestScope.notify_changepswd}"/></p>
-                        </c:if>
-
-                    </div>
-                </div><!-- #tab1 -->
+                <%--</div><!-- #tab1 -->
 
                 <div id="tabs-2"><!-- 'View My orders' tab-->
                     <a href="viewpastbooking">View my booking</a>
@@ -192,11 +205,11 @@
                     </form>
 
                 </div> <!-- #tab2 -->
-            <%-- <a href="ordershistory">Show my orders history</a>--%>
-        </div> <!-- #tabs -->
+            &lt;%&ndash; <a href="ordershistory">Show my orders history</a>&ndash;%&gt;
+        </div> <!-- #tabs -->--%>
     </div><!-- #content -->
 
-    <div id="footer">
+    <div class="footer">
     </div><!-- #footer -->
 
 </div><!-- #wrapper -->

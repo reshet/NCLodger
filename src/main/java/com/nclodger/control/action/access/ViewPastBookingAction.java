@@ -28,6 +28,6 @@ public class ViewPastBookingAction extends Action {
         bookinglist = udao.getPastOrder(id);
         request.setAttribute("bookinglist",bookinglist);
 
-        return "ussettings";
+        return "myorders";
     }
 }
