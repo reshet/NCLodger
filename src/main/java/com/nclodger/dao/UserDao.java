@@ -553,7 +553,6 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                         "INSERT INTO ORDERS (ID_USER,DATE_ORDER,ID_ACC,PRICE,START_DATE,END_DATE,ID_PC,DISCOUNT,ID_SM) values (?,?,?,?,?,?,?,?,?)"
                 );
 
-
                 prep.setInt(1, ord.getUserid());
                 prep.setDate(2, new Date(new java.util.Date().getTime()));
                 //TODO real acc id
