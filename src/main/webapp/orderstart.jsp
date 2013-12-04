@@ -8,8 +8,20 @@
     <title>NCLodger | Accomadation Details</title>
     <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <%--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />--%>
+    <script type="text/javascript">
+        function validateOrderForm(){
+            var isValid = true;
+            if(((document.orderfrm.promocode.value != "") && !(/^[a-zA-Z0-9]+$/).test(document.orderfrm.promocode.value))){
+                isValid = false;
+                document.orderfrm.promocode.style.borderColor = 'red';
+            } else {
+                document.orderfrm.promocode.style.borderColor = '#777777';
+            }
+            return isValid;
+        }
+    </script>
 </head>
 <body>
     <div class="wrapper">
@@ -17,7 +29,7 @@
 
         <div class="content">
             <div class="window" style="width: 450px;">
-                <p style="font-size: 20px; text-align: center;">Ordering Details</p><br>
+               <h1>Ordering Details</h1>
                 <p style="float:right;">
                     <c:if test="${hotel.getImage_url() != null}">
                         <img src="${hotel.getImage_url()}" style="float:right; width: 50px; height: 50px;"/>
@@ -32,8 +44,8 @@
                 <p>Prices: ${hotel.getPrice()}</p>
                 <p>Occupancy: ${hotel.getRoomOccupancy()}</p>
                 <p style="color:#0000ff;">Base price to pay: ${hotel.getRoomPrice()}</p><br>
-                <form name="orderfrm" method="POST" action="orderfinish" >
-                    <p>Enter promo code if you have one: <input type="text" name="promocode" style="width: 150px;"></p>
+                <form name="orderfrm" method="POST" action="orderfinish" onsubmit="return validateOrderForm();">
+                    <p>Enter promo code if you have one:  <input type="text" name="promocode" style="width: 150px;" maxlength="20"></p>
                     <c:if test="${requestScope.isExist==false}">
                         <p style="color: #bc0f0f;">Such promo code doesn't exist.</p>
                     </c:if>
