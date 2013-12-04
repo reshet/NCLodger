@@ -147,7 +147,6 @@
         }
 
         function OnViewPopHotel(){
-               /* document.getallhotel.action = "getallhotel";*/
                 document.getallhotel.action = "showmostpopularhotel";
                 document.getallhotel.submit();
             return true;
@@ -155,8 +154,10 @@
 
         function OnViewValAcc(){
             /* document.getallhotel.action = "getallhotel";*/
-            document.getallacc.action = "showmostvaluableacc";
-            document.getallacc.submit();
+/*            document.getallacc.action = "showmostvaluableacc";
+            document.getallacc.submit();*/
+            document.getallhotel.action = "showmostvaluableacc";
+            document.getallhotel.submit();
             return true;
         }
 
@@ -455,7 +456,7 @@
                     <%--</form>--%>
 
 
-                    <%-- <form name="getallacc" method="POST" onsubmit="">--%>
+                   <%--  <form name="getallacc" method="POST" onsubmit="">--%>
                     <%--<a href="showmostvaluableacc">View the most valuable accommodations</a>--%>
                     <%--                            <label for="start_date">From: </label>
                                                 <input id="start_date" name="start_date" style="width:100px;"/>

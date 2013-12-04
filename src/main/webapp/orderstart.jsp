@@ -13,7 +13,7 @@
     <script type="text/javascript">
         function validateOrderForm(){
             var isValid = true;
-            if(((document.orderfrm.promocode.value != "") && !(/^[a-zA-Z0-9]+$/).test(document.orderfrm.promocode.value))){
+            if(((document.orderfrm.promocode.value != "") && !(/^[a-zA-Z0-9-]+$/).test(document.orderfrm.promocode.value))){
                 isValid = false;
                 document.orderfrm.promocode.style.borderColor = 'red';
             } else {
