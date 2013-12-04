@@ -122,8 +122,9 @@
         </div> <!-- #tabs -->
     </div><!-- #content -->
 
-    <div id="footer">
-    </div><!-- #footer -->
+    <jsp:include page="footer.jsp"/>
+    <%--<div id="footer">
+    </div><!-- #footer -->--%>
 
 </div><!-- #wrapper -->
 

@@ -30,7 +30,7 @@
                 <li><a href="adsettings">Administrator</a></li>
             </c:if>
         </c:if>
-        <li><a href="">About Us</a></li>
-        <li><a href="">Contacts</a></li>
+        <li><a href="aboutus.jsp">About Us</a></li>
+        <li><a href="contacts.jsp">Contacts</a></li>
     </ul>
 </div>

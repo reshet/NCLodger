@@ -388,8 +388,9 @@
 
     </div><!-- #content -->
 
-    <div class="footer">
-    </div><!-- #footer -->
+    <jsp:include page="footer.jsp"/>
+    <%--<div class="footer">
+    </div><!-- #footer -->--%>
 
 </div><!-- #wrapper -->
 

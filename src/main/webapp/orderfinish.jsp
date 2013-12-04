@@ -38,8 +38,9 @@
             </div>
         </div>
 
-        <div class="footer">
-        </div>
+        <jsp:include page="footer.jsp"/>
+        <%--<div class="footer">
+        </div>--%>
 
     </div><!-- .wrapper -->
 

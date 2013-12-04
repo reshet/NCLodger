@@ -59,8 +59,9 @@
                 </form>
             </div>
         </div><!-- .content -->
-        <div class="footer">
-        </div>
+        <jsp:include page="footer.jsp"/>
+        <%--<div class="footer">
+        </div>--%>
     </div><!-- .wrapper -->
 </body>
 </html>

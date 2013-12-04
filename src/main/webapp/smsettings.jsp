@@ -528,9 +528,10 @@
     </div>
     <!-- #content -->
 
-    <div class="footer">
+    <jsp:include page="footer.jsp"/>
+    <%--<div class="footer">
     </div>
-    <!-- #footer -->
+    <!-- #footer -->--%>
 
 </div>
 <!-- #wrapper -->
