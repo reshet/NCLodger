@@ -60,7 +60,7 @@
 
                                 <th><h3>Type</h3></th>
                                 <th><h3>Hotel Name</h3></th>
-                                <th><h3>Hotel City</h3></th>
+                                <th><h3>City</h3></th>
                                 <th><h3>Order's date</h3></th>
                                 <th><h3>Start date</h3></th>
                                 <th><h3>End date</h3></th>
