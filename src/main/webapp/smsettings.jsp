@@ -382,23 +382,16 @@
             </div>
 
             <div id="tabs-4"><!-- 'Reports' tab-->
-                <%--                <form id ="reportdate" name="reportdate"  method="POST" onsubmit="">
-                                <label for="start_date">From: </label>
-                                <input id="start_date" name="start_date" style="width:100px;"/>
-                                <label for="end_date">To: </label>
-                                <input id="end_date" name="end_date" style="width:100px;"/>
-                                </form>--%>
-
                 <form name="getallhotel" method="POST" onsubmit="">
-                    <%--                    <a href="showmostpopularhotel">Show most popular hotels</a>--%>
                         <div class="tabcontent">
                             <p class="h">Reports</p>
                             <p><label for="start_date">From: </label>
                             <input id="start_date" name="start_date" style="width:100px;"/>
                             <label for="end_date">To: </label>
-                            <input id="end_date" name="end_date" style="width:100px;"/></p><br>
-                            <p style="text-align: right;"><input type = "submit" name = "viewpophotel" value="View the most popular hotels" onclick="OnViewPopHotel();">
-                            <input type="submit" name = "viewvalacc" value="View the most valuable accommodations" onclick="OnViewValAcc();"></p>
+                            <input id="end_date" name="end_date" style="width:100px;"/>
+                                <input type = "submit" name = "viewpophotel" value="Most popular hotels" onclick="OnViewPopHotel();">
+                                <input type="submit" name = "viewvalacc" value="Most valuable accommodations" onclick="OnViewValAcc();">
+                            </p><br>
                         </div>
                         <c:if test="${requestScope.mostpophotel != null}">
                             <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">

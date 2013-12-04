@@ -50,6 +50,7 @@ input[type=submit]:active, input[type=reset]:active, input[type=button]:active {
 	background:#fff;
 }
 
+
 /***********************   HEADER  ******************************************************************************/
 .header {
     padding: 1em 5%;
@@ -177,7 +178,7 @@ a:hover.logo {
 .tabcontent input {
     height: 26px;
     margin-left: 5px;
-    margin-right: 15px;
+    margin-right: 5px;
     height: 20px;
 }
 .tabcontent input[type=range] { width: 320px; }
