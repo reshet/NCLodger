@@ -29,7 +29,7 @@ public class OrderFinishAction extends Action {
         //ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
 
         //check
-        String promo = (String)request.getAttribute("promocode");
+        String promo =request.getParameter("promocode");
         request.getSession().setAttribute("promocode", promo);
 
         PromoCodeDAO pcDAO = (PromoCodeDAO) ctx.getBean("promocodeDAO");
