@@ -2,7 +2,7 @@ package com.nclodger.control.action.access;
 
 import com.nclodger.control.action.Action;
 import com.nclodger.dao.UserDao;
-import com.nclodger.domain.Users;
+import com.nclodger.domain.User;
 import com.nclodger.myexception.MyException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ public class SignInAction extends Action {
         }
 
 
-        Users user;
+        User user;
         try {
             user = users.getUserObj(request.getParameter("email"),request.getParameter("password"));
             //check for confirmation to login

@@ -2,9 +2,7 @@ package com.nclodger.control.action.admin;
 
 import com.nclodger.control.action.Action;
 import com.nclodger.dao.UserDao;
-import com.nclodger.domain.Users;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.nclodger.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +21,7 @@ public class AdminGetAllUsersAction extends Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //ApplicationContext context = new ClassPathXmlApplicationContext("bean-config.xml");
         UserDao userDAO = (UserDao) ctx.getBean("userDAO");
-        List<Users> users = userDAO.getAllUsers();
+        List<User> users = userDAO.getAllUsers();
         request.setAttribute("allusers",users);
 
         return "adsettings";

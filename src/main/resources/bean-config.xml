@@ -18,6 +18,6 @@
           class="com.nclodger.dao.UserDao" />-->
 
 <!--    <bean id="user"
-          class="com.nclodger.domain.Users" />-->
+          class="com.nclodger.domain.User />-->
 
 </beans>

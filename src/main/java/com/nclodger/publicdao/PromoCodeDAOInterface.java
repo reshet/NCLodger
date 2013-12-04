@@ -18,5 +18,7 @@ public interface PromoCodeDAOInterface {
     public boolean isExist(final String code) throws MyException;
     public boolean isUsed(final String code) throws MyException;
     public boolean isExpired(final String code) throws MyException;
+    public PromoCode get(final String code) throws MyException;
+
 
 }

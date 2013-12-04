@@ -108,6 +108,8 @@ public class PromoCodeDAO extends AbstractRepository implements PromoCodeDAOInte
         });
     }
 
+
+
     //return true if code was used
     @Override
     public boolean isUsed(final String code) throws MyException {
@@ -161,6 +163,35 @@ public class PromoCodeDAO extends AbstractRepository implements PromoCodeDAOInte
             }
         });
     }
+
+    @Override
+    public PromoCode get(final String code) throws MyException {
+        return dbOperation(new WrapperDBOperation<PromoCode>() {
+            @Override
+            public PromoCode doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_PC,CODE,START_DATE,END_DATE,DISCOUNT,ISUSED FROM PROMOCODE WHERE CODE=?"
+                );
+
+                prep.setString(1, code);
+                java.sql.ResultSet results = prep.executeQuery();
+                results.next();
+                int id = results.getInt(1);
+                if(id == 0) return null;
+                String code = results.getString(2);
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                String start_date = df.format(results.getDate(3));
+                String end_date = df.format(results.getDate(4));
+                double discount = results.getDouble(5);
+                int status = results.getInt(6);
+                PromoCode pc = new PromoCode(id, code, start_date, end_date, discount, status);
+
+                return pc;
+
+            }
+        });
+    }
+
 
 
 }

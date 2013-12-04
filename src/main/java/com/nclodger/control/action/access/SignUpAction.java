@@ -4,7 +4,7 @@ import com.nclodger.additional.MD5Value;
 import com.nclodger.control.action.Action;
 import com.nclodger.domain.ConfirmationEmail;
 import com.nclodger.dao.UserDao;
-import com.nclodger.domain.Users;
+import com.nclodger.domain.User;
 import com.nclodger.dao.ConfirmationEmailDAO;
 import com.nclodger.mail.MailConfirmation;
 import com.nclodger.myexception.MyException;
@@ -35,11 +35,11 @@ public class SignUpAction extends Action {
             return "registration";
         }
         boolean bool;
-        Users user;
+        User user;
         try {
-            user = new Users(request.getParameter("email"),request.getParameter("password"),request.getParameter("username"),0);
+            user = new User(request.getParameter("email"),request.getParameter("password"),request.getParameter("username"),0);
             bool = users.insert(user);
-            Users user_stored = users.getUserObj(user.getEmail(),user.getPswd());
+            User user_stored = users.getUserObj(user.getEmail(),user.getPswd());
             ConfirmationEmailDAO ConEmail =(ConfirmationEmailDAO) ctx.getBean("conemailDAO");
 
             //get hash

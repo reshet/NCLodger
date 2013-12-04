@@ -2,7 +2,7 @@ package com.nclodger.control.action.access;
 
 import com.nclodger.control.action.Action;
 import com.nclodger.dao.UserDao;
-import com.nclodger.domain.Users;
+import com.nclodger.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +28,7 @@ public class ChangePswdAction extends Action {
         }
 
         int idUser = userDao.getUserId(request.getSession().getAttribute("email").toString());
-        Users u = new Users(request.getParameter("password").toString(),idUser);
+        User u = new User(request.getParameter("password").toString(),idUser);
         userDao.updatePswd(u);
         request.setAttribute("notify_changepswd","Your password has been successfully changed!");
         return "ussettings";

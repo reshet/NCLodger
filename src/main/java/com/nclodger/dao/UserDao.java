@@ -1,14 +1,18 @@
 package com.nclodger.dao;
 
 import com.nclodger.additional.BookingViewing;
-import com.nclodger.domain.Users;
+import com.nclodger.domain.Order;
+import com.nclodger.domain.User;
 import com.nclodger.myexception.MyException;
 import com.nclodger.publicdao.UserDaoInterface;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +38,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
     }
 
-    public boolean confirm_register(final Users _user) throws MyException {
+    public boolean confirm_register(final User _user) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
@@ -44,7 +48,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                         "ID_USER=" + _user.getId() + ";");
                 res.next();
                 int _id = res.getInt(1);
-                res = st.executeQuery("UPDATE Users" +
+                res = st.executeQuery("UPDATE User" +
                         "SET confirm_register = 1 " +
                         "WHERE ID_USER=" + _id + ";");
                 return true;
@@ -59,7 +63,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 Statement st = dataBase.createStatement();
                 PreparedStatement prepGetUserID = dataBase.prepareStatement(
-                        "SELECT ID_USER FROM USERS WHERE ID_USER=?"
+                        "SELECT ID_USER FROM Users WHERE ID_USER=?"
                 );
                 prepGetUserID.setInt(1, userID);
                 java.sql.ResultSet res = prepGetUserID.executeQuery();
@@ -67,7 +71,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                     res.next();
                     int id = res.getInt(1);
                     PreparedStatement prepSetUserConfirmStatus = dataBase.prepareStatement(
-                            "UPDATE USERS SET CONFIRM_REGISTER =1 WHERE ID_USER=?"
+                            "UPDATE Users SET CONFIRM_REGISTER =1 WHERE ID_USER=?"
                     );
                     prepSetUserConfirmStatus.setInt(1, userID);
                     java.sql.ResultSet execUpdation = prepSetUserConfirmStatus.executeQuery();
@@ -83,14 +87,14 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
 
     @Override
-    public boolean insert(final Users user) throws MyException {
+    public boolean insert(final User user) throws MyException {
         //Tested valid sql
-        //INSERT INTO "Users" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
+        //INSERT INTO "User" (id_user,username,email,pswd,user_type,is_blocked) values (0,'reshet','reshet.ukr@gmail.com','tratata','customer',0);
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "INSERT INTO USERS (USERNAME,EMAIL,PSWD,CONFIRM_REGISTER,ID_UT,IS_BLOCKED) values (?,?,?,0,1,0)"
+                        "INSERT INTO Users (USERNAME,EMAIL,PSWD,CONFIRM_REGISTER,ID_UT,IS_BLOCKED) values (?,?,?,0,1,0)"
                 );
                 prep.setString(1, user.getName());
                 prep.setString(2, user.getEmail());
@@ -112,7 +116,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
            @Override
            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                PreparedStatement prep = dataBase.prepareStatement(
-                       "UPDATE USERS SET VIP=? WHERE ID_USER=?"
+                       "UPDATE Users SET VIP=? WHERE ID_USER=?"
                );
 
                prep.setInt(1, 1);
@@ -133,7 +137,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "UPDATE USERS SET VIP=? WHERE ID_USER=?"
+                        "UPDATE Users SET VIP=? WHERE ID_USER=?"
                 );
 
                 prep.setInt(1, 0);
@@ -153,7 +157,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "UPDATE USERS SET IS_BLOCKED=? WHERE ID_USER=?"
+                        "UPDATE Users SET IS_BLOCKED=? WHERE ID_USER=?"
                 );
 
                 prep.setInt(1, 1);
@@ -174,7 +178,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "UPDATE USERS SET IS_BLOCKED=? WHERE ID_USER=?"
+                        "UPDATE Users SET IS_BLOCKED=? WHERE ID_USER=?"
                 );
 
                 prep.setInt(1, 0);
@@ -188,7 +192,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
     }
 
     @Override
-    public boolean update(Users _user) {
+    public boolean update(User _user) {
         //To change body of implemented methods use File | Settings | File Templates.
         //TODO method
         return false;
@@ -205,7 +209,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT ID_USER FROM USERS WHERE email=? AND pswd= ?"
+                        "SELECT ID_USER FROM Users WHERE email=? AND pswd= ?"
                 );
                 prep.setString(1, email);
                 prep.setString(2, password);
@@ -231,18 +235,18 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
     }
 
     @Override
-    public List<Users> getAllUsers() throws MyException {
+    public List<User> getAllUsers() throws MyException {
 
-        return dbOperation(new WrapperDBOperation<List<Users>>() {
+        return dbOperation(new WrapperDBOperation<List<User>>() {
 
             @Override
-            public List<Users> doMethod(Connection dataBase) throws MyException, SQLException {
+            public List<User> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL,IS_BLOCKED,BONUS,VIP FROM USERS"
+                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL,IS_BLOCKED,BONUS,VIP FROM Users"
                 );
 
                 java.sql.ResultSet results = prep.executeQuery();
-                List<Users> uList = new ArrayList<Users>();
+                List<User> uList = new ArrayList<User>();
                 while (results.next()) {
 
                     Integer id = results.getInt(1);
@@ -254,7 +258,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                     Integer vip = results.getInt(7);
 
 
-                    Users user = new Users(id, uname);
+                    User user = new User(id, uname);
                     user.setId_ut(utype);
                     user.setEmail(email);
                     user.setIs_blocked(is_blocked);
@@ -270,13 +274,13 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
 
 
-    public Users getUserObj(final String email, final String password) throws MyException {
-                return dbOperation(new WrapperDBOperation<Users>() {
+    public User getUserObj(final String email, final String password) throws MyException {
+                return dbOperation(new WrapperDBOperation<User>() {
 
                     @Override
-                    public Users doMethod(Connection dataBase) throws MyException, SQLException {
+                    public User doMethod(Connection dataBase) throws MyException, SQLException {
                         PreparedStatement prep = dataBase.prepareStatement(
-                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL, CONFIRM_REGISTER FROM USERS WHERE email=? AND pswd= ?"
+                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL, CONFIRM_REGISTER FROM Users WHERE email=? AND pswd= ?"
                         );
                         prep.setString(1, email);
                         prep.setString(2, password);
@@ -292,7 +296,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                             String email = res.getString(4);
                             Integer confirmed = res.getInt(5);
                             //String pswd = res.getString(5);
-                            Users user = new Users(id, uname);
+                            User user = new User(id, uname);
                             user.setId_ut(utype);
 
                             user.setEmail(email);
@@ -309,14 +313,14 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             }
 
             @Override
-            public Users find(final int id) throws MyException {
+            public User find(final int id) throws MyException {
                 //return null;  //To change body of implemented methods use File | Settings | File Templates.
-                return dbOperation(new WrapperDBOperation<Users>() {
+                return dbOperation(new WrapperDBOperation<User>() {
 
                     @Override
-                    public Users doMethod(Connection dataBase) throws MyException, SQLException {
+                    public User doMethod(Connection dataBase) throws MyException, SQLException {
                         PreparedStatement prep = dataBase.prepareStatement(
-                                "SELECT * FROM Users WHERE id=?"
+                                "SELECT * FROM Users WHERE ID_USER=?"
                         );
                         prep.setInt(1, id);
                         //prep.setString(2,password);
@@ -324,7 +328,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                         java.sql.ResultSet res = prep.executeQuery();
                         res.next();
                         int exist = res.getInt(1);
-                        Users user = new Users(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getInt(5));
+                        User user = new User(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getInt(5));
                         return user;
                         //return null;  //To change body of implemented methods use File | Settings | File Templates.
                     }
@@ -336,13 +340,13 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             /**
              * Working sql query example:
              * SELECT ID_SM FROM MANAGER WHERE MANAGER.ID_USER IN
-             *      (SELECT ID_USER FROM USERS WHERE USERS.EMAIL = 'reshet.ukr@gmail.com')
+             *      (SELECT ID_USER FROM User WHERE User.EMAIL = 'reshet.ukr@gmail.com')
              */
             return dbOperation(new WrapperDBOperation<Integer>() {
                 @Override
                 public Integer doMethod(Connection dataBase) throws SQLException, MyException {
                     PreparedStatement prep = dataBase.prepareStatement(
-                            "SELECT ID_USER FROM USERS WHERE USERS.EMAIL=?"
+                            "SELECT ID_USER FROM Users WHERE Users.EMAIL=?"
                     );
                     prep.setString(1, email);
                     java.sql.ResultSet res = prep.executeQuery();
@@ -354,12 +358,12 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
         }
 
     @Override
-    public boolean updatePswd(final Users u) throws MyException {
+    public boolean updatePswd(final User u) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "UPDATE USERS SET PSWD=? WHERE ID_USER=?"
+                        "UPDATE Users SET PSWD=? WHERE ID_USER=?"
                 );
 
                 prep.setString(1, u.getPswd());
@@ -380,7 +384,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT COUNT(1) FROM USERS WHERE EMAIL=?"
+                        "SELECT COUNT(1) FROM Users WHERE EMAIL=?"
                 );
                 prep.setString(1, email);
                 java.sql.ResultSet res = prep.executeQuery();
@@ -467,7 +471,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
 
                 PreparedStatement prep3 = dataBase.prepareStatement(
-                        "DELETE FROM USERS WHERE ID_USER=?"
+                        "DELETE FROM Users WHERE ID_USER=?"
                 );
                 prep3.setInt(1,userId);
                 prep3.executeUpdate();
@@ -486,7 +490,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public String  doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT  PSWD FROM USERS WHERE EMAIL=?"
+                        "SELECT  PSWD FROM Users WHERE EMAIL=?"
                 );
                 prep.setString(1, email);
                 java.sql.ResultSet res = prep.executeQuery();
@@ -535,6 +539,67 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                     uList.add(new BookingViewing(type,hotelName,hotelCity,dateOrder,startOrder,endOrder,price));
                 }
                 return uList;
+
+            }
+        });
+    }
+
+    @Override
+    public boolean saveOrder(final Order ord) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "INSERT INTO ORDERS (ID_USER,DATE_ORDER,ID_ACC,PRICE,START_DATE,END_DATE,ID_PC,DISCOUNT,ID_SM) values (?,?,?,?,?,?,?,?,?)"
+                );
+
+
+                prep.setInt(1, ord.getUserid());
+                prep.setDate(2, new Date(new java.util.Date().getTime()));
+                //TODO real acc id
+                prep.setInt(3, 2);
+                //TODO change price to double, think on currencies
+                prep.setInt(4, (int) Math.round(ord.getFinal_price()));
+
+
+                DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+                java.util.Date date1 = null;
+                java.util.Date date2 = null;
+                try {
+                    if(ord.getStart_date()!=null)
+                        date1 = formatter.parse(ord.getStart_date());
+                    if(ord.getEnd_date()!=null)
+                        date2 = formatter.parse(ord.getEnd_date());
+                } catch (ParseException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+                if(date1!=null){
+                    java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
+                    prep.setDate(5, sqlDate1);
+
+                }
+                if(date2!=null){
+                    java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
+                    prep.setDate(6, sqlDate2);
+                }
+
+                 if(ord.getPromo()!=null)
+                 {
+                     prep.setInt(7,ord.getPromo().getId_pc());
+                 }else{
+                     prep.setNull(7,7);
+                 }
+                //TODO real user discount
+                 prep.setInt(8,2);
+                 prep.setInt(9,2);
+
+
+
+
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;
 
             }
         });

@@ -2,7 +2,7 @@ package com.nclodger.domain;
 
 import java.io.Serializable;
 
-public class Users implements Serializable{
+public class User implements Serializable{
     // PROPERTIES
     private int id;
     private String email;
@@ -15,20 +15,20 @@ public class Users implements Serializable{
     private int vip;
 
     // CONSTRUCTORS
-    public Users() {
+    public User() {
     }
 
-    public Users(int id,String username) {
+    public User(int id, String username) {
         this.id = id;
         this.name = username;
     }
 
-    public Users(String pswd, int id) {
+    public User(String pswd, int id) {
         this.pswd = pswd;
         this.id = id;
     }
 
-    public Users(int id, String email, String pswd, String name, int confirm_register) {
+    public User(int id, String email, String pswd, String name, int confirm_register) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -37,7 +37,7 @@ public class Users implements Serializable{
     }
 
 
-    public Users(String email, String pswd, String name, int confirm_register) {
+    public User(String email, String pswd, String name, int confirm_register) {
    //     this.id = id;
         this.email = email;
         this.name = name;
