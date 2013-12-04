@@ -1,83 +1,52 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: reshet
-  Date: 11/16/13
-  Time: 4:53 PM
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.nclodger.webservices.Hotel" %>
-<%@ page import="com.nclodger.webservices.ExpediaSearcher" %>
-<%@ page import="org.json.JSONObject" %>
-<%@ page import="org.json.JSONException" %>
-<%@ page import="java.util.Collections" %>
-<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>NCLodger | AC Details</title>
+    <title>NCLodger | Accomadation Details</title>
     <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <!--[if lt IE 7]>
-    <style type="text/css">
-        #wrapper { height:100%; }
-    </style>
-    <![endif]-->
 </head>
 <body>
+    <div class="wrapper">
+        <jsp:include page="header.jsp"/>
 
-<div id="header">
-    <jsp:include page="header.jsp"/>
-</div>
-<h2>Ordering Details</h2>
-<div id="acdetails" style="padding-left: 30px;">
-    <p style="padding-left: 10px;">
-        <c:if test="${hotel.getImage_url() != null}">
-            <img src="${hotel.getImage_url()}"/>
-        </c:if>
-        ${hotel.getName()}</p>
-    <p>
-        Address:   ${hotel.getAddress()}
-    </p>
-    <p>
-        Type:  ${hotel.getRoomType()}
-    </p>
-
-    <p>
-        Prices:   ${hotel.getPrice()}
-    </p>
-
-    <p>
-        Occupancy:    ${hotel.getRoomOccupancy()}
-    </p>
-    <p>
-        <strong>Base price to pay:</strong>    ${hotel.getRoomPrice()}
-    </p>
-    <form name="orderfrm" method="POST" action="orderfinish" >
-        Your promo code if any: <input type="text" name="promocode" value="">
-        <c:if test="${requestScope.isExist==false}">
-            <p>This Promocode do not exist. Please,ask Salesmanager to give you promocode</p>
-
-        </c:if>
-        <c:if test="${requestScope.isUsed==true}">
-            <p>This Promocode have already used. Please, try another</p>
-
-        </c:if>
-        <c:if test="${requestScope.isExpired==true}">
-            <p>This Promocode have already expired. Please, try another</p>
-
-        </c:if>
-        <input type="submit" text="Make Payment" value="Make Payment">
-    </form>
-</div>
+        <div class="content">
+            <div class="window" style="width: 450px;">
+                <p style="font-size: 20px; text-align: center;">Ordering Details</p><br>
+                <p style="float:right;">
+                    <c:if test="${hotel.getImage_url() != null}">
+                        <img src="${hotel.getImage_url()}" style="float:right; width: 50px; height: 50px;"/>
+                    </c:if>
+                    <c:if test="${hotel.getImage_url() == null}">
+                        <img src="resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
+                    </c:if>
+                </p>
+                <p>Hotel: ${hotel.getName()} </p>
+                <p>Address: ${hotel.getAddress()}</p>
+                <p>Type: ${hotel.getRoomType()}</p>
+                <p>Prices: ${hotel.getPrice()}</p>
+                <p>Occupancy: ${hotel.getRoomOccupancy()}</p>
+                <p style="color:#0000ff;">Base price to pay: ${hotel.getRoomPrice()}</p><br>
+                <form name="orderfrm" method="POST" action="orderfinish" >
+                    <p>Enter promo code if you have one: <input type="text" name="promocode" style="width: 150px;"></p>
+                    <c:if test="${requestScope.isExist==false}">
+                        <p style="color: #bc0f0f;">Such promo code doesn't exist.</p>
+                    </c:if>
+                    <c:if test="${requestScope.isUsed==true}">
+                        <p style="color: #bc0f0f;">This promo code has already been used.</p>
+                    </c:if>
+                    <c:if test="${requestScope.isExpired==true}">
+                        <p style="color: #bc0f0f;">This promo code has been expired.</p>
+                    </c:if>
+                    <p class="submit"><input type="submit" text="Make Payment" value="Make Payment"></p>
+                </form>
+            </div>
+        </div><!-- .content -->
+    </div><!-- .wrapper -->
 </body>
 </html>
