@@ -162,5 +162,25 @@ public class PromoCodeDAO extends AbstractRepository implements PromoCodeDAOInte
         });
     }
 
+    @Override
+    public double getPromoDiscount(final String code) throws MyException {
+        return dbOperation(new WrapperDBOperation<Double>() {
+            @Override
+            public Double doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT DISCOUNT FROM PROMOCODE WHERE CODE=?"
+                );
+
+                prep.setString(1, code);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                double d = res.getDouble(1);
+                return d;
+
+            }
+        });
+    }
+
 
 }
