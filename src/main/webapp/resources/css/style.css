@@ -303,11 +303,12 @@ a:hover.logo {
 .hotel_info {
     float:left;
     width: 380px;
-    background: #F0F0F0;
+    background: #ffffff;
     margin-top: 13px;
     margin-bottom: 13px;
     margin-left: 36px;
     padding: 10px;
+    border: #777 thin solid;
     border-radius: 9px;
 }
 .hotel_info p {

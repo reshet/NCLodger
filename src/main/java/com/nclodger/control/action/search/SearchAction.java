@@ -48,11 +48,13 @@ public class SearchAction extends Action {
         request.getSession().setAttribute("guests_adults",guests_adults);
         request.getSession().setAttribute("currency", currency);
 
-        String results = searcher.searchHotels(country,city,"11/28/2013","11/30/2013",currency,2,10);
+        String results = searcher.searchHotels(country,city,checkin,checkout,currency,
+                Integer.parseInt(guests_adults),Integer.parseInt(guests_children));
         JSONObject resp = searcher.parseResults(results);
         List<Hotel> hotels = searcher.getHotelsList(resp);
         request.setAttribute("hotels",hotels);
         request.getSession().setAttribute("hotels",hotels);
+
         return "home";
     }
 }

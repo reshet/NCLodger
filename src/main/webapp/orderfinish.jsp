@@ -33,7 +33,7 @@
                 <p>Prices: ${hotel.getPrice()} </p>
                 <p>Occupancy: ${hotel.getRoomOccupancy()} </p>
                 <p>Your promo entered: ${requestScope.promocode} </p>
-                <p><h3>You were billed for: ${requestScope.finalprice}</h3></p>
+                <p><h3>You were billed for: ${requestScope.finalprice} ${sessionScope.currency}</h3></p>
                 </form>
             </div>
         </div>

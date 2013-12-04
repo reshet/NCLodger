@@ -166,7 +166,7 @@
             <c:forEach items="${requestScope.hotels}" var="hotel">
                 <div class="hotel_info">
                     <p>
-                        Hotel: <span>${hotel.getImage_url()}</span>
+                        Hotel: <span>${hotel.getName()}</span>
                         <c:if test="${hotel.getImage_url() != null}">
                             <img src="${hotel.getImage_url()}" style=""/>
                         </c:if>
@@ -183,6 +183,7 @@
                     </p>
                 </div>
             </c:forEach>
+            <br style="clear:both;"/>
         </div>
         </c:if>
 
