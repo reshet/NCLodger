@@ -29,6 +29,30 @@
         });
     });
 
+    $(document).ready(function(){
+        // прячем кнопку #back-top
+        $("#back-top").hide();
+
+        // появление/затухание кнопки #back-top
+        $(function (){
+            $(window).scroll(function (){
+                if ($(this).scrollTop() > 100){
+                    $('#back-top').fadeIn();
+                } else{
+                    $('#back-top').fadeOut();
+                }
+            });
+
+            // при клике на ссылку плавно поднимаемся вверх
+            $('#back-top a').click(function (){
+                $('body,html').animate({
+                    scrollTop:0
+                }, 800);
+                return false;
+            });
+        });
+    });
+
     function valideSearchForm() {
         var isValid = true;
         if(document.searchfrm.min_price.value != "") {
@@ -186,42 +210,9 @@
             <br style="clear:both;"/>
         </div>
         </c:if>
-
-<%--
-        <!-- EXAMPLE WITH STATIC VALUES -->
-        <div class="hotel_info_wrapper">
-            <div class="hotel_info">
-            <p><img src="resources/img/noimage.gif"/> <span><b>Name going to be here </b></span></p>
-            <p>Address: <span>Adress is going to be </span></p>
-            <p>Type:   <span>Type is going to be here </span></p>
-            <p>Prices:   <span>price is going to be here</span></p>
-            <p>Occupancy:   <span>occupancy</span></p>
-            <p class="submit">
-                <a href="acdetails?idhotel=${hotel.id}" style="color:#0000ff;">Details &rarr;</a>
-            </p>
-        </div>
-            <div class="hotel_info">
-                <p><img src="resources/img/noimage.gif"/></p>
-                <p>Address: <span>Adress is going to be here </span></p>
-                <p>Type:   <span>Type is going to be here </span></p>
-                <p>Prices:   <span>price is going to be here</span></p>
-                <p>Occupancy:   <span>occupancy</span></p>
-                <p class="submit">
-                    <a href="acdetails?idhotel=${hotel.id}" style="color:#0000ff;">Details &rarr;</a>
-                </p>
-            </div>
-            <div class="hotel_info">
-                <p><img src="resources/img/noimage.gif"/></p>
-                <p>Address: <span>Adress is going to be here </span></p>
-                <p>Type:   <span>Type is going to be here </span></p>
-                <p>Prices:   <span>price is going to be here</span></p>
-                <p>Occupancy:   <span>occupancy</span></p>
-                <p class="submit">
-                    <a href="acdetails?idhotel=${hotel.id}" style="color:#0000ff;">Details &rarr;</a>
-                </p>
-            </div>
-            <br style="clear:both;"/>
-        </div>--%>
+        <p id="back-top">
+            <a href="#top"><span style="background:#ddd url(resources/img/up-arrow.png) no-repeat center center;"></span>Top</a>
+        </p>
 
     </div><!-- #content -->
 

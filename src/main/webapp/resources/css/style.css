@@ -390,3 +390,44 @@ span.mandatory {
     border: 1px solid #808080;
     border-radius: 3px;
 }
+
+/******* Scrolling up arrow **********/
+#back-top{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    margin-left:500px
+}
+
+#back-top a{
+    width:64px;
+    display:block;
+    text-align:center;
+    font:11px/100% Arial, Helvetica, sans-serif;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:#bbb;
+    /* background color transition */
+    -webkit-transition:1s;
+    -moz-transition:1s;
+    transition:1s;
+}
+
+#back-top a:hover{color:#000;}
+
+#back-top span{
+    width:64px;
+    height:64px;
+    display:block;
+    margin-bottom:7px;
+    /* rounded corners */
+    -webkit-border-radius:15px;
+    -moz-border-radius:15px;
+    border-radius:15px;
+    /* background color transition */
+    -webkit-transition:1s;
+    -moz-transition:1s;
+    transition:1s;
+}
+
+#back-top a:hover span{background-color:#777}
