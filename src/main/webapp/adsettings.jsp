@@ -253,7 +253,7 @@
             <ul>
                 <li><a href="#tabs-1" ><a href = "admingetallusers">Users</a></a></li>
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
-                <li><a href="#tabs-3">Hotels</a></li>
+                <!-- <li><a href="#tabs-3">Hotels</a></li> -->
             </ul>
             <div id="tabs-1"><!-- 'Users' tab -->
                 <form name="adgetalluser" method="POST">
@@ -360,7 +360,7 @@
                 </div>
             </div>
 
-            <div id="tabs-3"><!-- 'Hotels' tab -->
+            <!-- <div id="tabs-3">
                 <div class="tabcontent">
                     <p class="h">New Hotel</p>
                     <form name="hotelfrm" method="POST" action="addhotel" onsubmit="return validateHotelFrm();">
@@ -381,7 +381,8 @@
                             <input type="reset" name="reset" value="Reset">
                         </p>
                     </form>
-                </div>
+                </div> -->
+                
             </div>
         </div>
 
