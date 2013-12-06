@@ -416,6 +416,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 );
                 prep5.setInt(1,userId);
                 java.sql.ResultSet res = prep5.executeQuery();
+
                 if(res.next()){
                     int smId = res.getInt(1);
 
@@ -437,8 +438,20 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                     prep9.setInt(1,smId);
                     prep9.executeUpdate();
 
+                    PreparedStatement prep11 = dataBase.prepareStatement(
+                            "DELETE FROM ORDERS WHERE ID_USER=?"
+                    );
+                    prep11.setInt(1, smId);
+                    prep11.executeUpdate();
+
                 }
 
+
+                PreparedStatement prep10 = dataBase.prepareStatement(
+                        "DELETE FROM ORDERS WHERE ID_USER=?"
+                );
+                prep10.setInt(1, userId);
+                prep10.executeUpdate();
 
                 PreparedStatement prep1 = dataBase.prepareStatement(
                         "DELETE FROM CONFIRM WHERE ID_USER=?"
@@ -452,22 +465,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 );
                 prep2.setInt(1, userId);
                 prep2.executeUpdate();
-      /*
-                PreparedStatement prep4 = dataBase.prepareStatement(
-                        "DELETE FROM ORDERS WHERE ID_USER=?"
-                );
-                prep4.setInt(1,userId);
-                prep4.executeUpdate();
 
-
-
-                PreparedStatement prep6 = dataBase.prepareStatement(
-                        "DELETE FROM ORDERS WHERE ID_SM=?"
-                );
-                prep6.setInt(1,smId);
-                prep6.executeUpdate();
-
-   */
 
 
                 PreparedStatement prep3 = dataBase.prepareStatement(
@@ -475,6 +473,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 );
                 prep3.setInt(1,userId);
                 prep3.executeUpdate();
+
 
                 return true;
             }
