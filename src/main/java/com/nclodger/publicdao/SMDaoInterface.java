@@ -4,6 +4,7 @@ import com.nclodger.additional.AccommodationTotalValue;
 import com.nclodger.additional.HotelTotalOrder;
 import com.nclodger.domain.SManager;
 import com.nclodger.logic.HotelCommissionDTO;
+import com.nclodger.logic.HotelDiscountDTO;
 import com.nclodger.myexception.MyException;
 
 import java.util.List;
@@ -30,5 +31,6 @@ public interface SMDaoInterface {
     public List<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException;
     public List<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(final String start, final String end) throws MyException;
     public List<HotelCommissionDTO> getHotelCommissions(int hotel_exp_id) throws MyException;
+    public List<HotelDiscountDTO> getHotelDiscounts(int hotel_exp_id) throws MyException;
     public Boolean isOccupied(Integer id_sm, Integer id_hotel) throws MyException;
 }

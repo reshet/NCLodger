@@ -280,7 +280,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                     @Override
                     public User doMethod(Connection dataBase) throws MyException, SQLException {
                         PreparedStatement prep = dataBase.prepareStatement(
-                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL, CONFIRM_REGISTER FROM Users WHERE email=? AND pswd= ?"
+                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL, CONFIRM_REGISTER, IS_BLOCKED, VIP FROM Users WHERE email=? AND pswd= ?"
                         );
                         prep.setString(1, email);
                         prep.setString(2, password);
@@ -295,12 +295,17 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                             Integer utype = res.getInt(3);
                             String email = res.getString(4);
                             Integer confirmed = res.getInt(5);
+                            Integer isBlocked = res.getInt(6);
+                            Integer vip = res.getInt(7);
+
                             //String pswd = res.getString(5);
                             User user = new User(id, uname);
                             user.setId_ut(utype);
 
                             user.setEmail(email);
                             user.set_confirm_register(confirmed);
+                            user.setIs_blocked(isBlocked);
+                            user.setVip(vip);
                             //user.setPswd();
                             return user;
                         }

@@ -6,6 +6,7 @@ import com.nclodger.domain.Accommodation;
 import com.nclodger.domain.Hotel;
 import com.nclodger.domain.SManager;
 import com.nclodger.logic.HotelCommissionDTO;
+import com.nclodger.logic.HotelDiscountDTO;
 import com.nclodger.myexception.MyException;
 import com.nclodger.publicdao.SMDaoInterface;
 import org.springframework.stereotype.Component;
@@ -372,6 +373,38 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                     Integer smId = results.getInt(2);
 
                     accList.add(new HotelCommissionDTO(smId,commission));
+                }
+                return accList;
+
+            }
+        });
+    }
+
+    @Override
+    public List<HotelDiscountDTO> getHotelDiscounts(final int hotel_exp_id) throws MyException {
+        return dbOperation(new WrapperDBOperation<List<HotelDiscountDTO>>() {
+
+            @Override
+            public List<HotelDiscountDTO> doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT m.USER_DISCOUNT, m.VIP_DISCOUNT, hm.ID_SM FROM HOTEL h " +
+                                "INNER JOIN HOTEL_MANAGER hm " +
+                                "INNER JOIN MANAGER m ON hm.ID_HOTEL = h.ID_HOTEL AMD hm.ID_SM = m.ID_SM" +
+                                " WHERE h.INT_ID = ?" +
+                                " ORDER BY m.USER_DISCOUNT ASC "
+                );
+                prep.setInt(1, hotel_exp_id);
+                //prep.setString(2, end);
+                java.sql.ResultSet results = prep.executeQuery();
+                List<HotelDiscountDTO> accList = new ArrayList<HotelDiscountDTO>();
+                while (results.next()) {
+                    Integer userdisc = results.getInt(1);
+                    Integer vipdisc = results.getInt(2);
+
+                    Integer smId = results.getInt(3);
+
+
+                    accList.add(new HotelDiscountDTO(smId,userdisc,vipdisc));
                 }
                 return accList;
 

@@ -26,6 +26,7 @@ public class PriceModifyer {
     SMDaoInterface smdao;
     @Autowired
     AdminDAOInterface addao;
+   //@Autowired
     public PriceModifyer modifyPriceByPromoCode(Order ord){
         if(ord.getPromo()!=null){
             ord.setFinal_price(ord.getH().getRoomBasePrice() - ord.getH().getRoomBasePrice() * ord.getPromo().getDiscount());
@@ -46,16 +47,23 @@ public class PriceModifyer {
                        //initial commision get;
                        SManager sManager= addao.getCurDefaultCommAndDisc();
                        comms.add(new HotelCommissionDTO(0,sManager.getCommission()));
+                       //hotel.getPrices().add(itPrice);
+
                    }
                    if(comms.size() == 1){
-                       hotel.setRoomWithCommissionPrice((double)Math.round(hotel.getRoomBasePrice()*(1+comms.get(0).getSmHotelCommission()/100.0)));
-                       hotel.setPrice(hotel.getRoomWithCommissionPrice()+" "+hotel.getPriceCurrency());
+                       double commprice =  (double)Math.round(hotel.getRoomBasePrice()*(1+comms.get(0).getSmHotelCommission()/100.0));
+                       hotel.setRoomWithCommissionPrice(commprice);
+                       hotel.getPrices().add(commprice);
+                       //hotel.setPrice(hotel.getRoomWithCommissionPrice()+" "+hotel.getPriceCurrency());
                    }else{
-                       double lowestCommision = comms.get(0).getSmHotelCommission();
-                       double greatestCommision = comms.get(comms.size()-1).getSmHotelCommission();
-                       double lowestPrice = Math.round(hotel.getRoomBasePrice()*(1+lowestCommision/100.0));
-                       double greatestPrice = Math.round(hotel.getRoomBasePrice()*(1+greatestCommision/100.0));
-                       hotel.setPrice(lowestPrice+"-"+greatestPrice+" "+hotel.getPriceCurrency());
+                       for(HotelCommissionDTO com:comms){
+                           double itCommision = com.getSmHotelCommission();
+                           //double greatestCommision = comms.get(comms.size()-1).getSmHotelUserDisc();
+                           double itPrice = Math.round(hotel.getRoomBasePrice()*(1+itCommision/100.0));
+                           hotel.getPrices().add(itPrice);
+                           //double greatestPrice = Math.round(hotel.getRoomBasePrice()*(1+greatestCommision/100.0));
+                       }
+                       //hotel.setPrice(lowestPrice+"-"+greatestPrice+" "+hotel.getPriceCurrency());
 
                    }
                    hotel.setComms(comms);
@@ -66,4 +74,38 @@ public class PriceModifyer {
            }
        return this;
     }
+   /* public PriceModifyer addDiscountToHotels(List<HotelDTO> lst,User user){
+        if(user.getIs_blocked()!=0)
+        for(HotelDTO hotel:lst){
+            try {
+                List<HotelDiscountDTO> discs = smdao.getHotelDiscounts(hotel.getId());
+                if(discs.size() == 0){
+                    //initial commision get;
+                    SManager sManager= addao.getCurDefaultCommAndDisc();
+                    discs.add(new HotelDiscountDTO(0,sManager.getUser_discount(),sManager.getVip_discount()));
+                }
+                if(discs.size() == 1){
+                    double discprice =  (double)Math.round(hotel.getRoomBasePrice()*(1+discs.get(0).getSmHotelCommission()/100.0));
+                    //hotel.setRoomWithCommissionPrice(commprice);
+                    hotel.getPrices().add(discprice);
+                    //hotel.setPrice(hotel.getRoomWithCommissionPrice()+" "+hotel.getPriceCurrency());
+                }else{
+                    for(HotelCommissionDTO com:comms){
+                        double itCommision = com.getSmHotelCommission();
+                        //double greatestCommision = comms.get(comms.size()-1).getSmHotelUserDisc();
+                        double itPrice = Math.round(hotel.getRoomBasePrice()*(1+itCommision/100.0));
+                        hotel.getPrices().add(itPrice);
+                        //double greatestPrice = Math.round(hotel.getRoomBasePrice()*(1+greatestCommision/100.0));
+                    }
+                    //hotel.setPrice(lowestPrice+"-"+greatestPrice+" "+hotel.getPriceCurrency());
+
+                }
+                hotel.setComms(comms);
+            } catch (MyException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            // hotel.setRoomWithCommissionPrice(20);
+        }
+        return this;
+    }*/
 }

@@ -3,6 +3,7 @@ package com.nclodger.webservices;
 import com.nclodger.logic.HotelCommissionDTO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,9 @@ public class HotelDTO implements Serializable {
     private Double roomBasePrice;
     private Double roomWithCommissionPrice;
     private Double roomWithDiscountPrice;
-    private List<HotelCommissionDTO> comms;
+    private List<HotelCommissionDTO> comms = new ArrayList<HotelCommissionDTO>();
+    private List<Double> prices = new ArrayList<Double>();
+
 
 
     public HotelDTO(Integer id, String name, Double loc_lat, Double loc_lng) {
@@ -81,12 +84,18 @@ public class HotelDTO implements Serializable {
     }
 
     public String getPrice() {
+        String price = "";
+        if(prices.size()>1){
+           price = prices.get(0)+"-"+prices.get(prices.size()-1)+" "+getPriceCurrency();
+        }else{
+            price = prices.get(0)+" "+getPriceCurrency();
+        }
         return price;
     }
 
-    public void setPrice(String price) {
+    /*public void setPrice(String price) {
         this.price = price;
-    }
+    }*/
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
@@ -142,5 +151,13 @@ public class HotelDTO implements Serializable {
 
     public void setPriceCurrency(String priceCurrency) {
         this.priceCurrency = priceCurrency;
+    }
+
+    public List<Double> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(List<Double> prices) {
+        this.prices = prices;
     }
 }
