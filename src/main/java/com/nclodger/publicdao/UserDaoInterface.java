@@ -19,15 +19,15 @@ import java.util.List;
  */
 public interface UserDaoInterface {
     public boolean insert(User user) throws MyException;
-    public boolean update (User user);
+    public boolean update (User user) throws MyException;
     public boolean delete(String email) throws MyException;
     public boolean delete(final int userid) throws MyException;
     public boolean getUser(String email, String password) throws MyException;
     public boolean checkPswd(int userID, String password) throws MyException;
     public List<User>  getAllUsers() throws MyException;
-    public User find(int id) throws ClassNotFoundException, SQLException, MyException;
-    public boolean confirm_register(User user) throws Exception;
-    public boolean confirmRegisterByUserID(int userID) throws Exception;
+    public User find(int id) throws  MyException;
+    public boolean confirm_register(User user) throws MyException;
+    public boolean confirmRegisterByUserID(int userID) throws MyException;
     public boolean updateForSM(int userID) throws MyException;
     public boolean updateMakeUnvip(int userID) throws MyException;
     public boolean makeBlock(final int userID) throws MyException;
