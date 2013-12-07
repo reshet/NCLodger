@@ -14,6 +14,7 @@ public class OccupyHotelAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         return "smsettings";
     }
 }

@@ -54,11 +54,9 @@ public class GeneratePromoAction extends Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String code = generatePromoCode(request,response);
         request.getSession().setAttribute("promo_code",code);
-        SMDAO smDao;
         PromoCode pc;
         try {
-            smDao = new SMDAO();
-            int idSm = smDao.getSmanagerId(request.getSession().getAttribute("email").toString());
+            int idSm = Integer.parseInt(request.getSession().getAttribute("idSm").toString());
             pc = new PromoCode(code,
                 request.getParameter("start_promo"),
                 request.getParameter("end_promo"),
