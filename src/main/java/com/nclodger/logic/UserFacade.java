@@ -52,16 +52,21 @@ public class UserFacade implements UserFacadeInterface{
         }
         if(user!=null){
             Double price = 0.0;
-            PromoCode pm = ord.getPromo();
+            new PriceModifyer().modifyPriceByPromoCode(ord);
+            /*PromoCode pm = ord.getPromo();
             if(pm!=null){
                 price = ord.getH().getRoomPrice() - ord.getH().getRoomPrice()*pm.getDiscount();
             }else{
                 price = ord.getH().getRoomPrice();
             }
 
-            ord.setFinal_price(price);
+            ord.setFinal_price(price);*/
+
+
 
 
         }
     }
+
+
 }
