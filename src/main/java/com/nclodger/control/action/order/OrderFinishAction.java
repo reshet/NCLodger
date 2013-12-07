@@ -1,6 +1,8 @@
 package com.nclodger.control.action.order;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.dao.OrderDAO;
+import com.nclodger.domain.Hotel;
 import com.nclodger.domain.Order;
 import com.nclodger.domain.PromoCode;
 import com.nclodger.domain.User;
@@ -8,6 +10,7 @@ import com.nclodger.dao.PromoCodeDAO;
 import com.nclodger.logic.UserFacadeInterface;
 import com.nclodger.webservices.HotelDTO;
 
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -59,6 +62,16 @@ public class OrderFinishAction extends Action {
 
         UserFacadeInterface facade = (UserFacadeInterface) ctx.getBean("userFacade");
         HotelDTO h = (HotelDTO)request.getSession().getAttribute("hotel");
+
+        //check if hotel exist in db and insert if !exist
+        String country = request.getSession().getAttribute("country").toString();
+        String city = request.getSession().getAttribute("city").toString();
+        Hotel hotModel =  new Hotel(h.getName(),country,city,5,h.getLoc_lng(),h.getLoc_lat(),h.getId());
+        OrderDAO odao = new OrderDAO();
+        if(!odao.isExistHotelbyID(h.getId())){
+           odao.insertHotel(hotModel);
+        }
+        //
         User user =  (User)request.getSession().getAttribute("userfull");
 
         Order order = new Order();
