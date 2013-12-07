@@ -2,13 +2,13 @@ package com.nclodger.domain;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable {
     // PROPERTIES
     private int id;
     private String email;
     private String pswd;
     private String name;
-    private int confirm_register;
+    private int confirmRegister;
     private int id_ut;
     private int is_blocked;
     private Integer bonus;
@@ -28,25 +28,24 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public User(int id, String email, String pswd, String name, int confirm_register) {
+    public User(int id, String email, String pswd, String name, int confirmRegister) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.pswd = pswd;
-        this.confirm_register = confirm_register;
+        this.confirmRegister = confirmRegister;
     }
 
 
-    public User(String email, String pswd, String name, int confirm_register) {
-   //     this.id = id;
+    public User(String email, String pswd, String name, int confirmRegister) {
+        //     this.id = id;
         this.email = email;
         this.name = name;
         this.pswd = pswd;
-        this.confirm_register = confirm_register;
+        this.confirmRegister = confirmRegister;
     }
 
     // GETTERS / SETTERS
-
 
     public Integer getBonus() {
         return bonus;
@@ -64,44 +63,44 @@ public class User implements Serializable{
         this.vip = vip;
     }
 
-    public void setId_ut(int id_ut) {
-        this.id_ut = id_ut;
-    }
-
     public int getId_ut() {
         return id_ut;
     }
 
-    public void setIs_blocked(int block) {
-        this.is_blocked = block;
+    public void setId_ut(int id_ut) {
+        this.id_ut = id_ut;
     }
 
     public int getIs_blocked() {
         return this.is_blocked;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIs_blocked(int block) {
+        this.is_blocked = block;
     }
 
     public int getId() {
         return this.id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
         return this.email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPswd() {
@@ -112,12 +111,12 @@ public class User implements Serializable{
         this.pswd = pswd;
     }
 
-    public int get_confirm_register() {
-        return this.confirm_register;
+    public int getConfirmRegister() {
+        return this.confirmRegister;
     }
 
-    public void set_confirm_register(int _confirm_register) {
-        this.confirm_register = _confirm_register;
+    public void set_confirm_register(int confirmRegister) {
+        this.confirmRegister = confirmRegister;
     }
 
 }
