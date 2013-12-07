@@ -34,10 +34,6 @@ public class UserFacade implements UserFacadeInterface{
             user = userdao.find(ord.getUserid());
             userdao.saveOrder(ord);
             if(user!=null)mailconfirm.sendMailOrder(user.getEmail(),ord.getFinal_price(),ord.getH());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (MyException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -51,10 +47,6 @@ public class UserFacade implements UserFacadeInterface{
         User user = null;
         try {
             user = userdao.find(ord.getUserid());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (MyException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
