@@ -1,6 +1,7 @@
 package com.nclodger.control.action.search;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.dao.SMDAO;
 import com.nclodger.webservices.HotelDTO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,17 @@ public class ACDetailsAction extends Action {
         String id = request.getParameter("idhotel");
         HotelDTO h = findCurrentHotel(request,id);
         request.getSession().setAttribute("hotel",h);
+
+        String smEmail = request.getSession().getAttribute("email").toString();
+        SMDAO smDao = new SMDAO();
+        int idSm = smDao.getSmanagerId(smEmail);
+        Boolean bool = smDao.isOccupied(idSm,Integer.parseInt(id));
+        if(bool) {
+            request.setAttribute("isOccupied",true);
+        }
+        else {
+            request.setAttribute("isOccupied",false);
+        }
         return "acdetails";
     }
 }

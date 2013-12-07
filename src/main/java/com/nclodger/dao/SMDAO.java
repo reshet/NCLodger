@@ -350,6 +350,32 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
     }
 
     @Override
+    public Boolean isOccupied(final Integer id_sm, final Integer id_hotel) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT COUNT(*) FROM HOTEL_MANAGER WHERE ID_SM=? AND ID_HOTEL=?"
+                );
+
+                prep.setInt(1, id_sm);
+                prep.setInt(2, id_hotel);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int count = res.getInt(1);
+
+                if(count == 0) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        });
+    }
+
+    @Override
     public ArrayList<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException {
         return dbOperation(new WrapperDBOperation<ArrayList<AccommodationTotalValue>>() {
 

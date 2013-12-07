@@ -29,5 +29,6 @@ public interface SMDaoInterface {
     public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(final String start, final String end) throws MyException;
     public ArrayList<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException;
     public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(final String start, final String end) throws MyException;
+    public Boolean isOccupied(Integer id_sm, Integer id_hotel) throws MyException;
 
 }
