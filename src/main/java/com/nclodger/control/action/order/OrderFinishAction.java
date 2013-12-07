@@ -73,7 +73,7 @@ public class OrderFinishAction extends Action {
         facade.saveOrder(order);
 
 
-        //Double final_price = h.getRoomPrice() - h.getRoomPrice()*getPromoPercent(promo);
+        //Double final_price = h.getRoomBasePrice() - h.getRoomBasePrice()*getPromoPercent(promo);
         //request.setAttribute("finalprice", final_price);
 
 

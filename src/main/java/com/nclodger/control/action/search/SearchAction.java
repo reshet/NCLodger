@@ -1,6 +1,7 @@
 package com.nclodger.control.action.search;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.logic.PriceModifyer;
 import com.nclodger.myexception.MyException;
 import com.nclodger.webservices.ExpediaSearcher;
 import com.nclodger.webservices.HotelDTO;
@@ -51,6 +52,10 @@ public class SearchAction extends Action {
                 Integer.parseInt(guests_adults),Integer.parseInt(guests_children));
         JSONObject resp = searcher.parseResults(results);
         List<HotelDTO> hotelDTOs = searcher.getHotelsList(resp);
+        PriceModifyer mdf = (PriceModifyer)ctx.getBean("pricerules");
+        mdf.addCommissionToHotels(hotelDTOs);
+
+
         request.setAttribute("hotelDTOs", hotelDTOs);
         request.getSession().setAttribute("hotelDTOs", hotelDTOs);
 

@@ -3,10 +3,10 @@ package com.nclodger.publicdao;
 import com.nclodger.additional.AccommodationTotalValue;
 import com.nclodger.additional.HotelTotalOrder;
 import com.nclodger.domain.SManager;
+import com.nclodger.logic.HotelCommissionDTO;
 import com.nclodger.myexception.MyException;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,11 +24,11 @@ public interface SMDaoInterface {
     public SManager getSManager(int id) throws MyException;
     public int getSmanagerId(String email) throws MyException;
     public boolean setCommAndDiscounts(int id_sm, double commission, double vip_discount, double user_discount) throws MyException;
-    public ArrayList<HotelTotalOrder> sortHotelbyPopular() throws MyException;
+    public List<HotelTotalOrder> sortHotelbyPopular() throws MyException;
     public SManager getCurrentCommAndDiscounts(final String email) throws MyException;
-    public ArrayList<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(final String start, final String end) throws MyException;
-    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException;
-    public ArrayList<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(final String start, final String end) throws MyException;
+    public List<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(final String start, final String end) throws MyException;
+    public List<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException;
+    public List<AccommodationTotalValue> sortAccommodationbyValuableWithTimeFrame(final String start, final String end) throws MyException;
+    public List<HotelCommissionDTO> getHotelCommissions(int hotel_exp_id) throws MyException;
     public Boolean isOccupied(Integer id_sm, Integer id_hotel) throws MyException;
-
 }

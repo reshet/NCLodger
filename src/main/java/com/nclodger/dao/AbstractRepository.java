@@ -1,5 +1,6 @@
 package com.nclodger.dao;
 
+import com.nclodger.additional.AccommodationTotalValue;
 import com.nclodger.myexception.MyException;
 
 import javax.naming.InitialContext;
@@ -7,6 +8,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

@@ -134,7 +134,8 @@ public class ExpediaSearcher {
                     if(!img_small_url.equals("http://images.travelnow.com/"))h1.setImage_url(img_small_url);
 
                     h1.setAddress(address);
-                    h1.setPrice(price);
+                    //h1.setPrice(price);
+                    h1.setPriceCurrency(hotel.getString("rateCurrencyCode"));
                     if(room!=null){
                         String room_type = room.getString("roomDescription");
                         String room_occupancy = room.getString("maxRoomOccupancy");
@@ -144,7 +145,7 @@ public class ExpediaSearcher {
                         JSONObject rate_obj = arr.getJSONObject(0);
                         String baserate = rate_obj.getString("@baseRate");
                         Double ratepr  = Double.parseDouble(baserate);
-                        h1.setRoomPrice(ratepr);
+                        h1.setRoomBasePrice(ratepr);
                         h1.setRoomType(room_type);
                         h1.setRoomOccupancy(room_occupancy);
                     }

@@ -1,6 +1,9 @@
 package com.nclodger.webservices;
 
+import com.nclodger.logic.HotelCommissionDTO;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,9 +20,13 @@ public class HotelDTO implements Serializable {
     private String image_url;
     private String address;
     private String price;
+    private String priceCurrency;
     private String roomType;
     private String roomOccupancy;
-    private Double roomPrice;
+    private Double roomBasePrice;
+    private Double roomWithCommissionPrice;
+    private Double roomWithDiscountPrice;
+    private List<HotelCommissionDTO> comms;
 
 
     public HotelDTO(Integer id, String name, Double loc_lat, Double loc_lng) {
@@ -97,11 +104,43 @@ public class HotelDTO implements Serializable {
         return roomOccupancy;
     }
 
-    public Double getRoomPrice() {
-        return roomPrice;
+    public Double getRoomBasePrice() {
+        return roomBasePrice;
     }
 
-    public void setRoomPrice(Double roomPrice) {
-        this.roomPrice = roomPrice;
+    public void setRoomBasePrice(Double roomBasePrice) {
+        this.roomBasePrice = roomBasePrice;
+    }
+
+    public Double getRoomWithCommissionPrice() {
+        return roomWithCommissionPrice;
+    }
+
+    public void setRoomWithCommissionPrice(Double roomWithCommissionPrice) {
+        this.roomWithCommissionPrice = roomWithCommissionPrice;
+    }
+
+    public Double getRoomWithDiscountPrice() {
+        return roomWithDiscountPrice;
+    }
+
+    public void setRoomWithDiscountPrice(Double roomWithDiscountPrice) {
+        this.roomWithDiscountPrice = roomWithDiscountPrice;
+    }
+
+    public List<HotelCommissionDTO> getComms() {
+        return comms;
+    }
+
+    public void setComms(List<HotelCommissionDTO> comms) {
+        this.comms = comms;
+    }
+
+    public String getPriceCurrency() {
+        return priceCurrency;
+    }
+
+    public void setPriceCurrency(String priceCurrency) {
+        this.priceCurrency = priceCurrency;
     }
 }

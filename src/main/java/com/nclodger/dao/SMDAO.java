@@ -5,6 +5,7 @@ import com.nclodger.additional.HotelTotalOrder;
 import com.nclodger.domain.Accommodation;
 import com.nclodger.domain.Hotel;
 import com.nclodger.domain.SManager;
+import com.nclodger.logic.HotelCommissionDTO;
 import com.nclodger.myexception.MyException;
 import com.nclodger.publicdao.SMDaoInterface;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -350,6 +352,34 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
     }
 
     @Override
+    public List<HotelCommissionDTO> getHotelCommissions(final int hotel_exp_id) throws MyException {
+        return dbOperation(new WrapperDBOperation<List<HotelCommissionDTO>>() {
+
+            @Override
+            public List<HotelCommissionDTO> doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT hm.COMMISSION, hm.ID_SM FROM HOTEL h " +
+                                "INNER JOIN HOTEL_MANAGER hm ON hm.ID_HOTEL = h.ID_HOTEL" +
+                                " WHERE h.INT_ID = ?" +
+                                " ORDER BY hm.COMMISSION ASC "
+                );
+                prep.setInt(1, hotel_exp_id);
+                //prep.setString(2, end);
+                java.sql.ResultSet results = prep.executeQuery();
+                List<HotelCommissionDTO> accList = new ArrayList<HotelCommissionDTO>();
+                while (results.next()) {
+                    Integer commission = results.getInt(1);
+                    Integer smId = results.getInt(2);
+
+                    accList.add(new HotelCommissionDTO(smId,commission));
+                }
+                return accList;
+
+            }
+        });
+    }
+
+    @Override
     public Boolean isOccupied(final Integer id_sm, final Integer id_hotel) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
@@ -410,5 +440,6 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
             }
         });
     }
+
 }
 

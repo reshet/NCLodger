@@ -4,6 +4,7 @@ import com.nclodger.domain.Hotel;
 import com.nclodger.domain.SManager;
 import com.nclodger.myexception.MyException;
 import com.nclodger.publicdao.AdminDAOInterface;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
  * Time: 18:38
  * To change this template use File | Settings | File Templates.
  */
+@Component("admindao")
 public class AdminDAO extends AbstractRepository implements AdminDAOInterface {
     @Override
     public boolean update(final double commission, final double vip_disc, final double user_disc) throws MyException {

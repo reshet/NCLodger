@@ -55,9 +55,9 @@ public class UserFacade implements UserFacadeInterface{
             new PriceModifyer().modifyPriceByPromoCode(ord);
             /*PromoCode pm = ord.getPromo();
             if(pm!=null){
-                price = ord.getH().getRoomPrice() - ord.getH().getRoomPrice()*pm.getDiscount();
+                price = ord.getH().getRoomBasePrice() - ord.getH().getRoomBasePrice()*pm.getDiscount();
             }else{
-                price = ord.getH().getRoomPrice();
+                price = ord.getH().getRoomBasePrice();
             }
 
             ord.setFinal_price(price);*/
