@@ -138,6 +138,16 @@
         <url-pattern>/ordershistory</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/occupyhotel</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/disposehotel</url-pattern>
+    </servlet-mapping>
+
 <!--    <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/addhotel</url-pattern>

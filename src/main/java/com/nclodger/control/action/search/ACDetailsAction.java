@@ -35,9 +35,10 @@ public class ACDetailsAction extends Action {
         HotelDTO h = findCurrentHotel(request,id);
         request.getSession().setAttribute("hotel",h);
 
-        String smEmail = request.getSession().getAttribute("email").toString();
+        /*String smEmail = request.getSession().getAttribute("email").toString();
+        int idSm = smDao.getSmanagerId(smEmail);*/
         SMDAO smDao = new SMDAO();
-        int idSm = smDao.getSmanagerId(smEmail);
+        int idSm = Integer.parseInt(request.getSession().getAttribute("idSm").toString());
         Boolean bool = smDao.isOccupied(idSm,Integer.parseInt(id));
         if(bool) {
             request.setAttribute("isOccupied",true);
