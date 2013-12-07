@@ -158,8 +158,8 @@ public class ExpediaTest extends TestCase{
         try {
             Integer response = resp.getJSONObject("HotelListResponse").getInt("numberOfRoomsRequested");
             assertEquals(1,(int)response);
-            List<Hotel> hotels = searcher.getHotelsList(resp);
-            for(Hotel hotel:hotels){
+            List<HotelDTO> hotels = searcher.getHotelsList(resp);
+            for(HotelDTO hotel:hotels){
                 System.out.println(hotel.toString());
             }
         } catch (JSONException e) {

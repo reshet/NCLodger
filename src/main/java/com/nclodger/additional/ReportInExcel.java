@@ -30,7 +30,7 @@ public class ReportInExcel {
 
             HSSFRow rowhead=   sheet.createRow((short)0);
 
-            rowhead.createCell((short) 0).setCellValue("Hotel Name");
+            rowhead.createCell((short) 0).setCellValue("HotelDTO Name");
             rowhead.createCell((short) 1).setCellValue("City");
             rowhead.createCell((short) 2).setCellValue("Country");
             rowhead.createCell((short) 3).setCellValue("Total Order");
@@ -65,7 +65,7 @@ public class ReportInExcel {
             HSSFRow rowhead=   sheet.createRow((short)0);
 
             rowhead.createCell((short) 0).setCellValue("Type");
-            rowhead.createCell((short) 1).setCellValue("Hotel name");
+            rowhead.createCell((short) 1).setCellValue("HotelDTO name");
             rowhead.createCell((short) 2).setCellValue("City");
             rowhead.createCell((short) 3).setCellValue("Country");
             rowhead.createCell((short) 4).setCellValue("Total Value");

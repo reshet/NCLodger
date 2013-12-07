@@ -3,8 +3,7 @@ package com.nclodger.control.action.search;
 import com.nclodger.control.action.Action;
 import com.nclodger.myexception.MyException;
 import com.nclodger.webservices.ExpediaSearcher;
-import com.nclodger.webservices.Hotel;
-import org.json.JSONException;
+import com.nclodger.webservices.HotelDTO;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,9 +50,9 @@ public class SearchAction extends Action {
         String results = searcher.searchHotels(country,city,checkin,checkout,currency,
                 Integer.parseInt(guests_adults),Integer.parseInt(guests_children));
         JSONObject resp = searcher.parseResults(results);
-        List<Hotel> hotels = searcher.getHotelsList(resp);
-        request.setAttribute("hotels",hotels);
-        request.getSession().setAttribute("hotels",hotels);
+        List<HotelDTO> hotelDTOs = searcher.getHotelsList(resp);
+        request.setAttribute("hotelDTOs", hotelDTOs);
+        request.getSession().setAttribute("hotelDTOs", hotelDTOs);
 
         return "home";
     }

@@ -106,7 +106,7 @@
         var message = "In order to create new hotel the following fields must be filled:\n";
         if(document.hotelfrm.hotelname.value == "") {
             isValid = false;
-            message += "\n- Hotel name";
+            message += "\n- HotelDTO name";
         }
         if(document.hotelfrm.country.value == "") {
             isValid = false;
@@ -362,9 +362,9 @@
 
             <!-- <div id="tabs-3">
                 <div class="tabcontent">
-                    <p class="h">New Hotel</p>
+                    <p class="h">New HotelDTO</p>
                     <form name="hotelfrm" method="POST" action="addhotel" onsubmit="return validateHotelFrm();">
-                        <p>Hotel name <span class="mandatory">*</span>:</p>
+                        <p>HotelDTO name <span class="mandatory">*</span>:</p>
                         <input type="text" name="hotelname" maxlength="30">
                         <p>Country <span class="mandatory">*</span>:</p>
                         <input type="text" name="country" maxlength="20">

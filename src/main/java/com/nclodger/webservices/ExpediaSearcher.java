@@ -97,8 +97,8 @@ public class ExpediaSearcher {
         return map_hotels;  //To change body of created methods use File | Settings | File Templates.
     }
 
-    public List<Hotel> getHotelsList(JSONObject resp) throws MyException{
-        List<Hotel> list = new ArrayList<Hotel>();
+    public List<HotelDTO> getHotelsList(JSONObject resp) throws MyException{
+        List<HotelDTO> list = new ArrayList<HotelDTO>();
         JSONArray hotels = null;
         if(resp == null) return list;
         try {
@@ -130,7 +130,7 @@ public class ExpediaSearcher {
 
 
                     img_small_url  = "http://images.travelnow.com/"+img_small_url;
-                    Hotel h1 =new Hotel(id,name,loc_lat,loc_lng);
+                    HotelDTO h1 =new HotelDTO(id,name,loc_lat,loc_lng);
                     if(!img_small_url.equals("http://images.travelnow.com/"))h1.setImage_url(img_small_url);
 
                     h1.setAddress(address);

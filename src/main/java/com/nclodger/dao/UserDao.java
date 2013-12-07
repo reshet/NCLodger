@@ -469,7 +469,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
 
                 PreparedStatement prep3 = dataBase.prepareStatement(
-                        "DELETE FROM Users WHERE ID_USER=?"
+                        "DELETE FROM USERS WHERE ID_USER=?"
                 );
                 prep3.setInt(1,userId);
                 prep3.executeUpdate();

@@ -1,6 +1,6 @@
 package com.nclodger.mail;
 
-import com.nclodger.webservices.Hotel;
+import com.nclodger.webservices.HotelDTO;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -65,11 +65,11 @@ public class EmailNotification {
 
     }
     //order user notification
-    public void sendMailOrder(String recipient,Double final_price,Hotel h){
+    public void sendMailOrder(String recipient,Double final_price,HotelDTO h){
         String htmlTemplaneBody ="<h1>Thanks for booking a hotel!</h1>" +
                 "<p>You was billed for:"+final_price+"</p>" +
                 "<h2>Accomodation details:</h2>" +
-                "Hotel "+h.getName()+"<br>" +
+                "HotelDTO "+h.getName()+"<br>" +
                 "Address "+h.getAddress()+
                 "<p>Respond to this message is not necessary.</p>";
         String subject = "Order Notification";
