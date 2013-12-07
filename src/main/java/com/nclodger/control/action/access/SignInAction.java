@@ -33,11 +33,11 @@ public class SignInAction extends Action {
         try {
             user = users.getUserObj(request.getParameter("email"),request.getParameter("password"));
             //check for confirmation to login
-            if(user.get_confirm_register()!=1){
+            if(user.getConfirmRegister()!=1){
                 request.setAttribute("regConfirm",true);
                 return "login";
             }
-            if (user != null && user.get_confirm_register() == 1){
+            if (user != null && user.getConfirmRegister() == 1){
                 request.getSession().setAttribute("email",user.getEmail());
                 request.getSession().setAttribute("username",user.getName());
                 request.getSession().setAttribute("utype",user.getId_ut());
