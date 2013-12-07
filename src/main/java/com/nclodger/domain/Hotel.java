@@ -16,17 +16,19 @@ public class Hotel {
     private int id_sm;
     private String city;
     private String country;
+    private int intID;
 
     public Hotel(){
     }
 
-    public Hotel(String name_hotel, String country, String city, int category, double loc_lng, double loc_lat) {
+    public Hotel(String name_hotel, String country, String city, int category, double loc_lng, double loc_lat,int intID) {
         this.name_hotel = name_hotel;
         this.country = country;
         this.city = city;
         this.loc_lng = loc_lng;
         this.loc_lat = loc_lat;
         this.category = category;
+        this.intID = intID;
     }
 
     public Hotel(int id_hotel,String name_hotel, double loc_lat,double loc_lng,
@@ -103,5 +105,13 @@ public class Hotel {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public int getIntID() {
+        return intID;
+    }
+
+    public void setIntID(int intID) {
+        this.intID = intID;
     }
 }

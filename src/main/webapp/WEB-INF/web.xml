@@ -138,10 +138,10 @@
         <url-pattern>/ordershistory</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
+<!--    <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/addhotel</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>

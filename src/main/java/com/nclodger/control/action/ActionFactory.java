@@ -51,7 +51,6 @@ public class ActionFactory {
         //actions.put("/ordershistory", new ShowOrdersHistoryAction());
         actions.put("/deleteuser", new AdminDeleteUserAction());
         actions.put("/saveexcel",new SmSaveExcelAction());
-        actions.put("/addhotel",new AddHotelAction());
         actions.put("/saveaccexcel",new SmSaveAccExcelAction());
         actions.put("/showmostvaluableacc",new SmGetValueOfAccAction());
         actions.put("/viewpastbooking",new ViewPastBookingAction());

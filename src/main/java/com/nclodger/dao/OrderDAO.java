@@ -38,7 +38,26 @@ public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
     }
 
     @Override
-    public boolean insertHotel(Hotel hotel) throws MyException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean insertHotel(final Hotel hotel) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "INSERT INTO HOTEL(NAME_H,LOC_LAT,LOC_LNG,CATEGORY,CITY,COUNTRY,INT_ID) values (?,?,?,?,?,?,?)"
+                );
+                prep.setString(1, hotel.getName_hotel());
+                prep.setDouble(2, hotel.getLoc_lat());
+                prep.setDouble(3, hotel.getLoc_lng());
+                prep.setInt(4, hotel.getCategory());
+                prep.setString(5, hotel.getCity());
+                prep.setString(6,hotel.getCountry());
+                prep.setInt(7,hotel.getIntID());
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+
+                return true;
+
+            }
+        });
     }
 }
