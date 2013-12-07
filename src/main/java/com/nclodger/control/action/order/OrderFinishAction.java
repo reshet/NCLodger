@@ -6,8 +6,7 @@ import com.nclodger.domain.PromoCode;
 import com.nclodger.domain.User;
 import com.nclodger.dao.PromoCodeDAO;
 import com.nclodger.logic.UserFacadeInterface;
-import com.nclodger.mail.MailConfirmation;
-import com.nclodger.webservices.Hotel;
+import com.nclodger.webservices.HotelDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,7 +58,7 @@ public class OrderFinishAction extends Action {
         }
 
         UserFacadeInterface facade = (UserFacadeInterface) ctx.getBean("userFacade");
-        Hotel h = (Hotel)request.getSession().getAttribute("hotel");
+        HotelDTO h = (HotelDTO)request.getSession().getAttribute("hotel");
         User user =  (User)request.getSession().getAttribute("userfull");
 
         Order order = new Order();

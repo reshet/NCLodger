@@ -1,6 +1,6 @@
 package com.nclodger.domain;
 
-import java.sql.Date;
+import com.nclodger.webservices.HotelDTO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,18 +10,18 @@ import java.sql.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Order {
-    private com.nclodger.webservices.Hotel h;
+    private HotelDTO h;
     private int userid;
     private PromoCode promo;
     private double final_price;
     private String start_date;
     private String end_date;
 
-    public com.nclodger.webservices.Hotel getH() {
+    public HotelDTO getH() {
         return h;
     }
 
-    public void setH(com.nclodger.webservices.Hotel h) {
+    public void setH(HotelDTO h) {
         this.h = h;
     }
 

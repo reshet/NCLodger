@@ -1,7 +1,7 @@
 package com.nclodger.mail;
 
 
-import com.nclodger.webservices.Hotel;
+import com.nclodger.webservices.HotelDTO;
 import org.springframework.stereotype.Component;
 
 import javax.mail.*;
@@ -60,7 +60,7 @@ public class MailConfirmation {
             throw new RuntimeException(e);
         }
     }
-    public void sendMailOrder(String to,Double final_price,Hotel h){
+    public void sendMailOrder(String to,Double final_price,HotelDTO h){
         final String username = "nclodger@gmail.com";
         final String password = "nclodger123456";
 
@@ -88,7 +88,7 @@ public class MailConfirmation {
                     "</h1>" +
                     "<p>You was billed for:"+final_price+"</p>" +
                     "<h2>Accomodation details:</h2>" +
-                    "Hotel "+h.getName()+"" +
+                    "HotelDTO "+h.getName()+"" +
                     "Address "+h.getAddress()+"",
 
                     "text/html" );

@@ -185,9 +185,9 @@
             </form>
         </div><!-- Search form -->
 
-        <c:if test="${requestScope.hotels != null}">
+        <c:if test="${requestScope.hotelDTOs != null}">
         <div class="hotel_info_wrapper">
-            <c:forEach items="${requestScope.hotels}" var="hotel">
+            <c:forEach items="${requestScope.hotelDTOs}" var="hotel">
                 <div class="hotel_info">
                     <p>
                         Hotel: <span>${hotel.getName()}</span>

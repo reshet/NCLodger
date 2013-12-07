@@ -390,7 +390,7 @@
                             <input id="start_date" name="start_date" style="width:100px;"/>
                             <label for="end_date">To: </label>
                             <input id="end_date" name="end_date" style="width:100px;"/>
-                                <input type = "submit" name = "viewpophotel" value="Most popular hotels" onclick="OnViewPopHotel();">
+                                <input type = "submit" name = "viewpophotel" value="Most popular hotelDTOs" onclick="OnViewPopHotel();">
                                 <input type="submit" name = "viewvalacc" value="Most valuable accommodations" onclick="OnViewValAcc();">
                             </p><br>
                         </div>

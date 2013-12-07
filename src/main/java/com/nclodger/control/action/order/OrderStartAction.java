@@ -1,7 +1,7 @@
 package com.nclodger.control.action.order;
 
 import com.nclodger.control.action.Action;
-import com.nclodger.webservices.Hotel;
+import com.nclodger.webservices.HotelDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,11 +15,11 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class OrderStartAction extends Action {
-    Hotel findCurrentHotel(HttpServletRequest request,String id){
+    HotelDTO findCurrentHotel(HttpServletRequest request,String id){
         Integer idd = Integer.parseInt(id);
-       Hotel h = null;
-       List<Hotel> hotels = (List<Hotel>) request.getSession().getAttribute("hotels");
-        for(Hotel hh : hotels){
+       HotelDTO h = null;
+       List<HotelDTO> hotelDTOs = (List<HotelDTO>) request.getSession().getAttribute("hotelDTOs");
+        for(HotelDTO hh : hotelDTOs){
             if(hh.getId().equals(idd)){
                  h = hh;
                 break;

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Time: 3:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Hotel implements Serializable {
+public class HotelDTO implements Serializable {
     private final Integer id;
     private final String name;
     private Double loc_lat;
@@ -22,7 +22,7 @@ public class Hotel implements Serializable {
     private Double roomPrice;
 
 
-    public Hotel(Integer id, String name, Double loc_lat, Double loc_lng) {
+    public HotelDTO(Integer id, String name, Double loc_lat, Double loc_lng) {
         this.id = id;
         this.name = name;
         this.loc_lat = loc_lat;
