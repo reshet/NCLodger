@@ -270,7 +270,7 @@
                         <thead>
                         <tr>
 
-                            <th class="nosort"><input type="checkbox" id="check_all" onclick="toggleChecked(this)"/></th>
+                            <th class="nosort"><input type="checkbox" id="check_all"  onclick="toggleChecked(this)"/></th>
 
                    <!--         <th class="nosort"><input type="checkbox" class="check_all" onclick="$('input[type=checkbox][class=checkboxes]').prop('checked',this.checked)"></th> -->
                             <th><h3>Name</h3></th>
@@ -284,7 +284,19 @@
                             <tr>
                                 <!--                 <td><input type="checkbox" name = "block[]" class="checkboxes" c:out value="${user.id}" id="slaves"/></td>  -->
 
-                                 <td><input type="checkbox" class="checkboxes" onclick="toggleParentChecked(this.checked)" name = "block[]" c:out value="${user.id}"/></td>
+                     <!--         <td><input type="checkbox" class="checkboxes" onclick="toggleParentChecked(this.checked)" name = "block[]" c:out value="${user.id}"/></td> -->
+
+                               <td>
+                                    <c:choose>
+                                        <c:when test="${user.id_ut == '3'}">
+                                            <input type="checkbox" class="checkboxes" c:out value="${user.id}" disabled/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="checkbox" class="checkboxes" onclick="toggleParentChecked(this.checked)" name = "block[]" c:out value="${user.id}" enabled/>
+
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
 
                                 <td><c:out value="${user.name}"/></td>
                                 <td><c:out value="${user.email}"/></td>
