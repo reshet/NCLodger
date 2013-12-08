@@ -493,6 +493,23 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
     }
 
     @Override
+    public Boolean deleteHotelManager(final Integer id_hotel, final Integer id_sm) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "DELETE FROM HOTEL_MANAGER WHERE ID_HOTEL=? AND ID_SM=?"
+                );
+                prep.setInt(1, id_hotel);
+                prep.setInt(2, id_sm);
+                prep.executeQuery();
+
+                return true;
+            }
+        });
+    }
+
+    @Override
     public ArrayList<AccommodationTotalValue> sortAccommodationbyValuable() throws MyException {
         return dbOperation(new WrapperDBOperation<ArrayList<AccommodationTotalValue>>() {
 
