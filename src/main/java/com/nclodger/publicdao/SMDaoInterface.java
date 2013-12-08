@@ -25,6 +25,7 @@ public interface SMDaoInterface {
     public SManager getSManager(int id) throws MyException;
     public int getSmanagerId(String email) throws MyException;
     public boolean setCommAndDiscounts(int id_sm, double commission, double vip_discount, double user_discount) throws MyException;
+    public Integer getCommission(Integer idSm) throws MyException;    
     public List<HotelTotalOrder> sortHotelbyPopular() throws MyException;
     public SManager getCurrentCommAndDiscounts(final String email) throws MyException;
     public List<HotelTotalOrder> sortHotelbyPopularWithTimeFrame(final String start, final String end) throws MyException;
@@ -33,4 +34,8 @@ public interface SMDaoInterface {
     public List<HotelCommissionDTO> getHotelCommissions(int hotel_exp_id) throws MyException;
     public List<HotelDiscountDTO> getHotelDiscounts(int hotel_exp_id) throws MyException;
     public Boolean isOccupied(Integer id_sm, Integer id_hotel) throws MyException;
+    public Integer getIdHotelByIdDTO(Integer idDTO) throws MyException;
+    public Boolean insertHotelManager(Integer id_hotel, Integer id_sm, Integer commission) throws MyException;
+    public Boolean deleteHotelManager(Integer id_hotel, Integer id_sm) throws MyException;
+
 }

@@ -214,6 +214,22 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
 
     }
 
+    @Override
+    public Integer getCommission(final Integer idSm) throws MyException {
+        return dbOperation(new WrapperDBOperation<Integer>() {
+            @Override
+            public Integer doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT COMMISSION FROM MANAGER WHERE ID_SM=?"
+                );
+                prep.setInt(1, idSm);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return res.getInt(1);
+            }
+        });
+    }
+
 
     //add sql request that return all atribute of HOTEL and total order for this hotel
     // sorting by decrease
@@ -270,7 +286,6 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
         });
 
     }
-
 
     //the same as sortHotelbyPopular but with  timeframe
     @Override
@@ -420,20 +435,77 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT COUNT(*) FROM HOTEL_MANAGER WHERE ID_SM=? AND ID_HOTEL=?"
                 );
-
                 prep.setInt(1, id_sm);
                 prep.setInt(2, id_hotel);
-
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
                 int count = res.getInt(1);
-
                 if(count == 0) {
                     return false;
                 }
                 else {
                     return true;
                 }
+            }
+        });
+    }
+
+    @Override
+    public Integer getIdHotelByIdDTO(final Integer idDTO) throws MyException {
+        return dbOperation(new WrapperDBOperation<Integer>() {
+            @Override
+            public Integer doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_HOTEL FROM HOTEL WHERE INT_ID=?"
+                );
+                prep.setInt(1, idDTO);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int id_hotel=0;
+                if(res != null) {
+                    id_hotel = res.getInt(1);
+                }
+                return id_hotel;
+
+            }
+        });
+    }
+
+    @Override
+    public Boolean insertHotelManager(final Integer id_hotel, final Integer id_sm, final Integer commission) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "INSERT INTO HOTEL_MANAGER(ID_HOTEL,ID_SM,COMMISSION) VALUES (?,?,?)"
+                );
+                prep.setInt(1, id_hotel);
+                prep.setInt(2, id_sm);
+                prep.setInt(3, commission);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+
+                return true;
+
+            }
+        });
+    }
+
+    @Override
+    public Boolean deleteHotelManager(final Integer id_hotel, final Integer id_sm) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "DELETE FROM HOTEL_MANAGER WHERE ID_HOTEL=? AND ID_SM=?"
+                );
+                prep.setInt(1, id_hotel);
+                prep.setInt(2, id_sm);
+
+                prep.executeQuery();
+
+                return true;
             }
         });
     }
