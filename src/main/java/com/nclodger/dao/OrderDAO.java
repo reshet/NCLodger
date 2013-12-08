@@ -22,7 +22,7 @@ public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT COUNT(*) FROM HOTEL WHERE HOTEL.ID_HOTEL=?"
+                        "SELECT COUNT(*) FROM HOTEL WHERE INT_ID=?"
                 );
                 prep.setInt(1, idHotel);
                 java.sql.ResultSet res = prep.executeQuery();
