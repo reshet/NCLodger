@@ -52,6 +52,7 @@
                 </c:if>
                 <span id="span_pswd">Invalid password!</span><br>
                 <a href="registration.jsp">Haven't got account yet?</a></br>
+                <a href="openid.jsp">Use openID account</a>
                 <%--<a href="">Login with GOOGLE?</a>--%>
                 <p class="submit">
                     <input type="hidden" name="password" value=""/>
