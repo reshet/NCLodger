@@ -36,4 +36,6 @@ public interface SMDaoInterface {
     public Boolean isOccupied(Integer id_sm, Integer id_hotel) throws MyException;
     public Integer getIdHotelByIdDTO(Integer idDTO) throws MyException;
     public Boolean insertHotelManager(Integer id_hotel, Integer id_sm, Integer commission) throws MyException;
+    public Boolean deleteHotelManager(Integer id_hotel, Integer id_sm) throws MyException;
+
 }

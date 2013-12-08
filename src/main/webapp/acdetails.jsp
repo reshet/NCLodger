@@ -28,7 +28,7 @@
                     </c:if>
                 </p>
                 <c:if test="${requestScope.isOccupied == false}">
-                    <p><a href="occupyhotel">Occupy this hotel</a></p>
+                    <p><a href="occupyhotel" style="color:#00FF00;">Occupy this hotel?</a></p>
                 </c:if>
                 <c:if test="${requestScope.isOccupied == true}">
                     <p style="color:#00FF00;">You occupied this hotel <a href="disposehotel" style="color:#000000">( Dispose )</a></p>
