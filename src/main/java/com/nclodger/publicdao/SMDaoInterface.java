@@ -37,4 +37,5 @@ public interface SMDaoInterface {
     public Integer getIdHotelByIdDTO(Integer idDTO) throws MyException;
     public Boolean insertHotelManager(Integer id_hotel, Integer id_sm, Integer commission) throws MyException;
     public Boolean deleteHotelManager(Integer id_hotel, Integer id_sm) throws MyException;
+
 }

@@ -502,6 +502,7 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                 );
                 prep.setInt(1, id_hotel);
                 prep.setInt(2, id_sm);
+
                 prep.executeQuery();
 
                 return true;

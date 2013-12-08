@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * To change this template use File | Settings | File Templates.
  */
 public class DisposeHotelAction extends Action {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HotelDTO hotelDTO = (HotelDTO) request.getSession().getAttribute("hotel");
@@ -27,4 +28,5 @@ public class DisposeHotelAction extends Action {
 
         return "smsettings";
     }
+
 }
