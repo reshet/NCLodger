@@ -162,7 +162,6 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/showmostvaluableacc</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/viewpastbooking</url-pattern>
