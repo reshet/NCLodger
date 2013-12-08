@@ -12,7 +12,15 @@
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>com.nclodger.control.ControllerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxServlet</servlet-name>
+        <servlet-class>com.nclodger.ws.AjaxServlet</servlet-class>
+    </servlet>
     <!-- On registration submit -->
+    <servlet-mapping>
+        <servlet-name>AjaxServlet</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signup</url-pattern>

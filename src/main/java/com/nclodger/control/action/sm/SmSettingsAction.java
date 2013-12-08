@@ -4,10 +4,12 @@ import com.nclodger.control.action.Action;
 import com.nclodger.dao.SMDAO;
 import com.nclodger.dao.UserDao;
 import com.nclodger.domain.SManager;
+import com.nclodger.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +30,10 @@ public class SmSettingsAction extends Action {
             request.getSession().setAttribute("curcom",(int)sm.getCommission());
             request.getSession().setAttribute("curdisc",(int)sm.getUser_discount());
             request.getSession().setAttribute("curvipdisc",(int)sm.getUser_discount());
+
+            UserDao userDAO = (UserDao) ctx.getBean("userDAO");
+            List<User> users = userDAO.getAllUsers();
+            request.setAttribute("allusers",users);
             return "smsettings";
         }
         else {

@@ -6,6 +6,8 @@
     <context:annotation-config />
     <context:component-scan base-package="com.nclodger"/>
 
+   <!-- <bean id="ajaxservlet"
+          class="com.nclodger.ws.AjaxServlet" />-->
 <!--    <bean id="mailconfirmation"
           class="com.nclodger.mail.MailConfirmation" />-->
    <!-- <bean id="md5value"
