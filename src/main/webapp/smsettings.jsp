@@ -179,6 +179,76 @@
             var slider = document.getElementById ("slider4");
             OnSliderChanged (slider);
         }
+        function loadPromocodes(){
+            $.ajax({
+                        type:"POST",
+                        url:"ws/getallpromocodes",
+                        data:{
+                            myparameter:"param"
+                        },
+                        success:function(data){
+                            var table =
+                            ' <table cellpadding="0" cellspacing="0" border="0" id="table_pc" class="sortable">'
+                                    +'<thead>'
+                                    +'<tr>'
+                                    +'<th><h3>Name</h3></th>'
+                                    +'<th><h3>Discount</h3></th>'
+                                    +'<th><h3>Start date</h3></th>'
+                                    +'<th><h3>Expiration date</h3></th>'
+                                    +'<th><h3>Status</h3></th>'
+                                    +'</tr>'
+                                    +'</thead>'
+                                    +'<tbody>';
+                            //console.log(data);
+                            var jsdata = JSON.parse(data);
+                            for(var pcn in jsdata){
+                                var pc = jsdata[pcn];
+                                //console.log(pc);
+                                var status = "Available";
+                                switch(pc.status){
+                                    case 0: status =  "Available";
+                                        break;
+                                    case 1: status =  "Used";
+                                        break;
+                                    case 2: status =  "Expired";
+                                        break;
+
+                                };
+                                table+=
+                                      '<tr>'
+                                        +'<td>'+pc.code+'</td>'
+                                        +'<td>'+(pc.discount * 100)+'%</td>'
+                                        +'<td>'+pc.start_date+'</td>'
+                                        +'<td>'+pc.end_date+'</td>'
+                                        +'<td>'+status+'</td>'
+                                    +'</tr>';
+
+
+                            }
+                            table+='</tbody></table>';
+                            $("#allpromotable").html(table);
+
+                            var sorter = new TINY.table.sorter("sorter");
+                            sorter.head = "head";
+                            sorter.asc = "asc";
+                            sorter.desc = "desc";
+                            sorter.even = "evenrow";
+                            sorter.odd = "oddrow";
+                            sorter.evensel = "evenselected";
+                            sorter.oddsel = "oddselected";
+                            sorter.paginate = true;
+                            sorter.currentid = "currentpage_pc";
+                            sorter.limitid = "pagelimit_pc";
+                            sorter.init("table_pc", 1);
+
+                        },
+                        error:function(data){
+                            alert("Ошибка, сообщите администратору: "+JSON.stringify(data));
+
+                        }
+                    }
+            );
+        }
     </script>
 </head>
 
@@ -202,6 +272,7 @@
             </ul>
 
             <div id="tabs-1"><!-- 'Users' tab -->
+                <%--<a href="ws/testajax">test ajax</a>--%>
                 <form name="getalluser" method="POST" onsubmit="">
                    <c:if test="${requestScope.allusers != null}">
                    <div class="tabcontent">
@@ -314,8 +385,10 @@
                             </c:if>
                             <p style="text-align: right;"><input type="submit" name="generate_promo" value="Generate"></p>
                         </div>
-                        <a href="getallpromocodes">All promo codes:</a>
-                        <c:if test="${requestScope.allpromocodes != null}">
+                        <a onclick="loadPromocodes()" href="#">All promo codes:</a>
+                        <div id="allpromotable">
+                        </div>
+                       <%-- <c:if test="${requestScope.allpromocodes != null}">
                             <table cellpadding="0" cellspacing="0" border="0" id="table_pc" class="sortable">
                                 <thead>
                                 <tr>
@@ -343,7 +416,7 @@
                                     </tr>
                                 </c:forEach>
                                 </tbody>
-                            </table>
+                            </table>--%>
                             <div class="controls">
                                 <div class="perpage">
                                     <select onchange="sorter.size(this.value)">
@@ -363,21 +436,8 @@
                                 </div>
                                 <div class="text">Displaying Page <span id="currentpage_pc"></span> of <span id="pagelimit_pc"></span></div>
                             </div>
-                            <script type="text/javascript">
-                                var sorter = new TINY.table.sorter("sorter");
-                                sorter.head = "head";
-                                sorter.asc = "asc";
-                                sorter.desc = "desc";
-                                sorter.even = "evenrow";
-                                sorter.odd = "oddrow";
-                                sorter.evensel = "evenselected";
-                                sorter.oddsel = "oddselected";
-                                sorter.paginate = true;
-                                sorter.currentid = "currentpage_pc";
-                                sorter.limitid = "pagelimit_pc";
-                                sorter.init("table_pc", 1);
-                            </script>
-                        </c:if>
+                           =
+                        <%--</c:if>--%>
                     </form>
                 </div>
             </div>

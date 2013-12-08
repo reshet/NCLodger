@@ -42,7 +42,7 @@ public class ControllerServlet extends HttpServlet {
             System.out.println(ex.getMessage());
         }
         dispatch(request,response,view);
-
+       //request.
     }
 
     private void dispatch(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException {
