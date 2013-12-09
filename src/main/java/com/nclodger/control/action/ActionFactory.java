@@ -57,6 +57,7 @@ public class ActionFactory {
         actions.put("/disposehotel",new DisposeHotelAction());
         actions.put("/aboutus", new AboutUsAction());
         actions.put("/contacts", new ContactsAction());
+        actions.put("/openid", new OpenIDAccessAction());
 
     }
 
