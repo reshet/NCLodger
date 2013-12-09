@@ -1,6 +1,9 @@
 package com.nclodger.control.action.order;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.dao.OrderDAO;
+import com.nclodger.domain.Hotel;
+import com.nclodger.logic.UserFacadeInterface;
 import com.nclodger.webservices.HotelDTO;
 
 import javax.servlet.http.HttpServletRequest;

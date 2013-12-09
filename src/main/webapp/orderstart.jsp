@@ -43,7 +43,7 @@
                 <p>Type: ${hotel.getRoomType()}</p>
                 <p>Prices: ${hotel.getPrice()}</p>
                 <p>Occupancy: ${hotel.getRoomOccupancy()}</p>
-                <p style="color:#0000ff;">Base price to pay: ${hotel.getRoomPrice()}</p><br>
+               <%-- <p style="color:#0000ff;">Base price to pay: ${hotel.getRoomPrice()}</p><br>--%>
                 <form name="orderfrm" method="POST" action="orderfinish" onsubmit="return validateOrderForm();">
                     <p>Enter promo code if you have one:  <input type="text" name="promocode" style="width: 150px;" maxlength="20"></p>
                     <c:if test="${requestScope.isExist==false}">
