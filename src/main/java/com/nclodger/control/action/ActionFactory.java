@@ -55,6 +55,7 @@ public class ActionFactory {
         actions.put("/viewpastbooking",new ViewPastBookingAction());
         actions.put("/occupyhotel",new OccupyHotelAction());
         actions.put("/disposehotel",new DisposeHotelAction());
+        actions.put("/openid", new OpenIDAccessAction());
 
     }
 
