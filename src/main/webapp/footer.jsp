@@ -14,8 +14,8 @@
                     <li><a href="adsettings">Administrator</a></li>
                 </c:if>
             </c:if>
-            <li><a href="aboutus.jsp">About Us</a></li>
-            <li><a href="contacts.jsp">Contacts</a></li>
+            <li><a href="aboutus">About Us</a></li>
+            <li><a href="contacts">Contacts</a></li>
         </ul>
         <ul>
             <li><p><b>NCLodger - Group A © 2013</b></p></li>
