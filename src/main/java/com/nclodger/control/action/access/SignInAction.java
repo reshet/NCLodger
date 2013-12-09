@@ -18,17 +18,35 @@ public class SignInAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
+      /*  UserDao users = (UserDao) ctx.getBean("userDAO");
+        String requestEmail = request.getParameter("email");
+        String requestPassword = request.getParameter("password");
+        boolean existsEmail = false;
+        existsEmail = users.isExistEmail(requestEmail) ;
+
+        if(!existsEmail){
+            request.setAttribute("regConfirm",true);
+            return "login";
+        }
+
+        else if(existsEmail && !users.getUser(requestEmail,requestPassword))
+        {
+            request.setAttribute("wrongPass",true);
+            return "login";
+        }
+         */
+
         UserDao users = (UserDao) ctx.getBean("userDAO");
         if(!users.isExistEmail(request.getParameter("email"))){
             request.setAttribute("regConfirm",true);
             return "login";
         }
+
         else if(users.isExistEmail(request.getParameter("email")) && !users.getUser(request.getParameter("email"),request.getParameter("password")))
         {
             request.setAttribute("wrongPass",true);
             return "login";
         }
-
 
         User user;
         try {

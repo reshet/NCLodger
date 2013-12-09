@@ -25,7 +25,7 @@
 		                <label for="openid_url">Your OpenID URL: </label>
 		                <input type="url" name="openid:url" id="openid_url" value=""/>
                                                                                       -->
-                <a href="https://loginza.ru/api/widget?token_url=http://openid-provider.appspot.com/nclodger" class="loginza">Enter with OpenID</a>
+                <a href="https://loginza.ru/api/widget?token_url=http://openid-provider.appspot.com/nclodger&lang=en" class="loginza">Enter with OpenID</a>
                 <p class="submit">
                     <input type="submit" name="submit" value="Submit">
                     <input type="reset" name="reset" value="Reset">
