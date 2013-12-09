@@ -1,6 +1,7 @@
 package com.nclodger.dao;
 
 import com.nclodger.additional.AccommodationTotalValue;
+import com.nclodger.additional.HotelManagingInfo;
 import com.nclodger.additional.HotelTotalOrder;
 import com.nclodger.domain.Accommodation;
 import com.nclodger.domain.Hotel;
@@ -546,5 +547,31 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
         });
     }
 
+    @Override
+    public List<HotelManagingInfo> getAllOccupyHotelOfSMByID(final Integer idsm) throws MyException {
+        return dbOperation(new WrapperDBOperation<List<HotelManagingInfo>>() {
+            @Override
+            public List<HotelManagingInfo> doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT HOTEL_MANAGER.ID_SM,HOTEL.ID_HOTEL,HOTEL.NAME_H,HOTEL.CITY,HOTEL.COUNTRY, " +
+                                "        HOTEL_MANAGER.COMMISSION FROM HOTEL,HOTEL_MANAGER " +
+                                "  WHERE ID_SM=? AND HOTEL_MANAGER.ID_HOTEL=HOTEL.ID_HOTEL "
+                );
+                prep.setInt(1, idsm);
+                java.sql.ResultSet results = prep.executeQuery();
+                List<HotelManagingInfo> hlist = new ArrayList<HotelManagingInfo>();
+                while(results.next()){
+                    int idsm = results.getInt(1);
+                    int idHotel = results.getInt(2);
+                    String hotelName = results.getString(3);
+                    String city = results.getString(4);
+                    String country = results.getString(5);
+                    int comm = results.getInt(6);
+                    hlist.add(new HotelManagingInfo(idsm,idHotel,hotelName,city,country,comm));
+                }
+                return hlist;
+            }
+        });
+    }
 }
 

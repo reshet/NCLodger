@@ -1,6 +1,7 @@
 package com.nclodger.publicdao;
 
 import com.nclodger.additional.AccommodationTotalValue;
+import com.nclodger.additional.HotelManagingInfo;
 import com.nclodger.additional.HotelTotalOrder;
 import com.nclodger.domain.SManager;
 import com.nclodger.logic.HotelCommissionDTO;
@@ -37,5 +38,6 @@ public interface SMDaoInterface {
     public Integer getIdHotelByIdDTO(Integer idDTO) throws MyException;
     public Boolean insertHotelManager(Integer id_hotel, Integer id_sm, Integer commission) throws MyException;
     public Boolean deleteHotelManager(Integer id_hotel, Integer id_sm) throws MyException;
+    public List<HotelManagingInfo> getAllOccupyHotelOfSMByID(Integer idsm) throws MyException;
 
 }

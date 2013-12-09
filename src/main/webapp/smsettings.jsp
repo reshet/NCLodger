@@ -249,6 +249,68 @@
                     }
             );
         }
+
+
+        function loadSMHotel(){
+            $.ajax({
+                        type:"POST",
+                        url:"ws/getallsmhotel",
+                        data:{
+                            myparameter:"param"
+                        },
+                        success:function(data){
+                            var table =
+                                    ' <table cellpadding="0" cellspacing="0" border="0" id="table_pc" class="sortable">'
+                                            +'<thead>'
+                                            +'<tr>'
+                                            +'<th><h3>Hotel Name</h3></th>'
+                                            +'<th><h3>City</h3></th>'
+                                            +'<th><h3>Country</h3></th>'
+                                            +'<th><h3>Commission</h3></th>'
+                                            +'</tr>'
+                                            +'</thead>'
+                                            +'<tbody>';
+                            //console.log(data);
+                            var jsdata = JSON.parse(data);
+                            for(var hn in jsdata){
+                                var h = jsdata[hn];
+                                //console.log(pc);
+
+                                table+=
+                                        '<tr>'
+                                                +'<td>'+h.hotelName+'</td>'
+                                                +'<td>'+h.city+'</td>'
+                                                +'<td>'+h.country+'</td>'
+                                                +'<td>'+h.commission+'</td>'
+
+                                                +'</tr>';
+
+
+                            }
+                            table+='</tbody></table>';
+                            $("#allsmhoteltable").html(table);
+
+                            var sorter = new TINY.table.sorter("sorter");
+                            sorter.head = "head";
+                            sorter.asc = "asc";
+                            sorter.desc = "desc";
+                            sorter.even = "evenrow";
+                            sorter.odd = "oddrow";
+                            sorter.evensel = "evenselected";
+                            sorter.oddsel = "oddselected";
+                            sorter.paginate = true;
+                            sorter.currentid = "currentpage_h";
+                            sorter.limitid = "pagelimit_h";
+                            sorter.init("table_h", 1);
+
+                        },
+                        error:function(data){
+                            alert("Ошибка, сообщите администратору: "+JSON.stringify(data));
+
+                        }
+                    }
+            );
+        }
     </script>
 </head>
 
@@ -269,6 +331,10 @@
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <li><a href="#tabs-3">Promo codes</a></li>
                 <li><a href="#tabs-4">Reports</a></li>
+                <li><a href="#tabs-5">Hotel Managing</a></li>
+
+                <%--<li><a href="#tabs-5"><a onclick="loadSMHotel();"  href="#">Hotel Managing</a></a></li>--%>
+
             </ul>
 
             <div id="tabs-1"><!-- 'Users' tab -->
@@ -576,14 +642,24 @@
                             sorter.evensel = "evenselected";
                             sorter.oddsel = "oddselected";
                             sorter.paginate = true;
-                            sorter.currentid = "currentpage";
-                            sorter.limitid = "pagelimit";
+                            sorter.currentid = "currentpage_acc";
+                            sorter.limitid = "pagelimit_acc";
                             sorter.init("table", 1);
                         </script>
                     </c:if>
                 </form>
-            </div>
-    </div>
+            </div> <%--end tab4--%>
+
+
+            <div id="tabs-5"><!-- 'Users' tab -->
+
+                <a onclick="loadSMHotel()" href="#">All SM Hotel</a>
+                <div id="allsmhoteltable">
+                </div>
+
+
+            </div> <!-- #tab5 -->
+    </div>  <%--end all tabs--%>
 
 
     </div>
