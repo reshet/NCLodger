@@ -40,6 +40,12 @@ public class ControllerServlet extends HttpServlet {
             view = action.execute(request, response);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+
+            // If there is no other place for exception to be caught,
+            // it will be caught here
+            request.setAttribute("error_message",ex.getMessage());
+            view = "exception";
+
         }
         dispatch(request,response,view);
        //request.

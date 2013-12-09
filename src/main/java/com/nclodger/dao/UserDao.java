@@ -215,11 +215,18 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 prep.setString(2, password);
 
                 java.sql.ResultSet res = prep.executeQuery();
-                res.next();
-                int exist = res.getInt(1);
-                boolean answer = false;
-                if (exist > 0) {
-                    answer = true;
+//                res.next();
+//                int exist = res.getInt(1);
+
+              //  boolean answer = false;
+                boolean answer = true;
+//                if (exist > 0) {
+//                    answer = true;
+//                }
+
+                // A correct way to check if there is any data in the ResultSet
+                if (!res.isBeforeFirst() ) {
+                   answer = false;
                 }
 
                 return answer;
@@ -389,11 +396,11 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT COUNT(1) FROM Users WHERE EMAIL=?"
+                        "SELECT ID_USER FROM Users WHERE EMAIL=?"
                 );
                 prep.setString(1, email);
                 java.sql.ResultSet res = prep.executeQuery();
-                res.next();
+               /* res.next();
                 int check = res.getInt(1);
                 boolean answer = false;
                 if (check == 0) {
@@ -401,8 +408,16 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 } else {
                     answer = true;
                 }
-                return answer;
+                return answer;*/
 
+                // Correct way
+                boolean answer = true;
+
+                if(!res.isBeforeFirst()){
+                    answer = false;
+                }
+
+                return answer;
             }
         });
 
