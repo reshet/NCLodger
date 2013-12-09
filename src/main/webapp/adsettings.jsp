@@ -251,7 +251,7 @@
     <div class="content">
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1" ><a href = "admingetallusers">Users</a></a></li>
+                <li><a href="#tabs-1">Users</a></li>
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <!-- <li><a href="#tabs-3">Hotels</a></li> -->
             </ul>
