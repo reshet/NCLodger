@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * To change this template use File | Settings | File Templates.
  */
 public class AdminDeleteUserAction  extends Action {
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDao userDao = new UserDao();
