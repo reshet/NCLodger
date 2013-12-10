@@ -5,9 +5,9 @@
 
    <display-name>NCLodger Application</display-name>
 
-<!--    <welcome-file-list>
+    <welcome-file-list>
         <welcome-file>/home.jsp</welcome-file>
-    </welcome-file-list>-->
+    </welcome-file-list>
     <servlet>
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>com.nclodger.control.ControllerServlet</servlet-class>
