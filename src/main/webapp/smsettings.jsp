@@ -311,6 +311,12 @@
                     }
             );
         }
+
+        function StartLoadHotel(){
+            document.getallhotel.action = "#";
+            document.getallsmhotelform.submit();
+            return true;
+        }
     </script>
 </head>
 
@@ -331,9 +337,9 @@
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <li><a href="#tabs-3">Promo codes</a></li>
                 <li><a href="#tabs-4">Reports</a></li>
-                <li><a href="#tabs-5">Hotel Managing</a></li>
+                <%--<li><a href="#tabs-5">Hotel Managing</a></li>--%>
 
-                <%--<li><a href="#tabs-5"><a onclick="loadSMHotel();"  href="#">Hotel Managing</a></a></li>--%>
+                <li><a href="#tabs-5"><a onclick="StartLoadHotel();">Hotel Managing</a></a></li>
 
             </ul>
 
@@ -652,10 +658,11 @@
 
 
             <div id="tabs-5"><!-- 'Users' tab -->
-
-                <a onclick="loadSMHotel()" href="#">All SM Hotel</a>
-                <div id="allsmhoteltable">
-                </div>
+                <form name="getallsmhotelform" method="POST" onsubmit="loadSMHotel();">
+                    <%--<a onclick="loadSMHotel()" href="#"></a>--%>
+                </form>
+                    <div id="allsmhoteltable">
+                    </div>
 
 
             </div> <!-- #tab5 -->
