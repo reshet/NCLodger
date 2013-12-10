@@ -21,11 +21,15 @@
         <servlet-name>AjaxServlet</servlet-name>
         <url-pattern>/ws/*</url-pattern>
     </servlet-mapping>
+<!--    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/act/*</url-pattern>
+    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
-    <!-- On login submit -->
+   <!--  On login submit-->
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -125,7 +129,7 @@
     <servlet-mapping>
     <servlet-name>ControllerServlet</servlet-name>
     <url-pattern>/dismisssm</url-pattern>
-</servlet-mapping>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
@@ -156,10 +160,7 @@
         <url-pattern>/disposehotel</url-pattern>
     </servlet-mapping>
 
-<!--    <servlet-mapping>
-        <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/addhotel</url-pattern>
-    </servlet-mapping>-->
+
 
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>

@@ -62,6 +62,9 @@ public class ActionFactory {
     }
 
     public static Action getAction(HttpServletRequest request) {
-        return actions.get(request.getServletPath());
+
+       // return actions.get(request.getServletPath());
+        String actname = request.getPathInfo();
+        return actions.get(actname);
     }
 }

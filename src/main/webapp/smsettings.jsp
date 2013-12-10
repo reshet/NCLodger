@@ -338,7 +338,7 @@
             </ul>
 
             <div id="tabs-1"><!-- 'Users' tab -->
-                <%--<a href="ws/testajax">test ajax</a>--%>
+                <a href="ws/testajax">test ajax</a>
                 <form name="getalluser" method="POST" onsubmit="">
                    <c:if test="${requestScope.allusers != null}">
                    <div class="tabcontent">
