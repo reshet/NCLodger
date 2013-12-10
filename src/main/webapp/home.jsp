@@ -7,6 +7,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Home</title>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+<%--New Year version--%>
+<script src="resources/js/snowstorm.js"></script>
+<%--<link rel="stylesheet" media="screen" href="resources/css/christmaslights.css" />
+<script type="text/javascript" src="resources/js/soundmanager2-nodebug-jsmin.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.6.0/build/yahoo-dom-event/yahoo-dom-event.js&2.6.0/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="resources/js/christmaslights.js"></script>
+<script type="text/javascript">
+    var urlBase = './';
+    soundManager.url = './';
+</script>--%>
+/*end New Year version*/
+
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -383,6 +395,10 @@
 </head>
 
 <body>
+<div id="lights">
+    <!-- lights go here -->
+</div>
+
 <div class="wrapper">
 
     <jsp:include page="header.jsp"/>
