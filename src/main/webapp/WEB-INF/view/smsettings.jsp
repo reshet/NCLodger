@@ -13,10 +13,10 @@
 <!-- Script and css for the sorting table -->
 <script type="text/javascript" src="/NCLodger/resources/js/sorttable.js"></script>
 <style type="text/css">
-  .sortable .head h3 { background: url(/resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
+  .sortable .head h3 { background: url(/NCLodger/resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
   .sortable .desc, .sortable .asc { background: #4b708d } /* unsort 2 arrows */
-  .sortable .desc h3 { background: url(/resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
-  .sortable .asc h3 { background: url(/resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
+  .sortable .desc h3 { background: url(/NCLodger/resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
+  .sortable .asc h3 { background: url(/NCLodger/resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
 </style>
    <script>
        $(function() {
@@ -326,10 +326,10 @@
                             <span>Entries Per Page</span>
                         </div>
                         <div class="navigation">
-                            <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                            <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                            <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                            <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                            <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                            <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                            <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                            <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                         </div>
                         <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
                     </div>
@@ -430,10 +430,10 @@
                                     <span>Entries Per Page</span>
                                 </div>
                                 <div class="navigation">
-                                    <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                    <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                    <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                    <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                    <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                    <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                    <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                    <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                                 </div>
                                 <div class="text">Displaying Page <span id="currentpage_pc"></span> of <span id="pagelimit_pc"></span></div>
                             </div>
@@ -490,10 +490,10 @@
                                     <span>Entries Per Page</span>
                                 </div>
                                 <div class="navigation">
-                                    <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                    <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                    <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                    <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                    <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                    <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                    <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                    <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                                 </div>
                                 <div class="text">Displaying Page <span id="currentpage_h"></span> of <span id="pagelimit_h"></span></div>
                             </div>
@@ -559,10 +559,10 @@
                                 <span>Entries Per Page</span>
                             </div>
                             <div class="navigation">
-                                <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                             </div>
                             <div class="text">Displaying Page <span id="currentpage_acc"></span> of <span id="pagelimit_acc"></span></div>
                         </div>
@@ -628,10 +628,10 @@
                                 <span>Entries Per Page</span>
                             </div>
                             <div class="navigation">
-                                <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                             </div>
                             <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
                         </div>
