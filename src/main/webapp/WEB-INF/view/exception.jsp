@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>NCLodger | Email Confirmation</title>
-<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+<title>NCLodger | Exception!</title>
+<link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
 </head>
 
 <body>
@@ -15,17 +16,20 @@
 
     <div class="content">
         <div class="window" >
-            <h1>Congratulation!</h1>
-            <p>You have confirmed your email. Now you can log in.</p>
-            <p>Thank you for using our service!</p>
+            <h1>Exception occurred while processing!</h1>
+            <p>
+                Message:
+                <c:out value="${requestScope.error_message}"/>
+            </p>
         </div>
-    </div><!-- #content -->
+
+    </div><!-- .content -->
 
     <jsp:include page="footer.jsp"/>
     <%--<div class="footer">
-    </div><!-- #footer -->--%>
+    </div><!-- .footer -->--%>
 
-</div><!-- #wrapper -->
+</div><!-- .wrapper -->
 
 </body>
 

@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Administrator dashboard</title>
-<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script type="text/javascript" src="resources/js/sorttable.js"></script>
+<script type="text/javascript" src="/NCLodger/resources/js/sorttable.js"></script>
 
 <script>
 
@@ -235,10 +235,10 @@
 
 </script>
 <style type="text/css">
-    .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* unsort 2 arrows */
+    .sortable .head h3 { background: url(/NCLodger/resources/img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* unsort 2 arrows */
     .sortable .desc, .sortable .asc {background:#4b708d} /* selected header */
-    .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* dsc arrpw */
-    .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* asc arrow */
+    .sortable .desc h3 { background: url(/NCLodger/resources/img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* dsc arrpw */
+    .sortable .asc h3 { background: url(/NCLodger/resources/img/asc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* asc arrow */
 </style>
 </head>
 
@@ -246,7 +246,7 @@
 
 <div class="wrapper">
 
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="/WEB-INF/view/header.jsp"/>
 
     <div class="content">
         <div id="tabs">
@@ -329,10 +329,10 @@
                             <span>Entries Per Page</span>
                         </div>
                         <div class="navigation">
-                            <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                            <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                            <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                            <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                            <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                            <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                            <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                            <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                         </div>
                         <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
                     </div>
@@ -371,39 +371,11 @@
                     </form>
                 </div>
             </div>
-
-            <!-- <div id="tabs-3">
-                <div class="tabcontent">
-                    <p class="h">New HotelDTO</p>
-                    <form name="hotelfrm" method="POST" action="addhotel" onsubmit="return validateHotelFrm();">
-                        <p>HotelDTO name <span class="mandatory">*</span>:</p>
-                        <input type="text" name="hotelname" maxlength="30">
-                        <p>Country <span class="mandatory">*</span>:</p>
-                        <input type="text" name="country" maxlength="20">
-                        <p>City <span class="mandatory">*</span>:</p>
-                        <input type="text" name="city" maxlength="30">
-                        <p>Category:</p>
-                        <input type="text" name="category" value="0">
-                        <p>Latitude:</p>
-                        <input type="text" name="latitude" value="0">
-                        <p>Longitude:</p>
-                        <input type="text" name="longitude" value="0">
-                        <p style="text-align: right;">
-                            <input type="submit" name="commit" value="Submit">
-                            <input type="reset" name="reset" value="Reset">
-                        </p>
-                    </form>
-                </div> -->
-                
-            </div>
         </div>
-
 
     </div><!-- #content -->
 
-    <jsp:include page="footer.jsp"/>
-    <%--<div class="footer">
-    </div><!-- #footer -->--%>
+    <jsp:include page="/WEB-INF/view/footer.jsp"/>
 
 </div><!-- #wrapper -->
 

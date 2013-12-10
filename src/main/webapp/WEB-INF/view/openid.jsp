@@ -5,8 +5,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>NCLodger | Authentication </title>
-    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-    <script src="resources/js/md5-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
+    <script src="/NCLodger/resources/js/md5-min.js"></script>
     <script src="//loginza.ru/js/widget.js" type="text/javascript"></script>
 
 
