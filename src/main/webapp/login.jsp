@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+<meta name='loginza-verification' content='6bcec9f4dc4c4fa821589bd7751da06f' />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Login</title>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
@@ -69,7 +70,7 @@
                 <span id="span_pswd">Invalid password!</span><br>
                 <a href="registration.jsp">Haven't got account yet?</a></br>
 
-                <a href="https://loginza.ru/api/widget?token_url=http://localhost:8080/NCLodger/home.jsp&lang=en&providers_set=facebook,twitter,openid,google,yandex" class="loginza"><input type="button" action="openid" value="Use existing account"></a></button>
+             <!--   <a href="https://loginza.ru/api/widget?token_url=http://localhost:8080/NCLodger/home.jsp&lang=en&providers_set=facebook,twitter,openid,google,yandex" class="loginza"><input type="button" action="openid" value="Use existing account"></a></button> -->
 
             <%--<a href="">Login with GOOGLE?</a>--%>
                 <p class="submit">
