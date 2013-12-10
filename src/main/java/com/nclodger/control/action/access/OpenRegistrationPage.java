@@ -1,4 +1,6 @@
-package com.nclodger.control.action;
+package com.nclodger.control.action.access;
+
+import com.nclodger.control.action.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,15 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created with IntelliJ IDEA.
  * User: Miredean
- * Date: 07.12.13
- * Time: 14:26
+ * Date: 09.12.13
+ * Time: 22:56
  * To change this template use File | Settings | File Templates.
  */
-public class OccupyHotelAction extends Action {
-
+public class OpenRegistrationPage extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        return "smsettings";
+        if(request.getSession().getAttribute("email") == null) {
+            return "registration";
+        }
+        else {
+            return "home";
+        }
     }
 }

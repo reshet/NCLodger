@@ -5,9 +5,9 @@
 
    <display-name>NCLodger Application</display-name>
 
-    <welcome-file-list>
+<!--    <welcome-file-list>
         <welcome-file>/home.jsp</welcome-file>
-    </welcome-file-list>
+    </welcome-file-list>-->
     <servlet>
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>com.nclodger.control.ControllerServlet</servlet-class>
@@ -27,9 +27,35 @@
     </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/loginpage</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
-   <!--  On login submit-->
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/aboutus</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/contacts</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/myorderspage</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/registrationpage</url-pattern>
+    </servlet-mapping>
+
+
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -115,6 +141,10 @@
         <url-pattern>/makeunblock</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/openidpage</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
@@ -123,12 +153,17 @@
 
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/ussettingspage</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/changepswd</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-    <servlet-name>ControllerServlet</servlet-name>
-    <url-pattern>/dismisssm</url-pattern>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/dismisssm</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -160,7 +195,10 @@
         <url-pattern>/disposehotel</url-pattern>
     </servlet-mapping>
 
-
+    <!--    <servlet-mapping>
+            <servlet-name>ControllerServlet</servlet-name>
+            <url-pattern>/addhotel</url-pattern>
+        </servlet-mapping>-->
 
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
@@ -176,17 +214,6 @@
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/viewpastbooking</url-pattern>
     </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/aboutus</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/contacts</url-pattern>
-    </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/openid</url-pattern>

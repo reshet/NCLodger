@@ -24,6 +24,14 @@ public class ActionFactory {
 
     static{
         actions = new HashMap<String, Action>();
+        actions.put("/loginpage", new OpenLoginPageAction());
+        actions.put("/registrationpage", new OpenRegistrationPage());
+        actions.put("/aboutus", new OpenAboutUsPageAction());
+        actions.put("/contacts", new OpenContactsPageAction());
+        actions.put("/openidpage", new OpenIdPageAction());
+        actions.put("/openid", new OpenIDAccessAction());
+        actions.put("/myorderspage", new OpenMyOrdersPage());
+        actions.put("/ussettingspage", new OpenMyAccountPage());
         actions.put("/signup", new SignUpAction());
         actions.put("/signin", new SignInAction());
         actions.put("/signout", new SignOutAction());
@@ -55,9 +63,6 @@ public class ActionFactory {
         actions.put("/viewpastbooking",new ViewPastBookingAction());
         actions.put("/occupyhotel",new OccupyHotelAction());
         actions.put("/disposehotel",new DisposeHotelAction());
-        actions.put("/aboutus", new AboutUsAction());
-        actions.put("/contacts", new ContactsAction());
-        actions.put("/openid", new OpenIDAccessAction());
 
     }
 

@@ -6,17 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>NCLodger | Sales Manager dashboard</title>
-<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css"/>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!-- Script and css for the sorting table -->
-<script type="text/javascript" src="resources/js/sorttable.js"></script>
+<script type="text/javascript" src="/NCLodger/resources/js/sorttable.js"></script>
 <style type="text/css">
-  .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
+  .sortable .head h3 { background: url(/resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
   .sortable .desc, .sortable .asc { background: #4b708d } /* unsort 2 arrows */
-  .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
-  .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
+  .sortable .desc h3 { background: url(/resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
+  .sortable .asc h3 { background: url(/resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
 </style>
    <script>
        $(function() {
@@ -249,68 +249,6 @@
                     }
             );
         }
-
-
-        function loadSMHotel(){
-            $.ajax({
-                        type:"POST",
-                        url:"ws/getallsmhotel",
-                        data:{
-                            myparameter:"param"
-                        },
-                        success:function(data){
-                            var table =
-                                    ' <table cellpadding="0" cellspacing="0" border="0" id="table_pc" class="sortable">'
-                                            +'<thead>'
-                                            +'<tr>'
-                                            +'<th><h3>Hotel Name</h3></th>'
-                                            +'<th><h3>City</h3></th>'
-                                            +'<th><h3>Country</h3></th>'
-                                            +'<th><h3>Commission</h3></th>'
-                                            +'</tr>'
-                                            +'</thead>'
-                                            +'<tbody>';
-                            //console.log(data);
-                            var jsdata = JSON.parse(data);
-                            for(var hn in jsdata){
-                                var h = jsdata[hn];
-                                //console.log(pc);
-
-                                table+=
-                                        '<tr>'
-                                                +'<td>'+h.hotelName+'</td>'
-                                                +'<td>'+h.city+'</td>'
-                                                +'<td>'+h.country+'</td>'
-                                                +'<td>'+h.commission+'</td>'
-
-                                                +'</tr>';
-
-
-                            }
-                            table+='</tbody></table>';
-                            $("#allsmhoteltable").html(table);
-
-                            var sorter = new TINY.table.sorter("sorter");
-                            sorter.head = "head";
-                            sorter.asc = "asc";
-                            sorter.desc = "desc";
-                            sorter.even = "evenrow";
-                            sorter.odd = "oddrow";
-                            sorter.evensel = "evenselected";
-                            sorter.oddsel = "oddselected";
-                            sorter.paginate = true;
-                            sorter.currentid = "currentpage_h";
-                            sorter.limitid = "pagelimit_h";
-                            sorter.init("table_h", 1);
-
-                        },
-                        error:function(data){
-                            alert("Ошибка, сообщите администратору: "+JSON.stringify(data));
-
-                        }
-                    }
-            );
-        }
     </script>
 </head>
 
@@ -331,14 +269,11 @@
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <li><a href="#tabs-3">Promo codes</a></li>
                 <li><a href="#tabs-4">Reports</a></li>
-                <li><a href="#tabs-5">Hotel Managing</a></li>
-
-                <%--<li><a href="#tabs-5"><a onclick="loadSMHotel();"  href="#">Hotel Managing</a></a></li>--%>
-
+                <li><a href="#tabs-5">Hotels</a></li>
             </ul>
 
             <div id="tabs-1"><!-- 'Users' tab -->
-                <a href="ws/testajax">test ajax</a>
+                <%--<a href="ws/testajax">test ajax</a>--%>
                 <form name="getalluser" method="POST" onsubmit="">
                    <c:if test="${requestScope.allusers != null}">
                    <div class="tabcontent">
@@ -391,10 +326,10 @@
                             <span>Entries Per Page</span>
                         </div>
                         <div class="navigation">
-                            <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                            <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                            <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                            <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                            <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                            <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                            <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                            <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                         </div>
                         <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
                     </div>
@@ -495,14 +430,13 @@
                                     <span>Entries Per Page</span>
                                 </div>
                                 <div class="navigation">
-                                    <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                    <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                    <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                    <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                    <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                    <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                    <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                    <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                                 </div>
                                 <div class="text">Displaying Page <span id="currentpage_pc"></span> of <span id="pagelimit_pc"></span></div>
                             </div>
-                           =
                         <%--</c:if>--%>
                     </form>
                 </div>
@@ -556,10 +490,10 @@
                                     <span>Entries Per Page</span>
                                 </div>
                                 <div class="navigation">
-                                    <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                    <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                    <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                    <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                    <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                    <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                    <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                    <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                                 </div>
                                 <div class="text">Displaying Page <span id="currentpage_h"></span> of <span id="pagelimit_h"></span></div>
                             </div>
@@ -625,10 +559,10 @@
                                 <span>Entries Per Page</span>
                             </div>
                             <div class="navigation">
-                                <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                             </div>
                             <div class="text">Displaying Page <span id="currentpage_acc"></span> of <span id="pagelimit_acc"></span></div>
                         </div>
@@ -642,24 +576,86 @@
                             sorter.evensel = "evenselected";
                             sorter.oddsel = "oddselected";
                             sorter.paginate = true;
-                            sorter.currentid = "currentpage_acc";
-                            sorter.limitid = "pagelimit_acc";
+                            sorter.currentid = "currentpage";
+                            sorter.limitid = "pagelimit";
                             sorter.init("table", 1);
                         </script>
                     </c:if>
                 </form>
-            </div> <%--end tab4--%>
-
+            </div>
 
             <div id="tabs-5"><!-- 'Users' tab -->
-
-                <a onclick="loadSMHotel()" href="#">All SM Hotel</a>
-                <div id="allsmhoteltable">
-                </div>
-
-
+                <form name="getalluser" method="POST" onsubmit="">
+                    <c:if test="${requestScope.allusers != null}">
+                        <div class="tabcontent">
+                            <p class="h">Hotels</p>
+                        </div>
+                        <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
+                            <thead>
+                            <tr>
+                                <th class="nosort"><input type="checkbox" id="check_all_hotels" onclick="toggleCheckedHotels(this)"/></th>
+                                <th><h3>Name</h3></th>
+                                <th><h3>Country</h3></th>
+                                <th><h3>City</h3></th>
+                                <th><h3>Comission</h3></th>
+                            </tr>
+                            </thead>
+                            <tbody id="uniq">
+                            <c:forEach items="${requestScope.allusers}" var="user">
+                                <tr>
+                                    <td><input type="checkbox" class="checkboxes" onclick="toggleParentChecked(this.checked)" name = "vip[]" c:out value="${user.id}"/></td>
+                                    <td><c:out value="${user.name}"/></td>
+                                    <td><c:out value="${user.email}"/></td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${user.vip=='0'}">Not vip</c:when>
+                                            <c:when test="${user.vip=='1'}">Vip</c:when>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                        <div class="controls">
+                            <div class="perpage">
+                                <select onchange="sorter.size(this.value)">
+                                    <option value="5">5</option>
+                                    <option value="10" selected="selected">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span>Entries Per Page</span>
+                            </div>
+                            <div class="navigation">
+                                <img src="/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                <img src="/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                <img src="/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                <img src="/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                            </div>
+                            <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
+                        </div>
+                        <script type="text/javascript">
+                            var sorter = new TINY.table.sorter("sorter");
+                            sorter.head = "head";
+                            sorter.asc = "asc";
+                            sorter.desc = "desc";
+                            sorter.even = "evenrow";
+                            sorter.odd = "oddrow";
+                            sorter.evensel = "evenselected";
+                            sorter.oddsel = "oddselected";
+                            sorter.paginate = true;
+                            sorter.currentid = "currentpage";
+                            sorter.limitid = "pagelimit";
+                            sorter.init("table", 1);
+                        </script>
+                    </c:if>
+                </form>
             </div> <!-- #tab5 -->
-    </div>  <%--end all tabs--%>
+
+
+    </div>
+
 
 
     </div>
