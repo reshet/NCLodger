@@ -36,7 +36,7 @@ public class ACDetailsAction extends Action {
         request.getSession().setAttribute("hotel",h);
 
         // If it's not simple user let's check if this person is occupied with this hotel
-        if(!(request.getSession().getAttribute("utype").toString()).equals("1")) {
+        if(request.getSession().getAttribute("utype") != null && !(request.getSession().getAttribute("utype").toString()).equals("1")) {
             SMDAO smDao = new SMDAO();
 
             Integer id_hotel = smDao.getIdHotelByIdDTO(Integer.parseInt(idDTO));
