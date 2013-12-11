@@ -1,3 +1,10 @@
+<%@ page import="org.json.JSONObject" %>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.io.InputStreamReader" %>
+<%@ page import="java.net.URL" %>
+<%@ page import="java.net.URLConnection" %>
+<%@ page import="org.json.JSONException" %>
+<%@ page import="com.nclodger.dao.UserDao" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -415,6 +422,47 @@
                             </c:forEach>--%>
                         </select>
                     </li>
+      <!--              <input type="text" id="testing" value="<%=request.getParameter("token")%>" />    -->
+
+                    <%
+
+                     if (request.getParameterMap().containsKey("token"))
+
+                        {
+                            String token = request.getParameter("token");
+                            URL url = new URL("http://loginza.ru/api/authinfo?token="+token);
+                            URLConnection yc = url.openConnection();
+                            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+
+                            byte[] data = new byte[yc.getInputStream().available()];
+                            yc.getInputStream().read(data);
+                            in.close();
+                            //              out.println(new String(data));
+
+                            String userInfo = new String(data);
+                            //           out.println(userInfo);
+
+                            JSONObject json = new JSONObject(userInfo);
+
+                            JSONObject name =  json.getJSONObject("name");
+                            String firstName = name.getString("first_name");
+                            //                out.println(firstName);
+
+                            String email = json.getString("email");
+                            //               out.println(email);
+
+                            //положим пользователя в базу
+       //                     UserDao userDao = new UserDao();
+       //                     userDao.insert(email, firstName);
+
+         //                   request.getSession().setAttribute("email", email);
+     //                       out.println(request.getAttribute("email"));
+
+
+                        }
+                    %>
+
+
                     <li>
                         <b>City <span class="mandatory">*</span>:</b>
                         <input id="city" name="city" style="width: 180px;" placeholder=" ">
