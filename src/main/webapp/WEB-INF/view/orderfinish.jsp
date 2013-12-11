@@ -6,16 +6,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>NCLodger | Order finished</title>
-    <link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
 <body>
-${faka}
-${faka2}
     <div class="wrapper">
-
         <jsp:include page="header.jsp"/>
-
         <div class="content">
             <div class="window" style="width:450px;">
                 <h1>Your booking succeded!</h1>
@@ -25,7 +21,7 @@ ${faka2}
                         <img src="${hotel.getImage_url()}" style="float:right; width: 50px; height: 50px;"/>
                     </c:if>
                     <c:if test="${hotel.getImage_url() == null}">
-                        <img src="/NCLodger/resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
+                        <img src="resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
                     </c:if>
                 </p>
                 <p>Hotel: ${hotel.getName()} </p>
@@ -39,9 +35,6 @@ ${faka2}
             </div>
         </div>
         <jsp:include page="footer.jsp"/>
-        <%--<div class="footer">
-        </div>--%>
-
     </div><!-- .wrapper -->
 
 </body>

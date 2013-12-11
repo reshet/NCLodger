@@ -4,16 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>NCLodger | Exception!</title>
-<link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
+<title>NCLodger | Exception</title>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 </head>
 
 <body>
 
 <div class="wrapper">
-
     <jsp:include page="header.jsp"/>
-
     <div class="content">
         <div class="window" >
             <h1>Exception occurred while processing!</h1>
@@ -22,13 +20,8 @@
                 <c:out value="${requestScope.error_message}"/>
             </p>
         </div>
-
     </div><!-- .content -->
-
     <jsp:include page="footer.jsp"/>
-    <%--<div class="footer">
-    </div><!-- .footer -->--%>
-
 </div><!-- .wrapper -->
 
 </body>

@@ -9,8 +9,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 <script src="resources/js/md5-min.js"></script>
 <script src="//loginza.ru/js/widget.js" type="text/javascript"></script>
-
-
+    
 <script>
 
     function JSTrial(){
@@ -19,11 +18,6 @@
 
         alert(obj.count);
     }
-
-
-
-
-
 
     function validateLoginForm() {
         var isValid = true;
@@ -69,10 +63,8 @@
                 </c:if>
                 <span id="span_pswd">Invalid password!</span><br>
                 <a href="registration.jsp">Haven't got account yet?</a></br>
-
-                <a href="https://loginza.ru/api/widget?token_url=http://localhost:8080/NCLodger/home.jsp&lang=en&providers_set=facebook,twitter,openid,google,yandex" class="loginza"><input type="button" action="openid" value="Use existing account"></a>
-
-            <%--<a href="">Login with GOOGLE?</a>--%>
+                <a href="https://loginza.ru/api/widget?token_url=http://localhost:8080/NCLodger/home.jsp&lang=en&providers_set=facebook,twitter,openid,google,yandex" class="loginza"><input type="button" action="openid" value="Login with OpenID?"></a>
+            
                 <p class="submit">
                     <input type="hidden" name="password" value=""/>
                     <input type="submit" name="commit" value="Login">
@@ -83,8 +75,6 @@
     </div><!-- #content -->
 
     <jsp:include page="footer.jsp"/>
-    <%--<div class="footer">
-    </div><!-- #footer -->--%>
 
 </div><!-- #wrapper -->
 

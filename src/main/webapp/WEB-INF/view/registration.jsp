@@ -49,7 +49,6 @@
 
 <div class="wrapper">
     <jsp:include page="header.jsp"/>
-
     <div class="content">
         <div class="window" >
             <h1>Registration</h1>
@@ -73,11 +72,7 @@
             </form>
         </div>
     </div><!-- #content -->
-
     <jsp:include page="footer.jsp"/>
-    <%--<div class="footer">
-    </div><!-- #footer -->--%>
-
 </div><!-- #wrapper -->
 
 </body>

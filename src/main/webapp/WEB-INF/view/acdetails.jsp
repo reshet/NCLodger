@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>NCLodger | AC Details</title>
-    <link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />

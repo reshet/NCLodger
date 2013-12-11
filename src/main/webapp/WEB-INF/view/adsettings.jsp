@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Administrator dashboard</title>
-<link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script type="text/javascript" src="/NCLodger/resources/js/sorttable.js"></script>
+<script type="text/javascript" src="resources/js/sorttable.js"></script>
 
 <script>
 
@@ -182,8 +182,6 @@
         return true;
     }
 
-
-
     function validate() {
         var inputElements = document.getElementsByName('block[]');
         var chekSelect = false;
@@ -205,7 +203,6 @@
             return true;
         }
     }
-
 
 </script>
 
@@ -235,10 +232,10 @@
 
 </script>
 <style type="text/css">
-    .sortable .head h3 { background: url(/NCLodger/resources/img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* unsort 2 arrows */
+    .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* unsort 2 arrows */
     .sortable .desc, .sortable .asc {background:#4b708d} /* selected header */
-    .sortable .desc h3 { background: url(/NCLodger/resources/img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* dsc arrpw */
-    .sortable .asc h3 { background: url(/NCLodger/resources/img/asc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* asc arrow */
+    .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* dsc arrpw */
+    .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px} /* asc arrow */
 </style>
 </head>
 
@@ -329,10 +326,10 @@
                             <span>Entries Per Page</span>
                         </div>
                         <div class="navigation">
-                            <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                            <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                            <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                            <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                            <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                            <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                            <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                            <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                         </div>
                         <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
                     </div>

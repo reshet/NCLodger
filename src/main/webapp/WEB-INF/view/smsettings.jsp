@@ -6,17 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>NCLodger | Sales Manager dashboard</title>
-<link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!-- Script and css for the sorting table -->
-<script type="text/javascript" src="/NCLodger/resources/js/sorttable.js"></script>
+<script type="text/javascript" src="resources/js/sorttable.js"></script>
 <style type="text/css">
-  .sortable .head h3 { background: url(/NCLodger/resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
+  .sortable .head h3 { background: url(resources/img/sort.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px }
   .sortable .desc, .sortable .asc { background: #4b708d } /* unsort 2 arrows */
-  .sortable .desc h3 { background: url(/NCLodger/resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
-  .sortable .asc h3 { background: url(/NCLodger/resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
+  .sortable .desc h3 { background: url(resources/img/desc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* selected header */
+  .sortable .asc h3 { background: url(resources/img/asc.gif) 7px center no-repeat; cursor: pointer; padding-left: 18px } /* dsc arrpw */
 </style>
    <script>
        $(function() {
@@ -260,11 +260,7 @@
 
     <div class="content">
         <div id="tabs">
-            <%--<c:set var="tabs" value="${fn:split('#tabs-1,#tabs-2,#tabs-3,#tabs-4', ',')}" scope="session" />--%>
             <ul>
-    <%--            <c:forEach items="${tabs}" var="tabs">
-                    <li><a href="${tabs}">${tabs}</a></li>
-                </c:forEach>--%>
                 <li><a href="#tabs-1"> <a href="smgetallusers">Users</a></a></li>
                 <li><a href="#tabs-2">Commission & Discounts</a></li>
                 <li><a href="#tabs-3">Promo codes</a></li>
@@ -286,7 +282,6 @@
                         <tr>
 
            <!--                 <th class="nosort" ><input type="checkbox" onClick="toggle2(this)"/></th>    -->
-
 
                             <th class="nosort"><input type="checkbox" id="check_all" onclick="toggleChecked(this)"/></th>
 
@@ -326,10 +321,10 @@
                             <span>Entries Per Page</span>
                         </div>
                         <div class="navigation">
-                            <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                            <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                            <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                            <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                            <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                            <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                            <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                            <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                         </div>
                         <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
                     </div>
@@ -430,10 +425,10 @@
                                     <span>Entries Per Page</span>
                                 </div>
                                 <div class="navigation">
-                                    <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                    <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                    <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                    <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                    <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                    <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                    <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                    <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                                 </div>
                                 <div class="text">Displaying Page <span id="currentpage_pc"></span> of <span id="pagelimit_pc"></span></div>
                             </div>
@@ -467,12 +462,10 @@
                                 <tbody>
                                 <c:forEach items="${requestScope.mostpophotel}" var="hotel">
                                     <tr>
-
                                         <td><c:out value="${hotel.hotelname}"/></td>
                                         <td><c:out value="${hotel.city}"/></td>
                                         <td><c:out value="${hotel.country}"/></td>
                                         <td><c:out value="${hotel.totalOrder}"/></td>
-
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -490,10 +483,10 @@
                                     <span>Entries Per Page</span>
                                 </div>
                                 <div class="navigation">
-                                    <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                    <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                    <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                    <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                    <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                    <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                    <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                    <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                                 </div>
                                 <div class="text">Displaying Page <span id="currentpage_h"></span> of <span id="pagelimit_h"></span></div>
                             </div>
@@ -507,21 +500,12 @@
                                 sorter.evensel = "evenselected";
                                 sorter.oddsel = "oddselected";
                                 sorter.paginate = true;
-                                sorter.currentid = "currentpage";
-                                sorter.limitid = "pagelimit";
+                                sorter.currentid = "currentpage_h";
+                                sorter.limitid = "pagelimit_h";
                                 sorter.init("table", 1);
                             </script>
                         </c:if>
 
-                    <%--</form>--%>
-
-
-                   <%--  <form name="getallacc" method="POST" onsubmit="">--%>
-                    <%--<a href="showmostvaluableacc">View the most valuable accommodations</a>--%>
-                    <%--                            <label for="start_date">From: </label>
-                                                <input id="start_date" name="start_date" style="width:100px;"/>
-                                                <label for="end_date">To: </label>
-                                                <input id="end_date" name="end_date" style="width:100px;"/>--%>
                     <c:if test="${requestScope.mostvalacc != null}">
                         <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
                             <thead>
@@ -559,10 +543,10 @@
                                 <span>Entries Per Page</span>
                             </div>
                             <div class="navigation">
-                                <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                             </div>
                             <div class="text">Displaying Page <span id="currentpage_acc"></span> of <span id="pagelimit_acc"></span></div>
                         </div>
@@ -576,8 +560,8 @@
                             sorter.evensel = "evenselected";
                             sorter.oddsel = "oddselected";
                             sorter.paginate = true;
-                            sorter.currentid = "currentpage";
-                            sorter.limitid = "pagelimit";
+                            sorter.currentid = "currentpage_acc";
+                            sorter.limitid = "pagelimit_acc";
                             sorter.init("table", 1);
                         </script>
                     </c:if>
@@ -628,12 +612,12 @@
                                 <span>Entries Per Page</span>
                             </div>
                             <div class="navigation">
-                                <img src="/NCLodger/resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                <img src="/NCLodger/resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                <img src="/NCLodger/resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                <img src="/NCLodger/resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
+                                <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
+                                <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
+                                <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
+                                <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
                             </div>
-                            <div class="text">Displaying Page <span id="currentpage"></span> of <span id="pagelimit"></span></div>
+                            <div class="text">Displaying Page <span id="currentpage_us"></span> of <span id="pagelimit_us"></span></div>
                         </div>
                         <script type="text/javascript">
                             var sorter = new TINY.table.sorter("sorter");
@@ -645,29 +629,17 @@
                             sorter.evensel = "evenselected";
                             sorter.oddsel = "oddselected";
                             sorter.paginate = true;
-                            sorter.currentid = "currentpage";
-                            sorter.limitid = "pagelimit";
+                            sorter.currentid = "currentpage_us";
+                            sorter.limitid = "pagelimit_us";
                             sorter.init("table", 1);
                         </script>
                     </c:if>
                 </form>
             </div> <!-- #tab5 -->
-
-
-    </div>
-
-
-
-    </div>
-    <!-- #content -->
-
+        </div><!-- #tabs -->
+    </div><!-- #content -->
     <jsp:include page="footer.jsp"/>
-    <%--<div class="footer">
-    </div>
-    <!-- #footer -->--%>
-
-</div>
-<!-- #wrapper -->
+</div><!-- #wrapper -->
 
 </body>
 

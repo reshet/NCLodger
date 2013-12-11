@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>NCLodger | About Us</title>
-    <link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 </head>
 <body>
 <div class="wrapper">

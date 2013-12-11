@@ -5,8 +5,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>NCLodger | Admnistator</title>
-    <link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
-    <script src="/NCLodger/resources/js/md5-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+    <script src="resources/js/md5-min.js"></script>
     <script>
         function validateRegForm() {
             var isValid = true;
@@ -49,7 +49,6 @@
 
 <div class="wrapper">
     <jsp:include page="header.jsp"/>
-
     <div class="content">
         <div class="window" >
             <h1>Create New User</h1>
@@ -73,11 +72,7 @@
             </form>
         </div>
     </div><!-- #content -->
-
     <jsp:include page="footer.jsp"/>
-    <%--<div class="footer">
-    </div><!-- #footer -->--%>
-
 </div><!-- #wrapper -->
 
 </body>

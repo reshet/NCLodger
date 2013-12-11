@@ -5,14 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>NCLodger | Registration Succeeded!</title>
-<link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 </head>
 
 <body>
 <div class="wrapper">
-
     <jsp:include page="header.jsp"/>
-
     <div class="content">
         <div class="window">
             <h1>Registration has succeeded!</h1>
@@ -22,11 +20,7 @@
             </p>
         </div>
     </div><!-- #content -->
-
     <jsp:include page="footer.jsp"/>
-    <%--<div class="footer">
-    </div><!-- #footer -->--%>
-
 </div><!-- #wrapper -->
 
 </body>

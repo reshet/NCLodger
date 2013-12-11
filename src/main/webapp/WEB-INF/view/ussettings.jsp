@@ -5,8 +5,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>NCLodger | User dashboard</title>
-    <link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
-    <script src="/NCLodger/resources/js/md5-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+    <script src="resources/js/md5-min.js"></script>
     <script>
 
         function validateChangePswdForm() {
@@ -49,9 +49,7 @@
 <body>
 
 <div class="wrapper">
-
     <jsp:include page="header.jsp"/>
-
     <div class="content">
         <div class="window" style="width: 350px">
             <h1>User information</h1>
@@ -93,11 +91,7 @@
             </div>
         </div>
     </div><!-- #content -->
-
     <jsp:include page="footer.jsp"/>
-    <%--<div class="footer">
-    </div><!-- #footer -->--%>
-
 </div><!-- #wrapper -->
 
 </body>

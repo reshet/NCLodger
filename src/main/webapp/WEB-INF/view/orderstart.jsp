@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>NCLodger | Ordering Details</title>
-    <link rel="stylesheet" type="text/css" href="/NCLodger/resources/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <%--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />--%>
@@ -26,7 +26,6 @@
 <body>
     <div class="wrapper">
         <jsp:include page="header.jsp"/>
-
         <div class="content">
             <div class="window" style="width: 450px;">
                <h1>Ordering Details</h1>
@@ -35,7 +34,7 @@
                         <img src="${hotel.getImage_url()}" style="float:right; width: 50px; height: 50px;"/>
                     </c:if>
                     <c:if test="${hotel.getImage_url() == null}">
-                        <img src="../../resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
+                        <img src="resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
                     </c:if>
                 </p>
                 <p>Hotel: ${hotel.getName()} </p>
@@ -60,8 +59,6 @@
             </div>
         </div><!-- .content -->
         <jsp:include page="footer.jsp"/>
-        <%--<div class="footer">
-        </div>--%>
     </div><!-- .wrapper -->
 </body>
 </html>
