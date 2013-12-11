@@ -61,7 +61,7 @@
                 Email <span class="mandatory">*</span>:
                 <span class="bluespan"><c:out value="${sessionScope.email}"/></span>
             </p>
-            <br><hr><br>
+            <br><hr>
             <p><a class="bluespan">Password change:</a></p><br>
             <c:if test="${requestScope.notify_changepswd != null}">
                 <p style="color: #00FF00;"><c:out value="${requestScope.notify_changepswd}"/></p><br>
