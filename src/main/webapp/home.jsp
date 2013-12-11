@@ -387,9 +387,7 @@
 <body>
 <div class="wrapper">
 
-    <div id="lights">
-           <!-- lights go here -->
-    </div>
+
 
     <jsp:include page="/WEB-INF/view/header.jsp"/>
 
