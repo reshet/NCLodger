@@ -1,10 +1,10 @@
 package com.nclodger.webservices;
 
 import com.nclodger.logic.HotelCommissionDTO;
+import com.nclodger.logic.HotelDiscountDTO;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,7 +29,13 @@ public class HotelDTO implements Serializable {
     private Double roomWithCommissionPrice;
     private Double roomWithDiscountPrice;
     private List<HotelCommissionDTO> comms = new ArrayList<HotelCommissionDTO>();
-    private List<Double> prices = new ArrayList<Double>();
+    private Map<Integer,Double> prices = new HashMap<Integer,Double>();
+    private List<HotelDiscountDTO> discounts = new ArrayList<HotelDiscountDTO>();
+    private Map<Integer,Double> prices_disc = new HashMap<Integer,Double>();
+    private String discount_type = "";
+    public static String DISCOUNT_USER = "registered user discount";
+    public static String DISCOUNT_VIP = "vip user discount";
+
 
 
 
@@ -86,10 +92,16 @@ public class HotelDTO implements Serializable {
 
     public String getPrice() {
         String price = "";
-        if(prices.size()>1){
-           price = prices.get(0)+"-"+prices.get(prices.size()-1)+" "+getPriceCurrency();
+        List<Double> prcs = new ArrayList<Double>();
+        for(Integer smid:getPrices().keySet()){
+            Double pr = getPrices().get(smid);
+            prcs.add(pr);
+        }
+        Collections.sort(prcs);
+        if(prcs.size()>1){
+           price = prcs.get(0)+"-"+ prcs.get(prcs.size() - 1)+" "+getPriceCurrency();
         }else{
-            price = prices.get(0)+" "+getPriceCurrency();
+            price = prcs.get(0)+" "+getPriceCurrency();
         }
         return price;
     }
@@ -154,13 +166,7 @@ public class HotelDTO implements Serializable {
         this.priceCurrency = priceCurrency;
     }
 
-    public List<Double> getPrices() {
-        return prices;
-    }
 
-    public void setPrices(List<Double> prices) {
-        this.prices = prices;
-    }
 
     public int getRoomExpediaID() {
         return roomExpediaID;
@@ -168,5 +174,37 @@ public class HotelDTO implements Serializable {
 
     public void setRoomExpediaID(int roomExpediaID) {
         this.roomExpediaID = roomExpediaID;
+    }
+
+    public List<HotelDiscountDTO> getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(List<HotelDiscountDTO> discounts) {
+        this.discounts = discounts;
+    }
+
+    public String getDiscount_type() {
+        return discount_type;
+    }
+
+    public void setDiscount_type(String discount_type) {
+        this.discount_type = discount_type;
+    }
+
+    public Map<Integer, Double> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Map<Integer, Double> prices) {
+        this.prices = prices;
+    }
+
+    public Map<Integer, Double> getPrices_disc() {
+        return prices_disc;
+    }
+
+    public void setPrices_disc(Map<Integer, Double> prices_disc) {
+        this.prices_disc = prices_disc;
     }
 }

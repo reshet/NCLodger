@@ -58,7 +58,9 @@ public class SearchAction extends Action {
 
 
         PriceModifyer mdf = (PriceModifyer)ctx.getBean("pricerules");
-        mdf.addCommissionToHotels(hotelDTOs);
+        //to slow implementation
+        //mdf.addCommissionToHotels(hotelDTOs);
+        mdf.addCommissionToHotelsBatch(hotelDTOs);
         //price rule
         if(!max_price.equals("") && !min_price.equals("") ){
             try{

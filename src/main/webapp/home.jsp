@@ -287,10 +287,14 @@
     });
 
     $(document).ready(function(){
-
+        var current = $("#country_save").val();
         for(var co in countries){
             var code = countries[co];
-            $("#country").append("<option value="+code+">"+co+"</option>");
+            if(current == code){
+                $("#country").append("<option value="+code+" selected>"+co+"</option>");
+            }else{
+                $("#country").append("<option value="+code+">"+co+"</option>");
+            }
         }
 
         autocomplete = new google.maps.places.Autocomplete(
@@ -409,6 +413,8 @@
                     <li>
                         <b>Country <span class="mandatory">*</span>:</b>
                         <select id="country" name="country" style="width: 180px;">
+                        <input type="hidden" id="country_save" value="${sessionScope.country}"/>
+                        <%--<input type="hidden" id="city_save" value="${sessionScope.city}"/>--%>
                             <option value=""></option>
                            <%-- <c:forEach items="${countries}" var="country">
                                 <option value="${country}" ${sessionScope.country == country ? 'selected' : ''}>${country}</option>
@@ -417,7 +423,7 @@
                     </li>
                     <li>
                         <b>City <span class="mandatory">*</span>:</b>
-                        <input id="city" name="city" style="width: 180px;" placeholder=" ">
+                        <input id="city" name="city" style="width: 180px;" placeholder=" " value="${sessionScope.city!=null?sessionScope.city:""}">
 
                         </input>
                        <%-- <select id="city" name="city" style="width: 180px;">

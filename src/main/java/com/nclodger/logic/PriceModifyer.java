@@ -11,7 +11,10 @@ import com.nclodger.webservices.HotelDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,14 +56,14 @@ public class PriceModifyer {
                    if(comms.size() == 1){
                        double commprice =  (double)Math.round(hotel.getRoomBasePrice()*(1+comms.get(0).getSmHotelCommission()/100.0));
                        hotel.setRoomWithCommissionPrice(commprice);
-                       hotel.getPrices().add(commprice);
+                       hotel.getPrices().put(comms.get(0).getSmID(), commprice);
                        //hotel.setPrice(hotel.getRoomWithCommissionPrice()+" "+hotel.getPriceCurrency());
                    }else{
                        for(HotelCommissionDTO com:comms){
                            double itCommision = com.getSmHotelCommission();
                            //double greatestCommision = comms.get(comms.size()-1).getSmHotelUserDisc();
                            double itPrice = Math.round(hotel.getRoomBasePrice()*(1+itCommision/100.0));
-                           hotel.getPrices().add(itPrice);
+                           hotel.getPrices().put(com.getSmID(), itPrice);
                            //double greatestPrice = Math.round(hotel.getRoomBasePrice()*(1+greatestCommision/100.0));
                        }
                        //hotel.setPrice(lowestPrice+"-"+greatestPrice+" "+hotel.getPriceCurrency());
@@ -73,6 +76,64 @@ public class PriceModifyer {
                // hotel.setRoomWithCommissionPrice(20);
            }
        return this;
+    }
+    private HotelDTO currHotel(List<HotelDTO> list,int hotelid){
+        HotelDTO h = null;
+        for(HotelDTO hh : list){
+            if(hh.getId().equals(hotelid)){
+                h = hh;
+                break;
+            }
+        }
+        return h;
+    }
+    public PriceModifyer addCommissionToHotelsBatch(List<HotelDTO> lst){
+        List<Integer> list = new LinkedList<Integer>();
+        for(HotelDTO hotel:lst){
+            list.add(hotel.getId());
+        }
+        try {
+            SManager sManager= addao.getCurDefaultCommAndDisc();
+            Map<Integer,List<HotelCommissionDTO>> comms_map = smdao.getHotelCommissionsBatch(list);
+            //for(Integer hotelid:comms_map.keySet()){
+            for(HotelDTO hotel:lst){
+
+                List<HotelCommissionDTO> comms = new ArrayList<HotelCommissionDTO>();
+                if(comms_map.containsKey(hotel.getId()))comms = comms_map.get(hotel.getId());
+                //HotelDTO hotel = currHotel(lst,hotelid);
+                if(comms.size() == 0){
+                    //initial commision get;
+
+                    comms.add(new HotelCommissionDTO(0,sManager.getCommission()));
+                    //hotel.getPrices().add(itPrice);
+
+                }
+                if(comms.size() == 1){
+                    double commprice =  (double)Math.round(hotel.getRoomBasePrice()*(1+comms.get(0).getSmHotelCommission()/100.0));
+                    hotel.setRoomWithCommissionPrice(commprice);
+                    hotel.getPrices().put(comms.get(0).getSmID(),commprice);
+                    //hotel.setPrice(hotel.getRoomWithCommissionPrice()+" "+hotel.getPriceCurrency());
+                }else{
+                    for(HotelCommissionDTO com:comms){
+                        double itCommision = com.getSmHotelCommission();
+                        //double greatestCommision = comms.get(comms.size()-1).getSmHotelUserDisc();
+                        double itPrice = Math.round(hotel.getRoomBasePrice()*(1+itCommision/100.0));
+                        hotel.getPrices().put(com.getSmID(),itPrice);
+                        //double greatestPrice = Math.round(hotel.getRoomBasePrice()*(1+greatestCommision/100.0));
+                    }
+                    //hotel.setPrice(lowestPrice+"-"+greatestPrice+" "+hotel.getPriceCurrency());
+
+                }
+                hotel.setComms(comms);
+            }
+
+        } catch (MyException e) {
+            e.printStackTrace();
+            //int b = 2;//To change body of catch statement use File | Settings | File Templates.
+        }
+            // hotel.setRoomWithCommissionPrice(20);
+
+        return this;
     }
    /* public PriceModifyer addDiscountToHotels(List<HotelDTO> lst,User user){
         if(user.getIs_blocked()!=0)
@@ -108,4 +169,46 @@ public class PriceModifyer {
         }
         return this;
     }*/
+       private double getDiscount(HotelDiscountDTO disc,boolean vip){
+           if(vip){
+               return disc.getSmHotelVipDisc();
+           }
+           else{
+               return disc.getSmHotelUserDisc();
+           }
+       }
+       public PriceModifyer addDiscountToHotel(HotelDTO hotel,User user){
+        if(user.getIs_blocked()!=0){
+
+           boolean vip = (user.getVip() == 1);
+            if(vip)
+                hotel.setDiscount_type(HotelDTO.DISCOUNT_VIP);
+            else
+                hotel.setDiscount_type(HotelDTO.DISCOUNT_USER);
+
+            try {
+                List<HotelDiscountDTO> discs = smdao.getHotelDiscounts(hotel.getId());
+                if(discs.size() == 0){
+                    SManager sManager= addao.getCurDefaultCommAndDisc();
+                    discs.add(new HotelDiscountDTO(0,sManager.getUser_discount(),sManager.getVip_discount()));
+                }
+                if(discs.size() == 1){
+                    double discprice = 0;
+                    double discount = getDiscount(discs.get(0),vip);
+                    discprice = (double)Math.round(hotel.getRoomWithCommissionPrice()*(1+discount/100.0));
+                    hotel.getPrices_disc().put(discs.get(0).getSmID(),discprice);
+                }else{
+                    for(HotelDiscountDTO com:discs){
+                        double discount = getDiscount(com,vip);
+                        double itPrice = Math.round(hotel.getRoomWithCommissionPrice()*(1+discount/100.0));
+                        hotel.getPrices_disc().put(com.getSmID(),itPrice);
+                    }
+                }
+                hotel.setDiscounts(discs);
+            } catch (MyException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+        return this;
+    }
 }

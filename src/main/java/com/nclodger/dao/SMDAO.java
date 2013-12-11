@@ -3,8 +3,6 @@ package com.nclodger.dao;
 import com.nclodger.additional.AccommodationTotalValue;
 import com.nclodger.additional.HotelManagingInfo;
 import com.nclodger.additional.HotelTotalOrder;
-import com.nclodger.domain.Accommodation;
-import com.nclodger.domain.Hotel;
 import com.nclodger.domain.SManager;
 import com.nclodger.logic.HotelCommissionDTO;
 import com.nclodger.logic.HotelDiscountDTO;
@@ -17,8 +15,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -570,6 +569,50 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                     hlist.add(new HotelManagingInfo(idsm,idHotel,hotelName,city,country,comm));
                 }
                 return hlist;
+            }
+        });
+    }
+
+    @Override
+    public Map<Integer, List<HotelCommissionDTO>> getHotelCommissionsBatch(final List<Integer> hotel_ids) throws MyException {
+        return dbOperation(new WrapperDBOperation <Map<Integer, List<HotelCommissionDTO>>>() {
+
+            @Override
+            public  Map<Integer, List<HotelCommissionDTO>> doMethod(Connection dataBase) throws MyException, SQLException {
+                String ids = "";
+                StringBuilder b = new StringBuilder();
+                for(Integer id:hotel_ids){
+                    b.append(id);
+                    b.append(",");
+                }
+                ids = b.substring(0,b.length()-1);
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT hm.COMMISSION, hm.ID_SM,  h.INT_ID FROM HOTEL h " +
+                                "INNER JOIN HOTEL_MANAGER hm ON hm.ID_HOTEL = h.ID_HOTEL" +
+                                " WHERE h.INT_ID IN ("+ids+")" +
+                                " ORDER BY hm.COMMISSION ASC "
+                );
+
+                //prep.setString(1, ids);
+                //prep.setString(2, end);
+                java.sql.ResultSet results = prep.executeQuery();
+                Map<Integer, List<HotelCommissionDTO>> map = new HashMap<Integer, List<HotelCommissionDTO>>();
+
+                while (results.next()) {
+                    List<HotelCommissionDTO> accList = new ArrayList<HotelCommissionDTO>();
+                    Integer commission = results.getInt(1);
+                    Integer smId = results.getInt(2);
+                    Integer hotelid = results.getInt(3);
+                    if(map.containsKey(hotelid)){
+                        accList = map.get(hotelid);
+                    }
+                    else{
+                        map.put(hotelid,accList);
+                    }
+                    accList.add(new HotelCommissionDTO(smId,commission));
+                }
+                return map;
+
             }
         });
     }
