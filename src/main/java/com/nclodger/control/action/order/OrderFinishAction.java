@@ -76,7 +76,7 @@ public class OrderFinishAction extends Action {
            odao.insertHotel(hotModel);
         }
         //
-        //check if hotel exist in db and insert if !exist
+        //check if Acc exist in db and insert if !exist
         String prstr =  h.getPrice();
         double pr=0.0;
         try{
@@ -85,10 +85,10 @@ public class OrderFinishAction extends Action {
         }catch(NumberFormatException ex){ // handle your exception
 
         }
-
-        Accommodation acc = new Accommodation(h.getId(),pr,5,h.getRoomType(),h.getRoomExpediaID());
+        int hotelID = odao.getIDHotelByintID(h.getId());//get local system ID hotel;not integrated
+        Accommodation acc = new Accommodation(hotelID,pr,5,h.getRoomType(),h.getRoomExpediaID());
         if(!odao.isExistAccbyID(acc.getRoomExpediaID())){
-        //    odao.insertAccommodation(acc);
+            odao.insertAccommodation(acc);
         }
 
         //end
