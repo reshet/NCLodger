@@ -78,13 +78,18 @@ public class OrderFinishAction extends Action {
         //
         //check if Acc exist in db and insert if !exist
         String prstr =  h.getPrice();
+        // parsing string to get number without USD and so on
+        String delims = "[ ]+";
+        String[] tokens = prstr.split(delims);
         double pr=0.0;
         try{
            // int print = Integer.parseInt(prstr);
-            pr = Double.parseDouble(prstr);
+            pr = Double.parseDouble(tokens[0]);
         }catch(NumberFormatException ex){ // handle your exception
 
         }
+
+        //
         int hotelID = odao.getIDHotelByintID(h.getId());//get local system ID hotel;not integrated
         Accommodation acc = new Accommodation(hotelID,pr,5,h.getRoomType(),h.getRoomExpediaID());
         if(!odao.isExistAccbyID(acc.getRoomExpediaID())){
