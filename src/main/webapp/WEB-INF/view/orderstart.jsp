@@ -42,7 +42,13 @@
                 <p>Type: ${hotel.getRoomType()}</p>
                 <p>Prices: ${hotel.getPrice()}</p>
                 <p>Occupancy: ${hotel.getRoomOccupancy()}</p>
-                <p style="color:#0000ff;">Base price to pay: ${hotel.getRoomPrice()}</p><br>
+                <p style="color:#0000ff;">Available prices to pay: </p>
+                <select id="payoption" name="payoption" style="width: 280px;">
+                <c:forEach items="${sessionScope.hotel.getPrices()}" var="accprice">
+                    <option value="${accprice.key}">${accprice.value}</option>
+                </c:forEach>
+                    </select>
+                <br>
                 <form name="orderfrm" method="POST" action="orderfinish" onsubmit="return validateOrderForm();">
                     <p>Enter promo code if you have one:  <input type="text" name="promocode" style="width: 150px;" maxlength="20"></p>
                     <c:if test="${requestScope.isExist==false}">

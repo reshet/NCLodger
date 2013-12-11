@@ -32,8 +32,13 @@ public class SmSaveExcelAction extends Action {
         String end_date = request.getSession().getAttribute("end_date_excel").toString();
         ArrayList<HotelTotalOrder> hlist = new ArrayList<HotelTotalOrder>();
         SMDAO smdao = new SMDAO();
-        /*hlist = smdao.sortHotelbyPopular();*/
-        hlist = smdao.sortHotelbyPopularWithTimeFrame(start_date,end_date);
+        if(start_date.equals("") || end_date.equals("")){
+            hlist = smdao.sortHotelbyPopular();
+        }
+        else{
+            hlist = smdao.sortHotelbyPopularWithTimeFrame(start_date,end_date);
+        }
+
         re.createMostPopularHotel(hlist,response);
         return "smsetting";
     }
