@@ -38,6 +38,36 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
     }
 
+
+
+    public boolean insert(final String email, final String name) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException {
+
+                String sql = "INSERT INTO Users(email,username,confirm_register, id_ut, is_blocked)" +
+                        "values" +
+                        "(?,?,1,1,0)";
+
+
+                PreparedStatement prep = dataBase.prepareStatement(sql);
+
+                prep.setString(1, email);
+                prep.setString(2, name);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+
+
+                return true;
+            }
+        });
+
+    }
+
+
+
+
     public boolean confirm_register(final User _user) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
@@ -324,6 +354,54 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
             }
 
+
+
+
+
+
+    public User getUserObj2(final String email) throws MyException {
+        return dbOperation(new WrapperDBOperation<User>() {
+
+            @Override
+            public User doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_USER,USERNAME,ID_UT,EMAIL, CONFIRM_REGISTER, IS_BLOCKED, VIP FROM Users WHERE email=?"
+                );
+                prep.setString(1, email);
+       //         prep.setString(2, password);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int id = res.getInt(1);
+                boolean answer = false;
+                if (id > 0) {
+                    //answer = true;
+                    String uname = res.getString(2);
+                    Integer utype = res.getInt(3);
+                    String email = res.getString(4);
+                    Integer confirmed = res.getInt(5);
+                    Integer isBlocked = res.getInt(6);
+                    Integer vip = res.getInt(7);
+
+                    //String pswd = res.getString(5);
+                    User user = new User(id, uname);
+                    user.setId_ut(utype);
+
+                    user.setEmail(email);
+                    user.set_confirm_register(confirmed);
+                    user.setIs_blocked(isBlocked);
+                    user.setVip(vip);
+                    //user.setPswd();
+                    return user;
+                }
+
+                return null;
+                //return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
+    }
+
             @Override
             public User find(final int id) throws MyException {
                 //return null;  //To change body of implemented methods use File | Settings | File Templates.
@@ -459,7 +537,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                     prep9.executeUpdate();
 
                     PreparedStatement prep11 = dataBase.prepareStatement(
-                            "DELETE FROM ORDERS WHERE ID_USER=?"
+                            "DELETE FROM ORDERS WHERE ID_SM=?"
                     );
                     prep11.setInt(1, smId);
                     prep11.executeUpdate();

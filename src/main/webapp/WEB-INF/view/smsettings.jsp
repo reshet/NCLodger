@@ -249,6 +249,67 @@
                     }
             );
         }
+
+        function loadSMHotel(){
+            $.ajax({
+                        type:"POST",
+                        url:"ws/getallsmhotel",
+                        data:{
+                            myparameter:"param"
+                        },
+                        success:function(data){
+                            var table =
+                                    ' <table cellpadding="0" cellspacing="0" border="0" id="table_pc" class="sortable">'
+                                            +'<thead>'
+                                            +'<tr>'
+                                            +'<th><h3>Hotel Name</h3></th>'
+                                            +'<th><h3>City</h3></th>'
+                                            +'<th><h3>Country</h3></th>'
+                                            +'<th><h3>Commission</h3></th>'
+                                            +'</tr>'
+                                            +'</thead>'
+                                            +'<tbody>';
+                            //console.log(data);
+                            var jsdata = JSON.parse(data);
+                            for(var hn in jsdata){
+                                var h = jsdata[hn];
+                                //console.log(pc);
+
+                                table+=
+                                        '<tr>'
+                                                +'<td>'+h.hotelName+'</td>'
+                                                +'<td>'+h.city+'</td>'
+                                                +'<td>'+h.country+'</td>'
+                                                +'<td>'+h.commission+'</td>'
+
+                                                +'</tr>';
+
+
+                            }
+                            table+='</tbody></table>';
+                            $("#allsmhoteltable").html(table);
+
+                            var sorter = new TINY.table.sorter("sorter");
+                            sorter.head = "head";
+                            sorter.asc = "asc";
+                            sorter.desc = "desc";
+                            sorter.even = "evenrow";
+                            sorter.odd = "oddrow";
+                            sorter.evensel = "evenselected";
+                            sorter.oddsel = "oddselected";
+                            sorter.paginate = true;
+                            sorter.currentid = "currentpage_h";
+                            sorter.limitid = "pagelimit_h";
+                            sorter.init("table_h", 1);
+
+                        },
+                        error:function(data){
+                            alert("Ошибка, сообщите администратору: "+JSON.stringify(data));
+
+                        }
+                    }
+            );
+        }
     </script>
 </head>
 
@@ -569,72 +630,12 @@
             </div>
 
             <div id="tabs-5"><!-- 'Users' tab -->
-                <form name="getalluser" method="POST" onsubmit="">
-                    <c:if test="${requestScope.allusers != null}">
-                        <div class="tabcontent">
-                            <p class="h">Hotels</p>
-                        </div>
-                        <table cellpadding="0" cellspacing="0" border="0" id="table" class="sortable">
-                            <thead>
-                            <tr>
-                                <th class="nosort"><input type="checkbox" id="check_all_hotels" onclick="toggleCheckedHotels(this)"/></th>
-                                <th><h3>Name</h3></th>
-                                <th><h3>Country</h3></th>
-                                <th><h3>City</h3></th>
-                                <th><h3>Comission</h3></th>
-                            </tr>
-                            </thead>
-                            <tbody id="uniq">
-                            <c:forEach items="${requestScope.allusers}" var="user">
-                                <tr>
-                                    <td><input type="checkbox" class="checkboxes" onclick="toggleParentChecked(this.checked)" name = "vip[]" c:out value="${user.id}"/></td>
-                                    <td><c:out value="${user.name}"/></td>
-                                    <td><c:out value="${user.email}"/></td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${user.vip=='0'}">Not vip</c:when>
-                                            <c:when test="${user.vip=='1'}">Vip</c:when>
-                                        </c:choose>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                        <div class="controls">
-                            <div class="perpage">
-                                <select onchange="sorter.size(this.value)">
-                                    <option value="5">5</option>
-                                    <option value="10" selected="selected">10</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                <span>Entries Per Page</span>
-                            </div>
-                            <div class="navigation">
-                                <img src="resources/img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)"/>
-                                <img src="resources/img/previous.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1)"/>
-                                <img src="resources/img/next.gif" width="16" height="16" alt="First Page" onclick="sorter.move(1)"/>
-                                <img src="resources/img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)"/>
-                            </div>
-                            <div class="text">Displaying Page <span id="currentpage_us"></span> of <span id="pagelimit_us"></span></div>
-                        </div>
-                        <script type="text/javascript">
-                            var sorter = new TINY.table.sorter("sorter");
-                            sorter.head = "head";
-                            sorter.asc = "asc";
-                            sorter.desc = "desc";
-                            sorter.even = "evenrow";
-                            sorter.odd = "oddrow";
-                            sorter.evensel = "evenselected";
-                            sorter.oddsel = "oddselected";
-                            sorter.paginate = true;
-                            sorter.currentid = "currentpage_us";
-                            sorter.limitid = "pagelimit_us";
-                            sorter.init("table", 1);
-                        </script>
-                    </c:if>
-                </form>
+
+                <a onclick="loadSMHotel()" href="#">All SM Hotel</a>
+                <div id="allsmhoteltable">
+                </div>
+
+
             </div> <!-- #tab5 -->
         </div><!-- #tabs -->
     </div><!-- #content -->

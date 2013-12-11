@@ -24,7 +24,7 @@
                         <img src="${hotel.getImage_url()}" style="float:right; width: 50px; height: 50px;"/>
                     </c:if>
                     <c:if test="${hotel.getImage_url() == null}">
-                        <img src="../../resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
+                        <img src="resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
                     </c:if>
                 </p>
                 <c:if test="${sessionScope.idSm != null}">
