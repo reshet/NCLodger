@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -53,13 +54,34 @@ public class SearchAction extends Action {
                 Integer.parseInt(guests_adults),Integer.parseInt(guests_children));
         JSONObject resp = searcher.parseResults(results);
         List<HotelDTO> hotelDTOs = searcher.getHotelsList(resp);
+
+
+
         PriceModifyer mdf = (PriceModifyer)ctx.getBean("pricerules");
         mdf.addCommissionToHotels(hotelDTOs);
-
+        //price rule
+        if(!max_price.equals("") && !min_price.equals("") ){
+            try{
+                hotelDTOs = getPriceRange(hotelDTOs,Double.parseDouble(min_price),Double.parseDouble(max_price));
+            } catch (MyException ex) {
+                request.setAttribute("error_message",ex.getMessage());
+                return "exception";
+            }
+        }
 
         request.setAttribute("hotelDTOs", hotelDTOs);
         request.getSession().setAttribute("hotelDTOs", hotelDTOs);
 
         return "home";
+    }
+
+    //delete hotel from list which do not pass price range
+    private List<HotelDTO> getPriceRange(List<HotelDTO> lst,double min, double max ) throws MyException {
+        for(int i=lst.size()-1;i>=0;i--){
+            if(lst.get(i).getRoomWithCommissionPrice()<min || lst.get(i).getRoomWithCommissionPrice()>max){
+                lst.remove(i);
+            }
+        }
+        return lst;
     }
 }
