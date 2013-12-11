@@ -4,6 +4,7 @@ import com.nclodger.domain.Accommodation;
 import com.nclodger.domain.Hotel;
 import com.nclodger.myexception.MyException;
 import com.nclodger.publicdao.OrderDAOInterface;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
  * Time: 1:10 PM
  * To change this template use File | Settings | File Templates.
  */
+@Component("orderdao")
 public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
     @Override
     public Boolean isExistHotelbyID(final int IntID) throws MyException {
@@ -120,6 +122,83 @@ public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
                 int id = res.getInt(1);
 
                 return id;
+            }
+        });
+    }
+
+    @Override
+    public Integer getIDAccByExpID(final int expediaID) throws MyException {
+        return dbOperation(new WrapperDBOperation<Integer>() {
+            @Override
+            public Integer doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_ACC FROM ACCOMMODATION WHERE EXPEDIA_ID=?"
+                );
+                // public Accommodation(int id_hotel, double price, int quantity, String type, int roomExpediaID){
+                prep.setInt(1,expediaID);
+                java.sql.ResultSet res = prep.executeQuery();
+                Integer id = new Integer(0);
+                if (res.next()){
+                    id = res.getInt(1);
+                };
+
+
+                return id;
+            }
+        });
+    }
+
+
+    @Override
+    public Boolean isExistOrderOnAcc(final int accID) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+                    @Override
+                    public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                        PreparedStatement prep = dataBase.prepareStatement(
+                                "SELECT COUNT(*) FROM ORDERS WHERE ID_ACC=?"
+                        );
+                        prep.setInt(1, accID);
+                        java.sql.ResultSet res = prep.executeQuery();
+                        res.next();
+                        boolean isExist = false;
+                        if(res.getInt(1)!=0){
+                            isExist = true;
+                        }
+                        return isExist;
+
+                    }
+                });
+    }
+
+    //return true if free
+    @Override
+    public Boolean isFreeAcc(final int accID,final  String startDate,final String endDate) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT COUNT(*) FROM ORDERS WHERE ID_ACC=? AND " +
+                                "                (                                    " +
+                                "                    (TRUNC(ORDERS.END_DATE) >= TO_DATE(?,'mm/dd/yy') AND " +
+                                "                     TRUNC(ORDERS.START_DATE)<=TO_DATE(?,'mm/dd/yy') ) " +
+                                "                  OR  " +
+                                "                    (TRUNC(ORDERS.START_DATE) <= TO_DATE(?,'mm/dd/yy') AND " +
+                                "                     TRUNC(ORDERS.END_DATE)  >= TO_DATE(?,'mm/dd/yy') ) " +
+                                "                )"
+                );
+                prep.setInt(1, accID);
+                prep.setString(2, endDate);
+                prep.setString(3, endDate);
+                prep.setString(4, startDate);
+                prep.setString(5, startDate);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                boolean isExist = false;
+                if(res.getInt(1)==0){
+                    isExist = true;
+                }
+                return isExist;
+
             }
         });
     }

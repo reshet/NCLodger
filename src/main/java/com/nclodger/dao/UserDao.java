@@ -690,9 +690,6 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                  prep.setInt(9,2);
 
 
-
-
-
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
                 return true;
