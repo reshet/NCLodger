@@ -36,7 +36,8 @@ public class SearchAction extends Action {
         String max_price = request.getParameter("max_price");
         String guests_children = request.getParameter("guests_children");
         String guests_adults = request.getParameter("guests_adults");
-        String currency = request.getParameter("currency");
+        /*String currency = request.getParameter("currency");*/
+        String currency = "USD";
 
         request.getSession().setAttribute("checkindate",checkin);
         request.getSession().setAttribute("checkoutdate",checkout);
