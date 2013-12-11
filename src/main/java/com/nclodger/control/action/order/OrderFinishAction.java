@@ -2,10 +2,7 @@ package com.nclodger.control.action.order;
 
 import com.nclodger.control.action.Action;
 import com.nclodger.dao.OrderDAO;
-import com.nclodger.domain.Hotel;
-import com.nclodger.domain.Order;
-import com.nclodger.domain.PromoCode;
-import com.nclodger.domain.User;
+import com.nclodger.domain.*;
 import com.nclodger.dao.PromoCodeDAO;
 import com.nclodger.logic.UserFacadeInterface;
 import com.nclodger.webservices.HotelDTO;
@@ -36,7 +33,7 @@ public class OrderFinishAction extends Action {
 
         PromoCodeDAO pcDAO = (PromoCodeDAO) ctx.getBean("promocodeDAO");
         PromoCode pm = null;
-        if(promo!=null) {
+        if(!promo.equals("") || promo == null) {
             if(!pcDAO.isExist(promo)){
                 request.setAttribute("isExist",false);
                 return "orderstart";
@@ -63,6 +60,8 @@ public class OrderFinishAction extends Action {
         UserFacadeInterface facade = (UserFacadeInterface) ctx.getBean("userFacade");
         HotelDTO h = (HotelDTO)request.getSession().getAttribute("hotel");
 
+
+
         //check if hotel exist in db and insert if !exist
         String country = request.getSession().getAttribute("country").toString();
         String city = request.getSession().getAttribute("city").toString();
@@ -72,6 +71,24 @@ public class OrderFinishAction extends Action {
            odao.insertHotel(hotModel);
         }
         //
+        //check if hotel exist in db and insert if !exist
+        String prstr =  h.getPrice();
+        double pr=0.0;
+        try{
+           // int print = Integer.parseInt(prstr);
+            pr = Double.parseDouble(prstr);
+        }catch(NumberFormatException ex){ // handle your exception
+
+        }
+
+        Accommodation acc = new Accommodation(h.getId(),pr,5,h.getRoomType(),h.getRoomExpediaID());
+        if(!odao.isExistAccbyID(acc.getRoomExpediaID())){
+        //    odao.insertAccommodation(acc);
+        }
+
+        //end
+
+
         User user =  (User)request.getSession().getAttribute("userfull");
 
         Order order = new Order();

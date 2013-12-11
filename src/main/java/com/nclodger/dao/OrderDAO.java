@@ -1,5 +1,6 @@
 package com.nclodger.dao;
 
+import com.nclodger.domain.Accommodation;
 import com.nclodger.domain.Hotel;
 import com.nclodger.myexception.MyException;
 import com.nclodger.publicdao.OrderDAOInterface;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  */
 public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
     @Override
-    public boolean isExistHotelbyID(final int idHotel) throws MyException {
+    public Boolean isExistHotelbyID(final int idHotel) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
@@ -38,7 +39,7 @@ public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
     }
 
     @Override
-    public boolean insertHotel(final Hotel hotel) throws MyException {
+    public Boolean insertHotel(final Hotel hotel) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
@@ -57,6 +58,49 @@ public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
 
                 return true;
 
+            }
+        });
+    }
+
+    @Override
+    public Boolean isExistAccbyID(final int expediaRoomID) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT COUNT(*) FROM ACCOMMODATION WHERE EXPEDIA_ID=?"
+                );
+                prep.setInt(1, expediaRoomID);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                boolean isExist = false;
+                if(res.getInt(1)!=0){
+                    isExist = true;
+                }
+                return isExist;
+
+            }
+        });
+    }
+
+    @Override
+    public Boolean insertAccommodation(final Accommodation acc) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "INSERT INTO ACCOMMODATION(ID_HOTEL, PRICE, QUANTITY, TYPE, EXPEDIA_ID) VALUES (?,?,?,?,?)"
+                );
+                // public Accommodation(int id_hotel, double price, int quantity, String type, int roomExpediaID){
+                prep.setInt(1,acc.getId_hotel());
+                prep.setDouble(2,acc.getPrice());
+                prep.setInt(3,acc.getQuantity());
+                prep.setString(4,acc.getType());
+                prep.setInt(5,acc.getRoomExpediaID());
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+
+                return true;
             }
         });
     }

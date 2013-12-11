@@ -1,5 +1,6 @@
 package com.nclodger.publicdao;
 
+import com.nclodger.domain.Accommodation;
 import com.nclodger.domain.Hotel;
 import com.nclodger.myexception.MyException;
 
@@ -11,7 +12,9 @@ import com.nclodger.myexception.MyException;
  * To change this template use File | Settings | File Templates.
  */
 public interface OrderDAOInterface {
-    public boolean isExistHotelbyID (int idHotel) throws MyException;
-    public boolean insertHotel (Hotel hotel) throws  MyException;
+    public Boolean isExistHotelbyID (int idHotel) throws MyException;
+    public Boolean insertHotel (Hotel hotel) throws  MyException;
+    public Boolean isExistAccbyID(int expediaRoomID) throws MyException;
+    public Boolean insertAccommodation(Accommodation acc) throws MyException;
 
 }

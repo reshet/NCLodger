@@ -515,6 +515,9 @@
         </p>
 
     </div><!-- #content -->
+    <div>
+    <a href="#" onclick="snowStorm.stop();return false"> <img src="resources/img/stopsnow.png" width="106" height="56" alt="DO NOT PRESS" /></a>
+    </div>
 
     <jsp:include page="/WEB-INF/view/footer.jsp"/>
     <%--<div class="footer">

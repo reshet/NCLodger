@@ -22,6 +22,7 @@ public class HotelDTO implements Serializable {
     private String address;
     private String price;
     private String priceCurrency;
+    private int roomExpediaID;
     private String roomType;
     private String roomOccupancy;
     private Double roomBasePrice;
@@ -159,5 +160,13 @@ public class HotelDTO implements Serializable {
 
     public void setPrices(List<Double> prices) {
         this.prices = prices;
+    }
+
+    public int getRoomExpediaID() {
+        return roomExpediaID;
+    }
+
+    public void setRoomExpediaID(int roomExpediaID) {
+        this.roomExpediaID = roomExpediaID;
     }
 }

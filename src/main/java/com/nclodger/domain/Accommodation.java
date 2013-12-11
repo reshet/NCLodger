@@ -14,6 +14,7 @@ public class Accommodation {
     private double price;
     private int quantity;
     private String type;
+    private int roomExpediaID;
 
 
 
@@ -21,7 +22,7 @@ public class Accommodation {
 
     }
 
-    //constructor by default ALL Accommodation attribure
+    //constructor by default  Accommodation attribure
     public Accommodation(int id_acc,int id_hotel, double price, int quantity, String type){
         this.id_acc = id_acc;
         this.id_hotel = id_hotel;
@@ -29,6 +30,16 @@ public class Accommodation {
         this.quantity = quantity;
         this.type = type;
     }
+
+    public Accommodation(int id_hotel, double price, int quantity, String type, int roomExpediaID){
+        this.id_hotel = id_hotel;
+        this.price = price;
+        this.quantity = quantity;
+        this.type = type;
+        this.roomExpediaID = roomExpediaID;
+    }
+
+
 
 
     public int getId_acc() {
@@ -71,4 +82,11 @@ public class Accommodation {
         this.type = type;
     }
 
+    public int getRoomExpediaID() {
+        return roomExpediaID;
+    }
+
+    public void setRoomExpediaID(int roomExpediaID) {
+        this.roomExpediaID = roomExpediaID;
+    }
 }

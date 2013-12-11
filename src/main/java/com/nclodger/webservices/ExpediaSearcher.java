@@ -139,6 +139,7 @@ public class ExpediaSearcher {
                     if(room!=null){
                         String room_type = room.getString("roomDescription");
                         String room_occupancy = room.getString("maxRoomOccupancy");
+                        int id_room =Integer.parseInt(room.getString("expediaPropertyId"));
                         JSONObject rateinfo = room.getJSONObject("RateInfos").getJSONObject("RateInfo");
                         JSONObject rates = rateinfo.getJSONObject("ChargeableRateInfo").getJSONObject("NightlyRatesPerRoom");
                         JSONArray arr = rates.getJSONArray("NightlyRate");
@@ -148,6 +149,7 @@ public class ExpediaSearcher {
                         h1.setRoomBasePrice(ratepr);
                         h1.setRoomType(room_type);
                         h1.setRoomOccupancy(room_occupancy);
+                        h1.setRoomExpediaID(id_room);
                     }
 
                     //map_hotels.put(id,name);
