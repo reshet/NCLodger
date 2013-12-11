@@ -17,5 +17,8 @@ public interface OrderDAOInterface {
     public Boolean isExistAccbyID(int expediaRoomID) throws MyException;
     public Boolean insertAccommodation(Accommodation acc) throws MyException;
     public Integer getIDHotelByintID(int expediaHotelID) throws MyException;
+    public Integer getIDAccByExpID(int expediaID) throws MyException;
+    public Boolean isExistOrderOnAcc(int accID) throws MyException;
+    public Boolean isFreeAcc(int accID,String startDate,String endDate) throws MyException;
 
 }

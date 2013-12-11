@@ -1,6 +1,8 @@
 package com.nclodger.control.action.search;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.dao.OrderDAO;
+
 import com.nclodger.logic.PriceModifyer;
 import com.nclodger.myexception.MyException;
 import com.nclodger.webservices.ExpediaSearcher;
@@ -61,6 +63,9 @@ public class SearchAction extends Action {
         //to slow implementation
         //mdf.addCommissionToHotels(hotelDTOs);
         mdf.addCommissionToHotelsBatch(hotelDTOs);
+
+        //get Only free hotel on that time frame
+        hotelDTOs = getFreeHotel(hotelDTOs,checkin,checkout);
         //price rule
         if(!max_price.equals("") && !min_price.equals("") ){
             try{
@@ -84,6 +89,27 @@ public class SearchAction extends Action {
                 lst.remove(i);
             }
         }
+        return lst;
+    }
+
+    private List<HotelDTO> getFreeHotel(List<HotelDTO> lst,String checkin, String checkout){
+        //get expedia room id from id_acc
+        OrderDAO orderdao = new OrderDAO();
+        int idAcc;
+        int idExpAcc;
+        try {
+            for(int i=lst.size()-1;i>0;i--){
+                   idExpAcc=lst.get(i).getRoomExpediaID();
+                    idAcc=orderdao.getIDAccByExpID(idExpAcc);
+                    if(orderdao.isExistOrderOnAcc(idAcc)){
+                        if(!orderdao.isFreeAcc(idAcc,checkin,checkout));
+                        lst.remove(i);
+                    }
+            }
+        } catch (MyException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
         return lst;
     }
 }

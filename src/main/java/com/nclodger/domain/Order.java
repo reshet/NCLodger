@@ -12,6 +12,7 @@ import com.nclodger.webservices.HotelDTO;
 public class Order {
     private HotelDTO h;
     private int userid;
+    private int id_acc;
     private PromoCode promo;
     private double final_price;
     private String start_date;
@@ -65,5 +66,11 @@ public class Order {
         this.end_date = end_date;
     }
 
+    public int getId_acc() {
+        return id_acc;
+    }
 
+    public void setId_acc(int id_acc) {
+        this.id_acc = id_acc;
+    }
 }
