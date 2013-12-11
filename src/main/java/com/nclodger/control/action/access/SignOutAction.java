@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 public class SignOutAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
-        /*request.getSession().removeAttribute("email");
-        request.getSession().removeAttribute("username");
-        request.getSession().removeAttribute("utype");
-        request.getSession().removeAttribute("promo_code");*/
+        // If User is unauthorized then ge can't sign out
+        if(request.getSession().getAttribute("email") == null){
+            return "home";
+        }
         request.getSession().invalidate();
         return "home";
     }

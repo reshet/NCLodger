@@ -20,6 +20,10 @@ public class ViewPastBookingAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
+        if(request.getSession().getAttribute("email") == null) {
+            return "home";
+        }
+
         String email = request.getSession().getAttribute("email").toString();
         UserDao udao = new UserDao();
         int id = udao.getUserId(email);

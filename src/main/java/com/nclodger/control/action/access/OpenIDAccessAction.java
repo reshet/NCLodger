@@ -22,6 +22,10 @@ public class OpenIDAccessAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Logged in User cannot login again without logging out first
+        if(request.getSession().getAttribute("email") != null){
+            return "home";
+        }
 
         //когда будем выставлять на продакшн, следующую строку надо изменить
         String address = "http://localhost:8080/NCLodger/home.jsp";

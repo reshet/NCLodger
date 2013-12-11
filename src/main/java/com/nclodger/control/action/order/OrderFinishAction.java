@@ -25,6 +25,11 @@ public class OrderFinishAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // If User is not authorized or
+        if(request.getSession().getAttribute("utype") == null) {
+            return "home";
+        }
+
         //ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
 
         //check

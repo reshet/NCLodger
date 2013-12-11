@@ -20,6 +20,12 @@ import java.util.ArrayList;
 public class SmSaveAccExcelAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // If User is not Sales Manager or Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                (request.getSession().getAttribute("utype").toString()).equals("1")) {
+            return "home";
+        }
+
         ReportInExcel re = new ReportInExcel();
         ArrayList<AccommodationTotalValue> alist;
         String start_date = request.getSession().getAttribute("start_date_excel").toString();

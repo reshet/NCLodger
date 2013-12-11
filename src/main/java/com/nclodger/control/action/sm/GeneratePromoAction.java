@@ -52,6 +52,12 @@ public class GeneratePromoAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // If User is not Sales Manager or Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                (request.getSession().getAttribute("utype").toString()).equals("1")) {
+            return "home";
+        }
+
         String code = generatePromoCode(request,response);
         request.getSession().setAttribute("promo_code",code);
         PromoCode pc;

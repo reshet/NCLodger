@@ -19,6 +19,12 @@ public class MakeUnBlockAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException, IOException {
+        // If User is not authorized or not Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                !(request.getSession().getAttribute("utype").toString()).equals("3")) {
+            return "home";
+        }
+
         UserDao uDao = new UserDao();
         boolean flag = true;
         String[] users = request.getParameterValues("block[]");
