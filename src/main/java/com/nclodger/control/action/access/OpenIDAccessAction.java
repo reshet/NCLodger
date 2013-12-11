@@ -1,8 +1,13 @@
 package com.nclodger.control.action.access;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.dao.SMDAO;
+import com.nclodger.dao.UserDao;
+import com.nclodger.domain.User;
+import com.nclodger.myexception.MyException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import javax.mail.internet.HeaderTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -21,28 +26,59 @@ import java.net.URLConnection;
 public class OpenIDAccessAction extends Action {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Logged in User cannot login again without logging out first
-        if(request.getSession().getAttribute("email") != null){
-            return "home";
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, MyException, JSONException {
+
+
+        if (request.getParameterMap().containsKey("token"))
+        {
+            String token = request.getParameter("token");
+            URL url = new URL("http://loginza.ru/api/authinfo?token="+token);
+            URLConnection yc = url.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+
+            byte[] data = new byte[yc.getInputStream().available()];
+            yc.getInputStream().read(data);
+            in.close();
+            //              out.println(new String(data));
+
+            String userInfo = new String(data);
+            //           out.println(userInfo);
+
+            JSONObject json = new JSONObject(userInfo);
+
+            JSONObject name =  json.getJSONObject("name");
+            String firstName = name.getString("first_name");
+            //                out.println(firstName);
+
+            String email = json.getString("email");
+            //               out.println(email);
+
+            request.setAttribute("email",email);
+            request.getSession().setAttribute("username",firstName);
+
+            //положим пользователя в базу
+            UserDao userDao = new UserDao();
+            userDao.insert(email, firstName);
+
+
+
+
+
+        User user;
+            user = userDao.getUserObj2(email) ;
+            request.getSession().setAttribute("userfull",user);
+
+                // If user is SM then put id SM to session too
+                if(user.getId_ut() == 2) {
+            /*        String smEmail = request.getParameter("email");     */
+                    SMDAO smDao = new SMDAO();
+                    int idSm = smDao.getSmanagerId(email);
+                    request.getSession().setAttribute("idSm",idSm);
+                }
+
         }
-
-        //когда будем выставлять на продакшн, следующую строку надо изменить
-        String address = "http://localhost:8080/NCLodger/home.jsp";
-
-        String basicUrl = "https://loginza.ru/api/widget?token_url="+address+"&lang=en&providers_set=vkontakte,facebook,twitter,openid,google,yandex";
-
-        URL url = new URL(basicUrl);
-        URLConnection yc = url.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-        String inputLine;
-
-
-        while ((inputLine = in.readLine()) != null)
-           // System.out.println(inputLine);
-        in.close();
-
-
         return "home";
+
+
     }
 }
