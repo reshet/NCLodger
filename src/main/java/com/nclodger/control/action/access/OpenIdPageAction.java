@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 public class OpenIdPageAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // Logged in User cannot login again without logging out first
+        if(request.getSession().getAttribute("email") != null){
+            return "home";
+        }
+
         if(request.getSession().getAttribute("email") == null) {
             return "openid";
         }

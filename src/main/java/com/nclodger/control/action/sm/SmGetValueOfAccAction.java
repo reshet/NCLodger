@@ -19,8 +19,13 @@ import java.util.ArrayList;
 public class SmGetValueOfAccAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        SMDAO smdao = new SMDAO();
+        // If User is not Sales Manager or Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                (request.getSession().getAttribute("utype").toString()).equals("1")) {
+            return "home";
+        }
 
+        SMDAO smdao = new SMDAO();
 /*
         ArrayList<AccommodationTotalValue> alist;
         alist = smdao.sortAccommodationbyValuable();

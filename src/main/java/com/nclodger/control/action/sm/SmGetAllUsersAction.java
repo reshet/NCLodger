@@ -19,10 +19,16 @@ public class SmGetAllUsersAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-            //ApplicationContext context = new ClassPathXmlApplicationContext("bean-config.xml");
-            UserDao userDAO = (UserDao) ctx.getBean("userDAO");
-            List<User> users = userDAO.getAllUsers();
-            request.setAttribute("allusers",users);
+        // If User is not Sales Manager or Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                (request.getSession().getAttribute("utype").toString()).equals("1")) {
+            return "home";
+        }
+
+        //ApplicationContext context = new ClassPathXmlApplicationContext("bean-config.xml");
+        UserDao userDAO = (UserDao) ctx.getBean("userDAO");
+        List<User> users = userDAO.getAllUsers();
+        request.setAttribute("allusers",users);
 
         return "smsettings";
     }

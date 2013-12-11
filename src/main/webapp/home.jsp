@@ -394,10 +394,6 @@
 <body>
 <div class="wrapper">
 
-    <div id="lights">
-           <!-- lights go here -->
-    </div>
-
     <jsp:include page="/WEB-INF/view/header.jsp"/>
 
     <div class="content">
@@ -489,16 +485,16 @@
                     </li>
                     <li>
                         <b>Price:</b>
-                        <input type="text" id="min_price" name="min_price" maxlength="9" value="<%=session.getAttribute("min_price")!=null?session.getAttribute("min_price"):"" %>" style="width: 100px;"/> <b>to</b>
-                        <input type="text" id="max_price" name="max_price" maxlength="9" value="<%=session.getAttribute("max_price")!=null?session.getAttribute("max_price"):"" %>" style="width: 100px;"/>
+                        <input type="text" id="min_price" name="min_price" maxlength="9" value="<%=session.getAttribute("min_price")!=null?session.getAttribute("min_price"):"" %>" style="width: 140px;"/> <b>to</b>
+                        <input type="text" id="max_price" name="max_price" maxlength="9" value="<%=session.getAttribute("max_price")!=null?session.getAttribute("max_price"):"" %>" style="width: 140px;"/> <b> USD</b>
                     </li>
-                    <li>
+                   <%-- <li>
                         <select id="currency" name="currency" style="width: 100px">
                             <c:forEach items="${currencies}" var="currency">
                                 <option value="${currency}" ${sessionScope.currency == currency ? 'selected' : ''}>${currency}</option>
                             </c:forEach>
                         </select>
-                    </li>
+                    </li>--%>
                 </ul>
                 <ul>
                     <li>

@@ -12,9 +12,10 @@ import com.nclodger.myexception.MyException;
  * To change this template use File | Settings | File Templates.
  */
 public interface OrderDAOInterface {
-    public Boolean isExistHotelbyID (int idHotel) throws MyException;
+    public Boolean isExistHotelbyID (int IntID) throws MyException;
     public Boolean insertHotel (Hotel hotel) throws  MyException;
     public Boolean isExistAccbyID(int expediaRoomID) throws MyException;
     public Boolean insertAccommodation(Accommodation acc) throws MyException;
+    public Integer getIDHotelByintID(int expediaHotelID) throws MyException;
 
 }

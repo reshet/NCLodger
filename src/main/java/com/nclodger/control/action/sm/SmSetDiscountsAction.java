@@ -18,6 +18,12 @@ public class SmSetDiscountsAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // If User is not Sales Manager or Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                (request.getSession().getAttribute("utype").toString()).equals("1")) {
+            return "home";
+        }
+
         SMDAO smDao = new SMDAO();
         try {
             int idSm = smDao.getSmanagerId(request.getSession().getAttribute("email").toString());

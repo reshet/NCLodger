@@ -21,6 +21,12 @@ import java.util.List;
 public class SmSettingsAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // If User is not Sales Manager or Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                (request.getSession().getAttribute("utype").toString()).equals("1")) {
+            return "home";
+        }
+
         SMDAO smDao;
         SManager sm;
         if(request.getSession().getAttribute("utype")!=null

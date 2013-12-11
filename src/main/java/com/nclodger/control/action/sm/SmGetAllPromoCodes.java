@@ -21,6 +21,12 @@ public class SmGetAllPromoCodes extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // If User is not Sales Manager or Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                (request.getSession().getAttribute("utype").toString()).equals("1")) {
+            return "home";
+        }
+
         try {
             SMDAO smDao = new SMDAO();
             PromoCodeDAO pcdao = new PromoCodeDAO();

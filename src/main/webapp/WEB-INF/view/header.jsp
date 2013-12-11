@@ -23,7 +23,7 @@
         <li><a href="home.jsp">Home</a></li>
         <c:if test="${sessionScope.email != null}">
             <li><a href="myorderspage">My Orders</a></li>
-            <c:if test="${sessionScope.utype == 2}">
+            <c:if test="${sessionScope.utype != 1}">
                 <li><a href="smsettings">Sales Manager</a></li>
             </c:if>
             <c:if test="${sessionScope.utype == 3}">

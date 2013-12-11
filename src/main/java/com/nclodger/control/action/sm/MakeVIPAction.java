@@ -21,6 +21,12 @@ public class MakeVIPAction extends Action {
 
         @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException, IOException {
+            // If User is not Sales Manager or Administrator
+            if(request.getSession().getAttribute("utype") == null ||
+                    (request.getSession().getAttribute("utype").toString()).equals("1")) {
+                return "home";
+            }
+
             UserDao uDao = new UserDao();
             boolean flag = true; //uDao.updateForSM(521);
             //      request.getParameterValues("vip");

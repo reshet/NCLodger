@@ -1,9 +1,12 @@
 package com.nclodger.control.action.access;
 
+import com.nclodger.additional.BookingViewing;
 import com.nclodger.control.action.Action;
+import com.nclodger.dao.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +22,15 @@ public class OpenMyOrdersPage extends Action {
             return "home";
         }
         else {
+
+            String email = request.getSession().getAttribute("email").toString();
+            UserDao udao = new UserDao();
+            int id = udao.getUserId(email);
+
+            ArrayList<BookingViewing> bookinglist = new ArrayList<BookingViewing>();
+            bookinglist = udao.getPastOrder(id);
+            request.setAttribute("bookinglist",bookinglist);
+
             return "myorders";
         }
     }

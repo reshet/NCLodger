@@ -20,7 +20,7 @@ public class AdSettingsAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if(request.getSession().getAttribute("utype")!=null
-                && (Integer)request.getSession().getAttribute("utype") == 3) {
+                && (request.getSession().getAttribute("utype").toString()).equals("3")) {
             AdminDAO adminDAO = new AdminDAO();
             SManager sm = adminDAO.getCurDefaultCommAndDisc();
             request.getSession().setAttribute("defcurcom",sm.getCommission());

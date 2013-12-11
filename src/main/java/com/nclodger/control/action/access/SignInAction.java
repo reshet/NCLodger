@@ -35,6 +35,9 @@ public class SignInAction extends Action {
             return "login";
         }
          */
+        if(request.getSession().getAttribute("email") != null){
+            return "home";
+        }
 
         UserDao users = (UserDao) ctx.getBean("userDAO");
         if(!users.isExistEmail(request.getParameter("email"))){

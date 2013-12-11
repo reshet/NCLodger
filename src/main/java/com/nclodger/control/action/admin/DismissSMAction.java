@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 public class DismissSMAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // If User is not authorized or not Administrator
+        if(request.getSession().getAttribute("utype") == null ||
+                !(request.getSession().getAttribute("utype").toString()).equals("3")) {
+            return "home";
+        }
+
         SMDAO smDao = new SMDAO();
         boolean flag = true;
         String[] users = request.getParameterValues("block[]");

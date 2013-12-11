@@ -27,6 +27,11 @@ public class SignUpAction extends Action {
     UserDao users;
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
+        // If user is logged in then he can't sign up
+        if(request.getSession().getAttribute("email") != null){
+            return "home";
+        }
+
         //ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
         UserDao users = (UserDao) ctx.getBean("userDAO");
 

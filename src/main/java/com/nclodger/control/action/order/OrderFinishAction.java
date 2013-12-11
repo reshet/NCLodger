@@ -25,6 +25,11 @@ public class OrderFinishAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // If User is not authorized or
+        if(request.getSession().getAttribute("utype") == null) {
+            return "home";
+        }
+
         //ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
 
         //check
@@ -71,19 +76,24 @@ public class OrderFinishAction extends Action {
            odao.insertHotel(hotModel);
         }
         //
-        //check if hotel exist in db and insert if !exist
+        //check if Acc exist in db and insert if !exist
         String prstr =  h.getPrice();
+        // parsing string to get number without USD and so on
+        String delims = "[ ]+";
+        String[] tokens = prstr.split(delims);
         double pr=0.0;
         try{
            // int print = Integer.parseInt(prstr);
-            pr = Double.parseDouble(prstr);
+            pr = Double.parseDouble(tokens[0]);
         }catch(NumberFormatException ex){ // handle your exception
 
         }
 
-        Accommodation acc = new Accommodation(h.getId(),pr,5,h.getRoomType(),h.getRoomExpediaID());
+        //
+        int hotelID = odao.getIDHotelByintID(h.getId());//get local system ID hotel;not integrated
+        Accommodation acc = new Accommodation(hotelID,pr,5,h.getRoomType(),h.getRoomExpediaID());
         if(!odao.isExistAccbyID(acc.getRoomExpediaID())){
-        //    odao.insertAccommodation(acc);
+            odao.insertAccommodation(acc);
         }
 
         //end

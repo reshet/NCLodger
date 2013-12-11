@@ -18,6 +18,10 @@ public class ChangePswdAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if(request.getSession().getAttribute("email") == null){
+            return "home";
+        }
+
         UserDao userDao = new UserDao();
         //validation of old pass
         String oldpass = request.getParameter("oldpswd_hidden");

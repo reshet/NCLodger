@@ -31,23 +31,28 @@ public class ACDetailsAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String id = request.getParameter("idhotel");
-        HotelDTO h = findCurrentHotel(request,id);
+        String idDTO = request.getParameter("idhotel");
+        HotelDTO h = findCurrentHotel(request,idDTO);
         request.getSession().setAttribute("hotel",h);
 
-        /*String smEmail = request.getSession().getAttribute("email").toString();
-        int idSm = smDao.getSmanagerId(smEmail);*/
-        SMDAO smDao = new SMDAO();
-        String idsmstr =  request.getSession().getAttribute("idSm").toString();
-        //int idSm = Integer.parseInt(request.getSession().getAttribute("idSm").toString());
-        int idSm = Integer.parseInt(idsmstr);
-        Boolean bool = smDao.isOccupied(idSm,Integer.parseInt(id));
-        if(bool) {
-            request.setAttribute("isOccupied",true);
+        // If it's not simple user let's check if this person is occupied with this hotel
+        if(!(request.getSession().getAttribute("utype").toString()).equals("1")) {
+            SMDAO smDao = new SMDAO();
+
+            Integer id_hotel = smDao.getIdHotelByIdDTO(Integer.parseInt(idDTO));
+
+            String idsmstr =  request.getSession().getAttribute("idSm").toString();
+            int idSm = Integer.parseInt(idsmstr);
+
+            Boolean bool = smDao.isOccupied(idSm,id_hotel);
+            if(bool) {
+                request.setAttribute("isOccupied",true);
+            }
+            else {
+                request.setAttribute("isOccupied",false);
+            }
         }
-        else {
-            request.setAttribute("isOccupied",false);
-        }
+
         return "acdetails";
     }
 }

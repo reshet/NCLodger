@@ -18,14 +18,14 @@ import java.sql.SQLException;
  */
 public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
     @Override
-    public Boolean isExistHotelbyID(final int idHotel) throws MyException {
+    public Boolean isExistHotelbyID(final int IntID) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
                 PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT COUNT(*) FROM HOTEL WHERE INT_ID=?"
                 );
-                prep.setInt(1, idHotel);
+                prep.setInt(1, IntID);
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
                 boolean isExist = false;
@@ -101,6 +101,25 @@ public class OrderDAO extends AbstractRepository implements OrderDAOInterface {
                 res.next();
 
                 return true;
+            }
+        });
+    }
+
+    @Override
+    public Integer getIDHotelByintID(final int expediaHotelID) throws MyException {
+        return dbOperation(new WrapperDBOperation<Integer>() {
+            @Override
+            public Integer doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT   ID_HOTEL FROM HOTEL WHERE INT_ID=?"
+                );
+                // public Accommodation(int id_hotel, double price, int quantity, String type, int roomExpediaID){
+                prep.setInt(1,expediaHotelID);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                int id = res.getInt(1);
+
+                return id;
             }
         });
     }
