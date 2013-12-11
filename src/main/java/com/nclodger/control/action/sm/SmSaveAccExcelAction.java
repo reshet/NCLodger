@@ -31,7 +31,13 @@ public class SmSaveAccExcelAction extends Action {
         String start_date = request.getSession().getAttribute("start_date_excel").toString();
         String end_date = request.getSession().getAttribute("end_date_excel").toString();
         SMDAO smdao = new SMDAO();
-        alist = smdao.sortAccommodationbyValuableWithTimeFrame(start_date,end_date);
+        if(start_date.equals("") || end_date.equals("")){
+           alist = smdao.sortAccommodationbyValuable();
+        }
+        else{
+            alist = smdao.sortAccommodationbyValuableWithTimeFrame(start_date,end_date);
+        }
+
         re.createMostValuableAccomodation(alist,response);
         return "smsetting";
     }
