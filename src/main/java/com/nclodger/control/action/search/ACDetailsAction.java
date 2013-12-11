@@ -43,6 +43,7 @@ public class ACDetailsAction extends Action {
             pm.addDiscountToHotel(h,user);
         }
 
+
         /*String smEmail = request.getSession().getAttribute("email").toString();
         int idSm = smDao.getSmanagerId(smEmail);*/
         if(request.getSession().getAttribute("utype")!=null)
