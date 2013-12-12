@@ -30,7 +30,7 @@ public class SmSettingsAction extends Action {
         SMDAO smDao;
         SManager sm;
         if(request.getSession().getAttribute("utype")!=null
-                && (Integer)request.getSession().getAttribute("utype") == 2) {
+               && (Integer)request.getSession().getAttribute("utype") != 1) {
             smDao = new SMDAO();
             sm = smDao.getCurrentCommAndDiscounts(request.getSession().getAttribute("email").toString());
             request.getSession().setAttribute("curcom",(int)sm.getCommission());
