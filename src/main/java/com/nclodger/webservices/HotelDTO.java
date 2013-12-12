@@ -105,6 +105,22 @@ public class HotelDTO implements Serializable {
         }
         return price;
     }
+    public String getDiscountsRange() {
+        String price = "";
+        List<Double> prcs = new ArrayList<Double>();
+        for(HotelDiscountDTO di:getDiscounts()){
+            Double pr  = di.getSmHotelUserDisc();
+            if(discount_type.equals(DISCOUNT_VIP))pr  = di.getSmHotelVipDisc();
+            prcs.add(pr);
+        }
+        Collections.sort(prcs);
+        if(prcs.size()>1){
+            price = prcs.get(0)+"-"+ prcs.get(prcs.size() - 1)+"%";
+        }else{
+            price = prcs.get(0)+"%";
+        }
+        return price;
+    }
 
     /*public void setPrice(String price) {
         this.price = price;
@@ -206,5 +222,28 @@ public class HotelDTO implements Serializable {
 
     public void setPrices_disc(Map<Integer, Double> prices_disc) {
         this.prices_disc = prices_disc;
+    }
+    public String getDiscountText(int idsm,boolean vip){
+
+         for(HotelDiscountDTO disc:discounts){
+             if(disc.getSmID() == idsm){
+                 double discount = 0;
+                 if(vip){
+                    discount = disc.getSmHotelVipDisc();
+                 }else{
+                     discount = disc.getSmHotelUserDisc();
+                 }
+                 return "Discount "+discount+"%, Sales Manager "+disc.getSmName();
+             }
+         }
+        return "";
+    }
+    public String getPriceText(int idsm){
+        for(HotelCommissionDTO comm:comms){
+            if(comm.getSmID() == idsm){
+                return "Sales Manager "+comm.getSmname();
+            }
+        }
+        return "";
     }
 }

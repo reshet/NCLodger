@@ -19,6 +19,9 @@
             } else {
                 document.orderfrm.promocode.style.borderColor = '#777777';
             }
+            var sel = $('#payoption :selected').text();
+            console.log(sel);
+            $("#pricelast").text(sel);
             return isValid;
         }
     </script>
@@ -43,13 +46,25 @@
                 <p>Prices: ${hotel.getPrice()}</p>
                 <p>Occupancy: ${hotel.getRoomOccupancy()}</p>
                 <p style="color:#0000ff;">Available prices to pay: </p>
-                <select id="payoption" name="payoption" style="width: 280px;">
-                <c:forEach items="${sessionScope.hotel.getPrices()}" var="accprice">
-                    <option value="${accprice.key}">${accprice.value}</option>
-                </c:forEach>
-                    </select>
-                <br>
-                <form name="orderfrm" method="POST" action="orderfinish" onsubmit="return validateOrderForm();">
+                <form id="orderf" name="orderfrm" method="POST" action="orderfinish" onsubmit="return validateOrderForm();">
+                    <input type="hidden" name="pricelast" id="pricelast"/>
+                    <c:if test="${sessionScope.userfull != null && sessionScope.userfull.getIs_blocked()==0 && !hotel.getDiscount_type().equals('')}">
+                        <p style="color:green;">With Discounts </p>
+                        <select id="payoption" name="payoption" style="width: 340px;" form="orderf">
+                            <c:forEach items="${sessionScope.hotel.getPrices_disc()}" var="accprice">
+                                <option value="${accprice.key}">${accprice.value} ${hotel.getDiscountText(accprice.key,userfull.getVip()==1)}</option>
+                            </c:forEach>
+                        </select>
+                    </c:if>
+
+                    <c:if test="${sessionScope.userfull == null || sessionScope.userfull.getIs_blocked()==1 || hotel.getDiscount_type().equals('')}">
+                        <select id="payoption" name="payoption" style="width: 300px;" form="orderf">
+                            <c:forEach items="${sessionScope.hotel.getPrices()}" var="accprice">
+                                <option value="${accprice.key}">${accprice.value} ${hotel.getPriceText(accprice.key)}</option>
+                            </c:forEach>
+                        </select>
+                    </c:if>
+                    <br/>
                     <p>Enter promo code if you have one:  <input type="text" name="promocode" style="width: 150px;" maxlength="20"></p>
                     <c:if test="${requestScope.isExist==false}">
                         <p style="color: #bc0f0f;">Such promo code doesn't exist.</p>

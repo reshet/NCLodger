@@ -32,9 +32,9 @@ public class PriceModifyer {
    //@Autowired
     public PriceModifyer modifyPriceByPromoCode(Order ord){
         if(ord.getPromo()!=null){
-            ord.setFinal_price(ord.getH().getRoomBasePrice() - ord.getH().getRoomBasePrice() * ord.getPromo().getDiscount());
+            ord.setFinal_price(ord.getRoomSelectedPrice() - ord.getRoomSelectedPrice() * ord.getPromo().getDiscount());
         }else{
-           ord.setFinal_price(ord.getH().getRoomBasePrice());
+           ord.setFinal_price(ord.getRoomSelectedPrice());
         }
         return this;
     }
@@ -178,7 +178,7 @@ public class PriceModifyer {
            }
        }
        public PriceModifyer addDiscountToHotel(HotelDTO hotel,User user){
-        if(user.getIs_blocked()!=0){
+        if(user.getIs_blocked()==0){
 
            boolean vip = (user.getVip() == 1);
             if(vip)
@@ -190,17 +190,17 @@ public class PriceModifyer {
                 List<HotelDiscountDTO> discs = smdao.getHotelDiscounts(hotel.getId());
                 if(discs.size() == 0){
                     SManager sManager= addao.getCurDefaultCommAndDisc();
-                    discs.add(new HotelDiscountDTO(0,sManager.getUser_discount(),sManager.getVip_discount()));
+                    discs.add(new HotelDiscountDTO(0,sManager.getUser_discount(),sManager.getVip_discount(),"system"));
                 }
                 if(discs.size() == 1){
                     double discprice = 0;
                     double discount = getDiscount(discs.get(0),vip);
-                    discprice = (double)Math.round(hotel.getRoomWithCommissionPrice()*(1+discount/100.0));
+                    discprice = (double)Math.round(hotel.getRoomWithCommissionPrice()*(1-discount/100.0));
                     hotel.getPrices_disc().put(discs.get(0).getSmID(),discprice);
                 }else{
                     for(HotelDiscountDTO com:discs){
                         double discount = getDiscount(com,vip);
-                        double itPrice = Math.round(hotel.getRoomWithCommissionPrice()*(1+discount/100.0));
+                        double itPrice = Math.round(hotel.getPrices().get(com.getSmID())*(1-discount/100.0));
                         hotel.getPrices_disc().put(com.getSmID(),itPrice);
                     }
                 }

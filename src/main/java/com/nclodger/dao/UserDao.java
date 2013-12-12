@@ -686,8 +686,8 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                      prep.setNull(7,7);
                  }
                 //TODO real user discount
-                 prep.setInt(8,2);
-                 prep.setInt(9,2);
+                 prep.setInt(8,(int)Math.round(ord.getDiscount()));
+                 prep.setInt(9,ord.getPrice_list_choice());
 
 
                 java.sql.ResultSet res = prep.executeQuery();

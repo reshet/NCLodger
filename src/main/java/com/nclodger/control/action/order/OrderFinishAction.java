@@ -65,6 +65,8 @@ public class OrderFinishAction extends Action {
         UserFacadeInterface facade = (UserFacadeInterface) ctx.getBean("userFacade");
         HotelDTO h = (HotelDTO)request.getSession().getAttribute("hotel");
 
+        String payopt = (String)request.getParameter("payoption");
+
 
 
         //check if hotel exist in db and insert if !exist
@@ -77,7 +79,7 @@ public class OrderFinishAction extends Action {
         }
         //
         //check if Acc exist in db and insert if !exist
-        String prstr =  h.getPrice();
+       /* String prstr =  h.getPrice();
         // parsing string to get number without USD and so on
         String delims = "[ ]+";
         String[] tokens = prstr.split(delims);
@@ -87,9 +89,11 @@ public class OrderFinishAction extends Action {
             pr = Double.parseDouble(tokens[0]);
         }catch(NumberFormatException ex){ // handle your exception
 
-        }
+        }*/
 
         //
+        double pr = h.getRoomBasePrice();
+
         int hotelID = odao.getIDHotelByintID(h.getId());//get local system ID hotel;not integrated
         Accommodation acc = new Accommodation(hotelID,pr,5,h.getRoomType(),h.getRoomExpediaID());
         if(!odao.isExistAccbyID(acc.getRoomExpediaID())){
@@ -105,6 +109,7 @@ public class OrderFinishAction extends Action {
         order.setH(h);
         order.setPromo(pm);
         order.setUserid(user.getId());
+        order.setPrice_list_choice(Integer.parseInt(payopt));
         order.setStart_date((String)request.getSession().getAttribute("checkindate"));
         order.setEnd_date((String)request.getSession().getAttribute("checkoutdate"));
 

@@ -49,7 +49,7 @@ public class ACDetailsAction extends Action {
         if(request.getSession().getAttribute("utype")!=null)
         if(!(request.getSession().getAttribute("utype").toString()).equals("1")) {
             SMDAO smDao = new SMDAO();
-            String idsmstr =  (String)request.getSession().getAttribute("idSm");
+            String idsmstr =  request.getSession().getAttribute("idSm").toString();
             if(idsmstr!=null){
                 int idSm = Integer.parseInt(idsmstr);
                 Boolean bool = smDao.isOccupied(idSm,Integer.parseInt(id));

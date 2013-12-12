@@ -9,14 +9,16 @@ package com.nclodger.logic;
  */
 public class HotelDiscountDTO {
     private int smID;
+    private String smName;
     private double smHotelUserDisc;
     private double smHotelVipDisc;
 
-    public HotelDiscountDTO(int smID, double smHotelUserDisc,double smHotelVipDisc){
+    public HotelDiscountDTO(int smID, double smHotelUserDisc,double smHotelVipDisc,String smname){
 
         this.smID = smID;
         this.smHotelUserDisc = smHotelUserDisc;
         this.smHotelVipDisc = smHotelVipDisc;
+        this.setSmName(smname);
     }
 
 
@@ -43,5 +45,13 @@ public class HotelDiscountDTO {
 
     public void setSmHotelVipDisc(double smHotelVipDisc) {
         this.smHotelVipDisc = smHotelVipDisc;
+    }
+
+    public String getSmName() {
+        return smName;
+    }
+
+    public void setSmName(String smName) {
+        this.smName = smName;
     }
 }

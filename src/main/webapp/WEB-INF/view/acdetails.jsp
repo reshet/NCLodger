@@ -40,9 +40,13 @@
                 <p>Address: ${hotel.getAddress()}</p>
                 <p>Type: ${hotel.getRoomType()}</p>
                 <p>Prices: ${hotel.getPrice()}</p>
+
                 <p>Occupancy: ${hotel.getRoomOccupancy()}</p><br>
-                <c:if test="${sessionScope.userfull != null && !sessionScope.userfull.getIs_blocked()}">
-                    <p style="color:#00FF00;">You may have a discount for this accomodation!</p>
+                <c:if test="${sessionScope.userfull != null && sessionScope.userfull.getIs_blocked()==0}">
+                    <%--<p style="color:#00FF00;">You may have a discount for this accomodation!</p>--%>
+                    <c:if test="${sessionScope.userfull != null && !hotel.getDiscount_type().equals('')}">
+                        <p style="color:green">Your ${hotel.getDiscount_type()} ${hotel.getDiscountsRange()} available!</p>
+                    </c:if>
                 </c:if>
                 <p class="submit">
                     <a href="orderstart">Book this accomodation&rarr;</a>

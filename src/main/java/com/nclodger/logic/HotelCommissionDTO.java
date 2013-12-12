@@ -10,7 +10,7 @@ package com.nclodger.logic;
 public class HotelCommissionDTO {
     private int smID;
     private double  smHotelCommission;
-
+    private String smname;
     public HotelCommissionDTO(int smID, double smHotelCommission){
 
         this.smID = smID;
@@ -33,5 +33,13 @@ public class HotelCommissionDTO {
 
     public void setSmHotelCommission(double smHotelCommission) {
         this.smHotelCommission = smHotelCommission;
+    }
+
+    public String getSmname() {
+        return smname;
+    }
+
+    public void setSmname(String smname) {
+        this.smname = smname;
     }
 }

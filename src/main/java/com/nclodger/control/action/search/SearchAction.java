@@ -65,7 +65,9 @@ public class SearchAction extends Action {
         mdf.addCommissionToHotelsBatch(hotelDTOs);
 
         //get Only free hotel on that time frame
-        hotelDTOs = getFreeHotel(hotelDTOs,checkin,checkout);
+
+        //hotelDTOs = getFreeHotel(hotelDTOs,checkin,checkout);
+
         //price rule
         if(!max_price.equals("") && !min_price.equals("") ){
             try{

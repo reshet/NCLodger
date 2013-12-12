@@ -1,5 +1,6 @@
 package com.nclodger.domain;
 
+import com.nclodger.logic.HotelDiscountDTO;
 import com.nclodger.webservices.HotelDTO;
 
 /**
@@ -17,7 +18,18 @@ public class Order {
     private double final_price;
     private String start_date;
     private String end_date;
-
+    private int price_list_choice;
+    public double getRoomSelectedPrice(){
+        return h.getPrices_disc().get(price_list_choice);
+    }
+    public double getDiscount(){
+        for(HotelDiscountDTO disc:h.getDiscounts()){
+            if(disc.getSmID() == price_list_choice){
+                return disc.getSmHotelUserDisc();
+            }
+        }
+        return h.getPrices_disc().get(price_list_choice);
+    }
     public HotelDTO getH() {
         return h;
     }
@@ -72,5 +84,13 @@ public class Order {
 
     public void setId_acc(int id_acc) {
         this.id_acc = id_acc;
+    }
+
+    public int getPrice_list_choice() {
+        return price_list_choice;
+    }
+
+    public void setPrice_list_choice(int price_list_choice) {
+        this.price_list_choice = price_list_choice;
     }
 }

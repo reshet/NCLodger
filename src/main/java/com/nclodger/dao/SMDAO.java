@@ -402,9 +402,10 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
             @Override
             public List<HotelDiscountDTO> doMethod(Connection dataBase) throws MyException, SQLException {
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT m.USER_DISCOUNT, m.VIP_DISCOUNT, hm.ID_SM FROM HOTEL h " +
-                                "INNER JOIN HOTEL_MANAGER hm " +
-                                "INNER JOIN MANAGER m ON hm.ID_HOTEL = h.ID_HOTEL AMD hm.ID_SM = m.ID_SM" +
+                        "SELECT m.USER_DISCOUNT, m.VIP_DISCOUNT, hm.ID_SM, u.USERNAME FROM HOTEL h " +
+                                "INNER JOIN HOTEL_MANAGER hm ON hm.ID_HOTEL = h.ID_HOTEL " +
+                                "INNER JOIN MANAGER m ON hm.ID_SM = m.ID_SM " +
+                                "INNER JOIN USERS u ON u.ID_USER = m.ID_USER" +
                                 " WHERE h.INT_ID = ?" +
                                 " ORDER BY m.USER_DISCOUNT ASC "
                 );
@@ -417,9 +418,10 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                     Integer vipdisc = results.getInt(2);
 
                     Integer smId = results.getInt(3);
+                    String smname = results.getString(4);
 
 
-                    accList.add(new HotelDiscountDTO(smId,userdisc,vipdisc));
+                    accList.add(new HotelDiscountDTO(smId,userdisc,vipdisc,smname));
                 }
                 return accList;
 
@@ -587,8 +589,10 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                 }
                 ids = b.substring(0,b.length()-1);
                 PreparedStatement prep = dataBase.prepareStatement(
-                        "SELECT hm.COMMISSION, hm.ID_SM,  h.INT_ID FROM HOTEL h " +
-                                "INNER JOIN HOTEL_MANAGER hm ON hm.ID_HOTEL = h.ID_HOTEL" +
+                        "SELECT hm.COMMISSION, hm.ID_SM,  h.INT_ID, u.USERNAME FROM HOTEL h " +
+                                "INNER JOIN HOTEL_MANAGER hm ON hm.ID_HOTEL = h.ID_HOTEL " +
+                                "INNER JOIN MANAGER m ON hm.ID_SM = m.ID_SM " +
+                                "INNER JOIN USERS u ON u.ID_USER = m.ID_USER" +
                                 " WHERE h.INT_ID IN ("+ids+")" +
                                 " ORDER BY hm.COMMISSION ASC "
                 );
@@ -603,13 +607,16 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
                     Integer commission = results.getInt(1);
                     Integer smId = results.getInt(2);
                     Integer hotelid = results.getInt(3);
+                    String uname = results.getString(4);
                     if(map.containsKey(hotelid)){
                         accList = map.get(hotelid);
                     }
                     else{
                         map.put(hotelid,accList);
                     }
-                    accList.add(new HotelCommissionDTO(smId,commission));
+                    HotelCommissionDTO hcm = new HotelCommissionDTO(smId,commission);
+                    hcm.setSmname(uname);
+                    accList.add(hcm);
                 }
                 return map;
 
