@@ -6,6 +6,7 @@ import com.nclodger.domain.ConfirmationEmail;
 import com.nclodger.dao.UserDao;
 import com.nclodger.domain.User;
 import com.nclodger.dao.ConfirmationEmailDAO;
+import com.nclodger.mail.EmailNotification;
 import com.nclodger.mail.MailConfirmation;
 import com.nclodger.myexception.MyException;
 import org.springframework.context.ApplicationContext;
@@ -28,7 +29,7 @@ public class SignUpAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
         // If user is logged in then he can't sign up
-        if(request.getSession().getAttribute("email") != null){
+        if(request.getSession().getAttribute("email") != null && !(request.getSession().getAttribute("utype").toString()).equals("3")){
             return "home";
         }
 
@@ -52,8 +53,8 @@ public class SignUpAction extends Action {
             String hash = MD.getmd5value(user.getEmail()+"."+user.getPswd());
             ConEmail.insert(new ConfirmationEmail(user_stored.getId(),hash));
             //send mail
-            MailConfirmation mailconfirm =(MailConfirmation) ctx.getBean("mailconfirmation");
-            mailconfirm.sendMail(user.getEmail(),"http://"+request.getLocalAddr()+":8080/NCLodger/confirmation?param="+hash);
+            EmailNotification mailconfirm =new EmailNotification();
+            mailconfirm.sendConfirmation(user.getEmail(),"http://"+request.getLocalAddr()+":8080/NCLodger/confirmation?param="+hash);
         } catch (MyException ex) {
             request.setAttribute("error_message",ex.getMessage());
             return "exception";

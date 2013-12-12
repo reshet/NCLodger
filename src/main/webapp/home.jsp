@@ -411,7 +411,8 @@
                     <c:set var="countries" value="${fn:split('UA,USA', ',')}" scope="session" />
                     <c:set var="cities" value="${fn:split('Lviv,Kiev', ',')}" scope="session" />
                     <c:set var="adults" value="${fn:split('1,2,3,4,5,6,7,8', ',')}" scope="session" />
-                    <c:set var="children" value="${fn:split('0,1,2,3,4,5,6,7,8', ',')}" scope="session" />
+                    <!-- <c:set var="children" value="${fn:split('0,1,2,3,4,5,6,7,8', ',')}" scope="session" /> -->
+                    <c:set var="children" value="${fn:split('5,10,20,50,100', ',')}" scope="session" />
                     <c:set var="currencies" value="${fn:split('USD,EUR,UAH', ',')}" scope="session" />
                     <li>
                         <b>Country <span class="mandatory">*</span>:</b>
@@ -512,7 +513,7 @@
                         </select>
                     </li>
                     <li>
-                        <b>Children:</b>
+                        <b>Number of results:</b>
                         <select id="guests_children" name="guests_children" style="width: 80px" selected="<%=session.getAttribute("guests_children")!=null?session.getAttribute("guests_children"):"" %>">
                             <c:forEach items="${children}" var="children">
                                 <option value="${children}" ${sessionScope.guests_children == children ? 'selected' : ''}>${children}</option>

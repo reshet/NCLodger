@@ -8,6 +8,7 @@
     <welcome-file-list>
         <welcome-file>/home.jsp</welcome-file>
     </welcome-file-list>
+
     <servlet>
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>com.nclodger.control.ControllerServlet</servlet-class>
@@ -219,9 +220,16 @@
         <url-pattern>/openid</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/createuser</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>/home.jsp</welcome-file>
     </welcome-file-list>
+
+
 
     <session-config>
         <session-timeout>30</session-timeout>

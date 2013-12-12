@@ -304,6 +304,7 @@ a:hover.logo {
 .hotel_info {
     float:left;
     width: 380px;
+    height: 240px;
     background: #ffffff;
     margin-top: 13px;
     margin-bottom: 13px;
@@ -432,3 +433,9 @@ span.mandatory {
 }
 
 #back-top a:hover span{background-color:#777}
+
+.hideme-success p{
+    color: #00FF00;
+    font-weight: bold;
+    font-style: italic;
+}
