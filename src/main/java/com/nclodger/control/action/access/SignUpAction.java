@@ -29,7 +29,7 @@ public class SignUpAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws MyException {
         // If user is logged in then he can't sign up
-        if(request.getSession().getAttribute("email") != null){
+        if(request.getSession().getAttribute("email") != null && !(request.getSession().getAttribute("utype").toString()).equals("3")){
             return "home";
         }
 
