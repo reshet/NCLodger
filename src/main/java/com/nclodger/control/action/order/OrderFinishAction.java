@@ -101,11 +101,19 @@ public class OrderFinishAction extends Action {
         }
 
         //end
+        // Fix for general proper work. Inconsisten with method logic more or less
+        Integer orderAccomodationID = odao.getIDAccByExpID(acc.getRoomExpediaID());
+        // End fix
 
 
         User user =  (User)request.getSession().getAttribute("userfull");
 
         Order order = new Order();
+
+        // Start fix Now here we use the previously gathered orderAccomodationID
+        order.setId_acc(orderAccomodationID);
+        // End fix
+
         order.setH(h);
         order.setPromo(pm);
         order.setUserid(user.getId());

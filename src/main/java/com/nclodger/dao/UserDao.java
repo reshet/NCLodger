@@ -605,7 +605,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
             @Override
             public ArrayList<BookingViewing>   doMethod(Connection dataBase) throws MyException, SQLException {
-                PreparedStatement prep = dataBase.prepareStatement(
+                /*PreparedStatement prep = dataBase.prepareStatement(
                         "SELECT T,HOTEL.NAME_H,HOTEL.CITY, DO,SD,ED,P FROM( " +
                                 "        SELECT  ORDERS.ID_ORDER,ORDERS.PRICE AS P,ORDERS.DATE_ORDER AS DO," +
                                 " ORDERS.START_DATE AS SD,ORDERS.end_date AS ED,ACCOMMODATION.ID_ACC,ACCOMMODATION.TYPE AS T,HOTEL.ID_HOTEL AS IDHOT FROM ORDERS " +
@@ -617,7 +617,15 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                                 "      ),HOTEL " +
                                 " WHERE HOTEL.ID_HOTEL=IDHOT " +
                                 " ORDER BY DO ASC"
+                );*/
+//
+                PreparedStatement prep = dataBase.prepareStatement(
+                       "SELECT ACCOMMODATION.TYPE,HOTEL.NAME_H,HOTEL.CITY,ORDERS.DATE_ORDER,ORDERS.START_DATE,ORDERS.END_DATE,ORDERS.PRICE" +
+                       " FROM ORDERS INNER JOIN ACCOMMODATION ON ACCOMMODATION.ID_ACC = ORDERS.ID_ACC " +
+                               "INNER JOIN HOTEL ON ACCOMMODATION.ID_HOTEL = HOTEL.ID_HOTEL" +
+                               " WHERE ORDERS.ID_USER = ?"
                 );
+
                 prep.setInt(1,userID);
                 java.sql.ResultSet results = prep.executeQuery();
 /*                res.next();*/
@@ -653,7 +661,9 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 prep.setInt(1, ord.getUserid());
                 prep.setDate(2, new Date(new java.util.Date().getTime()));
                 //TODO real acc id
-                prep.setInt(3, 2);
+                //TODO Changed this logic to getting real_Acc_ID. NEED Consistency check
+               // prep.setInt(3, 2);
+                prep.setInt(3,ord.getId_acc());
                 //TODO change price to double, think on currencies
                 prep.setInt(4, (int) Math.round(ord.getFinal_price()));
 
