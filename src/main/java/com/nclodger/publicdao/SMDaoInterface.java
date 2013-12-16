@@ -41,5 +41,6 @@ public interface SMDaoInterface {
     public Boolean deleteHotelManager(Integer id_hotel, Integer id_sm) throws MyException;
     public List<HotelManagingInfo> getAllOccupyHotelOfSMByID(Integer idsm) throws MyException;
     public Map<Integer, List<HotelCommissionDTO>> getHotelCommissionsBatch(List<Integer> hotel_ids) throws MyException;
+    public List<Integer> getIDSM() throws MyException;
 
 }

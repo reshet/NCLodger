@@ -623,5 +623,26 @@ public class SMDAO extends AbstractRepository implements SMDaoInterface {
             }
         });
     }
+
+    @Override
+    public List<Integer> getIDSM() throws MyException {
+
+        return dbOperation(new WrapperDBOperation<List<Integer>>() {
+            @Override
+            public List<Integer> doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_SM FROM MANAGER"
+                );
+                java.sql.ResultSet res = prep.executeQuery();
+                List<Integer> idlist = new ArrayList<Integer>();
+                while(res.next()){
+                    idlist.add(res.getInt(1));
+
+                }
+                return idlist;
+            }
+        });
+    }
+
 }
 
