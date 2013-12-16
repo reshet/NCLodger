@@ -5,6 +5,7 @@ import com.nclodger.additional.BookingViewing;
 import com.nclodger.domain.Order;
 import com.nclodger.domain.User;
 import com.nclodger.myexception.MyException;
+import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
  * Time: 21:19
  * To change this template use File | Settings | File Templates.
  */
+@Component("userDAO")
 public interface UserDaoInterface {
     public boolean insert(User user) throws MyException;
     public boolean update (User user) throws MyException;
