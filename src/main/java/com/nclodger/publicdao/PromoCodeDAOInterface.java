@@ -19,6 +19,10 @@ public interface PromoCodeDAOInterface {
     public boolean isUsed(final String code) throws MyException;
     public boolean isExpired(final String code) throws MyException;
     public PromoCode get(final String code) throws MyException;
+    public List<PromoCode> getAllExpiredPCtoDate(String date) throws MyException;
+    public Boolean setExpired(int idpc) throws MyException;
+    public Boolean setUsed(int idpc) throws MyException;
+
 
 
 }

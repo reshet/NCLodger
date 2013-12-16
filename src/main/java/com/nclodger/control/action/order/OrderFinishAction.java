@@ -62,6 +62,11 @@ public class OrderFinishAction extends Action {
             }
         }
 
+        //change status pc to used
+        if (!pm.equals(null)){
+            pcDAO.setExpired(pm.getId_pc());
+        }
+
         UserFacadeInterface facade = (UserFacadeInterface) ctx.getBean("userFacade");
         HotelDTO h = (HotelDTO)request.getSession().getAttribute("hotel");
 

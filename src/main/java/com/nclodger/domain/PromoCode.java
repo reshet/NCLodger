@@ -27,6 +27,16 @@ public class PromoCode {
         this.status = status;
     }
 
+    public PromoCode(int id_pc, String code, String start_date, String end_date, double discount, int status,int id_sm) {
+        this.id_pc = id_pc;
+        this.code = code;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.discount = discount;
+        this.status = status;
+        this.id_sm = id_sm;
+    }
+
     public int getId_pc() {
         return id_pc;
     }

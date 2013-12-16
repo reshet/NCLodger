@@ -192,6 +192,66 @@ public class PromoCodeDAO extends AbstractRepository implements PromoCodeDAOInte
         });
     }
 
+    @Override
+    public List<PromoCode> getAllExpiredPCtoDate(final String date) throws MyException {
+        return dbOperation(new WrapperDBOperation<List<PromoCode>>() {
 
+            @Override
+            public List<PromoCode> doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT ID_PC,CODE,START_DATE,END_DATE,DISCOUNT,ISUSED,ID_SM FROM PROMOCODE WHERE ISUSED=0 AND  (TRUNC(PROMOCODE.END_DATE) < TO_DATE(?,'mm/dd/yy'))"
+                );
+                prep.setString(1,date);
+                java.sql.ResultSet results = prep.executeQuery();
+                List<PromoCode> pcList = new ArrayList<PromoCode>();
+                while (results.next()) {
+                    int id = results.getInt(1);
+                    String code = results.getString(2);
+                    DateFormat df = new SimpleDateFormat("mm/dd/yy");
+                    String start_date = df.format(results.getDate(3));
+                    String end_date = df.format(results.getDate(4));
+                    double discount = results.getDouble(5);
+                    int status = results.getInt(6);
+                    int id_sm = results.getInt(7);
+                    PromoCode pc = new PromoCode(id, code, start_date, end_date, discount, status,id_sm);
+                    pcList.add(pc);
+                }
+                return pcList;
+            }
+        });
+    }
 
+    @Override
+    public Boolean setExpired(final int idpc) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "UPDATE PROMOCODE SET ISUSED=2 WHERE ID_PC=?"
+                );
+
+                prep.setInt(1,idpc);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public Boolean setUsed(final int idpc) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "UPDATE PROMOCODE SET ISUSED=1 WHERE ID_PC=?"
+                );
+
+                prep.setInt(1,idpc);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;
+            }
+        });
+    }
 }
