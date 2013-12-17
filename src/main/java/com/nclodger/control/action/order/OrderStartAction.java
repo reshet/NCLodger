@@ -2,6 +2,7 @@ package com.nclodger.control.action.order;
 
 import com.nclodger.control.action.Action;
 import com.nclodger.dao.OrderDAO;
+import com.nclodger.dao.UserDao;
 import com.nclodger.domain.Hotel;
 import com.nclodger.logic.PriceModifyer;
 import com.nclodger.logic.UserFacadeInterface;
@@ -34,8 +35,13 @@ public class OrderStartAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-
+        Object emailObj = request.getSession().getAttribute("email");
+        if(emailObj != null) {
+            // Get bonus balance
+            UserDao userDao = new UserDao();
+            Double bonus = userDao.getBonusBalance(emailObj.toString());
+            request.setAttribute("currentBonus", bonus);
+        }
         return "orderstart";
     }
 }
