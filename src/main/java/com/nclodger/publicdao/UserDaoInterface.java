@@ -18,7 +18,7 @@ import java.util.List;
  * Time: 21:19
  * To change this template use File | Settings | File Templates.
  */
-@Component("userDAO")
+/*@Component("userDAO")*/
 public interface UserDaoInterface {
     public boolean insert(User user) throws MyException;
     public boolean update (User user) throws MyException;
@@ -40,5 +40,6 @@ public interface UserDaoInterface {
     public String getPasswordbyEmail(String email) throws MyException;
     public ArrayList<BookingViewing> getPastOrder(int userID) throws MyException;
     public boolean saveOrder(Order ord) throws MyException;
+    public Double getBonusBalance(String email) throws MyException;
 
 }

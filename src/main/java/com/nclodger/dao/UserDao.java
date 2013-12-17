@@ -24,7 +24,6 @@ import java.util.*;
 @Component("userDAO")
 public class UserDao extends AbstractRepository implements UserDaoInterface {
 
-
     public boolean insert(String _email, String _pswd, String _name, int register_confirm) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
@@ -705,6 +704,25 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
                 return true;
+
+            }
+        });
+    }
+
+    @Override
+    public Double getBonusBalance(final String email) throws MyException {
+        return dbOperation(new WrapperDBOperation<Double >() {
+
+            @Override
+            public Double  doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT BONUS FROM USERS WHERE EMAIL=?"
+                );
+                prep.setString(1, email);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                Double bonus = res.getDouble(1);
+                return bonus;
 
             }
         });
