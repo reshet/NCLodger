@@ -8,9 +8,7 @@
     <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
     <script src="resources/js/md5-min.js"></script>
     <script>
-
         function validateChangePswdForm() {
-
             var isValid = true;
 
             if(document.changepswdfrm.oldpswd.value.length < 6 || document.changepswdfrm.oldpswd.value.length > 20
@@ -42,7 +40,6 @@
 
             return isValid;
         }
-
     </script>
 </head>
 
@@ -54,12 +51,48 @@
         <div class="window" style="width: 350px">
             <h1>User information</h1>
             <p>
-                Username <span class="mandatory">*</span>:
-                <span class="bluespan"><c:out value="${sessionScope.username}"/></span>
+                Username:
+                <span class="blackspan"><c:out value="${sessionScope.username}"/></span>
             </p>
             <p>
-                Email <span class="mandatory">*</span>:
-                <span class="bluespan"><c:out value="${sessionScope.email}"/></span>
+                Email:
+                <span class="blackspan"><c:out value="${sessionScope.email}"/></span>
+            </p>
+            <p>
+                User type:
+                <c:if test="${sessionScope.utype == 1}">
+                    <span class="bluespan">Customer</span>
+                </c:if>
+                <c:if test="${sessionScope.utype == 2}">
+                    <span class="bluespan">Sales Manager</span>
+                </c:if>
+                <c:if test="${sessionScope.utype == 3}">
+                    <span class="bluespan">Administrator</span>
+                </c:if>
+            </p>
+            <c:if test="${sessionScope.utype == 1}">
+            <p>
+                Customer status:
+                <span class="greenspan">VIP</span>
+            </p>
+            </c:if>
+            <p>
+                Bonus balance:
+                <c:if test="${sessionScope.bonus != null}">
+                    <span class="bluespan"><c:out value="${sessionScope.bonus}"/>$</span>
+                </c:if>
+                <c:if test="${sessionScope.bonus == null}">
+                   <span class="blackspan">Please reload this page</span>
+                </c:if>
+            </p>
+            <p>
+                Blocked status:
+                <c:if test="${sessionScope.userfull.getIs_blocked() == 0}">
+                    <span class="bluespan">not blocked</span>
+                </c:if>
+                <c:if test="${sessionScope.userfull.getIs_blocked() == 1}">
+                    <span class="redpan">blocked</span>
+                </c:if>
             </p>
             <br><hr>
             <p><a class="bluespan">Password change:</a></p><br>
@@ -90,9 +123,9 @@
                 </form>
             </div>
         </div>
-    </div><!-- #content -->
+    </div><!-- .content -->
     <jsp:include page="footer.jsp"/>
-</div><!-- #wrapper -->
+</div><!-- .wrapper -->
 
 </body>
 

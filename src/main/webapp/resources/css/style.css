@@ -288,6 +288,9 @@ a:hover.logo {
 	display: none;
 }
 .window span.bluespan { color:#0000ff; display: inline; }
+.window span.greenspan { color:#00FF00; display: inline; }
+.window span.redspan { color:#bc0f0f; display: inline; }
+.window span.blackspan { color:#000000; display: inline; }
 
 #hidden_div { display: none; }
 
