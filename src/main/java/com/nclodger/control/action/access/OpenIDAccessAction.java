@@ -28,9 +28,6 @@ public class OpenIDAccessAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, MyException, JSONException {
 
-
-        if (request.getParameterMap().containsKey("token"))
-        {
             String token = request.getParameter("token");
             URL url = new URL("http://loginza.ru/api/authinfo?token="+token);
             URLConnection yc = url.openConnection();
@@ -46,15 +43,18 @@ public class OpenIDAccessAction extends Action {
 
             JSONObject json = new JSONObject(userInfo);
 
+            String email = json.getString("email");
+        //               out.println(email);
+    /*
             JSONObject name =  json.getJSONObject("name");
             String firstName = name.getString("first_name");
             //                out.println(firstName);
 
-            String email = json.getString("email");
-            //               out.println(email);
+    */
+        String firstName = "Antonina";
 
             request.setAttribute("email",email);
-            request.getSession().setAttribute("username",firstName);
+            request.setAttribute("username",firstName);
 
             //положим пользователя в базу
             UserDao userDao = new UserDao();
@@ -64,9 +64,9 @@ public class OpenIDAccessAction extends Action {
 
 
 
-        User user;
-            user = userDao.getUserObj2(email) ;
-            request.getSession().setAttribute("userfull",user);
+            User user = new User(email, firstName);
+        //    user = userDao.getUserObj2(email) ;
+            request.setAttribute("userfull",user);
 
                 // If user is SM then put id SM to session too
                 if(user.getId_ut() == 2) {
@@ -76,7 +76,7 @@ public class OpenIDAccessAction extends Action {
                     request.getSession().setAttribute("idSm",idSm);
                 }
 
-        }
+
         return "home";
 
 
