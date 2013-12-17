@@ -63,7 +63,7 @@
                 </c:if>
                 <span id="span_pswd">Invalid password!</span><br>
                 <a href="registration.jsp">Haven't got account yet?</a></br>
-                <a href="https://loginza.ru/api/widget?token_url=http://localhost:8080/NCLodger/home.jsp&lang=en&providers_set=facebook,twitter,openid,google,yandex" class="loginza"><input type="button" action="openid" value="Login with OpenID?"></a>
+                <a href="https://loginza.ru/api/widget?token_url=http://localhost:8080/NCLodger/openid&lang=en&providers_set=google" class="loginza">Login with Google?></a>
             
                 <p class="submit">
                     <input type="hidden" name="password" value=""/>
