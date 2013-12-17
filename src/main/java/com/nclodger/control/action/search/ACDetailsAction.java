@@ -1,6 +1,7 @@
 package com.nclodger.control.action.search;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.dao.OrderDAO;
 import com.nclodger.dao.SMDAO;
 import com.nclodger.domain.User;
 import com.nclodger.logic.PriceModifyer;
@@ -33,8 +34,9 @@ public class ACDetailsAction extends Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String id = request.getParameter("idhotel");
-        HotelDTO h = findCurrentHotel(request,id);
+        String idDTOString = request.getParameter("idhotel");
+        Integer idDTO = Integer.parseInt(idDTOString);
+        HotelDTO h = findCurrentHotel(request,idDTOString);
         request.getSession().setAttribute("hotel",h);
 
         PriceModifyer pm = (PriceModifyer)ctx.getBean("pricerules");
@@ -43,25 +45,35 @@ public class ACDetailsAction extends Action {
             pm.addDiscountToHotel(h,user);
         }
 
+        if(request.getSession().getAttribute("utype") != null) {
+            if(!(request.getSession().getAttribute("utype").toString()).equals("1")) {
+                SMDAO smDao = new SMDAO();
+                String idSmString =  request.getSession().getAttribute("idSm").toString();
+                Integer idSm = Integer.parseInt(idSmString);
 
-        /*String smEmail = request.getSession().getAttribute("email").toString();
-        int idSm = smDao.getSmanagerId(smEmail);*/
-        if(request.getSession().getAttribute("utype")!=null)
-        if(!(request.getSession().getAttribute("utype").toString()).equals("1")) {
-            SMDAO smDao = new SMDAO();
-            String idsmstr =  request.getSession().getAttribute("idSm").toString();
-            if(idsmstr!=null){
-                int idSm = Integer.parseInt(idsmstr);
-                Boolean bool = smDao.isOccupied(idSm,Integer.parseInt(id));
-                if(bool) {
-                    request.setAttribute("isOccupied",true);
+                OrderDAO orderDAO = new OrderDAO();
+                Boolean isExistHotel = orderDAO.isExistHotelbyID(idDTO);
+                Boolean isOccupied = false;
+                if(isExistHotel) {
+                    Integer idHotel = orderDAO.getIDHotelByintID(idDTO);
+
+                    if(idHotel != null) {
+                        isOccupied = smDao.isOccupied(idSm,idHotel);
+                    }
+                    if(isOccupied) {
+                        request.setAttribute("isOccupied",true);
+                    }
+                    else {
+                        request.setAttribute("isOccupied",false);
+                    }
+
                 }
                 else {
                     request.setAttribute("isOccupied",false);
                 }
+
             }
         }
-        //int idSm = Integer.parseInt(request.getSession().getAttribute("idSm").toString());
 
         return "acdetails";
     }

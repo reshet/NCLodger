@@ -24,7 +24,6 @@ import java.util.*;
 @Component("userDAO")
 public class UserDao extends AbstractRepository implements UserDaoInterface {
 
-
     public boolean insert(String _email, String _pswd, String _name, int register_confirm) throws MyException {
         return dbOperation(new WrapperDBOperation<Boolean>() {
             @Override
@@ -317,7 +316,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                     @Override
                     public User doMethod(Connection dataBase) throws MyException, SQLException {
                         PreparedStatement prep = dataBase.prepareStatement(
-                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL, CONFIRM_REGISTER, IS_BLOCKED, VIP FROM Users WHERE email=? AND pswd= ?"
+                                "SELECT ID_USER,USERNAME,ID_UT,EMAIL, CONFIRM_REGISTER, IS_BLOCKED, VIP, BONUS FROM Users WHERE email=? AND pswd= ?"
                         );
                         prep.setString(1, email);
                         prep.setString(2, password);
@@ -334,6 +333,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                             Integer confirmed = res.getInt(5);
                             Integer isBlocked = res.getInt(6);
                             Integer vip = res.getInt(7);
+                            Integer bonus = res.getInt(8);
 
                             //String pswd = res.getString(5);
                             User user = new User(id, uname);
@@ -343,6 +343,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                             user.set_confirm_register(confirmed);
                             user.setIs_blocked(isBlocked);
                             user.setVip(vip);
+                            user.setBonus(bonus);
                             //user.setPswd();
                             return user;
                         }
@@ -703,6 +704,25 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
                 return true;
+
+            }
+        });
+    }
+
+    @Override
+    public Double getBonusBalance(final String email) throws MyException {
+        return dbOperation(new WrapperDBOperation<Double >() {
+
+            @Override
+            public Double  doMethod(Connection dataBase) throws MyException, SQLException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "SELECT BONUS FROM USERS WHERE EMAIL=?"
+                );
+                prep.setString(1, email);
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                Double bonus = res.getDouble(1);
+                return bonus;
 
             }
         });

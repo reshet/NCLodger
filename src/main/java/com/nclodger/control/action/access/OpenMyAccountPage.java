@@ -1,6 +1,7 @@
 package com.nclodger.control.action.access;
 
 import com.nclodger.control.action.Action;
+import com.nclodger.dao.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 public class OpenMyAccountPage extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if(request.getSession().getAttribute("email") == null) {
+        Object emailObject = request.getSession().getAttribute("email");
+        if(emailObject == null) {
             return "home";
         }
         else {
+            UserDao userDao = new UserDao();
+            Double bonus = userDao.getBonusBalance(emailObject.toString());
+            request.getSession().setAttribute("bonus",bonus);
             return "ussettings";
         }
     }
