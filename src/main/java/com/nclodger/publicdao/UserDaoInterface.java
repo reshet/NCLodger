@@ -41,5 +41,6 @@ public interface UserDaoInterface {
     public ArrayList<BookingViewing> getPastOrder(int userID) throws MyException;
     public boolean saveOrder(Order ord) throws MyException;
     public Double getBonusBalance(String email) throws MyException;
+    public Boolean updateBonusBalance(double newBonus, String email) throws MyException;
 
 }

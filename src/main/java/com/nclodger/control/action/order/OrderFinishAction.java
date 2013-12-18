@@ -2,6 +2,7 @@ package com.nclodger.control.action.order;
 
 import com.nclodger.control.action.Action;
 import com.nclodger.dao.OrderDAO;
+import com.nclodger.dao.UserDao;
 import com.nclodger.domain.*;
 import com.nclodger.dao.PromoCodeDAO;
 import com.nclodger.logic.UserFacadeInterface;
@@ -30,10 +31,14 @@ public class OrderFinishAction extends Action {
             return "home";
         }
 
+
+        UserDao userDao = new UserDao();
+        Double bonus = userDao.getBonusBalance(request.getSession().getAttribute("email").toString());
+
         //ApplicationContext ctx = new ClassPathXmlApplicationContext("bean-config.xml");
 
         //check
-        String promo =request.getParameter("promocode");
+        String promo = request.getParameter("promocode");
         request.getSession().setAttribute("promocode", promo);
 
         PromoCodeDAO pcDAO = (PromoCodeDAO) ctx.getBean("promocodeDAO");
@@ -63,7 +68,7 @@ public class OrderFinishAction extends Action {
         }
 
         //change status pc to used
-        if (!pm.equals(null)){
+        if (pm != null){
             pcDAO.setExpired(pm.getId_pc());
         }
 
@@ -127,7 +132,36 @@ public class OrderFinishAction extends Action {
         order.setEnd_date((String)request.getSession().getAttribute("checkoutdate"));
 
         facade.calculateFinalPrice(order);
-        request.setAttribute("finalprice", order.getFinal_price());
+        Double finalprice = order.getFinal_price();
+
+        final Double constOrderBonus = 0.01;
+        // If user decided to use his bonuses
+        if(request.getParameter("usebonus") != null) {
+
+            if(bonus <= finalprice){
+                Double newBonusBalance = constOrderBonus * finalprice;
+                finalprice = finalprice - bonus;
+                // Update bonus value in the db: newBonusBalance
+                userDao.updateBonusBalance(newBonusBalance,
+                        request.getSession().getAttribute("email").toString());
+            }
+            else {
+                Double bonusLeft = bonus - finalprice;
+                Double newBonusBalance = bonusLeft + constOrderBonus * finalprice;
+                // Update bonus value in db: newBonusBalance
+                userDao.updateBonusBalance(newBonusBalance,
+                        request.getSession().getAttribute("email").toString());
+                finalprice = 0.0;
+            }
+        }
+        // User decided NOT to use his bonuses
+        else {
+            Double newBonusBalance = bonus + constOrderBonus * finalprice;
+            // Update bonus value in db: newBonusBalance
+            userDao.updateBonusBalance(newBonusBalance,
+                    request.getSession().getAttribute("email").toString());
+        }
+        request.setAttribute("finalprice", finalprice);
         facade.saveOrder(order);
 
 

@@ -11,6 +11,7 @@
     <%--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />--%>
     <script type="text/javascript">
+
         function validateOrderForm(){
             var isValid = true;
             if(((document.orderfrm.promocode.value != "") && !(/^[a-zA-Z0-9-]+$/).test(document.orderfrm.promocode.value))){
@@ -52,9 +53,11 @@
                         <p style="color:green;">With Discounts </p>
                         <select id="payoption" name="payoption" style="width: 340px;" form="orderf">
                             <c:forEach items="${sessionScope.hotel.getPrices_disc()}" var="accprice">
-                                <option value="${accprice.key}">${accprice.value} ${hotel.getDiscountText(accprice.key,userfull.getVip()==1)}</option>
+                                <option value="${accprice.key}">${accprice.value} USD ${hotel.getDiscountText(accprice.key,userfull.getVip()==1)}</option>
                             </c:forEach>
                         </select>
+                        <p style="color:green;">Your bonus balance: ${currentBonus}$</p>
+                        <p>Check this if you want to use your bonus to pay this order: <input type="checkbox" name="usebonus" value="1"></p>
                     </c:if>
 
                     <c:if test="${sessionScope.userfull == null || sessionScope.userfull.getIs_blocked()==1 || hotel.getDiscount_type().equals('')}">

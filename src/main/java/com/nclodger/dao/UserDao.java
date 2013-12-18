@@ -727,4 +727,23 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             }
         });
     }
+
+    @Override
+    public Boolean updateBonusBalance(final double newBonus, final String email) throws MyException {
+        return dbOperation(new WrapperDBOperation<Boolean>() {
+            @Override
+            public Boolean doMethod(Connection dataBase) throws SQLException, MyException {
+                PreparedStatement prep = dataBase.prepareStatement(
+                        "UPDATE Users SET BONUS=? WHERE EMAIL=?"
+                );
+
+                prep.setDouble(1, newBonus);
+                prep.setString(2, email);
+
+                java.sql.ResultSet res = prep.executeQuery();
+                res.next();
+                return true;
+            }
+        });
+    }
 }
