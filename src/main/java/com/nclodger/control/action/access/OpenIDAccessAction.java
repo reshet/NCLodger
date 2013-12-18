@@ -51,7 +51,7 @@ public class OpenIDAccessAction extends Action {
             //                out.println(firstName);
 
     */
-        String firstName = "Antonina";
+        String firstName = "Name";
 
             request.setAttribute("email",email);
             request.setAttribute("username",firstName);
@@ -64,11 +64,18 @@ public class OpenIDAccessAction extends Action {
 
 
 
-            User user = new User(email, firstName);
-        //    user = userDao.getUserObj2(email) ;
+            User user;// = new User(email, firstName);
+            user = userDao.getUserObj2(email) ;
             request.setAttribute("userfull",user);
 
-                // If user is SM then put id SM to session too
+
+                if (user != null && user.getConfirmRegister() == 1){
+                request.getSession().setAttribute("email",user.getEmail());
+                request.getSession().setAttribute("username",user.getName());
+                request.getSession().setAttribute("utype",user.getId_ut());
+                request.getSession().setAttribute("userfull",user);
+                }
+
                 if(user.getId_ut() == 2) {
             /*        String smEmail = request.getParameter("email");     */
                     SMDAO smDao = new SMDAO();
