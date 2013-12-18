@@ -262,6 +262,8 @@ a:hover.logo {
     -webkit-box-shadow: 0 1px whitesmoke;
     box-shadow: 0 1px whitesmoke;
 }
+.window h3 { color:#008000; }
+
 .window p {
   margin: 15px 0 0;
   font-weight: bold;
@@ -288,9 +290,11 @@ a:hover.logo {
 	display: none;
 }
 .window span.bluespan { color:#0000ff; display: inline; }
-.window span.greenspan { color:#00FF00; display: inline; }
+.window span.greenspan { color:#008000; display: inline; }
 .window span.redspan { color:#bc0f0f; display: inline; }
 .window span.blackspan { color:#000000; display: inline; }
+
+.hotel_image { float:right; width: 50px; height: 50px; }
 
 #hidden_div { display: none; }
 
@@ -438,7 +442,7 @@ span.mandatory {
 #back-top a:hover span{background-color:#777}
 
 .hideme-success p{
-    color: #00FF00;
+    color: #008000;
     font-weight: bold;
     font-style: italic;
 }

@@ -14,24 +14,32 @@
         <jsp:include page="header.jsp"/>
         <div class="content">
             <div class="window" style="width:450px;">
-                <h1>Your booking succeded!</h1>
-                <form>
+                <h1>Your booking succeeded!</h1>
                 <p style="padding-left: 10px;">
                     <c:if test="${hotel.getImage_url() != null}">
-                        <img src="${hotel.getImage_url()}" style="float:right; width: 50px; height: 50px;"/>
+                        <img src="${hotel.getImage_url()}" class="hotel_image"/>
                     </c:if>
                     <c:if test="${hotel.getImage_url() == null}">
-                        <img src="resources/img/noimage.gif" style="float:right; width: 50px; height: 50px;"/>
+                        <img src="resources/img/noimage.gif"  class="hotel_image"/>
                     </c:if>
                 </p>
                 <p>Hotel: ${hotel.getName()} </p>
                 <p>Address: ${hotel.getAddress()} </p>
                 <p>Type: ${hotel.getRoomType()} </p>
-                <p>Prices: ${hotel.getPrice()} </p>
+                <p>Price before discount: ${hotel.getPrice()} </p>
                 <p>Occupancy: ${hotel.getRoomOccupancy()} </p>
-                <p>Your promo entered: ${requestScope.promocode} </p>
+                <c:if test="${sessionScope.checkindate != null && sessionScope.checkoutdate != null}">
+                    <p>
+                        Check in date: <c:out value="${sessionScope.checkindate}"/>
+                    </p>
+                    <p>
+                        Check out date: <c:out value="${sessionScope.checkoutdate}"/>
+                    </p>
+                </c:if>
+                <c:if test="${requestScope.promocode != null}">
+                    <p>Your promo entered: ${requestScope.promocode} </p>
+                </c:if>
                 <p><h3>You were billed for: ${requestScope.finalprice} ${sessionScope.currency}</h3></p>
-                </form>
             </div>
         </div>
         <jsp:include page="footer.jsp"/>
