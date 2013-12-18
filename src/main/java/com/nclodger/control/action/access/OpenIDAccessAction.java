@@ -36,13 +36,9 @@ public class OpenIDAccessAction extends Action {
             byte[] data = new byte[yc.getInputStream().available()];
             yc.getInputStream().read(data);
             in.close();
-            //              out.println(new String(data));
 
             String userInfo = new String(data);
-            //           out.println(userInfo);
-
             JSONObject json = new JSONObject(userInfo);
-
             String email = json.getString("email");
         //               out.println(email);
     /*
@@ -51,7 +47,7 @@ public class OpenIDAccessAction extends Action {
             //                out.println(firstName);
 
     */
-        String firstName = "Name";
+            String firstName = "Name";
 
             request.setAttribute("email",email);
             request.setAttribute("username",firstName);
@@ -61,23 +57,19 @@ public class OpenIDAccessAction extends Action {
             userDao.insert(email, firstName);
 
 
-
-
-
             User user;// = new User(email, firstName);
             user = userDao.getUserObj2(email) ;
             request.setAttribute("userfull",user);
 
 
                 if (user != null && user.getConfirmRegister() == 1){
-                request.getSession().setAttribute("email",user.getEmail());
-                request.getSession().setAttribute("username",user.getName());
-                request.getSession().setAttribute("utype",user.getId_ut());
-                request.getSession().setAttribute("userfull",user);
+                    request.getSession().setAttribute("email",user.getEmail());
+                    request.getSession().setAttribute("username",user.getName());
+                    request.getSession().setAttribute("utype",user.getId_ut());
+                    request.getSession().setAttribute("userfull",user);
                 }
 
                 if(user.getId_ut() == 2) {
-            /*        String smEmail = request.getParameter("email");     */
                     SMDAO smDao = new SMDAO();
                     int idSm = smDao.getSmanagerId(email);
                     request.getSession().setAttribute("idSm",idSm);
