@@ -40,14 +40,10 @@ public class OpenIDAccessAction extends Action {
             String userInfo = new String(data);
             JSONObject json = new JSONObject(userInfo);
             String email = json.getString("email");
-        //               out.println(email);
-    /*
+
             JSONObject name =  json.getJSONObject("name");
             String firstName = name.getString("first_name");
-            //                out.println(firstName);
 
-    */
-            String firstName = "Name";
 
             request.setAttribute("email",email);
             request.setAttribute("username",firstName);
@@ -57,7 +53,7 @@ public class OpenIDAccessAction extends Action {
             userDao.insert(email, firstName);
 
 
-            User user;// = new User(email, firstName);
+            User user;
             user = userDao.getUserObj2(email) ;
             request.setAttribute("userfull",user);
 
@@ -77,7 +73,6 @@ public class OpenIDAccessAction extends Action {
 
 
         return "home";
-
 
     }
 }
