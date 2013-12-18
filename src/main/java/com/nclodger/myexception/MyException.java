@@ -18,7 +18,8 @@ public class MyException extends Exception {
 
     public MyException(String msg) {
         super(msg);
-        PropertyConfigurator.configure("/var/www/log4j/log4j.properties");
+     //  PropertyConfigurator.configure("/var/www/log4j/log4j.properties");
+     //  PropertyConfigurator.configure("log4j_local.properties");
         log.info(msg);
     }
 }

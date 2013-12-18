@@ -2,6 +2,7 @@ package com.nclodger.control;
 
 import com.nclodger.control.action.Action;
 import com.nclodger.control.action.ActionFactory;
+import com.nclodger.myexception.MyException;
 
 
 import javax.servlet.ServletException;
@@ -43,7 +44,8 @@ public class ControllerServlet extends HttpServlet {
 
             // If there is no other place for exception to be caught,
             // it will be caught here
-            request.setAttribute("error_message",ex.getMessage());
+            String message = "An internal error happend. Please, try again later.";
+            request.setAttribute("error_message",message);
             view = "exception";
 
         }
