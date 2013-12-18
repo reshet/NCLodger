@@ -44,6 +44,16 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
             @Override
             public Boolean doMethod(Connection dataBase) throws SQLException {
 
+                String sql2 = "SELECT * FROM USERS WHERE EMAIL=?";
+                PreparedStatement pstate = dataBase.prepareStatement(sql2);
+                pstate.setString(1,email);
+                java.sql.ResultSet res2 = pstate.executeQuery();
+
+
+                if(!res2.isBeforeFirst()){
+
+
+
                 String sql = "INSERT INTO Users(email,username,confirm_register, id_ut, is_blocked)" +
                         "values" +
                         "(?,?,1,1,0)";
@@ -56,7 +66,7 @@ public class UserDao extends AbstractRepository implements UserDaoInterface {
 
                 java.sql.ResultSet res = prep.executeQuery();
                 res.next();
-
+                }
 
                 return true;
             }
